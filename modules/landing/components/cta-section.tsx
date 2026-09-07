@@ -4,7 +4,7 @@ export function CtaSection() {
   return (
     <section
       id="value-my-data"
-      className="relative w-full overflow-hidden bg-black py-20 sm:py-24 lg:aspect-[1440/716] lg:py-0"
+      className="relative w-full overflow-hidden bg-[#080808] py-20 sm:py-24 lg:aspect-[1440/716] lg:py-0"
     >
       <Image
         src="/images/cta/background.webp"
@@ -15,15 +15,16 @@ export function CtaSection() {
       />
 
       <div
-        className="pointer-events-none absolute inset-0 bg-[#eaebf1]"
+        className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden bg-[#eaebf1]"
         style={{
+          height: "43%",
           maskImage: "url(/images/cta/black-mask.png)",
-          maskSize: "cover",
-          maskPosition: "center",
+          maskSize: "100% auto",
+          maskPosition: "top",
           maskRepeat: "no-repeat",
           WebkitMaskImage: "url(/images/cta/black-mask.png)",
-          WebkitMaskSize: "cover",
-          WebkitMaskPosition: "center",
+          WebkitMaskSize: "100% auto",
+          WebkitMaskPosition: "top",
           WebkitMaskRepeat: "no-repeat",
         }}
       >
