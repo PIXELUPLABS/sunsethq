@@ -1,43 +1,83 @@
+import Image from "next/image";
 import { SectionTag } from "./section-tag";
-import { RedactedEmailPreview } from "./redacted-email-preview";
 import { DeidentificationTabs } from "./deidentification-tabs";
+
+const GRAIN_TEXTURE = "/images/deidentification/grain-texture.webp";
+const SIDE_GRAIN = "/images/deidentification/side-grain-multiply.webp";
+const BLUE_CARD = "/images/deidentification/blue-card.webp";
 
 export function DeidentificationSection() {
   return (
-    <section id="de-identification" className="flex justify-center bg-white px-6 py-20 sm:px-18">
-      <div className="flex w-full max-w-[1296px] flex-col gap-20 border-x border-b border-dashed border-[#d4d4d4] p-5 sm:p-10">
+    <section
+      id="de-identification"
+      className="relative flex justify-center overflow-hidden px-6 py-20 sm:px-18"
+    >
+      <Image
+        src="/images/texture-grain-white.png"
+        alt=""
+        fill
+        className="pointer-events-none object-cover"
+      />
+
+      <div className="relative flex w-full max-w-[1296px] flex-col gap-20 border-x border-b border-dashed border-[#d4d4d4] p-5 sm:p-10">
         <div className="flex flex-col items-start gap-6">
           <SectionTag label="The Process" />
-          <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
+          <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px] sm:tracking-[-1.76px]">
             De-Identification
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 bg-[#eaebf1] p-6 lg:grid-cols-2 lg:gap-10 lg:p-10">
-          <div className="flex flex-col justify-center gap-14">
-            <h3 className="font-serif text-3xl leading-tight tracking-tight text-black sm:text-[40px]">
-              Your data leaves cleaner than a medical record.
-            </h3>
-            <div className="flex flex-col gap-2 text-base leading-relaxed tracking-tight text-[#727272]">
-              <p>
-                The federal standard for de-identifying medical records
-                (HIPAA) lists eighteen categories that have to be stripped
-                out. We cover all eighteen, and many more.
-              </p>
-              <p>
-                Names, emails, API keys, access tokens, customer records. Our
-                de-identification covers 60+ categories, across every file
-                type and application your business works in.
-              </p>
+        <div className="flex flex-col">
+          <div className="relative flex flex-col gap-10 overflow-hidden lg:flex-row lg:items-stretch lg:gap-0">
+            <Image
+              src={GRAIN_TEXTURE}
+              alt=""
+              fill
+              className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
+            />
+
+            <div className="relative flex flex-1 items-center gap-10 p-6 sm:p-10">
+              <div className="relative hidden h-full w-10 shrink-0 self-stretch overflow-hidden lg:block">
+                <Image
+                  src={SIDE_GRAIN}
+                  alt=""
+                  fill
+                  className="pointer-events-none object-cover opacity-48 mix-blend-multiply"
+                />
+              </div>
+
+              <div className="flex max-w-[449px] flex-col justify-center gap-[100px]">
+                <h3 className="font-serif text-3xl leading-[1.1] tracking-tight text-black sm:text-[40px] sm:tracking-[-0.4px]">
+                  Your data leaves cleaner than a medical record.
+                </h3>
+                <div className="flex flex-col gap-2 text-base leading-[1.4] tracking-[-0.48px] text-[#727272]">
+                  <p>
+                    The federal standard for de-identifying medical records
+                    (HIPAA) lists eighteen categories that have to be
+                    stripped out. We cover all eighteen, and many more.
+                  </p>
+                  <p>
+                    Names, emails, API keys, access tokens, customer
+                    records. Our de-identification covers 60+ categories,
+                    across every file type and application your business
+                    works in.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative flex-1 overflow-hidden" style={{ aspectRatio: "617 / 522" }}>
+              <Image
+                src={BLUE_CARD}
+                alt="Redacted email preview: an original message shown alongside the same message with personally identifiable information replaced by gray redaction bars"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
 
-          <div className="bg-brand-gradient min-h-[420px] p-6 sm:p-10">
-            <RedactedEmailPreview />
-          </div>
+          <DeidentificationTabs />
         </div>
-
-        <DeidentificationTabs />
       </div>
     </section>
   );
