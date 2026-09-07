@@ -4,7 +4,14 @@ import { NAV_LINKS } from "../lib/constants";
 
 export function Navbar() {
   return (
-    <header className="absolute inset-x-0 top-0 z-20 border-b border-dashed border-black/8 bg-[#fcfcfc]/90 backdrop-blur-sm">
+    <header className="absolute inset-x-0 top-0 z-20 overflow-hidden border-b border-dashed border-black/8 backdrop-blur-sm">
+      <Image
+        src="/images/texture-grain-white.png"
+        alt=""
+        fill
+        className="pointer-events-none object-cover"
+      />
+
       <div className="relative flex h-16 items-center justify-between px-18">
         <Link href="/" className="flex items-center gap-1">
           <Image src="/images/logo-mark.svg" alt="Replay" width={25} height={25} priority />
