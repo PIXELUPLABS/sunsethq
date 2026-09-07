@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ProcessBar } from "./process-bar";
 
 export function RevenueStreamSection() {
   return (
@@ -54,8 +53,6 @@ export function RevenueStreamSection() {
         height={576}
         className="relative h-auto w-full"
       />
-
-      <ProcessBar className="relative h-[9px] w-full" />
     </section>
   );
 }
