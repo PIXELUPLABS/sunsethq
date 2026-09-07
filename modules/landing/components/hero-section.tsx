@@ -1,24 +1,28 @@
 import Image from "next/image";
 import { ProcessBar } from "./process-bar";
+import { HeroSidePatternLeft } from "./hero-side-pattern-left";
+import { HeroSidePatternRight } from "./hero-side-pattern-right";
+import { HERO_BUTTON_PATTERN, HERO_PROCESS_DASH } from "../lib/hero-assets";
 
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc]">
-      <div className="flex items-stretch">
-        <div className="hidden flex-1 items-end justify-center overflow-hidden lg:flex">
-          <Image
-            src="/images/hero-illustration-left.png"
-            alt=""
-            width={271}
-            height={731}
-            className="h-[731px] w-auto max-w-none object-contain object-bottom opacity-90"
-            priority
-          />
+      <Image
+        src="/images/texture-grain-white.png"
+        alt=""
+        fill
+        priority
+        className="pointer-events-none object-cover"
+      />
+
+      <div className="relative flex items-stretch">
+        <div className="hidden flex-1 lg:flex">
+          <HeroSidePatternLeft />
         </div>
 
-        <div className="flex w-full flex-col items-center gap-10 border-dashed border-black/8 px-6 pt-[120px] pb-[90px] lg:w-[898px] lg:shrink-0 lg:border-x lg:px-0">
+        <div className="flex w-full flex-col items-center gap-10 border-dashed border-black/8 px-6 pt-[120px] pb-[90px] lg:w-[898px] lg:shrink-0 lg:border-x lg:px-0 lg:pt-[240px] lg:pb-[180px]">
           <div className="flex max-w-[840px] flex-col items-center gap-6 text-center">
-            <h1 className="font-serif text-[40px] leading-none tracking-tight text-black sm:text-[56px] lg:text-[68px] lg:tracking-[-0.04em]">
+            <h1 className="font-serif text-[40px] leading-none tracking-tight text-black sm:text-[56px] lg:text-[72px] lg:tracking-[-2.88px]">
               Fund growth by licensing the data you already have.
             </h1>
             <p className="max-w-[669px] text-base leading-relaxed tracking-tight text-[#727272]">
@@ -30,30 +34,38 @@ export function HeroSection() {
 
           <a
             href="#value-my-data"
-            className="flex w-[300px] items-center justify-center bg-ink py-6 font-serif text-base uppercase tracking-wide text-white"
+            className="relative flex w-[300px] items-center justify-center overflow-hidden bg-ink py-6 font-serif text-base uppercase tracking-wide text-white"
           >
-            Value my data
+            <Image
+              src={HERO_BUTTON_PATTERN}
+              alt=""
+              fill
+              className="pointer-events-none object-cover opacity-[0.14] mix-blend-luminosity"
+            />
+            <span className="relative">Value my data</span>
           </a>
         </div>
 
-        <div className="hidden flex-1 items-end justify-center overflow-hidden lg:flex">
-          <Image
-            src="/images/hero-illustration-right.png"
-            alt=""
-            width={382}
-            height={793}
-            className="h-[793px] w-auto max-w-none object-contain object-bottom opacity-90"
-            priority
-          />
+        <div className="hidden flex-1 lg:flex">
+          <HeroSidePatternRight />
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className="relative flex flex-col">
         <div className="grid w-full grid-cols-3 border-t border-dashed border-black/8">
           <div className="border-r border-dashed border-black/8 px-4.5 py-4">
-            <p className="font-mono text-[8px] uppercase tracking-wide text-[#898989]">
-              process
-            </p>
+            <div className="flex items-center gap-1">
+              <p className="font-mono text-[8px] uppercase tracking-wide text-[#898989]">
+                process
+              </p>
+              <Image
+                src={HERO_PROCESS_DASH}
+                alt=""
+                width={193}
+                height={1}
+                className="h-px w-[193px] max-w-none"
+              />
+            </div>
             <p className="font-mono text-[8px] uppercase tracking-wide text-[#898989]">
               identified → structured → verified → licensed
             </p>
