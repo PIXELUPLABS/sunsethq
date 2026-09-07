@@ -36,11 +36,13 @@ export function HeroSection() {
             href="#value-my-data"
             className="relative flex w-[300px] items-center justify-center overflow-hidden bg-ink py-6 font-serif text-base uppercase tracking-wide text-white"
           >
-            <Image
-              src={HERO_BUTTON_PATTERN}
-              alt=""
-              fill
-              className="pointer-events-none object-cover opacity-[0.14] mix-blend-luminosity"
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.14] mix-blend-luminosity"
+              style={{
+                backgroundImage: `url(${HERO_BUTTON_PATTERN})`,
+                backgroundSize: "300px 14px",
+                backgroundRepeat: "repeat",
+              }}
             />
             <span className="relative">Value my data</span>
           </a>

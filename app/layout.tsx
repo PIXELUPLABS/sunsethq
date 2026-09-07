@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces, Hedvig_Letters_Serif } from "next/font/google";
+import { Geist, Geist_Mono, Hedvig_Letters_Serif } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,10 +13,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const fraunces = Fraunces({
+const stkBureauSerif = localFont({
+  src: "../public/fonts/stk-bureau-serif-book.woff2",
   variable: "--font-serif",
-  subsets: ["latin"],
-  style: ["normal"],
+  weight: "400",
+  style: "normal",
+  display: "swap",
 });
 
 const hedvigLettersSerif = Hedvig_Letters_Serif({
@@ -33,7 +36,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} ${hedvigLettersSerif.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${hedvigLettersSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
