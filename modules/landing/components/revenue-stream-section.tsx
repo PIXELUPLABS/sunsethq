@@ -3,13 +3,20 @@ import { ProcessBar } from "./process-bar";
 
 export function RevenueStreamSection() {
   return (
-    <section className="relative flex flex-col items-center overflow-hidden bg-[#eaebf1]">
-      <div className="w-full border-b border-dashed border-[#d4d4d4] px-4 sm:px-18">
+    <section className="relative flex flex-col items-center overflow-hidden">
+      <Image
+        src="/images/texture-grain-white.png"
+        alt=""
+        fill
+        className="pointer-events-none object-cover"
+      />
+
+      <div className="relative w-full border-b border-dashed border-[#d4d4d4] px-4 sm:px-18">
         <div className="h-20 border-x border-dashed border-[#d4d4d4]" />
       </div>
 
-      <div className="flex w-full max-w-[1296px] flex-col items-center gap-16 pt-20">
-        <div className="flex w-full flex-col items-start gap-10 px-6 sm:flex-row sm:gap-10 sm:px-[86px]">
+      <div className="relative flex w-full flex-col items-center gap-16 pt-20">
+        <div className="flex w-full max-w-[1296px] flex-col items-start gap-10 px-6 sm:flex-row sm:gap-10 sm:px-[86px]">
           <h2 className="flex-1 font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
             You already own your next revenue stream.
           </h2>
@@ -29,13 +36,15 @@ export function RevenueStreamSection() {
           </div>
         </div>
 
-        <Image
-          src="/images/revenue-stream-shelf.png"
-          alt="Diagram showing product logs, support history, decision threads, product data, billing, internal docs, support, CRM, code and commits, and sales conversations feeding into a licensable revenue stream"
-          width={1297}
-          height={501}
-          className="h-auto w-full max-w-[1296px]"
-        />
+        <div className="w-full px-4 sm:px-18">
+          <Image
+            src="/images/revenue-stream-shelf.png"
+            alt="Diagram showing product logs, support history, decision threads, product data, billing, internal docs, support, CRM, code and commits, and sales conversations feeding into a licensable revenue stream"
+            width={1297}
+            height={501}
+            className="h-auto w-full"
+          />
+        </div>
       </div>
 
       <Image
@@ -43,10 +52,10 @@ export function RevenueStreamSection() {
         alt="Illustration of a converging highway representing data flowing into a revenue stream"
         width={1440}
         height={576}
-        className="h-auto w-full"
+        className="relative h-auto w-full"
       />
 
-      <ProcessBar className="h-[9px] w-full" />
+      <ProcessBar className="relative h-[9px] w-full" />
     </section>
   );
 }
