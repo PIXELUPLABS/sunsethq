@@ -10,7 +10,7 @@ export function DeidentificationSection() {
   return (
     <section
       id="de-identification"
-      className="relative flex justify-center overflow-hidden px-6 py-20 sm:px-18"
+      className="relative flex justify-center overflow-hidden px-6 sm:px-18"
     >
       <Image
         src="/images/texture-grain-white.png"
@@ -19,7 +19,7 @@ export function DeidentificationSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative flex w-full max-w-[1296px] flex-col gap-20 border-x border-b border-dashed border-[#d4d4d4] p-5 sm:p-10">
+      <div className="relative flex w-full max-w-[1296px] flex-col gap-20 border-x border-dashed border-[#d4d4d4] px-5 py-20 sm:px-10">
         <div className="flex flex-col items-start gap-6">
           <SectionTag label="The Process" />
           <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px] sm:tracking-[-1.76px]">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { BriefcaseIcon, CheckCircleIcon, ShieldIcon } from "@/components/ui/icons";
 import { BUYER_CARDS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
@@ -12,8 +13,15 @@ const ICONS: Record<BuyerCard["icon"], typeof BriefcaseIcon> = {
 
 export function BuyersSection() {
   return (
-    <section className="flex justify-center bg-[#f4f4f6] px-6 py-20 sm:px-18">
-      <div className="flex w-full max-w-[1296px] flex-col gap-10">
+    <section className="relative flex justify-center overflow-hidden px-6 sm:px-18">
+      <Image
+        src="/images/texture-grain-white.png"
+        alt=""
+        fill
+        className="pointer-events-none object-cover"
+      />
+
+      <div className="relative flex w-full max-w-[1296px] flex-col gap-10 border-x border-dashed border-[#d4d4d4] px-5 py-20 sm:px-10">
         <div className="flex flex-col items-start gap-6">
           <SectionTag label="Who buys it" />
           <h2 className="max-w-[522px] font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
