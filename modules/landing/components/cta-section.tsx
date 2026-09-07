@@ -15,6 +15,27 @@ export function CtaSection() {
       />
 
       <div
+        className="pointer-events-none absolute inset-0 bg-[#eaebf1]"
+        style={{
+          maskImage: "url(/images/cta/black-mask.png)",
+          maskSize: "cover",
+          maskPosition: "center",
+          maskRepeat: "no-repeat",
+          WebkitMaskImage: "url(/images/cta/black-mask.png)",
+          WebkitMaskSize: "cover",
+          WebkitMaskPosition: "center",
+          WebkitMaskRepeat: "no-repeat",
+        }}
+      >
+        <Image
+          src="/images/texture-grain-white.png"
+          alt=""
+          fill
+          className="object-cover mix-blend-multiply"
+        />
+      </div>
+
+      <div
         className="relative mx-auto flex w-full max-w-[859px] flex-col items-center justify-center gap-8 overflow-hidden bg-[#fcfcfc] px-6 py-10 text-center sm:gap-14 sm:px-10 sm:py-14 lg:absolute lg:top-[23.6%] lg:left-[20.14%] lg:h-[52.79%] lg:w-[59.65%] lg:max-w-none lg:px-10 lg:py-0"
       >
         <Image
