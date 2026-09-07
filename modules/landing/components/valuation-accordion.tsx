@@ -1,16 +1,18 @@
 "use client";
 
 import { VALUATION_STEPS } from "../lib/constants";
-import { useAccordion } from "../hooks/use-accordion";
 import { ProcessBar } from "./process-bar";
 
-export function ValuationAccordion() {
-  const { openIndex, toggle } = useAccordion(0);
+type ValuationAccordionProps = {
+  activeIndex: number;
+  onSelect: (index: number) => void;
+};
 
+export function ValuationAccordion({ activeIndex, onSelect }: ValuationAccordionProps) {
   return (
     <div className="flex w-full flex-col">
       {VALUATION_STEPS.map((step, index) => {
-        const isOpen = openIndex === index;
+        const isOpen = activeIndex === index;
         return (
           <div
             key={step.label}
@@ -20,7 +22,7 @@ export function ValuationAccordion() {
           >
             <button
               type="button"
-              onClick={() => toggle(index)}
+              onClick={() => onSelect(index)}
               className="flex w-full items-center gap-1.5"
             >
               <span

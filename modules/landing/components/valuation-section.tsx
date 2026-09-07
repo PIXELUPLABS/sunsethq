@@ -1,8 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
+import { VALUATION_STEPS } from "../lib/constants";
+import { useStepCycle } from "../hooks/use-step-cycle";
+
+const STEP_INTERVAL_MS = 5000;
 
 export function ValuationSection() {
+  const { activeIndex, setActiveIndex } = useStepCycle(
+    VALUATION_STEPS.length,
+    STEP_INTERVAL_MS,
+  );
+
   return (
     <section className="flex justify-center bg-[#0c0c0b] px-6 py-24 sm:px-18">
       <div className="grid w-full grid-cols-1 border border-[#444] lg:grid-cols-2">
@@ -14,16 +25,21 @@ export function ValuationSection() {
             </h2>
           </div>
 
-          <ValuationAccordion />
+          <ValuationAccordion activeIndex={activeIndex} onSelect={setActiveIndex} />
         </div>
 
         <div className="relative min-h-[420px] overflow-hidden bg-[#0c0c0b]">
-          <Image
-            src="/images/valuation-illustration.png"
-            alt="Illustration of stacked data cards (code, documents, tickets, messages) totalling an 8M indicated value across 25M+ records"
-            fill
-            className="object-cover"
-          />
+          {VALUATION_STEPS.map((step, index) => (
+            <Image
+              key={step.label}
+              src={step.image}
+              alt={step.alt}
+              fill
+              className={`object-cover transition-opacity duration-700 ease-in-out ${
+                index === activeIndex ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          ))}
         </div>
       </div>
     </section>
