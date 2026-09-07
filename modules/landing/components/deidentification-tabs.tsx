@@ -18,7 +18,7 @@ export function DeidentificationTabs() {
             key={tab}
             type="button"
             onClick={() => setActiveTab(tab)}
-            className={`relative flex h-[72px] flex-1 items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors ${
+            className={`relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors ${
               isActive ? "bg-black text-[#f2f2f2]" : "bg-transparent text-black"
             }`}
           >

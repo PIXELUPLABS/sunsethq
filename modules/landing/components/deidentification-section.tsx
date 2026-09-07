@@ -36,7 +36,7 @@ export function DeidentificationSection() {
               className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
             />
 
-            <div className="relative flex flex-1 items-center gap-10 p-6 sm:p-10">
+            <div className="relative flex min-w-0 flex-1 items-center gap-10 py-6 pr-6 pl-6 sm:py-10 sm:pr-10 sm:pl-10 lg:h-[522px] lg:w-1/2 lg:flex-none lg:pr-[108px] lg:pl-0">
               <div className="relative hidden h-full w-10 shrink-0 self-stretch overflow-hidden lg:block">
                 <Image
                   src={SIDE_GRAIN}
@@ -46,7 +46,7 @@ export function DeidentificationSection() {
                 />
               </div>
 
-              <div className="flex max-w-[449px] flex-col justify-center gap-[100px]">
+              <div className="flex min-w-0 flex-1 flex-col justify-center gap-[100px]">
                 <h3 className="font-serif text-3xl leading-[1.1] tracking-tight text-black sm:text-[40px] sm:tracking-[-0.4px]">
                   Your data leaves cleaner than a medical record.
                 </h3>
@@ -66,7 +66,7 @@ export function DeidentificationSection() {
               </div>
             </div>
 
-            <div className="relative flex-1 overflow-hidden" style={{ aspectRatio: "617 / 522" }}>
+            <div className="relative min-w-0 flex-1 overflow-hidden lg:h-[522px] lg:w-1/2 lg:flex-none">
               <Image
                 src={BLUE_CARD}
                 alt="Redacted email preview: an original message shown alongside the same message with personally identifiable information replaced by gray redaction bars"
