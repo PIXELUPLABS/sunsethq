@@ -21,7 +21,7 @@ export function PricingSection() {
         }}
       />
 
-      <div className="relative mx-auto flex max-w-[1296px] flex-col gap-16 lg:flex-row lg:items-start lg:justify-between">
+      <div className="relative flex flex-col gap-16 lg:flex-row lg:items-start lg:justify-between">
         <div className="flex max-w-[637px] flex-col justify-between gap-14">
           <div className="flex flex-col items-start gap-6">
             <SectionTag label="Who it's for" tone="dark" />

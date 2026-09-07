@@ -4,7 +4,7 @@ import { SectionTag } from "./section-tag";
 export function IndustriesSection() {
   return (
     <section className="flex justify-center bg-[#eaebf1] px-6 py-20 sm:px-18">
-      <div className="flex w-full max-w-[1296px] flex-col items-center gap-14 border-x border-dashed border-[#d4d4d4] py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+      <div className="flex w-full flex-col items-center gap-14 border-x border-dashed border-[#d4d4d4] py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
         <div className="flex max-w-[507px] flex-col items-start gap-6">
           <SectionTag label="Who it's for" />
           <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">

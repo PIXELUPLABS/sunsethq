@@ -19,7 +19,8 @@ export function DeidentificationSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative flex w-full max-w-[1296px] flex-col gap-20 border-x border-dashed border-[#d4d4d4] px-5 py-20 sm:px-10">
+      <div className="relative w-full border-x border-dashed border-[#d4d4d4]">
+        <div className="flex flex-col gap-20 px-5 py-20 sm:px-10">
         <div className="flex flex-col items-start gap-6">
           <SectionTag label="The Process" />
           <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px] sm:tracking-[-1.76px]">
@@ -77,6 +78,7 @@ export function DeidentificationSection() {
           </div>
 
           <DeidentificationTabs />
+        </div>
         </div>
       </div>
     </section>

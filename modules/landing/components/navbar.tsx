@@ -4,7 +4,7 @@ import { NAV_LINKS } from "../lib/constants";
 
 export function Navbar() {
   return (
-    <header className="absolute inset-x-0 top-0 z-20 overflow-hidden border-b border-dashed border-black/8 backdrop-blur-sm">
+    <header className="fixed inset-x-0 top-0 z-20 overflow-hidden border-b border-dashed border-black/8 backdrop-blur-sm">
       <Image
         src="/images/texture-grain-white.png"
         alt=""
