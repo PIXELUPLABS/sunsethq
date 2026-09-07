@@ -36,8 +36,8 @@ export const DATA_CATEGORIES: DataCategory[] = [
 
 export const PRICING_TIERS = [
   { value: "$10K+", people: "<25 People", segments: 2, tone: "muted" as const },
-  { value: "$100K+", people: "25-100 People", segments: 9, tone: "cyan" as const },
-  { value: "$1M+", people: "25-100 People", segments: 12, tone: "blue" as const },
+  { value: "$100K+", people: "25-100 People", segments: 7, tone: "cyan" as const },
+  { value: "$1M+", people: "25-100 People", segments: 11, tone: "blue" as const },
 ];
 
 export const VALUATION_STEPS = [
