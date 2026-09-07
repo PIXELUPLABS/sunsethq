@@ -6,13 +6,8 @@ import { ValuationAccordion } from "./valuation-accordion";
 import { VALUATION_STEPS } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 
-const STEP_INTERVAL_MS = 5000;
-
 export function ValuationSection() {
-  const { activeIndex, setActiveIndex } = useStepCycle(
-    VALUATION_STEPS.length,
-    STEP_INTERVAL_MS,
-  );
+  const { activeIndex, setActiveIndex, advance } = useStepCycle(VALUATION_STEPS.length);
 
   return (
     <section className="flex justify-center bg-[#0c0c0b] px-6 py-24 sm:px-18">
@@ -25,7 +20,11 @@ export function ValuationSection() {
             </h2>
           </div>
 
-          <ValuationAccordion activeIndex={activeIndex} onSelect={setActiveIndex} />
+          <ValuationAccordion
+            activeIndex={activeIndex}
+            onSelect={setActiveIndex}
+            onComplete={advance}
+          />
         </div>
 
         <div className="relative min-h-[420px] overflow-hidden bg-[#0c0c0b]">

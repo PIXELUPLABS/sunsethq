@@ -40,6 +40,8 @@ export const PRICING_TIERS = [
   { value: "$1M+", people: "25-100 People", segments: 11, tone: "blue" as const },
 ];
 
+export const HOW_IT_WORKS_STEP_INTERVAL_MS = 5000;
+
 export const VALUATION_STEPS = [
   {
     label: "Value",

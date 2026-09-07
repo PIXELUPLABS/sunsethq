@@ -1,21 +1,17 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
-export function useStepCycle(length: number, intervalMs: number) {
+export function useStepCycle(length: number) {
   const [activeIndex, setActiveIndexState] = useState(0);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveIndexState((current) => (current + 1) % length);
-    }, intervalMs);
-
-    return () => clearInterval(timer);
-  }, [length, intervalMs, activeIndex]);
+  const advance = useCallback(() => {
+    setActiveIndexState((current) => (current + 1) % length);
+  }, [length]);
 
   const setActiveIndex = useCallback((index: number) => {
     setActiveIndexState(index);
   }, []);
 
-  return { activeIndex, setActiveIndex };
+  return { activeIndex, setActiveIndex, advance };
 }

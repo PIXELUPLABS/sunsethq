@@ -1,14 +1,56 @@
 "use client";
 
-import { VALUATION_STEPS } from "../lib/constants";
+import { useEffect, useRef, useState } from "react";
+import { HOW_IT_WORKS_STEP_INTERVAL_MS, VALUATION_STEPS } from "../lib/constants";
 import { ProcessBar } from "./process-bar";
 
 type ValuationAccordionProps = {
   activeIndex: number;
   onSelect: (index: number) => void;
+  onComplete: () => void;
 };
 
-export function ValuationAccordion({ activeIndex, onSelect }: ValuationAccordionProps) {
+function StepProgressBar({ onComplete }: { onComplete: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    let frameId: number;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const ratio = Math.min((now - start) / HOW_IT_WORKS_STEP_INTERVAL_MS, 1);
+      setProgress(ratio);
+
+      if (ratio < 1) {
+        frameId = requestAnimationFrame(tick);
+      } else {
+        onCompleteRef.current();
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
+  return (
+    <div className="mt-2 h-1 w-[132px] overflow-hidden">
+      <div className="h-full overflow-hidden" style={{ width: `${progress * 132}px` }}>
+        <ProcessBar className="h-full w-[132px]" />
+      </div>
+    </div>
+  );
+}
+
+export function ValuationAccordion({
+  activeIndex,
+  onSelect,
+  onComplete,
+}: ValuationAccordionProps) {
   return (
     <div className="flex w-full flex-col">
       {VALUATION_STEPS.map((step, index) => {
@@ -17,7 +59,7 @@ export function ValuationAccordion({ activeIndex, onSelect }: ValuationAccordion
           <div
             key={step.label}
             className={`border-b border-[#383535] py-6 ${
-              index === VALUATION_STEPS.length - 1 ? "border-b-0" : ""
+              isOpen || index === VALUATION_STEPS.length - 1 ? "border-b-0" : ""
             }`}
           >
             <button
@@ -43,7 +85,7 @@ export function ValuationAccordion({ activeIndex, onSelect }: ValuationAccordion
                 <p className="text-base leading-relaxed tracking-tight text-[#727272]">
                   {step.description}
                 </p>
-                <ProcessBar className="mt-2 h-1 w-[132px]" />
+                <StepProgressBar key={index} onComplete={onComplete} />
               </div>
             ) : null}
           </div>
