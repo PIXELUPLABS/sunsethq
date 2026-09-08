@@ -28,7 +28,14 @@ export function PricingSection() {
             <SectionTag
               label="Who it's for"
               tone="dark"
-              icon={<Image src="/images/logo-mark.svg" alt="" width={18} height={18} />}
+              icon={
+                <Image
+                  src="/images/who-its-for-icon.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+              }
             />
             <h2 className="font-serif text-[32px] leading-none tracking-tight text-[#f1f1f1] sm:text-[44px] sm:tracking-[-1.76px]">
               What companies
