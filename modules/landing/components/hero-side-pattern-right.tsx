@@ -48,6 +48,14 @@ export function HeroSidePatternRight() {
           dotClassName="top-[48px] left-[2px] size-[6px] bg-[#cdcdcd]"
         />
 
+        <Image
+          src="/images/hero/texture-pattern.svg"
+          alt=""
+          width={207}
+          height={194}
+          className="pointer-events-none absolute top-[530px] left-[-7.55px]"
+        />
+
         {/* vertical dashed divider */}
         <div
           className="absolute top-0 right-[73px] left-[198px] flex h-[731px] items-center justify-center"
