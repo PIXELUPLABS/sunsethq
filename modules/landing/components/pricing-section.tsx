@@ -13,7 +13,7 @@ const TONE_COLOR: Record<(typeof PRICING_TIERS)[number]["tone"], string> = {
 
 export function PricingSection() {
   return (
-    <section className="relative flex h-[805px] flex-col justify-center overflow-hidden bg-brand-gradient bg-ink px-6 sm:px-18">
+    <section className="relative flex h-[805px] flex-col overflow-hidden bg-brand-gradient bg-ink px-6 pt-[110px] sm:px-18">
       <div
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
         style={{
@@ -54,7 +54,7 @@ export function PricingSection() {
                 data sits in each all factor into the final price.
               </p>
             </div>
-            <div className="flex flex-col gap-4 pt-5 sm:flex-row sm:items-start">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
               <div className="flex shrink-0 items-center sm:items-center">
                 <div className="flex w-fit shrink-0 items-start gap-4">
                   <AlignLeftIcon className="mt-1 size-6" />
@@ -114,6 +114,14 @@ export function PricingSection() {
           ))}
         </div>
       </div>
+
+      <Image
+        src="/images/pricing/bottom-stripes.png"
+        alt=""
+        width={2882}
+        height={274}
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-auto w-full -scale-y-100"
+      />
     </section>
   );
 }
