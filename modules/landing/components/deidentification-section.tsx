@@ -2,8 +2,8 @@ import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { DeidentificationTabs } from "./deidentification-tabs";
 
-const GRAIN_TEXTURE = "/images/deidentification/grain-texture.webp";
-const SIDE_GRAIN = "/images/deidentification/side-grain-multiply.webp";
+const GRAIN_TEXTURE = "/images/texture-grain-white.png";
+const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
 const BLUE_CARD = "/images/deidentification/blue-card.webp";
 
 export function DeidentificationSection() {
@@ -39,7 +39,7 @@ export function DeidentificationSection() {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative flex flex-col gap-10 overflow-hidden lg:flex-row lg:items-stretch lg:gap-0">
+          <div className="relative flex flex-col gap-10 overflow-hidden bg-[#eaebf1] lg:flex-row lg:items-stretch lg:gap-0">
             <Image
               src={GRAIN_TEXTURE}
               alt=""
@@ -47,7 +47,7 @@ export function DeidentificationSection() {
               className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
             />
 
-            <div className="relative flex min-w-0 flex-1 items-center gap-10 py-6 pr-6 pl-6 sm:py-10 sm:pr-10 sm:pl-10 lg:h-[522px] lg:w-1/2 lg:flex-none lg:pr-[108px] lg:pl-0">
+            <div className="relative flex min-w-0 flex-1 items-center gap-10 pr-6 pl-6 sm:pr-10 sm:pl-10 lg:h-[522px] lg:w-1/2 lg:flex-none lg:pr-[108px] lg:pl-0">
               <div className="relative hidden h-full w-10 shrink-0 self-stretch overflow-hidden lg:block">
                 <Image
                   src={SIDE_GRAIN}
