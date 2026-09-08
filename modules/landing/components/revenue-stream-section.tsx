@@ -53,13 +53,18 @@ export function RevenueStreamSection() {
         </div>
       </div>
 
-      <Image
-        src="/images/revenue-stream-road.png"
-        alt="Illustration of a converging highway representing data flowing into a revenue stream"
-        width={1440}
-        height={576}
-        className="relative h-auto w-full"
-      />
+      <div className="h-[51px] w-full px-4 sm:px-18 lg:px-[75px]">
+        <div className="h-full border-x border-dashed border-[#d4d4d4]" />
+      </div>
+
+      <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1440 / 525" }}>
+        <Image
+          src="/images/revenue-stream-road.png"
+          alt="Illustration of a converging highway representing data flowing into a revenue stream"
+          fill
+          className="object-cover object-bottom"
+        />
+      </div>
     </section>
   );
 }
