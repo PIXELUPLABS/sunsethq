@@ -4,11 +4,17 @@ type SectionTagProps = {
   label: string;
   icon?: ReactNode;
   tone?: "light" | "dark";
+  textClassName?: string;
 };
 
-export function SectionTag({ label, icon, tone = "light" }: SectionTagProps) {
+export function SectionTag({
+  label,
+  icon,
+  tone = "light",
+  textClassName,
+}: SectionTagProps) {
   const border = tone === "dark" ? "border-[#a9b8c8]" : "border-[#b2b2b2]";
-  const text = tone === "dark" ? "text-[#a9b8c8]" : "text-[#7b7b7b]";
+  const text = textClassName ?? (tone === "dark" ? "text-[#a9b8c8]" : "text-[#7b7b7b]");
 
   return (
     <div className="flex items-start">

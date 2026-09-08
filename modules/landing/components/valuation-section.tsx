@@ -16,6 +16,7 @@ export function ValuationSection() {
           <div className="flex flex-col items-start gap-6">
             <SectionTag
               label="How it works"
+              textClassName="text-[#b2b2b2]"
               icon={
                 <Image
                   src="/images/how-it-works-icon.svg"
@@ -26,7 +27,9 @@ export function ValuationSection() {
               }
             />
             <h2 className="font-serif text-[32px] leading-none tracking-tight text-white sm:text-[44px]">
-              Four steps. 120 minutes of your time.
+              Four steps.
+              <br />
+              120 minutes of your time.
             </h2>
           </div>
 
