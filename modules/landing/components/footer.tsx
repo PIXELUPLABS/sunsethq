@@ -9,14 +9,15 @@ export function Footer() {
           <div className="flex max-w-[309px] flex-col gap-8">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-2">
-                <Image src="/images/logo-mark.svg" alt="" width={32} height={32} />
+                <Image src="/images/footer-logo.svg" alt="" width={43} height={43} />
                 <span className="font-serif text-4xl leading-none text-white">
                   Replay
                 </span>
               </div>
               <p className="text-lg leading-relaxed tracking-tight text-white/75">
-                Yield on what you&apos;ve already built. A new asset class
-                needs a standard.
+                Yield on what you&apos;ve already built.
+                <br />
+                A new asset class needs a standard.
               </p>
             </div>
             <div className="flex items-center gap-2 opacity-70">

@@ -20,7 +20,7 @@ export function BuyersSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative w-full border-x border-dashed border-[#d4d4d4]">
+      <div className="relative w-full border-x border-t border-dashed border-[#d4d4d4]">
         <div className="flex flex-col gap-10 px-5 py-20 sm:px-10">
           <div className="flex flex-col items-start gap-6">
             <SectionTag
