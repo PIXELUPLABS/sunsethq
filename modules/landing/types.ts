@@ -16,7 +16,7 @@ export type DataCategory = {
 export type BuyerCard = {
   headline: string;
   tagLabel: string;
-  icon: "briefcase" | "shield" | "check-circle";
+  icon: "entity" | "jurisdiction" | "identity";
   tone: "dark" | "light";
 };
 

@@ -1,14 +1,13 @@
 import Image from "next/image";
-import { BriefcaseIcon, CheckCircleIcon, ShieldIcon } from "@/components/ui/icons";
 import { BUYER_CARDS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
 import { ProcessBar } from "./process-bar";
 import type { BuyerCard } from "../types";
 
-const ICONS: Record<BuyerCard["icon"], typeof BriefcaseIcon> = {
-  briefcase: BriefcaseIcon,
-  shield: ShieldIcon,
-  "check-circle": CheckCircleIcon,
+const ICONS: Record<BuyerCard["icon"], string> = {
+  entity: "/images/entity-icon.svg",
+  jurisdiction: "/images/jurisdiction-icon.svg",
+  identity: "/images/identity-icon.svg",
 };
 
 export function BuyersSection() {
@@ -42,7 +41,6 @@ export function BuyersSection() {
 
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {BUYER_CARDS.map((card) => {
-              const Icon = ICONS[card.icon];
               const isDark = card.tone === "dark";
               return (
                 <div
@@ -59,7 +57,12 @@ export function BuyersSection() {
                       isDark ? "opacity-60" : ""
                     }`}
                   >
-                    <Icon className="size-[18px]" />
+                    <Image
+                      src={ICONS[card.icon]}
+                      alt=""
+                      width={18}
+                      height={18}
+                    />
                     <span className="text-base font-medium uppercase">
                       {card.tagLabel}
                     </span>
@@ -69,7 +72,7 @@ export function BuyersSection() {
                     className="absolute right-0 top-0 size-4"
                     style={{
                       clipPath: "polygon(100% 0, 0 0, 100% 100%)",
-                      backgroundColor: isDark ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.6)",
+                      backgroundColor: isDark ? "#499DF8" : "#000000",
                     }}
                   />
 

@@ -83,19 +83,19 @@ export const BUYER_CARDS: BuyerCard[] = [
   {
     headline: "Frontier labs and data labs, not brokers reselling on.",
     tagLabel: "Entity",
-    icon: "briefcase",
+    icon: "entity",
     tone: "dark",
   },
   {
     headline: "US buyers only. No foreign adversaries, no exceptions.",
     tagLabel: "Jurisdiction",
-    icon: "shield",
+    icon: "jurisdiction",
     tone: "light",
   },
   {
     headline: "Named buyers. You see who they are before anything moves.",
     tagLabel: "Identity",
-    icon: "check-circle",
+    icon: "identity",
     tone: "light",
   },
 ];
