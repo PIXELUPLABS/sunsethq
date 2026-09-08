@@ -4,7 +4,6 @@ import { HeroCodeSnippetCard } from "./hero-code-snippet-card";
 import {
   HERO_CLASSIFICATION_TEXT_RIGHT_LONG,
   HERO_CLASSIFICATION_TEXT_RIGHT_SHORT,
-  HERO_FORM_3,
   HERO_GRAIN_MULTIPLY,
   HERO_LINE_VERTICAL_RIGHT,
   HERO_MASK_RIGHT_ACCENT_LARGE,
@@ -136,19 +135,6 @@ export function HeroSidePatternRight() {
               maskRepeat: "no-repeat",
             }}
           />
-        </div>
-
-        <div className="absolute top-[628.54px] left-[-79.55px] flex h-[164.459px] w-[395.441px] items-center justify-center">
-          <div className="flex-none rotate-0">
-            <div className="relative h-[164.459px] w-[395.441px]">
-              <Image
-                src={HERO_FORM_3}
-                alt=""
-                fill
-                className="pointer-events-none object-fill"
-              />
-            </div>
-          </div>
         </div>
 
         <div className="absolute top-[619px] left-[-16.55px] size-[9px] rounded-full bg-[#acacac]" />
