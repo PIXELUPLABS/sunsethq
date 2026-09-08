@@ -34,7 +34,7 @@ export function HeroSection() {
 
           <a
             href="#value-my-data"
-            className="relative flex w-[300px] items-center justify-center overflow-hidden py-6 font-serif text-base uppercase tracking-wide text-white"
+            className="relative flex w-[300px] items-center justify-center overflow-hidden py-6 font-serif text-base uppercase tracking-wide text-white transition-opacity hover:opacity-80"
           >
             <Image
               src="/images/hero/btn-pattern.svg"

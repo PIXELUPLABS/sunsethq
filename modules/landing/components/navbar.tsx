@@ -32,7 +32,7 @@ export function Navbar() {
 
         <a
           href="#value-my-data"
-          className="flex items-center border border-ink bg-ink px-5 py-3 font-serif text-xs uppercase tracking-wide text-white"
+          className="flex items-center border border-ink bg-ink px-5 py-3 font-serif text-xs uppercase tracking-wide text-white transition-opacity hover:opacity-80"
         >
           Value my data
         </a>
