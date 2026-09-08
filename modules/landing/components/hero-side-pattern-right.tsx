@@ -17,7 +17,7 @@ export function HeroSidePatternRight() {
     <div className="relative h-full w-full">
       <div className="contents">
         {/* paper grain patch */}
-        <div className="absolute top-[534px] left-[-0.55px] h-[194px] w-[207px] overflow-hidden">
+        <div className="absolute top-[534px] right-[64.55px] h-[194px] w-[207px] overflow-hidden">
           <div
             className="absolute top-[-197px] left-[-49px] h-[453px] w-[305px] pointer-events-none mix-blend-multiply opacity-[0.48]"
             style={{
@@ -29,21 +29,21 @@ export function HeroSidePatternRight() {
         </div>
 
         <HeroClassificationText
-          className="top-[192.5px] left-[212.45px] h-[215px] w-[161px] text-[#bcbcbc]"
+          className="top-[192.5px] right-[-102.44px] h-[215px] w-[161px] text-[#bcbcbc]"
           text={HERO_CLASSIFICATION_TEXT_RIGHT_LONG}
         />
         <HeroClassificationText
-          className="top-[386.5px] left-[228.45px] h-[215px] w-[161px] text-[#bcbcbc]"
+          className="top-[386.5px] right-[-118.44px] h-[215px] w-[161px] text-[#bcbcbc]"
           text={HERO_CLASSIFICATION_TEXT_RIGHT_SHORT}
         />
 
         <HeroCodeSnippetCard
-          className="top-[707px] left-[-111px] gap-[7.241px] border-[0.724px] border-solid border-[#bab8b8] p-[7.241px]"
+          className="top-[707px] right-[231.47px] gap-[7.241px] border-[0.724px] border-solid border-[#bab8b8] p-[7.241px]"
           textClassName="font-mono text-[7.771px] tracking-[0.7px] text-[#bab8b8]"
           dotClassName="top-[34.76px] left-[1.45px] size-[4.345px] bg-[#9a9a9a]"
         />
         <HeroCodeSnippetCard
-          className="top-[483px] left-[-27.55px] gap-[10px] border border-solid border-[#cdcdcd] p-[10px]"
+          className="top-[483px] right-[91.34px] gap-[10px] border border-solid border-[#cdcdcd] p-[10px]"
           textClassName="font-mono text-[10.731px] tracking-[0.97px] text-[#cdcdcd]"
           dotClassName="top-[48px] left-[2px] size-[6px] bg-[#cdcdcd]"
         />
@@ -53,7 +53,7 @@ export function HeroSidePatternRight() {
           alt=""
           width={207}
           height={194}
-          className="pointer-events-none absolute top-[530px] left-[-7.55px]"
+          className="pointer-events-none absolute top-[530px] right-[71.55px]"
         />
 
         {/* vertical dashed divider */}
@@ -78,7 +78,7 @@ export function HeroSidePatternRight() {
 
         {/* large torn-form accent */}
         <div className="contents">
-          <div className="absolute top-[calc(50%+221.36px)] left-[calc(50%+83.13px)] flex h-[301.715px] w-[416.367px] -translate-x-1/2 -translate-y-1/2 items-center justify-center">
+          <div className="absolute top-[calc(50%+221.36px)] right-[-195.8px] flex h-[301.715px] w-[416.367px] -translate-y-1/2 items-center justify-center">
             <div className="-scale-y-100 flex-none">
               <div
                 className="relative h-[301.715px] w-[416.367px]"
@@ -99,7 +99,7 @@ export function HeroSidePatternRight() {
             </div>
           </div>
           <div
-            className="absolute top-[405px] left-[46.45px] h-[236px] w-[259px] bg-[#d9eae8] mix-blend-color"
+            className="absolute top-[405px] right-[-34.44px] h-[236px] w-[259px] bg-[#d9eae8] mix-blend-color"
             style={{
               maskImage: `url(${HERO_MASK_RIGHT_ACCENT_LARGE})`,
               maskPosition: "-58px 22.001px",
@@ -111,7 +111,7 @@ export function HeroSidePatternRight() {
 
         {/* small torn-document accent */}
         <div className="contents">
-          <div className="absolute top-[509.81px] left-[20.31px] flex h-[204.903px] w-[282.766px] items-center justify-center">
+          <div className="absolute top-[509.81px] right-[-32.06px] flex h-[204.903px] w-[282.766px] items-center justify-center">
             <div className="-scale-y-100 flex-none">
               <div
                 className="relative h-[204.903px] w-[282.766px]"
@@ -135,7 +135,7 @@ export function HeroSidePatternRight() {
             </div>
           </div>
           <div
-            className="absolute top-[480px] left-[9.45px] h-[267px] w-[283px] bg-[#e3efff] mix-blend-color"
+            className="absolute top-[480px] right-[-21.44px] h-[267px] w-[283px] bg-[#e3efff] mix-blend-color"
             style={{
               maskImage: `url(${HERO_MASK_RIGHT_ACCENT_SMALL})`,
               maskPosition: "20.084px 58.083px",
@@ -145,7 +145,7 @@ export function HeroSidePatternRight() {
           />
         </div>
 
-        <div className="absolute top-[619px] left-[-16.55px] size-[9px] rounded-full bg-[#acacac]" />
+        <div className="absolute top-[619px] right-[278.55px] size-[9px] rounded-full bg-[#acacac]" />
       </div>
     </div>
   );
