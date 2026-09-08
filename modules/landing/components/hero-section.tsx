@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ProcessBar } from "./process-bar";
 import { HeroSidePatternLeft } from "./hero-side-pattern-left";
 import { HeroSidePatternRight } from "./hero-side-pattern-right";
-import { HERO_BUTTON_PATTERN, HERO_PROCESS_DASH } from "../lib/hero-assets";
+import { HERO_PROCESS_DASH } from "../lib/hero-assets";
 
 export function HeroSection() {
   return (
@@ -34,15 +34,13 @@ export function HeroSection() {
 
           <a
             href="#value-my-data"
-            className="relative flex w-[300px] items-center justify-center overflow-hidden bg-ink py-6 font-serif text-base uppercase tracking-wide text-white"
+            className="relative flex w-[300px] items-center justify-center overflow-hidden py-6 font-serif text-base uppercase tracking-wide text-white"
           >
-            <div
-              className="pointer-events-none absolute inset-0 opacity-[0.14] mix-blend-luminosity"
-              style={{
-                backgroundImage: `url(${HERO_BUTTON_PATTERN})`,
-                backgroundSize: "300px 14px",
-                backgroundRepeat: "repeat",
-              }}
+            <Image
+              src="/images/hero/btn-pattern.svg"
+              alt=""
+              fill
+              className="pointer-events-none object-cover"
             />
             <span className="relative">Value my data</span>
           </a>
