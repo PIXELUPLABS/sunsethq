@@ -38,9 +38,9 @@ function StepProgressBar({ onComplete }: { onComplete: () => void }) {
   }, []);
 
   return (
-    <div className="mt-2 h-1 w-[132px] overflow-hidden">
-      <div className="h-full overflow-hidden" style={{ width: `${progress * 132}px` }}>
-        <ProcessBar className="h-full w-[132px]" />
+    <div className="mt-2 h-1 w-full overflow-hidden" style={{ containerType: "inline-size" }}>
+      <div className="h-full overflow-hidden" style={{ width: `${progress * 100}%` }}>
+        <ProcessBar className="h-full w-[100cqw]" />
       </div>
     </div>
   );
