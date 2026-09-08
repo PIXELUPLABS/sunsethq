@@ -65,7 +65,7 @@ export function ValuationAccordion({
             <button
               type="button"
               onClick={() => onSelect(index)}
-              className="flex w-full items-center gap-1.5"
+              className="flex w-full cursor-pointer items-center gap-1.5"
             >
               <span
                 className={`size-[5px] rounded-full ${
@@ -78,8 +78,8 @@ export function ValuationAccordion({
             </button>
 
             {isOpen && step.title ? (
-              <div className="relative mt-4 flex flex-col gap-4 pb-1">
-                <p className="font-serif text-2xl tracking-tight text-white">
+              <div className="relative mt-2 flex flex-col gap-4 pb-1">
+                <p className="font-serif text-[32px] tracking-tight text-white">
                   {step.title}
                 </p>
                 <p className="text-base leading-relaxed tracking-tight text-[#727272]">
