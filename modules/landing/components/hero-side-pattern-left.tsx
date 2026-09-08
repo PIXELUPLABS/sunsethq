@@ -188,19 +188,13 @@ export function HeroSidePatternLeft() {
             </div>
           </div>
         </div>
-        <div className="absolute top-[247.93px] left-[-36.76px] flex h-[138.28px] w-[173.561px] items-center justify-center mix-blend-color">
-          <div className="-scale-y-100 flex-none rotate-180">
-            <div
-              className="relative h-[138.28px] w-[173.561px] bg-[#d9eae8]"
-              style={{
-                maskImage: `url(${HERO_MASK_LEFT_ACCENT})`,
-                maskPosition: "-15.934px 11.381px",
-                maskSize: "240.381px 150.23px",
-                maskRepeat: "no-repeat",
-              }}
-            />
-          </div>
-        </div>
+        <Image
+          src="/images/hero/blue-img-left.svg"
+          alt=""
+          width={235}
+          height={145}
+          className="pointer-events-none absolute top-[247.93px] left-[-36.76px] mix-blend-color"
+        />
       </div>
 
       <div className="absolute top-[404px] left-[85px] size-[9px] rounded-full bg-[#acacac]" />
