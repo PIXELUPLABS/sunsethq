@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { RevenueStreamShelf } from "./revenue-stream-shelf";
 
 export function RevenueStreamSection() {
   return (
@@ -36,13 +37,7 @@ export function RevenueStreamSection() {
         </div>
 
         <div className="w-full px-4 sm:px-18">
-          <Image
-            src="/images/revenue-stream-shelf.png"
-            alt="Diagram showing product logs, support history, decision threads, product data, billing, internal docs, support, CRM, code and commits, and sales conversations feeding into a licensable revenue stream"
-            width={1297}
-            height={501}
-            className="h-auto w-full"
-          />
+          <RevenueStreamShelf />
         </div>
       </div>
 
