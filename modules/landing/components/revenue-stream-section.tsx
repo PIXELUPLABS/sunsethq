@@ -53,8 +53,15 @@ export function RevenueStreamSection() {
         </div>
       </div>
 
-      <div className="h-[51px] w-full px-4 sm:px-18 lg:px-[75px]">
-        <div className="h-full border-x border-dashed border-[#d4d4d4]" />
+      <div className="relative h-[51px] w-full px-4 sm:px-18 lg:px-[75px]">
+        <div className="relative h-full border-x border-dashed border-[#d4d4d4]" />
+        <Image
+          src="/images/revenue-stream/section-bottom.png"
+          alt=""
+          width={2292}
+          height={103}
+          className="absolute top-0 left-[155px] h-full w-[calc(100%-310px)] max-w-none object-cover"
+        />
       </div>
 
       <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1440 / 525" }}>
