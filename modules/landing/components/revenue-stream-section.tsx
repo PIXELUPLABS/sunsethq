@@ -16,6 +16,16 @@ export function RevenueStreamSection() {
       </div>
 
       <div className="relative flex w-full flex-col items-center gap-16 pt-20">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[448px] px-4 sm:px-18">
+          <div className="h-full border-x border-dashed border-[#d4d4d4]" />
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 top-[28px] px-4 sm:px-18">
+          <div className="border-t border-dashed border-[#d4d4d4]" />
+        </div>
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[317px] px-[96px] sm:px-[152px]">
+          <div className="h-full border-x border-dashed border-[#d4d4d4]" />
+        </div>
+
         <div className="flex w-full max-w-[1296px] flex-col items-start gap-10 px-6 sm:flex-row sm:gap-10 sm:px-[86px]">
           <h2 className="flex-1 font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
             You already own your next revenue stream.
