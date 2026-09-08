@@ -13,7 +13,17 @@ export function IndustriesSection() {
 
       <div className="relative flex w-full flex-col items-center gap-14 border-x border-dashed border-[#d4d4d4] px-5 py-10 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
         <div className="flex max-w-[507px] flex-col items-start gap-6">
-          <SectionTag label="Who it's for" />
+          <SectionTag
+            label="Who it's for"
+            icon={
+              <Image
+                src="/images/how-it-works-icon.svg"
+                alt=""
+                width={18}
+                height={18}
+              />
+            }
+          />
           <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
             Any industry. One requirement.
           </h2>

@@ -14,7 +14,17 @@ export function ValuationSection() {
       <div className="grid w-full grid-cols-1 border border-[#444] lg:grid-cols-2">
         <div className="flex flex-col justify-between gap-14 border-b border-[#444] p-8 sm:p-12 lg:border-b-0 lg:border-r">
           <div className="flex flex-col items-start gap-6">
-            <SectionTag label="How it works" tone="dark" />
+            <SectionTag
+              label="How it works"
+              icon={
+                <Image
+                  src="/images/how-it-works-icon.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+              }
+            />
             <h2 className="font-serif text-[32px] leading-none tracking-tight text-white sm:text-[44px]">
               Four steps. 120 minutes of your time.
             </h2>

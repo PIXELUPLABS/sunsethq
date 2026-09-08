@@ -24,7 +24,17 @@ export function BuyersSection() {
       <div className="relative w-full border-x border-dashed border-[#d4d4d4]">
         <div className="flex flex-col gap-10 px-5 py-20 sm:px-10">
           <div className="flex flex-col items-start gap-6">
-            <SectionTag label="Who buys it" />
+            <SectionTag
+              label="Who buys it"
+              icon={
+                <Image
+                  src="/images/the-process-icon.svg"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+              }
+            />
             <h2 className="max-w-[522px] font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
               You&apos;ll know exactly who ends up with it.
             </h2>

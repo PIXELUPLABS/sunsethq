@@ -20,7 +20,9 @@ export function SectionTag({ label, icon, tone = "light" }: SectionTagProps) {
         </p>
       </div>
       {icon ? (
-        <div className={`flex size-8 items-center justify-center border ${border}`}>
+        <div
+          className={`flex size-8 items-center justify-center border-t border-r border-b ${border}`}
+        >
           {icon}
         </div>
       ) : null}
