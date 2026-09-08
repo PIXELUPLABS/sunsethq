@@ -1,0 +1,10 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="flashlight-line" clip-path="url(#clip0_0_14)">
+<path id="Vector" d="M8.66667 5.99826H14L7.33333 15.9983V9.99826H2.66667L8.66667 -0.00173611V5.99826ZM7.33333 7.3316L7.33333 4.81202L5.02159 8.66493H8.66667V11.5945L11.5087 7.3316H7.33333Z" fill="black"/>
+</g>
+<defs>
+<clipPath id="clip0_0_14">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

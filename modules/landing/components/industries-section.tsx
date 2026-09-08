@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { SectionTag } from "./section-tag";
+import { IndustriesDiagram } from "./industries-diagram";
 
 export function IndustriesSection() {
   return (
@@ -43,13 +44,7 @@ export function IndustriesSection() {
           </div>
         </div>
 
-        <Image
-          src="/images/industry-diagram.png"
-          alt="Diagram of industries Replay works with: healthcare, media, insurance, service, legal, energy, finance, and CPG, arranged around a central data node"
-          width={665}
-          height={671}
-          className="h-auto w-full max-w-[560px]"
-        />
+        <IndustriesDiagram />
       </div>
     </section>
   );
