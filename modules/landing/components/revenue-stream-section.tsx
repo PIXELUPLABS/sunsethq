@@ -11,12 +11,12 @@ export function RevenueStreamSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative w-full border-b border-dashed border-[#d4d4d4] px-4 sm:px-18">
+      <div className="relative w-full border-b border-dashed border-[#d4d4d4] px-4 sm:px-18 lg:px-[75px]">
         <div className="h-20 border-x border-dashed border-[#d4d4d4]" />
       </div>
 
       <div className="relative flex w-full flex-col items-center gap-16 pt-20 lg:gap-0">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[448px] px-4 sm:px-18">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[448px] px-4 sm:px-18 lg:px-[75px]">
           <div className="h-full border-x border-dashed border-[#d4d4d4]" />
         </div>
         <div className="pointer-events-none absolute inset-x-0 top-[28px] px-4 sm:px-18">
@@ -26,7 +26,7 @@ export function RevenueStreamSection() {
           <div className="h-full border-x border-dashed border-[#d4d4d4]" />
         </div>
 
-        <div className="flex w-full flex-col items-start gap-10 pr-[calc(17.3611%+10.444px)] pl-[calc(6.6358%+13.876px)] sm:flex-row sm:gap-10 sm:pr-[calc(17.3611%+47px)] sm:pl-[calc(6.6358%+62.444px)] lg:h-[237px] lg:gap-[164px]">
+        <div className="flex w-full flex-col items-start gap-10 pr-[calc(17.3611%+10.444px)] pl-[calc(6.6358%+13.876px)] sm:flex-row sm:gap-10 sm:pr-[calc(17.3611%+47px)] sm:pl-[calc(6.6358%+62.444px)] lg:h-[237px] lg:gap-[164px] lg:pl-[calc(6.6358%+65.046px)]">
           <h2 className="flex-1 font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
             You already own your
             <br />
@@ -48,7 +48,7 @@ export function RevenueStreamSection() {
           </div>
         </div>
 
-        <div className="w-full px-4 sm:px-18">
+        <div className="w-full px-4 sm:px-18 lg:px-[75px]">
           <RevenueStreamShelf />
         </div>
       </div>
