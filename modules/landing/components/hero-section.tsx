@@ -54,8 +54,8 @@ export function HeroSection() {
       </div>
 
       <div className="relative flex flex-col">
-        <div className="grid w-full grid-cols-3 border-t border-dashed border-black/8">
-          <div className="border-r border-dashed border-black/8 px-4.5 py-4">
+        <div className="flex w-full border-t border-dashed border-black/8">
+          <div className="flex-1 shrink-0 border-r border-dashed border-black/8 px-4.5 py-4 lg:w-[calc((100%-898px)/2)] lg:flex-none">
             <div className="flex items-center gap-1">
               <p className="font-mono text-[8px] uppercase tracking-wide text-[#898989]">
                 process
@@ -72,14 +72,14 @@ export function HeroSection() {
               identified → structured → verified → licensed
             </p>
           </div>
-          <div className="flex items-center border-r border-dashed border-black/8 px-4.5 py-4">
+          <div className="flex w-[181px] shrink-0 items-center border-r border-dashed border-black/8 px-4.5 py-4">
             <div className="border border-dashed border-[#d9d9d9] px-2 py-1.5">
               <p className="font-mono text-[8px] uppercase tracking-wide text-[#898989]">
                 RL-2026-001 // Version 1.0
               </p>
             </div>
           </div>
-          <div className="hidden items-center px-4.5 py-4 sm:flex">
+          <div className="hidden w-[258px] shrink-0 items-center border-r border-dashed border-black/8 px-4.5 py-4 sm:flex">
             <p className="font-mono text-[8px] uppercase leading-tight tracking-wide text-[#898989]">
               CLASSIFICATION
               <br />
