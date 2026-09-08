@@ -139,7 +139,7 @@ export function HeroSidePatternRight() {
         </div>
 
         <div className="absolute top-[628.54px] left-[-79.55px] flex h-[164.459px] w-[395.441px] items-center justify-center">
-          <div className="flex-none rotate-180">
+          <div className="flex-none rotate-0">
             <div className="relative h-[164.459px] w-[395.441px]">
               <Image
                 src={HERO_FORM_3}

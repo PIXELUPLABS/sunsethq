@@ -2,7 +2,7 @@ export const HERO_GRAIN_MULTIPLY = "/images/hero/grain-multiply.webp";
 export const HERO_PHOTO_DOCUMENT = "/images/hero/photo-1751.webp";
 export const HERO_PHOTO_FORM = "/images/hero/photo-1754.webp";
 export const HERO_BUTTON_PATTERN = "/images/hero/button-pattern.webp";
-export const HERO_FORM_3 = "/images/hero/form-3.webp";
+export const HERO_FORM_3 = "/images/hero/form-3.svg";
 export const HERO_BAR_NOISE = "/images/hero/bar-noise.webp";
 
 export const HERO_LINE_VERTICAL_LEFT = "/images/hero/line-587.svg";
