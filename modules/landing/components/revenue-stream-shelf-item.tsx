@@ -8,7 +8,7 @@ export function RevenueStreamShelfItem({
   label: string;
 }) {
   return (
-    <div className="flex items-center gap-[1.2346cqw] border-[0.5px] border-dashed border-[#a8a8a8] px-[1.5432cqw]">
+    <div className="flex items-center gap-[1.2346cqw] border-r border-b border-dashed border-[#a8a8a8] px-[1.5432cqw]">
       <Image
         src={icon}
         alt=""

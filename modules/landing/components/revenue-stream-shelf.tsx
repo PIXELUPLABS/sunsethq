@@ -36,7 +36,7 @@ export function RevenueStreamShelf() {
           fill
           className="pointer-events-none object-cover mix-blend-multiply"
         />
-        <div className="relative grid h-full grid-cols-2 grid-rows-5">
+        <div className="relative grid h-full grid-cols-2 grid-rows-5 border-t border-l border-dashed border-[#a8a8a8]">
           {REVENUE_STREAM_ITEMS.map((item) => (
             <RevenueStreamShelfItem key={item.label} {...item} />
           ))}
