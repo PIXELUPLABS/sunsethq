@@ -1,0 +1,24 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="105.259" height="70.9611" viewBox="0 0 105.259 70.9611" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 2147272043">
+<g id="Rectangle 2095588957">
+<path d="M1.35902e-07 1.45746C1.35902e-07 0.652525 0.652525 0 1.45746 0H103.801C104.606 0 105.259 0.652525 105.259 1.45746V69.5036C105.259 70.3086 104.606 70.9611 103.801 70.9611H1.45746C0.652527 70.9611 1.35902e-07 70.3086 1.35902e-07 69.5036V1.45746Z" fill="#D9D9D9" fill-opacity="0.14"/>
+<path d="M1.45703 0.364258H103.802C104.405 0.364403 104.894 0.853619 104.895 1.45703V69.5039C104.894 70.1074 104.405 70.5965 103.802 70.5967H1.45703C0.853623 70.5964 0.36441 70.1073 0.364258 69.5039V1.45703C0.364487 0.85367 0.85367 0.364487 1.45703 0.364258Z" stroke="black" stroke-opacity="0.1" stroke-width="0.728728"/>
+</g>
+<g id="Ticket Background Line">
+<rect x="9.45806" y="9.46075" width="81.6052" height="7.09611" rx="1.45746" fill="#D9D9D9" fill-opacity="0.18"/>
+<rect x="9.82243" y="9.82511" width="80.8765" height="6.36738" rx="1.09309" stroke="black" stroke-opacity="0.1" stroke-width="0.728728"/>
+</g>
+<g id="Ticket Background Line_2">
+<rect x="9.46021" y="21.2876" width="73.3264" height="7.09611" rx="1.45746" fill="#D9D9D9" fill-opacity="0.18"/>
+<rect x="9.82457" y="21.652" width="72.5977" height="6.36738" rx="1.09309" stroke="black" stroke-opacity="0.1" stroke-width="0.728728"/>
+</g>
+<g id="Ticket Background Line_3">
+<rect x="9.46253" y="33.1148" width="79.2399" height="7.09611" rx="1.45746" fill="#D9D9D9" fill-opacity="0.18"/>
+<rect x="9.8269" y="33.4791" width="78.5111" height="6.36738" rx="1.09309" stroke="black" stroke-opacity="0.1" stroke-width="0.728728"/>
+</g>
+<g id="Ticket Background Line_4">
+<rect x="82.7852" y="54.4029" width="11.8268" height="11.8268" rx="1.45746" fill="#147DBA" fill-opacity="0.66"/>
+<rect x="83.1496" y="54.7673" width="11.0981" height="11.0981" rx="1.09309" stroke="black" stroke-opacity="0.1" stroke-width="0.728728"/>
+</g>
+</g>
+</svg>

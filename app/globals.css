@@ -33,3 +33,56 @@ body {
     var(--color-blue-bright) 144%
   );
 }
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: var(--reveal-opacity, 1);
+  }
+}
+
+@keyframes reveal-fade-slide {
+  from {
+    opacity: 0;
+    transform: translate(var(--reveal-x, 0px), var(--reveal-y, 0px));
+  }
+  to {
+    opacity: var(--reveal-opacity, 1);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes reveal-grow-height {
+  from {
+    height: 0.6px;
+  }
+  to {
+    height: var(--reveal-size);
+  }
+}
+
+@keyframes reveal-grow-width {
+  from {
+    width: 0.6px;
+  }
+  to {
+    width: var(--reveal-size);
+  }
+}
+
+@keyframes reveal-unfurl {
+  from {
+    opacity: 0;
+    width: var(--reveal-start-size);
+    height: var(--reveal-start-size-y);
+    transform: translate(var(--reveal-x, 0px), var(--reveal-y, 0px));
+  }
+  to {
+    opacity: 1;
+    width: var(--reveal-size);
+    height: var(--reveal-size-y);
+    transform: translate(0, 0);
+  }
+}

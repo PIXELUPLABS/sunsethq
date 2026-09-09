@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
+import { ValueIllustration } from "./value-illustration";
 import { VALUATION_STEPS } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 
@@ -41,17 +42,28 @@ export function ValuationSection() {
         </div>
 
         <div className="relative min-h-[420px] overflow-hidden bg-[#0c0c0b]">
-          {VALUATION_STEPS.map((step, index) => (
-            <Image
-              key={step.label}
-              src={step.image}
-              alt={step.alt}
-              fill
-              className={`object-cover transition-opacity duration-700 ease-in-out ${
-                index === activeIndex ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          ))}
+          {VALUATION_STEPS.map((step, index) =>
+            index === 0 ? (
+              <div
+                key={step.label}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  index === activeIndex ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <ValueIllustration active={activeIndex === 0} />
+              </div>
+            ) : (
+              <Image
+                key={step.label}
+                src={step.image}
+                alt={step.alt}
+                fill
+                className={`object-cover transition-opacity duration-700 ease-in-out ${
+                  index === activeIndex ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            )
+          )}
         </div>
       </div>
     </section>
