@@ -437,9 +437,16 @@ export function ValueIllustration({ active }: { active: boolean }) {
             height={63.481}
             beat={VALUE_TIMING.indicator}
             slideY={10}
-            className="flex items-center justify-between overflow-hidden border border-dashed border-[#646464]"
-            style={{ paddingLeft: s.x(10.486), paddingRight: s.x(10.486), paddingTop: s.y(4.194), paddingBottom: s.y(6) }}
+            className="flex items-center justify-between overflow-hidden border-dashed border-[#646464]"
+            style={{
+              borderWidth: s.x(0.64),
+              paddingLeft: s.x(10.486),
+              paddingRight: s.x(10.486),
+              paddingTop: s.y(4.194),
+              paddingBottom: s.y(6),
+            }}
           >
+            <div className="pointer-events-none absolute inset-0" style={{ background: "#282827" }} />
             <div className="pointer-events-none absolute inset-0" style={{ background: "rgba(172,188,187,0.3)" }} />
             <div
               className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-90"
