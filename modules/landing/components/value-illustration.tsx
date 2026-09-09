@@ -428,7 +428,7 @@ export function ValueIllustration({ active }: { active: boolean }) {
       <BorderVector left={379.46} top={-42.44} src={`${ASSET_PATH}/border-vector-right.svg`} />
 
       {/* "8M Indicated value" chip */}
-      <div className="absolute flex items-center justify-center" style={{ left: s.x(193), top: s.y(588.2988), width: s.x(309.904), height: s.y(72.178) }}>
+      <div className="absolute flex items-center justify-center" style={{ left: s.x(43), top: s.y(558.2988), width: s.x(309.904), height: s.y(72.178) }}>
         <CardTilt>
           <FadeSlide
             left={0}
