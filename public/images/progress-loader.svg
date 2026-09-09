@@ -1,0 +1,41 @@
+<svg width="447" height="8" viewBox="0 0 447 8" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g clip-path="url(#clip0_6099_13637)">
+<line y1="7.33774" x2="74.8803" y2="7.33774" stroke="#B8B8B8" stroke-width="0.376283"/>
+<rect width="131.699" height="7.52566" fill="#499DF8"/>
+<rect width="131.699" height="7.52566" fill="url(#pattern0_6099_13637)" style="mix-blend-mode:soft-light"/>
+<rect width="18.4379" height="7.52566" transform="translate(131.699)" fill="#EAE058"/>
+<rect width="18.4379" height="7.52566" transform="translate(131.699)" fill="url(#pattern1_6099_13637)" style="mix-blend-mode:soft-light"/>
+<rect width="69" height="7.52566" transform="translate(150.137)" fill="#54702F"/>
+<rect width="69" height="7.52566" transform="translate(150.137)" fill="url(#pattern2_6099_13637)" style="mix-blend-mode:soft-light"/>
+<rect width="86" height="7.52566" transform="translate(219.137)" fill="#7E7E7E"/>
+<rect width="86" height="7.52566" transform="translate(219.137)" fill="url(#pattern3_6099_13637)" style="mix-blend-mode:soft-light"/>
+<rect width="28.9738" height="7.52566" transform="translate(305.137)" fill="#499DF8"/>
+<rect width="28.9738" height="7.52566" transform="translate(305.137)" fill="url(#pattern4_6099_13637)" style="mix-blend-mode:soft-light"/>
+<rect width="112.132" height="7.52566" transform="translate(334.11)" fill="#54702F"/>
+<rect width="112.132" height="7.52566" transform="translate(334.11)" fill="url(#pattern5_6099_13637)" style="mix-blend-mode:soft-light"/>
+</g>
+<defs>
+<pattern id="pattern0_6099_13637" patternContentUnits="objectBoundingBox" width="2.05714" height="1.512">
+<use xlink:href="#image0_6099_13637" transform="matrix(-0.00205714 0 0 -0.036 2.05714 1.512)"/>
+</pattern>
+<pattern id="pattern1_6099_13637" patternContentUnits="objectBoundingBox" width="14.6939" height="1.512">
+<use xlink:href="#image0_6099_13637" transform="matrix(-0.0146939 0 0 -0.036 14.6939 1.512)"/>
+</pattern>
+<pattern id="pattern2_6099_13637" patternContentUnits="objectBoundingBox" width="3.92643" height="1.512">
+<use xlink:href="#image0_6099_13637" transform="matrix(-0.00392643 0 0 -0.036 3.92643 1.512)"/>
+</pattern>
+<pattern id="pattern3_6099_13637" patternContentUnits="objectBoundingBox" width="3.15028" height="1.512">
+<use xlink:href="#image0_6099_13637" transform="matrix(-0.00315028 0 0 -0.036 3.15028 1.512)"/>
+</pattern>
+<pattern id="pattern4_6099_13637" patternContentUnits="objectBoundingBox" width="9.35065" height="1.512">
+<use xlink:href="#image0_6099_13637" transform="matrix(-0.00935065 0 0 -0.036 9.35065 1.512)"/>
+</pattern>
+<pattern id="pattern5_6099_13637" patternContentUnits="objectBoundingBox" width="2.41611" height="1.512">
+<use xlink:href="#image0_6099_13637" transform="matrix(-0.00241611 0 0 -0.036 2.41611 1.512)"/>
+</pattern>
+<clipPath id="clip0_6099_13637">
+<rect width="446.243" height="7.52566" fill="white"/>
+</clipPath>
+<image id="image0_6099_13637" width="1000" height="42" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAAqCAYAAAAga3HGAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAjBJREFUeAHt19tt4zAQBVBiG3E6STrJdqJSVIpKUSlcL6AggmDTpJ3HTXDOVxDPCCQ1lnxL7TeVzfnvvwN9p3Jw/t/cqF9Kw/nz9VD/Wjqc6562+rUM+L/v/d4H+t7W+dxZ/3I8iBv1S+MM5wv1T7Xf627vXS7s+5Jpq2nNz7q7Vq/fMpu1DKi5szk3zvAnz+b+Wo+u8e45r3fs/XDeS6NlvnFvj0ZnaOj5u/XOdXDOd+s7ddYf7/t6o35pnOF0of6l9nve9U29TbueXvOj6+tc562zXA/1X/HcnMug+n7Pv+O5uVzp6dX1fDs4bT3ro9e9d73XzrHBbPbVJ87mNNDzGbO5Nso++50+/L189P401voV7/Spjr/T12v7v1L/ke/0D/ndutt7lz8FAAAA+HYCOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAD/AApstAnw3yEYAAAAAElFTkSuQmCC"/>
+</defs>
+</svg>

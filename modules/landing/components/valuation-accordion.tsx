@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { HOW_IT_WORKS_STEP_INTERVAL_MS, VALUATION_STEPS } from "../lib/constants";
-import { ProcessBar } from "./process-bar";
 
 type ValuationAccordionProps = {
   activeIndex: number;
@@ -38,10 +38,14 @@ function StepProgressBar({ onComplete }: { onComplete: () => void }) {
   }, []);
 
   return (
-    <div className="mt-2 h-1 w-full overflow-hidden" style={{ containerType: "inline-size" }}>
-      <div className="h-full overflow-hidden" style={{ width: `${progress * 100}%` }}>
-        <ProcessBar className="h-full w-[100cqw]" />
-      </div>
+    <div className="relative mt-2 h-1 w-full overflow-hidden">
+      <Image
+        src="/images/progress-loader.svg"
+        alt=""
+        fill
+        className="object-cover"
+        style={{ clipPath: `inset(0 ${(1 - progress) * 100}% 0 0)` }}
+      />
     </div>
   );
 }
