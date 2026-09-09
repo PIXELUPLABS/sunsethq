@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import { IndustryDiagramCard } from "./industry-diagram-card";
 import {
   INDUSTRIES_GRID_LINES,
   INDUSTRY_DIAGRAM_CARDS,
 } from "../lib/industries-diagram-assets";
+import { useInView } from "../hooks/use-in-view";
 
 const CONNECTOR_BARS = [
   { left: 108, top: 94.25, width: 94, height: 99 },
@@ -21,8 +24,11 @@ function pct(value: number) {
 }
 
 export function IndustriesDiagram() {
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+
   return (
     <div
+      ref={ref}
       className="relative aspect-[665/671] w-full max-w-[560px] overflow-hidden"
       style={{ containerType: "inline-size" }}
     >
@@ -103,7 +109,7 @@ export function IndustriesDiagram() {
       </div>
 
       {INDUSTRY_DIAGRAM_CARDS.map((card) => (
-        <IndustryDiagramCard key={card.label} {...card} />
+        <IndustryDiagramCard key={card.label} {...card} start={inView} />
       ))}
     </div>
   );
