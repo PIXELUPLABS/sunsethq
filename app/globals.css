@@ -72,6 +72,31 @@ body {
   }
 }
 
+@keyframes terms-line-grow {
+  0% {
+    height: 0px;
+    animation-timing-function: linear;
+  }
+  15.2% {
+    height: 0px;
+    animation-timing-function: ease-out;
+  }
+  21.87% {
+    height: var(--line-mid-size);
+    animation-timing-function: linear;
+  }
+  30.53% {
+    height: var(--line-mid-size);
+    animation-timing-function: ease-out;
+  }
+  37.23% {
+    height: var(--line-size);
+  }
+  100% {
+    height: var(--line-size);
+  }
+}
+
 @keyframes reveal-unfurl {
   from {
     opacity: 0;

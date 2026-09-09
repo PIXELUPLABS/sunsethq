@@ -4,6 +4,7 @@ import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
 import { ValueIllustration } from "./value-illustration";
+import { TermsIllustration } from "./terms-illustration";
 import { VALUATION_STEPS } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 
@@ -42,28 +43,38 @@ export function ValuationSection() {
         </div>
 
         <div className="relative min-h-[420px] overflow-hidden bg-[#0c0c0b]">
-          {VALUATION_STEPS.map((step, index) =>
-            index === 0 ? (
-              <div
-                key={step.label}
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                  index === activeIndex ? "opacity-100" : "opacity-0"
-                }`}
-              >
-                <ValueIllustration active={activeIndex === 0} />
-              </div>
-            ) : (
+          {VALUATION_STEPS.map((step, index) => {
+            const isActive = index === activeIndex;
+            const fadeClassName = `absolute inset-0 transition-opacity duration-700 ease-in-out ${
+              isActive ? "opacity-100" : "opacity-0"
+            }`;
+
+            if (index === 0) {
+              return (
+                <div key={step.label} className={fadeClassName}>
+                  <ValueIllustration active={isActive} />
+                </div>
+              );
+            }
+
+            if (index === 1) {
+              return (
+                <div key={step.label} className={fadeClassName}>
+                  <TermsIllustration active={isActive} />
+                </div>
+              );
+            }
+
+            return (
               <Image
                 key={step.label}
                 src={step.image}
                 alt={step.alt}
                 fill
-                className={`object-cover transition-opacity duration-700 ease-in-out ${
-                  index === activeIndex ? "opacity-100" : "opacity-0"
-                }`}
+                className={`object-cover ${fadeClassName}`}
               />
-            )
-          )}
+            );
+          })}
         </div>
       </div>
     </section>
