@@ -69,14 +69,14 @@ export function ValuationAccordion({
             <button
               type="button"
               onClick={() => onSelect(index)}
-              className="flex w-full cursor-pointer items-center gap-1.5"
+              className="group flex w-full cursor-pointer items-center gap-1.5"
             >
               <span
                 className={`size-[5px] rounded-full ${
                   isOpen ? "bg-[#25fff9]" : "bg-[#cecece]/50"
                 }`}
               />
-              <span className="text-xs uppercase tracking-wide text-[#cecece]/70">
+              <span className="text-xs uppercase tracking-wide text-[#cecece]/70 transition-colors group-hover:text-white">
                 {step.label}
               </span>
             </button>

@@ -38,7 +38,11 @@ export function Footer() {
                 </p>
                 <div className="flex flex-col gap-2 text-sm tracking-tight text-white/75">
                   {column.links.map((link) => (
-                    <a key={link} href="#" className="transition-opacity hover:opacity-100">
+                    <a
+                      key={link}
+                      href="#"
+                      className="relative w-fit pb-0.5 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:text-white hover:after:w-full"
+                    >
                       {link}
                     </a>
                   ))}
