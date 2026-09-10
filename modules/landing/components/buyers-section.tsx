@@ -43,9 +43,20 @@ export function BuyersSection() {
             {BUYER_CARDS.map((card) => (
               <div
                 key={card.tagLabel}
-                className="group relative flex h-[430px] flex-col justify-between overflow-hidden border border-black/15 bg-[#dcdde3] p-5 text-black"
+                className="group relative flex h-[430px] flex-col justify-between overflow-hidden border-y border-black/15 p-5 text-black"
               >
-                <div className="pointer-events-none absolute inset-0 bg-brand-gradient opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <Image
+                  src="/images/hover-card-grey-bg.svg"
+                  alt=""
+                  fill
+                  className="pointer-events-none object-cover"
+                />
+                <Image
+                  src="/images/hover-card-blue-bg.svg"
+                  alt=""
+                  fill
+                  className="pointer-events-none object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                />
 
                 <p className="relative font-serif text-[32px] leading-tight tracking-tight transition-colors duration-300 group-hover:text-white">
                   {card.headline}
@@ -68,7 +79,7 @@ export function BuyersSection() {
                 </div>
 
                 <div
-                  className="absolute right-0 top-0 size-4 bg-black transition-colors duration-300 group-hover:bg-[#499DF8]"
+                  className="absolute -top-[2px] right-[0.5px] size-4 bg-black transition-colors duration-300 group-hover:bg-[#499DF8]"
                   style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
                 />
 
