@@ -65,10 +65,19 @@ export function DeidentificationTabs({
             key={tab}
             type="button"
             onClick={() => onSelect(index)}
-            className={`relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors ${
+            className={`group relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors ${
               isActive ? "bg-black text-[#f2f2f2]" : "bg-transparent text-black"
             }`}
           >
+            {!isActive ? (
+              <Image
+                src="/images/medium-grey-texture-btn-bg.svg"
+                alt=""
+                fill
+                className="pointer-events-none object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              />
+            ) : null}
+
             {isActive ? (
               <>
                 <div
