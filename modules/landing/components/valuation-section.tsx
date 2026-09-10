@@ -12,7 +12,7 @@ export function ValuationSection() {
 
   return (
     <section className="flex justify-center bg-[#0c0c0b] px-6 py-24 sm:px-18">
-      <div className="grid w-full grid-cols-1 border border-[#444] lg:grid-cols-2">
+      <div className="mx-auto grid w-full max-w-[1560px] grid-cols-1 border border-[#444] lg:grid-cols-2">
         <div className="flex flex-col justify-between gap-14 border-b border-[#444] p-8 sm:p-12 lg:border-b-0 lg:border-r">
           <div className="flex flex-col items-start gap-6">
             <SectionTag

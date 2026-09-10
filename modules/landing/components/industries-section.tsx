@@ -12,7 +12,7 @@ export function IndustriesSection() {
         className="pointer-events-none object-cover mix-blend-multiply"
       />
 
-      <div className="relative flex w-full flex-col items-center gap-14 border-x border-dashed border-[#d4d4d4] px-5 py-10 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+      <div className="relative mx-auto flex w-full max-w-[1560px] flex-col items-center gap-14 border-x border-dashed border-[#d4d4d4] px-5 py-10 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
         <div className="flex max-w-[507px] flex-col items-start gap-6">
           <SectionTag
             label="Who it's for"

@@ -12,7 +12,7 @@ export function StatsSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative border-x border-dashed border-[#d4d4d4]">
+      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#d4d4d4]">
         <StatsGrid stats={HERO_STATS} />
       </div>
     </section>

@@ -30,7 +30,7 @@ export function PricingSection() {
         }}
       />
 
-      <div className="relative flex w-full flex-col gap-10 overflow-hidden bg-black/10 px-6 py-10 sm:gap-[60px] sm:px-10 sm:py-[60px]">
+      <div className="relative mx-auto flex w-full max-w-[1560px] flex-col gap-10 overflow-hidden bg-black/10 px-6 py-10 sm:gap-[60px] sm:px-10 sm:py-[60px]">
         {/* tag + heading + texture panel, and the pricing tiers */}
         <div className="flex flex-col gap-8 lg:h-[400px] lg:flex-row lg:items-start">
           <div className="flex flex-col gap-10 lg:w-[400px] lg:shrink-0 lg:gap-[49px]">

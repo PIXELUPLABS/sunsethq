@@ -4,7 +4,7 @@ import { FOOTER_COLUMNS } from "../lib/constants";
 export function Footer() {
   return (
     <footer className="bg-[#080808] px-6 py-16 sm:px-18">
-      <div className="flex w-full flex-col gap-20">
+      <div className="mx-auto flex w-full max-w-[1560px] flex-col gap-20">
         <div className="flex flex-col justify-between gap-14 lg:flex-row">
           <div className="flex max-w-[309px] flex-col gap-8">
             <div className="flex flex-col gap-3">
