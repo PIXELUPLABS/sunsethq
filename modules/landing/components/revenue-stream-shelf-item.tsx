@@ -3,12 +3,18 @@ import Image from "next/image";
 export function RevenueStreamShelfItem({
   icon,
   label,
+  isLastRow = false,
 }: {
   icon: string;
   label: string;
+  isLastRow?: boolean;
 }) {
   return (
-    <div className="flex items-center gap-[1.2346cqw] border-r border-b border-dashed border-[#a8a8a8] px-[1.5432cqw]">
+    <div
+      className={`flex items-center gap-[1.2346cqw] border-r border-dashed border-[#a8a8a8] px-[1.5432cqw] ${
+        isLastRow ? "" : "border-b"
+      }`}
+    >
       <Image
         src={icon}
         alt=""

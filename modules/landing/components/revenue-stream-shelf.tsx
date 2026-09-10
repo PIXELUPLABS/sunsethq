@@ -47,8 +47,12 @@ export function RevenueStreamShelf() {
           className="pointer-events-none object-cover mix-blend-multiply"
         />
         <div className="relative grid h-full grid-cols-2 grid-rows-5 border-t border-l border-dashed border-[#a8a8a8]">
-          {REVENUE_STREAM_ITEMS.map((item) => (
-            <RevenueStreamShelfItem key={item.label} {...item} />
+          {REVENUE_STREAM_ITEMS.map((item, index) => (
+            <RevenueStreamShelfItem
+              key={item.label}
+              {...item}
+              isLastRow={index >= REVENUE_STREAM_ITEMS.length - 2}
+            />
           ))}
         </div>
       </div>
