@@ -8,6 +8,11 @@ import {
 } from "../lib/industries-diagram-assets";
 import { useInView } from "../hooks/use-in-view";
 
+// Uneven, hand-picked delays (not a simple index * N stagger) so the 8
+// cards read as an organic, one-after-another reveal rather than a uniform
+// sweep.
+const CARD_REVEAL_DELAYS_MS = [0, 260, 90, 420, 150, 340, 60, 500] as const;
+
 const CONNECTOR_BARS = [
   { left: 108, top: 94.25, width: 94, height: 99 },
   { left: 434, top: 94.25, width: 94, height: 99 },
@@ -41,7 +46,7 @@ export function IndustriesDiagram() {
 
       {/* large background panel */}
       <div
-        className="absolute border-[0.5px] border-dashed border-black"
+        className="absolute border-[0.5px] border-dashed border-black/70"
         style={{
           left: pct(108),
           top: pct(94),
@@ -80,7 +85,7 @@ export function IndustriesDiagram() {
 
       {/* center gradient square */}
       <div
-        className="absolute border-[0.5px] border-dashed border-black bg-[#dddee4]"
+        className="absolute border-[0.5px] border-dashed border-black/70 bg-[#dddee4]"
         style={{ left: pct(202.5), top: pct(194.25), width: pct(232), height: pct(232) }}
       >
         <Image
@@ -108,8 +113,13 @@ export function IndustriesDiagram() {
         </div>
       </div>
 
-      {INDUSTRY_DIAGRAM_CARDS.map((card) => (
-        <IndustryDiagramCard key={card.label} {...card} start={inView} />
+      {INDUSTRY_DIAGRAM_CARDS.map((card, i) => (
+        <IndustryDiagramCard
+          key={card.label}
+          {...card}
+          start={inView}
+          delayMs={CARD_REVEAL_DELAYS_MS[i]}
+        />
       ))}
     </div>
   );
