@@ -5,6 +5,7 @@ import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
 import { ValueIllustration } from "./value-illustration";
 import { TermsIllustration } from "./terms-illustration";
+import { StepVideo } from "./step-video";
 import { VALUATION_STEPS } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 
@@ -61,6 +62,22 @@ export function ValuationSection() {
               return (
                 <div key={step.label} className={fadeClassName}>
                   <TermsIllustration active={isActive} />
+                </div>
+              );
+            }
+
+            if (index === 2) {
+              return (
+                <div key={step.label} className={fadeClassName}>
+                  <StepVideo src="/images/htw-3.webm" active={isActive} />
+                </div>
+              );
+            }
+
+            if (index === 3) {
+              return (
+                <div key={step.label} className={fadeClassName}>
+                  <StepVideo src="/images/htw-4.webm" active={isActive} />
                 </div>
               );
             }
