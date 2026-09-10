@@ -1,26 +1,70 @@
 "use client";
 
-import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
-import { ProcessBar } from "./process-bar";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { DEIDENTIFICATION_TABS, HOW_IT_WORKS_STEP_INTERVAL_MS } from "../lib/constants";
 
 const GRAIN_TEXTURE = "/images/deidentification/grain-texture.webp";
+const PATTERN_STRIP = "/images/deidentification/pattern-strip.png";
+
+function StripProgressLoader({ onComplete }: { onComplete: () => void }) {
+  const [progress, setProgress] = useState(0);
+  const onCompleteRef = useRef(onComplete);
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    let frameId: number;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const ratio = Math.min((now - start) / HOW_IT_WORKS_STEP_INTERVAL_MS, 1);
+      setProgress(ratio);
+
+      if (ratio < 1) {
+        frameId = requestAnimationFrame(tick);
+      } else {
+        onCompleteRef.current();
+      }
+    };
+
+    frameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frameId);
+  }, []);
+
+  return (
+    <div className="pointer-events-none absolute inset-y-0 left-0 w-2 overflow-hidden">
+      <Image
+        src={PATTERN_STRIP}
+        alt=""
+        fill
+        className="object-cover object-left"
+        style={{ clipPath: `inset(0 0 ${(1 - progress) * 100}% 0)` }}
+      />
+    </div>
+  );
+}
 
 export function DeidentificationTabs({
-  activeTab,
-  onTabChange,
+  activeIndex,
+  onSelect,
+  onComplete,
 }: {
-  activeTab: DeidentificationTab;
-  onTabChange: (tab: DeidentificationTab) => void;
+  activeIndex: number;
+  onSelect: (index: number) => void;
+  onComplete: () => void;
 }) {
   return (
     <div className="flex w-full">
-      {DEIDENTIFICATION_TABS.map((tab) => {
-        const isActive = activeTab === tab;
+      {DEIDENTIFICATION_TABS.map((tab, index) => {
+        const isActive = activeIndex === index;
         return (
           <button
             key={tab}
             type="button"
-            onClick={() => onTabChange(tab)}
+            onClick={() => onSelect(index)}
             className={`relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors ${
               isActive ? "bg-black text-[#f2f2f2]" : "bg-transparent text-black"
             }`}
@@ -34,16 +78,11 @@ export function DeidentificationTabs({
                     backgroundSize: "432.6px 432.6px",
                   }}
                 />
-                <ProcessBar className="absolute inset-x-0 top-0 h-2" />
+                <StripProgressLoader key={index} onComplete={onComplete} />
               </>
             ) : null}
 
             <span className="relative">{tab}</span>
-            <span
-              className={`absolute bottom-[5px] left-[7px] size-4 rounded-full ${
-                isActive ? "bg-[#454545]" : "bg-[#b2b2b2]/40"
-              }`}
-            />
           </button>
         );
       })}

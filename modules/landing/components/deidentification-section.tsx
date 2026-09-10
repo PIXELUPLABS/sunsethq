@@ -4,7 +4,7 @@ import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { DeidentificationTabs } from "./deidentification-tabs";
 import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
-import { useTabs } from "../hooks/use-tabs";
+import { useStepCycle } from "../hooks/use-step-cycle";
 
 const GRAIN_TEXTURE = "/images/texture-grain-white.png";
 const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
@@ -16,7 +16,8 @@ const BLUE_CARD_BY_TAB: Record<DeidentificationTab, string> = {
 };
 
 export function DeidentificationSection() {
-  const { activeTab, setActiveTab } = useTabs(DEIDENTIFICATION_TABS);
+  const { activeIndex, setActiveIndex, advance } = useStepCycle(DEIDENTIFICATION_TABS.length);
+  const activeTab = DEIDENTIFICATION_TABS[activeIndex];
 
   return (
     <section
@@ -99,7 +100,7 @@ export function DeidentificationSection() {
             </div>
           </div>
 
-          <DeidentificationTabs activeTab={activeTab} onTabChange={setActiveTab} />
+          <DeidentificationTabs activeIndex={activeIndex} onSelect={setActiveIndex} onComplete={advance} />
         </div>
         </div>
       </div>
