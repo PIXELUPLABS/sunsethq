@@ -104,12 +104,6 @@ export function IndustriesDiagram() {
             fill
             className="pointer-events-none object-cover"
           />
-          <Image
-            src="/images/texture-grain-white.png"
-            alt=""
-            fill
-            className="pointer-events-none object-cover mix-blend-soft-light"
-          />
         </div>
       </div>
 
