@@ -32,7 +32,7 @@ export function RevenueStreamShelf() {
         className="absolute top-0 left-0 h-[39.7639cqw] w-full max-w-none"
         style={{
           clipPath:
-            "polygon(0% 0%, 100% 0%, 100% 5.9047%, 85.8025% 5.9047%, 85.8025% 91.2833%, 100% 91.2833%, 100% 100%, 0% 100%, 0% 91.2833%, 14.1975% 91.2833%, 14.1975% 5.9047%, 0% 5.9047%)",
+            "polygon(0% 0%, 100% 0%, 100% 3%, 94.2901% 3%, 94.2901% 6.15%, 85.8025% 6.15%, 85.8025% 91.2833%, 100% 91.2833%, 100% 100%, 0% 100%, 0% 91.2833%, 14.1975% 91.2833%, 14.1975% 6.15%, 5.787% 6.15%, 5.787% 3%, 0% 3%)",
         }}
       />
 
@@ -113,7 +113,7 @@ export function RevenueStreamShelf() {
         alt=""
         width={1147}
         height={65}
-        className="-scale-y-100 absolute top-[2.3148cqw] left-[5.787cqw] h-[5.0154cqw] w-[88.5031cqw] max-w-none"
+        className="-scale-y-100 translate-y-[1px] absolute top-[2.3148cqw] left-[5.787cqw] h-[5.0154cqw] w-[88.5031cqw] max-w-none"
       />
       <Image
         src={REVENUE_STREAM_PANEL_FLOOR}
