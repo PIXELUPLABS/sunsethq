@@ -10,31 +10,8 @@ export function CtaSection() {
         src="/images/cta/background.webp"
         alt=""
         fill
-        priority
-        className="pointer-events-none object-cover"
+        className="pointer-events-none hidden object-cover lg:block"
       />
-
-      <div
-        className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden bg-[#eaebf1]"
-        style={{
-          height: "43%",
-          maskImage: "url(/images/cta/black-mask.png)",
-          maskSize: "100% auto",
-          maskPosition: "top",
-          maskRepeat: "no-repeat",
-          WebkitMaskImage: "url(/images/cta/black-mask.png)",
-          WebkitMaskSize: "100% auto",
-          WebkitMaskPosition: "top",
-          WebkitMaskRepeat: "no-repeat",
-        }}
-      >
-        <Image
-          src="/images/grain-light-texture.svg"
-          alt=""
-          fill
-          className="object-cover mix-blend-multiply"
-        />
-      </div>
 
       <div
         className="relative mx-auto flex w-full max-w-[859px] flex-col items-center justify-center gap-8 overflow-hidden bg-[#fcfcfc] px-6 py-10 text-center sm:gap-14 sm:px-10 sm:py-14 lg:absolute lg:top-[23.6%] lg:left-[20.14%] lg:h-[52.79%] lg:w-[59.65%] lg:max-w-none lg:px-10 lg:py-0"
