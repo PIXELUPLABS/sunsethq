@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { DEIDENTIFICATION_TABS, HOW_IT_WORKS_STEP_INTERVAL_MS } from "../lib/constants";
+import { DEIDENTIFICATION_TABS, DEIDENTIFICATION_TAB_INTERVAL_MS } from "../lib/constants";
 
 const GRAIN_TEXTURE = "/images/deidentification/grain-texture.webp";
 const PATTERN_STRIP = "/images/deidentification/pattern-strip.png";
@@ -20,7 +20,7 @@ function StripProgressLoader({ onComplete }: { onComplete: () => void }) {
     const start = performance.now();
 
     const tick = (now: number) => {
-      const ratio = Math.min((now - start) / HOW_IT_WORKS_STEP_INTERVAL_MS, 1);
+      const ratio = Math.min((now - start) / DEIDENTIFICATION_TAB_INTERVAL_MS, 1);
       setProgress(ratio);
 
       if (ratio < 1) {

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { DeidentificationTabs } from "./deidentification-tabs";
+import { AutoplayVideo } from "./autoplay-video";
 import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 
@@ -13,6 +14,12 @@ const BLUE_CARD_BY_TAB: Record<DeidentificationTab, string> = {
   Coverage: "/images/deidentification/blue-card.webp",
   "The pipeline": "/images/deidentification/blue-card-2.webp",
   Policy: "/images/deidentification/blue-card-3.webp",
+};
+
+const VIDEO_BY_TAB: Partial<Record<DeidentificationTab, string>> = {
+  Coverage: encodeURI("/images/deidentification/De-Identification - 1.webm"),
+  "The pipeline": encodeURI("/images/deidentification/De-Identification - 2.webm"),
+  Policy: encodeURI("/images/deidentification/De-Identification - 3.webm"),
 };
 
 export function DeidentificationSection() {
@@ -90,13 +97,21 @@ export function DeidentificationSection() {
             </div>
 
             <div className="relative min-w-0 flex-1 overflow-hidden lg:h-[522px] lg:w-1/2 lg:flex-none">
-              <Image
-                key={activeTab}
-                src={BLUE_CARD_BY_TAB[activeTab]}
-                alt="Redacted email preview: an original message shown alongside the same message with personally identifiable information replaced by gray redaction bars"
-                fill
-                className="object-cover"
-              />
+              {VIDEO_BY_TAB[activeTab] ? (
+                <AutoplayVideo
+                  key={activeIndex}
+                  src={VIDEO_BY_TAB[activeTab]}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              ) : (
+                <Image
+                  key={activeTab}
+                  src={BLUE_CARD_BY_TAB[activeTab]}
+                  alt="Redacted email preview: an original message shown alongside the same message with personally identifiable information replaced by gray redaction bars"
+                  fill
+                  className="object-cover"
+                />
+              )}
             </div>
           </div>
 
