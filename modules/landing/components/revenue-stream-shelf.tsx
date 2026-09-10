@@ -20,13 +20,20 @@ export function RevenueStreamShelf() {
       className="relative aspect-[1296/674] w-full"
       style={{ containerType: "inline-size" }}
     >
-      {/* dashed perspective wireframe */}
+      {/* dashed perspective wireframe (only the side notches that overlap the
+          zigzag side patterns below are clipped out, so the top/bottom end
+          caps — including the line above "Historical operating data" —
+          still reach the side dashed lines) */}
       <Image
         src={REVENUE_STREAM_WIREFRAME}
         alt=""
         width={1297}
         height={515}
         className="absolute top-0 left-0 h-[39.7639cqw] w-full max-w-none"
+        style={{
+          clipPath:
+            "polygon(0% 0%, 100% 0%, 100% 5.9047%, 85.8025% 5.9047%, 85.8025% 91.2833%, 100% 91.2833%, 100% 100%, 0% 100%, 0% 91.2833%, 14.1975% 91.2833%, 14.1975% 5.9047%, 0% 5.9047%)",
+        }}
       />
 
       {/* full-bleed floor color (navy + cyan bands, center dash tick baked in) extending past the box below the card */}
