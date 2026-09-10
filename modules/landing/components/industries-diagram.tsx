@@ -34,7 +34,7 @@ export function IndustriesDiagram() {
   return (
     <div
       ref={ref}
-      className="relative aspect-[665/671] w-full max-w-[560px] overflow-hidden"
+      className="relative aspect-[665/671] w-full max-w-[560px] overflow-hidden min-[1800px]:max-w-[630px]"
       style={{ containerType: "inline-size" }}
     >
       <Image
