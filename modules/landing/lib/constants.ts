@@ -42,8 +42,6 @@ export const PRICING_TIERS = [
 
 export const HOW_IT_WORKS_STEP_INTERVAL_MS = 5000;
 
-export const DEIDENTIFICATION_TAB_INTERVAL_MS = 6000;
-
 export const VALUATION_STEPS = [
   {
     label: "Value",

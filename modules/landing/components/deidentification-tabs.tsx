@@ -1,61 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { DEIDENTIFICATION_TABS, DEIDENTIFICATION_TAB_INTERVAL_MS } from "../lib/constants";
+import { DEIDENTIFICATION_TABS } from "../lib/constants";
 
 const GRAIN_TEXTURE = "/images/deidentification/grain-texture.webp";
 const PATTERN_STRIP = "/images/deidentification/pattern-strip.png";
 
-function StripProgressLoader({ onComplete }: { onComplete: () => void }) {
-  const [progress, setProgress] = useState(0);
-  const onCompleteRef = useRef(onComplete);
-
-  useEffect(() => {
-    onCompleteRef.current = onComplete;
-  }, [onComplete]);
-
-  useEffect(() => {
-    let frameId: number;
-    const start = performance.now();
-
-    const tick = (now: number) => {
-      const ratio = Math.min((now - start) / DEIDENTIFICATION_TAB_INTERVAL_MS, 1);
-      setProgress(ratio);
-
-      if (ratio < 1) {
-        frameId = requestAnimationFrame(tick);
-      } else {
-        onCompleteRef.current();
-      }
-    };
-
-    frameId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frameId);
-  }, []);
-
-  return (
-    <div className="pointer-events-none absolute inset-y-0 left-0 w-2 overflow-hidden animate-[reveal-fade_300ms_ease-out]">
-      <div className="absolute inset-0 bg-[#7E7E7E]" />
-      <Image
-        src={PATTERN_STRIP}
-        alt=""
-        fill
-        className="relative object-cover object-left"
-        style={{ clipPath: `inset(0 0 ${(1 - progress) * 100}% 0)` }}
-      />
-    </div>
-  );
-}
-
 export function DeidentificationTabs({
   activeIndex,
   onSelect,
-  onComplete,
 }: {
   activeIndex: number;
   onSelect: (index: number) => void;
-  onComplete: () => void;
 }) {
   return (
     <div className="flex w-full">
@@ -89,7 +45,17 @@ export function DeidentificationTabs({
               }}
             />
 
-            {isActive ? <StripProgressLoader key={index} onComplete={onComplete} /> : null}
+            {isActive ? (
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-2 overflow-hidden">
+                <div className="absolute inset-0 bg-[#7E7E7E]" />
+                <Image
+                  src={PATTERN_STRIP}
+                  alt=""
+                  fill
+                  className="relative object-cover object-left"
+                />
+              </div>
+            ) : null}
 
             <span className="relative">{tab}</span>
           </button>

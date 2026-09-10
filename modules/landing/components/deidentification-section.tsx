@@ -26,7 +26,7 @@ const VIDEO_BY_TAB: Partial<Record<DeidentificationTab, string>> = {
 };
 
 export function DeidentificationSection() {
-  const { activeIndex, setActiveIndex, advance } = useStepCycle(DEIDENTIFICATION_TABS.length);
+  const { activeIndex, setActiveIndex } = useStepCycle(DEIDENTIFICATION_TABS.length);
   const mediaLayerKeys = useCrossfadeLayers(activeIndex, MEDIA_CROSSFADE_MS);
 
   return (
@@ -120,7 +120,7 @@ export function DeidentificationSection() {
             </div>
           </div>
 
-          <DeidentificationTabs activeIndex={activeIndex} onSelect={setActiveIndex} onComplete={advance} />
+          <DeidentificationTabs activeIndex={activeIndex} onSelect={setActiveIndex} />
         </div>
         </div>
       </div>
