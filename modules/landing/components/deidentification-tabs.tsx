@@ -36,11 +36,12 @@ function StripProgressLoader({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div className="pointer-events-none absolute inset-y-0 left-0 w-2 overflow-hidden animate-[reveal-fade_300ms_ease-out]">
+      <div className="absolute inset-0 bg-[#7E7E7E]" />
       <Image
         src={PATTERN_STRIP}
         alt=""
         fill
-        className="object-cover object-left"
+        className="relative object-cover object-left"
         style={{ clipPath: `inset(0 0 ${(1 - progress) * 100}% 0)` }}
       />
     </div>
