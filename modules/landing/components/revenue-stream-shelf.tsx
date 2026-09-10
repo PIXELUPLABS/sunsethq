@@ -40,9 +40,9 @@ export function RevenueStreamShelf() {
       <Image
         src={REVENUE_STREAM_FLOOR_BAND}
         alt=""
-        width={1440}
+        width={1874}
         height={205}
-        className="absolute top-[36.2654cqw] left-[-5.5556cqw] z-10 h-[15.8179cqw] w-[111.1111cqw] max-w-none"
+        className="absolute top-[36.2654cqw] left-1/2 z-10 h-[15.8179cqw] w-auto max-w-none -translate-x-1/2"
       />
 
       {/* white card with the two-column data list */}

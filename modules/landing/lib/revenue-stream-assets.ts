@@ -18,7 +18,7 @@ export const REVENUE_STREAM_PANEL_SIDE_RIGHT =
   "/images/revenue-stream/panel-side-right.png";
 
 export const REVENUE_STREAM_FLOOR_BAND =
-  "/images/revenue-stream/floor-band-image.svg";
+  "/images/revenue-stream/floor-band-image-1.svg";
 
 export const REVENUE_STREAM_ITEMS = [
   {
