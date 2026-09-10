@@ -4,7 +4,7 @@ import { StatsGrid } from "./stats-grid";
 
 export function StatsSection() {
   return (
-    <section className="relative overflow-hidden border-t border-b border-dashed border-[#d4d4d4] px-4 sm:px-18 lg:px-[75px]">
+    <section className="relative overflow-hidden border-t border-b border-dashed border-[#d4d4d4] px-4 sm:px-18 lg:px-[72px]">
       <Image
         src="/images/grain-light-texture.svg"
         alt=""

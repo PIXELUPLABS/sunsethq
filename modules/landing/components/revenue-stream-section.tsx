@@ -11,11 +11,11 @@ export function RevenueStreamSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative w-full border-b border-dashed border-[#d4d4d4] px-4 sm:px-18 lg:px-[72px]">
+      <div className="relative w-full border-b border-dashed border-[#d4d4d4] px-4 sm:px-18 lg:px-[72px] min-[1800px]:px-0">
         <div className="mx-auto h-20 max-w-[1560px] border-x border-dashed border-[#d4d4d4]" />
       </div>
 
-      <div className="relative flex w-full flex-col items-center gap-16 bg-[#eaebf1] pt-20">
+      <div className="relative flex w-full flex-col items-center gap-16 bg-[#eaebf1]">
         <Image
           src="/images/grain-light-texture.svg"
           alt=""
@@ -24,16 +24,16 @@ export function RevenueStreamSection() {
         />
 
         <div className="relative mx-auto w-full max-w-[1560px]">
-          <div className="pointer-events-none absolute inset-x-4 inset-y-0 sm:inset-x-18 lg:inset-x-[72px]">
+          <div className="pointer-events-none absolute inset-x-4 inset-y-0 sm:inset-x-18 lg:inset-x-[72px] min-[1800px]:inset-x-0">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="pointer-events-none absolute inset-x-4 top-[28px] sm:inset-x-18 lg:inset-x-[72px]">
+          <div className="pointer-events-none absolute inset-x-4 top-[28px] sm:inset-x-18 lg:inset-x-[72px] min-[1800px]:inset-x-0">
             <div className="border-t border-dashed border-[#d4d4d4]" />
           </div>
           <div className="pointer-events-none absolute inset-x-4 top-0 h-[372px] sm:inset-x-18 lg:inset-x-[152px]">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="relative w-full px-4 sm:px-18 lg:px-[72px]">
+          <div className="relative w-full px-4 pt-20 sm:px-18 lg:px-[72px] min-[1800px]:px-0">
             <div className="relative mb-16 flex w-full flex-col items-start gap-10 sm:flex-row sm:gap-10 lg:gap-10 lg:px-[86px]">
               <h2 className="flex-1 font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
                 You already own your
