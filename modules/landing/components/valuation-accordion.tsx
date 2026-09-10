@@ -39,6 +39,7 @@ function StepProgressBar({ onComplete }: { onComplete: () => void }) {
 
   return (
     <div className="relative mt-2 h-1 w-full overflow-hidden">
+      <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#383535]" />
       <Image
         src="/images/progress-loader.svg"
         alt=""
@@ -62,14 +63,16 @@ export function ValuationAccordion({
         return (
           <div
             key={step.label}
-            className={`border-b border-[#383535] py-6 ${
+            className={`border-b border-[#383535] ${
               isOpen || index === VALUATION_STEPS.length - 1 ? "border-b-0" : ""
             }`}
           >
             <button
               type="button"
               onClick={() => onSelect(index)}
-              className="group flex w-full cursor-pointer items-center gap-1.5"
+              className={`group flex w-full cursor-pointer items-center gap-1.5 pt-6 ${
+                isOpen ? "" : "pb-6"
+              }`}
             >
               <span
                 className={`size-[5px] rounded-full ${
@@ -82,7 +85,7 @@ export function ValuationAccordion({
             </button>
 
             {isOpen && step.title ? (
-              <div className="relative mt-2 flex flex-col gap-4 pb-1">
+              <div className="relative mt-2 flex flex-col gap-4 pb-6">
                 <p className="font-serif text-[32px] tracking-tight text-white">
                   {step.title}
                 </p>
