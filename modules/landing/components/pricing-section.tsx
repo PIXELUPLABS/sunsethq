@@ -68,13 +68,20 @@ export function PricingSection() {
             ref={barsRef}
             className="flex items-end gap-6 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8"
           >
-            {PRICING_TIERS.map((tier) => (
+            {PRICING_TIERS.map((tier, tierIndex) => (
               <div key={tier.value} className="flex h-full flex-1 items-end overflow-hidden">
                 <div className="h-full w-3 shrink-0 border-y border-l border-dashed border-white/30" />
 
                 <div className="flex flex-1 flex-col items-start gap-[26px] pb-3">
                   <div className="flex w-full flex-col items-start gap-[14px]">
-                    <p className="font-serif text-[27px] leading-[1.04] tracking-[-0.81px] text-[#fafafa] uppercase">
+                    <p
+                      className="font-serif text-[27px] leading-[1.04] tracking-[-0.81px] text-[#fafafa] uppercase transition-[transform,opacity] duration-500 ease-out"
+                      style={{
+                        transitionDelay: `${tierIndex * 150}ms`,
+                        transform: barsInView ? "translateX(0)" : "translateX(-24px)",
+                        opacity: barsInView ? 1 : 0,
+                      }}
+                    >
                       {tier.value}
                     </p>
                     <div className="flex w-full flex-col items-start gap-[6px]">
