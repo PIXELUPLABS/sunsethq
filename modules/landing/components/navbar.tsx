@@ -13,9 +13,8 @@ export function Navbar() {
       />
 
       <div className="relative flex h-16 items-center justify-between px-18">
-        <Link href="/" className="flex items-center gap-1">
-          <Image src="/images/logo-mark.svg" alt="Replay" width={25} height={25} priority />
-          <span className="font-serif text-xl leading-none text-[#464646]">Replay</span>
+        <Link href="/" className="flex items-center">
+          <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
 
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex">

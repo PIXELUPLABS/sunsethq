@@ -9,10 +9,13 @@ export function Footer() {
           <div className="flex max-w-[309px] flex-col gap-8">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-2">
-                <Image src="/images/footer-logo.svg" alt="" width={43} height={43} />
-                <span className="font-serif text-4xl leading-none text-white">
-                  Replay
-                </span>
+                <Image
+                  src="/images/sunset-logo.svg"
+                  alt="Replay"
+                  width={133}
+                  height={43}
+                  className="invert"
+                />
               </div>
               <p className="text-lg leading-relaxed tracking-tight text-white/75">
                 Yield on what you&apos;ve already built.
