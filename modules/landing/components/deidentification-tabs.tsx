@@ -1,14 +1,17 @@
 "use client";
 
-import { DEIDENTIFICATION_TABS } from "../lib/constants";
-import { useTabs } from "../hooks/use-tabs";
+import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
 import { ProcessBar } from "./process-bar";
 
 const GRAIN_TEXTURE = "/images/deidentification/grain-texture.webp";
 
-export function DeidentificationTabs() {
-  const { activeTab, setActiveTab } = useTabs(DEIDENTIFICATION_TABS);
-
+export function DeidentificationTabs({
+  activeTab,
+  onTabChange,
+}: {
+  activeTab: DeidentificationTab;
+  onTabChange: (tab: DeidentificationTab) => void;
+}) {
   return (
     <div className="flex w-full">
       {DEIDENTIFICATION_TABS.map((tab) => {
@@ -17,7 +20,7 @@ export function DeidentificationTabs() {
           <button
             key={tab}
             type="button"
-            onClick={() => setActiveTab(tab)}
+            onClick={() => onTabChange(tab)}
             className={`relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors ${
               isActive ? "bg-black text-[#f2f2f2]" : "bg-transparent text-black"
             }`}

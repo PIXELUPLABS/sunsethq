@@ -79,6 +79,8 @@ export const VALUATION_STEPS = [
 
 export const DEIDENTIFICATION_TABS = ["Coverage", "The pipeline", "Policy"] as const;
 
+export type DeidentificationTab = (typeof DEIDENTIFICATION_TABS)[number];
+
 export const BUYER_CARDS: BuyerCard[] = [
   {
     headline: "Frontier labs and data labs, not brokers reselling on.",

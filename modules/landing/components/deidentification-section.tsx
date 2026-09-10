@@ -1,12 +1,23 @@
+"use client";
+
 import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { DeidentificationTabs } from "./deidentification-tabs";
+import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
+import { useTabs } from "../hooks/use-tabs";
 
 const GRAIN_TEXTURE = "/images/texture-grain-white.png";
 const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
-const BLUE_CARD = "/images/deidentification/blue-card.webp";
+
+const BLUE_CARD_BY_TAB: Record<DeidentificationTab, string> = {
+  Coverage: "/images/deidentification/blue-card.webp",
+  "The pipeline": "/images/deidentification/blue-card-2.webp",
+  Policy: "/images/deidentification/blue-card-3.webp",
+};
 
 export function DeidentificationSection() {
+  const { activeTab, setActiveTab } = useTabs(DEIDENTIFICATION_TABS);
+
   return (
     <section
       id="de-identification"
@@ -79,7 +90,8 @@ export function DeidentificationSection() {
 
             <div className="relative min-w-0 flex-1 overflow-hidden lg:h-[522px] lg:w-1/2 lg:flex-none">
               <Image
-                src={BLUE_CARD}
+                key={activeTab}
+                src={BLUE_CARD_BY_TAB[activeTab]}
                 alt="Redacted email preview: an original message shown alongside the same message with personally identifiable information replaced by gray redaction bars"
                 fill
                 className="object-cover"
@@ -87,7 +99,7 @@ export function DeidentificationSection() {
             </div>
           </div>
 
-          <DeidentificationTabs />
+          <DeidentificationTabs activeTab={activeTab} onTabChange={setActiveTab} />
         </div>
         </div>
       </div>
