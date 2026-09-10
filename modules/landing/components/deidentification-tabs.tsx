@@ -35,7 +35,7 @@ function StripProgressLoader({ onComplete }: { onComplete: () => void }) {
   }, []);
 
   return (
-    <div className="pointer-events-none absolute inset-y-0 left-0 w-2 overflow-hidden">
+    <div className="pointer-events-none absolute inset-y-0 left-0 w-2 overflow-hidden animate-[reveal-fade_300ms_ease-out]">
       <Image
         src={PATTERN_STRIP}
         alt=""
@@ -65,31 +65,30 @@ export function DeidentificationTabs({
             key={tab}
             type="button"
             onClick={() => onSelect(index)}
-            className={`group relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors ${
+            className={`group relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors duration-300 ${
               isActive ? "bg-black text-[#f2f2f2]" : "bg-transparent text-black"
             }`}
           >
-            {!isActive ? (
-              <Image
-                src="/images/medium-grey-texture-btn-bg.svg"
-                alt=""
-                fill
-                className="pointer-events-none object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              />
-            ) : null}
+            <Image
+              src="/images/medium-grey-texture-btn-bg.svg"
+              alt=""
+              fill
+              className={`pointer-events-none object-cover transition-opacity duration-300 ${
+                isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"
+              }`}
+            />
 
-            {isActive ? (
-              <>
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-[0.11] mix-blend-multiply"
-                  style={{
-                    backgroundImage: `url(${GRAIN_TEXTURE})`,
-                    backgroundSize: "432.6px 432.6px",
-                  }}
-                />
-                <StripProgressLoader key={index} onComplete={onComplete} />
-              </>
-            ) : null}
+            <div
+              className={`pointer-events-none absolute inset-0 mix-blend-multiply transition-opacity duration-300 ${
+                isActive ? "opacity-[0.11]" : "opacity-0"
+              }`}
+              style={{
+                backgroundImage: `url(${GRAIN_TEXTURE})`,
+                backgroundSize: "432.6px 432.6px",
+              }}
+            />
+
+            {isActive ? <StripProgressLoader key={index} onComplete={onComplete} /> : null}
 
             <span className="relative">{tab}</span>
           </button>

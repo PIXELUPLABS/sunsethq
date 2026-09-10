@@ -3,9 +3,12 @@
 import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { DeidentificationTabs } from "./deidentification-tabs";
-import { AutoplayVideo } from "./autoplay-video";
+import { DeidentificationMediaLayer } from "./deidentification-media-layer";
 import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
+import { useCrossfadeLayers } from "../hooks/use-crossfade-layers";
+
+const MEDIA_CROSSFADE_MS = 500;
 
 const GRAIN_TEXTURE = "/images/texture-grain-white.png";
 const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
@@ -24,7 +27,7 @@ const VIDEO_BY_TAB: Partial<Record<DeidentificationTab, string>> = {
 
 export function DeidentificationSection() {
   const { activeIndex, setActiveIndex, advance } = useStepCycle(DEIDENTIFICATION_TABS.length);
-  const activeTab = DEIDENTIFICATION_TABS[activeIndex];
+  const mediaLayerKeys = useCrossfadeLayers(activeIndex, MEDIA_CROSSFADE_MS);
 
   return (
     <section
@@ -103,21 +106,17 @@ export function DeidentificationSection() {
             </div>
 
             <div className="relative min-w-0 flex-1 overflow-hidden lg:h-[522px] lg:w-1/2 lg:flex-none">
-              {VIDEO_BY_TAB[activeTab] ? (
-                <AutoplayVideo
-                  key={activeIndex}
-                  src={VIDEO_BY_TAB[activeTab]}
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-              ) : (
-                <Image
-                  key={activeTab}
-                  src={BLUE_CARD_BY_TAB[activeTab]}
-                  alt="Redacted email preview: an original message shown alongside the same message with personally identifiable information replaced by gray redaction bars"
-                  fill
-                  className="object-cover"
-                />
-              )}
+              {mediaLayerKeys.map((index, layerPosition) => {
+                const tab = DEIDENTIFICATION_TABS[index];
+                return (
+                  <DeidentificationMediaLayer
+                    key={index}
+                    videoSrc={VIDEO_BY_TAB[tab]}
+                    imageSrc={BLUE_CARD_BY_TAB[tab]}
+                    isIncoming={layerPosition === mediaLayerKeys.length - 1}
+                  />
+                );
+              })}
             </div>
           </div>
 
