@@ -51,9 +51,16 @@ export function CtaSection() {
         </p>
         <a
           href="#value-my-data"
-          className="relative flex items-center bg-ink px-5 py-3 font-serif text-xs uppercase tracking-wide text-white"
+          className="group relative flex items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs uppercase tracking-wide text-white"
         >
-          Value my data
+          <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
+          </div>
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
+          </div>
+          <span className="relative">Value my data</span>
         </a>
 
         <div className="relative flex w-full flex-col items-center gap-2 border-t border-dashed border-black/8 pt-6 text-center sm:absolute sm:inset-x-0 sm:bottom-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:border-t sm:px-4.5 sm:py-3 sm:text-left">
