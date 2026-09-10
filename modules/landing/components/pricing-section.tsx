@@ -1,8 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import { AlignLeftIcon } from "@/components/ui/icons";
 import { PRICING_TIERS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
 import { BottomStripes } from "./bottom-stripes";
+import { useInView } from "../hooks/use-in-view";
 
 const GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
 const WHO_ITS_FOR_MARK = "/images/pricing/who-its-for-mark.png";
@@ -15,6 +18,8 @@ const TONE_COLOR: Record<(typeof PRICING_TIERS)[number]["tone"], string> = {
 };
 
 export function PricingSection() {
+  const { ref: barsRef, inView: barsInView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+
   return (
     <section className="relative flex h-[990px] flex-col overflow-hidden bg-brand-gradient bg-ink px-6 pt-[110px] sm:px-18">
       <div
@@ -59,7 +64,10 @@ export function PricingSection() {
             </div>
           </div>
 
-          <div className="flex items-end gap-6 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8">
+          <div
+            ref={barsRef}
+            className="flex items-end gap-6 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8"
+          >
             {PRICING_TIERS.map((tier) => (
               <div key={tier.value} className="flex h-full flex-1 items-end overflow-hidden">
                 <div className="h-full w-3 shrink-0 border-y border-l border-dashed border-white/30" />
@@ -73,8 +81,13 @@ export function PricingSection() {
                       {Array.from({ length: tier.segments }).map((_, i) => (
                         <div
                           key={i}
-                          className="relative h-5 w-full overflow-hidden"
-                          style={{ backgroundColor: TONE_COLOR[tier.tone] }}
+                          className="relative h-5 w-full overflow-hidden transition-[transform,opacity] duration-500 ease-out"
+                          style={{
+                            backgroundColor: TONE_COLOR[tier.tone],
+                            transitionDelay: `${(tier.segments - 1 - i) * 90}ms`,
+                            transform: barsInView ? "translateY(0)" : "translateY(16px)",
+                            opacity: barsInView ? 1 : 0,
+                          }}
                         >
                           <div
                             className="absolute inset-0 mix-blend-soft-light"
