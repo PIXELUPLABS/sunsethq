@@ -4,7 +4,7 @@ import { NAV_LINKS } from "../lib/constants";
 
 export function Navbar() {
   return (
-    <header className="fixed top-0 left-1/2 z-20 w-full max-w-[1560px] -translate-x-1/2 overflow-hidden border-b border-dashed border-black/8 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-black/8 backdrop-blur-sm">
       <Image
         src="/images/grain-light-texture.svg"
         alt=""
@@ -12,7 +12,7 @@ export function Navbar() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative flex h-16 items-center justify-between px-18">
+      <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-18">
         <Link href="/" className="flex items-center">
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
