@@ -1,8 +1,21 @@
+"use client";
+
 import Image from "next/image";
+import { useElementParallax } from "../hooks/use-element-parallax";
+
+const PANEL_PARALLAX_SHIFT_X = 16;
+const PANEL_PARALLAX_SHIFT_Y = 8;
+const LEFT_PATTERN_PARALLAX_SHIFT_X = 14;
+const LEFT_PATTERN_PARALLAX_SHIFT_Y = 7;
+const ABOVE_PATTERN_PARALLAX_SHIFT_X = 12;
+const ABOVE_PATTERN_PARALLAX_SHIFT_Y = 6;
 
 export function CtaSection() {
+  const { containerRef, offset } = useElementParallax<HTMLElement>();
+
   return (
     <section
+      ref={containerRef}
       id="value-my-data"
       className="relative w-full overflow-hidden bg-[#080808] py-20 sm:py-24 lg:aspect-[1440/716] lg:py-0"
     >
@@ -12,6 +25,48 @@ export function CtaSection() {
         fill
         className="pointer-events-none hidden object-cover lg:block"
       />
+
+      <div
+        className="pointer-events-none absolute top-[42.95%] left-[42.12%] hidden h-[42.18%] w-[45.07%] lg:block"
+        style={{
+          transform: `translate3d(${offset.x * PANEL_PARALLAX_SHIFT_X}px, ${offset.y * PANEL_PARALLAX_SHIFT_Y}px, 0)`,
+        }}
+      >
+        <Image
+          src="/images/cta/blue-panel.webp"
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div
+        className="pointer-events-none absolute top-[58.52%] left-[12.71%] hidden h-[26.89%] w-[25.59%] lg:block"
+        style={{
+          transform: `translate3d(${offset.x * LEFT_PATTERN_PARALLAX_SHIFT_X}px, ${offset.y * LEFT_PATTERN_PARALLAX_SHIFT_Y}px, 0)`,
+        }}
+      >
+        <Image
+          src="/images/cta/left-pattern.webp"
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div
+        className="pointer-events-none absolute top-[14.66%] left-[62.5%] hidden h-[25.49%] w-[25%] lg:block"
+        style={{
+          transform: `translate3d(${offset.x * ABOVE_PATTERN_PARALLAX_SHIFT_X}px, ${offset.y * ABOVE_PATTERN_PARALLAX_SHIFT_Y}px, 0)`,
+        }}
+      >
+        <Image
+          src="/images/cta/above-pattern.webp"
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
 
       <div
         className="relative mx-auto flex w-full max-w-[859px] flex-col items-center justify-center gap-8 overflow-hidden bg-[#fcfcfc] px-6 py-10 text-center sm:gap-14 sm:px-10 sm:py-14 lg:absolute lg:top-[23.6%] lg:left-[20.14%] lg:h-[52.79%] lg:w-[59.65%] lg:max-w-none lg:px-10 lg:py-0"
