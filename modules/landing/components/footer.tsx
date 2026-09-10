@@ -20,11 +20,19 @@ export function Footer() {
                 A new asset class needs a standard.
               </p>
             </div>
-            <div className="flex items-center gap-2 opacity-70">
-              <a href="#" aria-label="X (Twitter)" className="flex size-[30px] items-center justify-center">
+            <div className="flex items-center gap-2">
+              <a
+                href="#"
+                aria-label="X (Twitter)"
+                className="flex size-[30px] items-center justify-center opacity-75 transition-opacity duration-300 hover:opacity-100"
+              >
                 <Image src="/images/social-x.svg" alt="" width={21} height={19} />
               </a>
-              <a href="#" aria-label="LinkedIn" className="flex size-[30px] items-center justify-center">
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                className="flex size-[30px] items-center justify-center opacity-75 transition-opacity duration-300 hover:opacity-100"
+              >
                 <Image src="/images/social-linkedin.svg" alt="" width={21} height={22} />
               </a>
             </div>
@@ -36,12 +44,12 @@ export function Footer() {
                 <p className="font-serif-accent text-base tracking-tight text-white">
                   {column.index} {column.title}
                 </p>
-                <div className="flex flex-col gap-2 text-sm tracking-tight text-white/75">
+                <div className="flex flex-col gap-2 text-sm tracking-tight">
                   {column.links.map((link) => (
                     <a
                       key={link}
                       href="#"
-                      className="relative w-fit pb-0.5 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:text-white hover:after:w-full"
+                      className="relative w-fit pb-0.5 text-white/75 transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:text-white hover:after:w-full"
                     >
                       {link}
                     </a>
