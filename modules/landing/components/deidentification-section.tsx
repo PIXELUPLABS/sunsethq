@@ -58,7 +58,13 @@ export function DeidentificationSection() {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative flex flex-col gap-10 overflow-hidden bg-[#eaebf1] lg:flex-row lg:items-stretch lg:gap-0">
+          <div className="relative flex flex-col gap-10 overflow-hidden lg:flex-row lg:items-stretch lg:gap-0">
+            <Image
+              src="/images/medium-grey-texture-bg.svg"
+              alt=""
+              fill
+              className="pointer-events-none object-cover"
+            />
             <Image
               src={GRAIN_TEXTURE}
               alt=""
