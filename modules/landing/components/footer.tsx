@@ -4,9 +4,9 @@ import { FOOTER_COLUMNS } from "../lib/constants";
 export function Footer() {
   return (
     <footer className="bg-[#080808] px-6 py-16 sm:px-18">
-      <div className="mx-auto flex w-full max-w-[1560px] flex-col gap-20">
+      <div className="mx-auto flex w-full max-w-[1560px] flex-col gap-[150px]">
         <div className="flex flex-col justify-between gap-14 lg:flex-row">
-          <div className="flex max-w-[309px] flex-col gap-8">
+          <div className="flex max-w-[309px] flex-col gap-8 self-start">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-2">
                 <Image
@@ -63,7 +63,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8">
+        <div className="pt-8">
           <p className="font-mono text-xs uppercase tracking-wide text-white">
             © 2026 Replay. All rights reserved · Sunset HQ Corp.
           </p>
