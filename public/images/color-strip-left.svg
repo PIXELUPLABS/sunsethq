@@ -1,0 +1,20 @@
+<svg width="4" height="59" viewBox="0 0 4 59" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g clip-path="url(#clip0_6172_73)">
+<rect width="221.918" height="4" transform="translate(4 -170.937) rotate(90)" fill="#499DF8"/>
+<rect width="221.918" height="4" transform="translate(4 -170.937) rotate(90)" fill="url(#pattern0_6172_73)" style="mix-blend-mode:soft-light"/>
+<rect width="31.0685" height="4" transform="translate(4 50.981) rotate(90)" fill="#EAE058"/>
+<rect width="31.0685" height="4" transform="translate(4 50.981) rotate(90)" fill="url(#pattern1_6172_73)" style="mix-blend-mode:soft-light"/>
+</g>
+<defs>
+<pattern id="pattern0_6172_73" patternContentUnits="objectBoundingBox" width="2.05714" height="4.79343">
+<use xlink:href="#image0_6172_73" transform="matrix(-0.00205714 0 0 -0.114129 2.05714 4.79343)"/>
+</pattern>
+<pattern id="pattern1_6172_73" patternContentUnits="objectBoundingBox" width="14.6939" height="4.79343">
+<use xlink:href="#image0_6172_73" transform="matrix(-0.0146939 0 0 -0.114129 14.6939 4.79343)"/>
+</pattern>
+<clipPath id="clip0_6172_73">
+<rect width="59" height="4" fill="white" transform="translate(4) rotate(90)"/>
+</clipPath>
+<image id="image0_6172_73" width="1000" height="42" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAAqCAYAAAAga3HGAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAjBJREFUeAHt19tt4zAQBVBiG3E6STrJdqJSVIpKUSlcL6AggmDTpJ3HTXDOVxDPCCQ1lnxL7TeVzfnvvwN9p3Jw/t/cqF9Kw/nz9VD/Wjqc6562+rUM+L/v/d4H+t7W+dxZ/3I8iBv1S+MM5wv1T7Xf627vXS7s+5Jpq2nNz7q7Vq/fMpu1DKi5szk3zvAnz+b+Wo+u8e45r3fs/XDeS6NlvnFvj0ZnaOj5u/XOdXDOd+s7ddYf7/t6o35pnOF0of6l9nve9U29TbueXvOj6+tc562zXA/1X/HcnMug+n7Pv+O5uVzp6dX1fDs4bT3ro9e9d73XzrHBbPbVJ87mNNDzGbO5Nso++50+/L189P401voV7/Spjr/T12v7v1L/ke/0D/ndutt7lz8FAAAA+HYCOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAD/AApstAnw3yEYAAAAAElFTkSuQmCC"/>
+</defs>
+</svg>
