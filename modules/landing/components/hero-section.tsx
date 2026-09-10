@@ -8,7 +8,7 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc]">
       <Image
-        src="/images/texture-grain-white.png"
+        src="/images/grain-light-texture.svg"
         alt=""
         fill
         priority

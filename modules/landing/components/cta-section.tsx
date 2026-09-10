@@ -29,7 +29,7 @@ export function CtaSection() {
         }}
       >
         <Image
-          src="/images/texture-grain-white.png"
+          src="/images/grain-light-texture.svg"
           alt=""
           fill
           className="object-cover mix-blend-multiply"
@@ -40,7 +40,7 @@ export function CtaSection() {
         className="relative mx-auto flex w-full max-w-[859px] flex-col items-center justify-center gap-8 overflow-hidden bg-[#fcfcfc] px-6 py-10 text-center sm:gap-14 sm:px-10 sm:py-14 lg:absolute lg:top-[23.6%] lg:left-[20.14%] lg:h-[52.79%] lg:w-[59.65%] lg:max-w-none lg:px-10 lg:py-0"
       >
         <Image
-          src="/images/texture-grain-white.png"
+          src="/images/grain-light-texture.svg"
           alt=""
           fill
           className="pointer-events-none object-cover"

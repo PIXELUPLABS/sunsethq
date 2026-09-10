@@ -10,7 +10,7 @@ import { useCrossfadeLayers } from "../hooks/use-crossfade-layers";
 
 const MEDIA_CROSSFADE_MS = 500;
 
-const GRAIN_TEXTURE = "/images/texture-grain-white.png";
+const GRAIN_TEXTURE = "/images/grain-light-texture.svg";
 const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
 
 const BLUE_CARD_BY_TAB: Record<DeidentificationTab, string> = {
@@ -35,7 +35,7 @@ export function DeidentificationSection() {
       className="relative flex justify-center overflow-hidden px-6 sm:px-18"
     >
       <Image
-        src="/images/texture-grain-white.png"
+        src="/images/grain-light-texture.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"

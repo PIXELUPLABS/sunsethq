@@ -6,7 +6,7 @@ export function StatsSection() {
   return (
     <section className="relative overflow-hidden border-t border-b border-dashed border-[#d4d4d4] px-4 sm:px-18 lg:px-[75px]">
       <Image
-        src="/images/texture-grain-white.png"
+        src="/images/grain-light-texture.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"

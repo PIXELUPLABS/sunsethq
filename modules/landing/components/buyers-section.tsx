@@ -14,7 +14,7 @@ export function BuyersSection() {
   return (
     <section className="relative flex justify-center overflow-hidden px-6 sm:px-18">
       <Image
-        src="/images/texture-grain-white.png"
+        src="/images/grain-light-texture.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"

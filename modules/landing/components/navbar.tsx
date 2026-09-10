@@ -6,7 +6,7 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-1/2 z-20 w-full max-w-[1560px] -translate-x-1/2 overflow-hidden border-b border-dashed border-black/8 backdrop-blur-sm">
       <Image
-        src="/images/texture-grain-white.png"
+        src="/images/grain-light-texture.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"
