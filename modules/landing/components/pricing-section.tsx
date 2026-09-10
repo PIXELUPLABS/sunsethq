@@ -2,6 +2,7 @@ import Image from "next/image";
 import { AlignLeftIcon } from "@/components/ui/icons";
 import { PRICING_TIERS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
+import { BottomStripes } from "./bottom-stripes";
 
 const GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
 
@@ -122,13 +123,7 @@ export function PricingSection() {
         </div>
       </div>
 
-      <Image
-        src="/images/pricing/bottom-stripes.png"
-        alt=""
-        width={2882}
-        height={274}
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-auto w-full -scale-y-100"
-      />
+      <BottomStripes />
     </section>
   );
 }
