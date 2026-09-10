@@ -1,7 +1,7 @@
 "use client";
 
 import { createIllustrationScaler } from "../lib/illustration-scale";
-import { useInView } from "../hooks/use-in-view";
+import { useScrollProgress } from "../hooks/use-scroll-progress";
 
 const SOURCE = { width: 2882, height: 274 };
 const STRIPE_COLOR = "#0C0C0B";
@@ -31,7 +31,7 @@ const STRIPE_TOPS = STRIPES.reduce<number[]>((tops, stripe, i) => {
 }, []);
 
 export function BottomStripes() {
-  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 });
+  const { ref, progress } = useScrollProgress<HTMLDivElement>();
 
   return (
     <div
@@ -41,19 +41,23 @@ export function BottomStripes() {
     >
       {STRIPES.map((stripe, i) => {
         const delayIndex = STRIPES.length - 1 - i;
+        const stripeStart = delayIndex / STRIPES.length;
+        const stripeEnd = (delayIndex + 1) / STRIPES.length;
+        const stripeProgress = Math.min(
+          1,
+          Math.max(0, (progress - stripeStart) / (stripeEnd - stripeStart))
+        );
 
         return (
           <div
             key={i}
-            className="absolute left-0 w-full transition-[transform,opacity] ease-out"
+            className="absolute left-0 w-full"
             style={{
               top: s.y(STRIPE_TOPS[i]),
               height: s.y(stripe.height),
               background: STRIPE_COLOR,
-              transitionDuration: "700ms",
-              transitionDelay: `${delayIndex * 70}ms`,
-              transform: inView ? "translateY(0)" : "translateY(14px)",
-              opacity: inView ? 1 : 0,
+              transform: `translateY(${(1 - stripeProgress) * 14}px)`,
+              opacity: stripeProgress,
             }}
           />
         );
