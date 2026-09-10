@@ -37,7 +37,7 @@ export const DATA_CATEGORIES: DataCategory[] = [
 export const PRICING_TIERS = [
   { value: "$10K+", people: "<25 People", segments: 2, tone: "muted" as const },
   { value: "$100K+", people: "25-100 People", segments: 7, tone: "cyan" as const },
-  { value: "$1M+", people: "25-100 People", segments: 11, tone: "blue" as const },
+  { value: "$1M+", people: "100+ People", segments: 11, tone: "blue" as const },
 ];
 
 export const HOW_IT_WORKS_STEP_INTERVAL_MS = 5000;

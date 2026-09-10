@@ -5,16 +5,18 @@ import { SectionTag } from "./section-tag";
 import { BottomStripes } from "./bottom-stripes";
 
 const GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
+const WHO_ITS_FOR_MARK = "/images/pricing/who-its-for-mark.png";
+const TEXTURE_PANEL = "/images/pricing/Union.svg";
 
 const TONE_COLOR: Record<(typeof PRICING_TIERS)[number]["tone"], string> = {
-  muted: "rgba(255,255,255,0.19)",
-  cyan: "rgba(37,255,249,0.5)",
+  muted: "#3a5979",
+  cyan: "#1a99aa",
   blue: "#118ecc",
 };
 
 export function PricingSection() {
   return (
-    <section className="relative flex h-[805px] flex-col overflow-hidden bg-brand-gradient bg-ink px-6 pt-[110px] sm:px-18">
+    <section className="relative flex h-[990px] flex-col overflow-hidden bg-brand-gradient bg-ink px-6 pt-[110px] sm:px-18">
       <div
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
         style={{
@@ -23,103 +25,109 @@ export function PricingSection() {
         }}
       />
 
-      <div className="relative flex flex-col gap-16 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex max-w-[637px] flex-col justify-between gap-[152px]">
-          <div className="flex flex-col items-start gap-6">
-            <SectionTag
-              label="Who it's for"
-              tone="dark"
-              icon={
-                <Image
-                  src="/images/who-its-for-icon.svg"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
-            />
-            <h2 className="font-serif text-[32px] leading-none tracking-tight text-[#f1f1f1] sm:text-[44px] sm:tracking-[-1.76px]">
-              What companies
-              <br />
-              your size get paid.
-            </h2>
+      <div className="relative flex w-full flex-col gap-10 overflow-hidden bg-black/10 px-6 py-10 sm:gap-[60px] sm:px-10 sm:py-[60px]">
+        {/* tag + heading + texture panel, and the pricing tiers */}
+        <div className="flex flex-col gap-8 lg:h-[400px] lg:flex-row lg:items-start">
+          <div className="flex flex-col gap-10 lg:w-[400px] lg:shrink-0 lg:gap-[49px]">
+            <div className="flex flex-col items-start gap-6 lg:w-[351px]">
+              <SectionTag
+                label="Who it's for"
+                tone="dark"
+                icon={
+                  <Image
+                    src={WHO_ITS_FOR_MARK}
+                    alt=""
+                    width={18}
+                    height={18}
+                  />
+                }
+              />
+              <h2 className="font-serif text-[32px] leading-none tracking-tight text-[#f1f1f1] sm:text-[44px] sm:tracking-[-1.76px]">
+                What companies
+                <br />
+                your size get paid.
+              </h2>
+            </div>
+
+            <div className="relative hidden h-[200px] w-full overflow-hidden lg:block">
+              <Image
+                src={TEXTURE_PANEL}
+                alt=""
+                fill
+                className="pointer-events-none object-cover mix-blend-multiply"
+              />
+            </div>
           </div>
 
-          <div className="flex flex-col gap-5">
-            <div className="flex flex-col gap-4 border-t border-white/0 pt-0 sm:flex-row sm:items-start">
-              <div className="flex shrink-0 items-center sm:items-center">
-                <div className="flex w-fit shrink-0 items-start gap-4">
-                  <AlignLeftIcon className="mt-1 size-6" />
-                  <p className="font-serif text-2xl tracking-tight text-white">
-                    The deal
+          <div className="flex items-end gap-6 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8">
+            {PRICING_TIERS.map((tier) => (
+              <div key={tier.value} className="flex h-full flex-1 items-end overflow-hidden">
+                <div className="h-full w-3 shrink-0 border-y border-l border-dashed border-white/30" />
+
+                <div className="flex flex-1 flex-col items-start gap-[26px] pb-3">
+                  <div className="flex w-full flex-col items-start gap-[14px]">
+                    <p className="font-serif text-[27px] leading-[1.04] tracking-[-0.81px] text-[#fafafa] uppercase">
+                      {tier.value}
+                    </p>
+                    <div className="flex w-full flex-col items-start gap-[6px]">
+                      {Array.from({ length: tier.segments }).map((_, i) => (
+                        <div
+                          key={i}
+                          className="relative h-5 w-full overflow-hidden"
+                          style={{ backgroundColor: TONE_COLOR[tier.tone] }}
+                        >
+                          <div
+                            className="absolute inset-0 mix-blend-soft-light"
+                            style={{
+                              backgroundImage: `url(${GRAIN_TEXTURE})`,
+                              backgroundSize: "296px 296px",
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <p className="font-mono text-[10px] leading-[1.1] font-medium tracking-[0.9px] text-[#ddd] uppercase">
+                    {tier.people}
                   </p>
                 </div>
-                <div className="hidden h-0 w-[89px] shrink-0 border-t border-dashed border-white/65 sm:ml-[84px] sm:block" />
+
+                <div className="h-full w-3 shrink-0 border-y border-r border-dashed border-white/30" />
               </div>
-              <p className="w-[309px] shrink-0 text-base leading-[1.4] tracking-[-0.48px] text-white sm:ml-[20px]">
-                Headcount is a proxy. How long you&apos;ve been operating, what
-                industry you&apos;re in, which apps you run on and how much
-                data sits in each all factor into the final price.
-              </p>
-            </div>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-              <div className="flex shrink-0 items-center sm:items-center">
-                <div className="flex w-fit shrink-0 items-start gap-4">
-                  <AlignLeftIcon className="mt-1 size-6" />
-                  <p className="font-serif text-2xl tracking-tight text-white">
-                    Why it recurs
-                  </p>
-                </div>
-                <div className="hidden h-0 w-[89px] shrink-0 border-t border-dashed border-white/65 sm:ml-[33px] sm:block" />
-              </div>
-              <p className="w-[309px] shrink-0 text-base leading-[1.4] tracking-[-0.48px] text-white sm:ml-[20px]">
-                You&apos;re paid up front, plus a revenue share of every
-                license. And because your company keeps producing data, the
-                revenue recurs.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
 
-        <div className="flex h-[494px] w-full max-w-[548px] items-start justify-center gap-6 overflow-hidden bg-black/25 px-16 py-[47px]">
-          {PRICING_TIERS.map((tier) => (
-            <div key={tier.value} className="relative h-[400px] w-[124px] shrink-0">
-              {/* dashed measurement brackets */}
-              <div className="absolute top-[6px] bottom-[11px] left-[12px] w-0 border-l border-dashed border-white/30" />
-              <div className="absolute top-[6px] bottom-[11px] right-[12px] w-0 border-l border-dashed border-white/30" />
-              <div className="absolute top-[6px] left-[12px] h-0 w-[8px] border-t border-dashed border-white/30" />
-              <div className="absolute bottom-[11px] left-[12px] h-0 w-[8px] border-t border-dashed border-white/30" />
-              <div className="absolute top-[6px] right-[12px] h-0 w-[8px] border-t border-dashed border-white/30" />
-              <div className="absolute right-[12px] bottom-[11px] h-0 w-[8px] border-t border-dashed border-white/30" />
-
-              <p className="absolute inset-x-0 bottom-[20px] text-center font-mono text-[10px] tracking-[0.9px] text-[#ddd] uppercase">
-                {tier.people}
+        {/* the deal / why it recurs */}
+        <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
+          <div className="flex flex-1 flex-col items-start gap-3">
+            <div className="flex items-start gap-4">
+              <AlignLeftIcon className="size-6" />
+              <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white">
+                The deal
               </p>
-
-              <div className="absolute inset-x-0 bottom-[51px] flex flex-col items-center">
-                <p className="mb-1.5 font-serif text-[27px] leading-[1.04] tracking-[-0.81px] text-[#fafafa] uppercase">
-                  {tier.value}
-                </p>
-                <div className="flex flex-col-reverse items-stretch gap-[5.83px]">
-                  {Array.from({ length: tier.segments }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="relative h-[20.65px] w-[82.6px] overflow-hidden"
-                      style={{ backgroundColor: TONE_COLOR[tier.tone] }}
-                    >
-                      <div
-                        className="absolute inset-0 mix-blend-soft-light backdrop-blur-[2.7px]"
-                        style={{
-                          backgroundImage: `url(${GRAIN_TEXTURE})`,
-                          backgroundSize: "296px 296px",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
-          ))}
+            <div className="hidden h-5 w-full lg:block" />
+            <p className="text-base leading-[1.4] tracking-[-0.48px] text-white">
+              Headcount is a proxy. How long you&apos;ve been operating, what
+              industry you&apos;re in, which apps you run on and how much
+              data sits in each all factor into the final price.
+            </p>
+          </div>
+          <div className="flex flex-1 flex-col items-start gap-3">
+            <div className="flex items-start gap-4">
+              <AlignLeftIcon className="size-6" />
+              <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white">
+                Why it recurs
+              </p>
+            </div>
+            <div className="hidden h-5 w-full lg:block" />
+            <p className="text-base leading-[1.4] tracking-[-0.48px] text-white">
+              You&apos;re paid up front, plus a revenue share of every
+              license. And because your company keeps producing data, the
+              revenue recurs.
+            </p>
+          </div>
         </div>
       </div>
 
