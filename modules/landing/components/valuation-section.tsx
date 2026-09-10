@@ -41,7 +41,7 @@ export function ValuationSection() {
           />
         </div>
 
-        <div className="relative min-h-[420px] overflow-hidden bg-[#0c0c0b]">
+        <div className="relative w-full min-h-[420px] overflow-hidden bg-[#0c0c0b]">
           {VALUATION_STEPS.map((step, index) => {
             const isActive = index === activeIndex;
             const fadeClassName = `absolute inset-0 transition-opacity duration-700 ease-in-out ${
