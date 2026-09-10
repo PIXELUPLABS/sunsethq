@@ -61,7 +61,7 @@ export function DeidentificationSection() {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative flex flex-col gap-10 overflow-hidden lg:flex-row lg:items-stretch lg:gap-0">
+          <div className="relative flex flex-col gap-10 overflow-hidden lg:aspect-[1236/522] lg:flex-row lg:items-stretch lg:gap-0">
             <Image
               src="/images/medium-grey-texture-bg.svg"
               alt=""
@@ -75,7 +75,7 @@ export function DeidentificationSection() {
               className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
             />
 
-            <div className="relative flex min-w-0 flex-1 items-center gap-10 pr-6 pl-6 sm:pr-10 sm:pl-10 lg:h-[522px] lg:w-1/2 lg:flex-none lg:pr-[108px] lg:pl-0">
+            <div className="relative flex min-w-0 flex-1 items-center gap-10 pr-6 pl-6 sm:pr-10 sm:pl-10 lg:h-full lg:w-1/2 lg:flex-none lg:pr-[108px] lg:pl-0">
               <div className="relative hidden h-full w-10 shrink-0 self-stretch overflow-hidden lg:block">
                 <Image
                   src={SIDE_GRAIN}
@@ -105,7 +105,7 @@ export function DeidentificationSection() {
               </div>
             </div>
 
-            <div className="relative min-w-0 flex-1 overflow-hidden lg:h-[522px] lg:w-1/2 lg:flex-none">
+            <div className="relative min-w-0 flex-1 overflow-hidden lg:h-full lg:w-1/2 lg:flex-none">
               {mediaLayerKeys.map((index, layerPosition) => {
                 const tab = DEIDENTIFICATION_TABS[index];
                 return (
