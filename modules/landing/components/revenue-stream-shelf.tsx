@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { RevenueStreamShelfItem } from "./revenue-stream-shelf-item";
+import { useInView } from "../hooks/use-in-view";
 import {
   REVENUE_STREAM_DASH_TICK_LEFT,
   REVENUE_STREAM_DASH_TICK_RIGHT,
@@ -14,9 +17,32 @@ import {
   REVENUE_STREAM_WIREFRAME,
 } from "../lib/revenue-stream-assets";
 
+// Per-tile floating offsets (px) for the tiles animated so far — mirrored
+// left/right depending on which side of the grid the tile sits on, and
+// up/down depending on which direction the tile floats in from. Delays are
+// spaced a full transition (400ms) apart, in a hand-picked random order (not
+// index order), so each tile finishes snapping into place before the next
+// one starts — a sequence, not an overlapping sweep.
+const ANIMATED_ITEM_OFFSETS: Record<
+  number,
+  { x: number; y: number; delayMs: number }
+> = {
+  0: { x: -12, y: -12, delayMs: 400 }, // Product logs
+  1: { x: 12, y: -12, delayMs: 1600 }, // Support history
+  2: { x: -12, y: -12, delayMs: 2400 }, // Decision threads
+  3: { x: 12, y: -12, delayMs: 800 }, // Product data
+  6: { x: -12, y: 12, delayMs: 2000 }, // Support
+  7: { x: 12, y: 12, delayMs: 0 }, // CRM
+  8: { x: -12, y: 12, delayMs: 2800 }, // Code and commits
+  9: { x: 12, y: 12, delayMs: 1200 }, // Sales conversations
+};
+
 export function RevenueStreamShelf() {
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+
   return (
     <div
+      ref={ref}
       className="relative aspect-[1296/674] w-full"
       style={{ containerType: "inline-size" }}
     >
@@ -54,13 +80,20 @@ export function RevenueStreamShelf() {
           className="pointer-events-none object-cover mix-blend-multiply"
         />
         <div className="relative grid h-full grid-cols-2 grid-rows-5 border-t border-l border-dashed border-[#a8a8a8]">
-          {REVENUE_STREAM_ITEMS.map((item, index) => (
-            <RevenueStreamShelfItem
-              key={item.label}
-              {...item}
-              isLastRow={index >= REVENUE_STREAM_ITEMS.length - 2}
-            />
-          ))}
+          {REVENUE_STREAM_ITEMS.map((item, index) => {
+            const offset = ANIMATED_ITEM_OFFSETS[index];
+            return (
+              <RevenueStreamShelfItem
+                key={item.label}
+                {...item}
+                isLastRow={index >= REVENUE_STREAM_ITEMS.length - 2}
+                start={offset ? inView : true}
+                offsetX={offset?.x ?? 0}
+                offsetY={offset?.y ?? 0}
+                delayMs={offset?.delayMs ?? 0}
+              />
+            );
+          })}
         </div>
       </div>
 
