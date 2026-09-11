@@ -123,28 +123,26 @@ export function PricingSection() {
 
         {/* the deal / why it recurs */}
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
-          <div className="flex flex-1 flex-col items-start gap-3">
+          <div className="flex flex-1 flex-col items-start gap-6">
             <div className="flex items-center gap-2 lg:items-start lg:gap-4">
               <AlignLeftIcon className="size-[18px] lg:size-6" />
               <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
                 The deal
               </p>
             </div>
-            <div className="hidden h-5 w-full lg:block" />
             <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/80 lg:text-base lg:tracking-[-0.48px] lg:text-white">
               Headcount is a proxy. How long you&apos;ve been operating, what
               industry you&apos;re in, which apps you run on and how much
               data sits in each all factor into the final price.
             </p>
           </div>
-          <div className="flex flex-1 flex-col items-start gap-3">
+          <div className="flex flex-1 flex-col items-start gap-6">
             <div className="flex items-center gap-2 lg:items-start lg:gap-4">
               <AlignLeftIcon className="size-[18px] lg:size-6" />
               <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
                 Why it recurs
               </p>
             </div>
-            <div className="hidden h-5 w-full lg:block" />
             <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/80 lg:text-base lg:tracking-[-0.48px] lg:text-white">
               You&apos;re paid up front, plus a revenue share of every
               license. And because your company keeps producing data, the
