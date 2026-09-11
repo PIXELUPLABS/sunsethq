@@ -4,12 +4,14 @@ import Image from "next/image";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { useElementParallax } from "../hooks/use-element-parallax";
 
-const PANEL_PARALLAX_SHIFT_X = 16;
-const PANEL_PARALLAX_SHIFT_Y = 8;
-const LEFT_PATTERN_PARALLAX_SHIFT_X = 14;
-const LEFT_PATTERN_PARALLAX_SHIFT_Y = 7;
-const ABOVE_PATTERN_PARALLAX_SHIFT_X = 12;
-const ABOVE_PATTERN_PARALLAX_SHIFT_Y = 6;
+const TOP_LEFT_PARALLAX_SHIFT_X = 20;
+const TOP_LEFT_PARALLAX_SHIFT_Y = 12;
+const TOP_RIGHT_PARALLAX_SHIFT_X = 16;
+const TOP_RIGHT_PARALLAX_SHIFT_Y = 10;
+const RIGHT_BOTTOM_PARALLAX_SHIFT_X = 18;
+const RIGHT_BOTTOM_PARALLAX_SHIFT_Y = 11;
+const LEFT_BOTTOM_PARALLAX_SHIFT_X = 14;
+const LEFT_BOTTOM_PARALLAX_SHIFT_Y = 9;
 
 export function CtaSection() {
   const { containerRef, offset } = useElementParallax<HTMLElement>();
@@ -18,7 +20,7 @@ export function CtaSection() {
     <section
       ref={containerRef}
       id="value-my-data"
-      className="relative aspect-[390/572] w-full scroll-mt-16 overflow-hidden bg-[#080808] lg:aspect-[1440/716]"
+      className="relative aspect-[390/572] w-full scroll-mt-16 overflow-hidden bg-[#080808] lg:aspect-[1440/716] lg:bg-transparent"
     >
       <Image
         src="/images/cta/background-mobile.webp"
@@ -27,58 +29,77 @@ export function CtaSection() {
         priority={false}
         className="pointer-events-none object-cover lg:hidden"
       />
-      <Image
-        src="/images/cta/background.webp"
-        alt=""
-        fill
-        className="pointer-events-none hidden object-cover lg:block"
-      />
-
+      <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-[43%] overflow-hidden bg-[#eaebf1] lg:block">
+        <Image
+          src="/images/texture-grain-white.png"
+          alt=""
+          fill
+          className="pointer-events-none object-cover mix-blend-multiply"
+        />
+      </div>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[57%] overflow-hidden bg-[#080808] lg:block">
+        <div className="absolute inset-x-0 top-0 aspect-[4320/321] w-full">
+          <Image
+            src="/images/cta-bg-text.png"
+            alt=""
+            fill
+            className="pointer-events-none object-cover"
+          />
+        </div>
+      </div>
       <div
-        className="pointer-events-none absolute top-[42.95%] left-[42.12%] hidden h-[42.18%] w-[45.07%] lg:block"
+        className="pointer-events-none absolute top-[14.9441%] left-[12.7778%] hidden h-[42.0391%] w-[45%] lg:block"
         style={{
-          transform: `translate3d(${offset.x * PANEL_PARALLAX_SHIFT_X}px, ${offset.y * PANEL_PARALLAX_SHIFT_Y}px, 0)`,
+          transform: `translate3d(${offset.x * TOP_LEFT_PARALLAX_SHIFT_X}px, ${offset.y * TOP_LEFT_PARALLAX_SHIFT_Y}px, 0)`,
         }}
       >
         <Image
-          src="/images/cta/blue-panel.webp"
+          src="/images/top-left-cta-img.webp"
           alt=""
           fill
-          className="object-cover"
+          className="pointer-events-none object-cover"
         />
       </div>
-
       <div
-        className="pointer-events-none absolute top-[58.52%] left-[12.71%] hidden h-[26.89%] w-[25.59%] lg:block"
+        className="pointer-events-none absolute top-[14.9441%] right-[12.8472%] hidden h-[44.8324%] w-[37.6389%] lg:block"
         style={{
-          transform: `translate3d(${offset.x * LEFT_PATTERN_PARALLAX_SHIFT_X}px, ${offset.y * LEFT_PATTERN_PARALLAX_SHIFT_Y}px, 0)`,
+          transform: `translate3d(${offset.x * TOP_RIGHT_PARALLAX_SHIFT_X}px, ${offset.y * TOP_RIGHT_PARALLAX_SHIFT_Y}px, 0)`,
         }}
       >
         <Image
-          src="/images/cta/left-pattern.webp"
+          src="/images/top-right-cta-img.png"
           alt=""
           fill
-          className="object-cover"
+          className="pointer-events-none object-cover"
         />
       </div>
-
       <div
-        className="pointer-events-none absolute top-[14.66%] left-[62.5%] hidden h-[25.49%] w-[25%] lg:block"
+        className="pointer-events-none absolute top-[43.0168%] left-[42.1528%] hidden h-[42.0391%] w-[45%] lg:block"
         style={{
-          transform: `translate3d(${offset.x * ABOVE_PATTERN_PARALLAX_SHIFT_X}px, ${offset.y * ABOVE_PATTERN_PARALLAX_SHIFT_Y}px, 0)`,
+          transform: `translate3d(${offset.x * RIGHT_BOTTOM_PARALLAX_SHIFT_X}px, ${offset.y * RIGHT_BOTTOM_PARALLAX_SHIFT_Y}px, 0)`,
         }}
       >
         <Image
-          src="/images/cta/above-pattern.webp"
+          src="/images/right-bottom-cta-img.webp"
           alt=""
           fill
-          className="object-cover"
+          className="pointer-events-none object-cover"
         />
       </div>
-
       <div
-        className="absolute top-[29.427%] left-[6.1538%] flex h-[45.804%] w-[87.692%] flex-col items-center justify-center gap-6 overflow-hidden bg-[#fcfcfc] px-3 text-center lg:top-[23.6%] lg:left-[20.14%] lg:h-[52.79%] lg:w-[59.65%] lg:gap-14 lg:px-10"
+        className="pointer-events-none absolute bottom-[14.9441%] left-[12.7778%] hidden h-[44.8324%] w-[37.6389%] lg:block"
+        style={{
+          transform: `translate3d(${offset.x * LEFT_BOTTOM_PARALLAX_SHIFT_X}px, ${offset.y * LEFT_BOTTOM_PARALLAX_SHIFT_Y}px, 0)`,
+        }}
       >
+        <Image
+          src="/images/left-bottom-cta-img.png"
+          alt=""
+          fill
+          className="pointer-events-none object-cover"
+        />
+      </div>
+      <div className="absolute top-1/2 left-1/2 hidden h-[378px] w-[860px] -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-[#fcfcfc] lg:block">
         <Image
           src="/images/grain-light-texture.svg"
           alt=""
@@ -86,48 +107,81 @@ export function CtaSection() {
           className="pointer-events-none object-cover"
         />
 
-        <p className="relative max-w-[min(90%,700px)] font-serif text-[32px] leading-none tracking-[-1.28px] text-black sm:text-[38px] sm:tracking-tight">
-          Find out what your data is worth before you decide anything.
-        </p>
-        <a
-          href="#value-my-data"
-          className="group relative flex items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs uppercase tracking-wide text-white"
-        >
-          <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
-          </div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
-          </div>
-          <span className="relative">Value my data</span>
-        </a>
-
-        <div className="absolute inset-x-2.5 bottom-3.5 flex items-center justify-between gap-1 text-left sm:inset-x-0 sm:bottom-0 sm:gap-4 sm:border-t sm:border-dashed sm:border-black/8 sm:px-4.5 sm:py-3">
-          <div className="flex flex-col gap-px sm:flex-row sm:items-center sm:gap-4">
-            <p className="font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:text-[8px]">
-              process
-            </p>
-            <p className="flex items-center gap-0.5 font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:gap-1 sm:text-[8px]">
-              <span>identified</span>
-              <ArrowRightIcon className="size-1.5 shrink-0 sm:size-2.5" />
-              <span>structured</span>
-              <ArrowRightIcon className="size-1.5 shrink-0 sm:size-2.5" />
-              <span>verified</span>
-              <ArrowRightIcon className="size-1.5 shrink-0 sm:size-2.5" />
-              <span>licensed</span>
-            </p>
-          </div>
-          <div className="shrink-0 border border-dashed border-[#d9d9d9] px-0.5 py-0.5 sm:px-2 sm:py-1.5">
-            <p className="font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:text-[8px]">
-              RL-2026-001 // Version 1.0
-            </p>
-          </div>
-          <p className="font-mono text-[3px] leading-tight text-[#898989] uppercase tracking-wide sm:text-[8px]">
-            classification
-            <br />
-            proprietary data / licensing
+        <div className="relative flex h-full w-full flex-col items-center justify-center gap-14">
+          <p className="relative w-full max-w-[755px] text-center font-serif text-[54px] leading-none tracking-[-2.16px] text-black">
+            Find out what your data is worth before you decide anything.
           </p>
+          <a
+            href="#value-my-data"
+            className="group relative flex items-center overflow-hidden bg-[#141518] px-5 py-3"
+          >
+            <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
+            </div>
+            <span className="relative font-serif text-xs leading-[0.8] tracking-wide text-white uppercase">
+              Value my data
+            </span>
+          </a>
+
+          <div className="pointer-events-none absolute inset-x-6 top-[342px] flex items-center justify-between">
+            <div className="flex items-center gap-8">
+              <div className="flex flex-col gap-1">
+                <p className="font-mono text-[6px] tracking-[-0.07px] text-[#898989] uppercase">
+                  process
+                </p>
+                <p className="flex items-center gap-1 font-mono text-[6px] tracking-[-0.07px] text-[#898989] uppercase">
+                  <span>identified</span>
+                  <ArrowRightIcon className="size-1.5 shrink-0" />
+                  <span>structured</span>
+                  <ArrowRightIcon className="size-1.5 shrink-0" />
+                  <span>verified</span>
+                  <ArrowRightIcon className="size-1.5 shrink-0" />
+                  <span>licensed</span>
+                </p>
+              </div>
+              <div className="border border-dashed border-black/20 px-2 py-1.5">
+                <p className="font-mono text-[6px] tracking-[-0.07px] text-[#898989] whitespace-nowrap uppercase">
+                  RL-2026-001 // Version 1.0
+                </p>
+              </div>
+              <p className="font-mono text-[6px] leading-tight tracking-[-0.07px] text-[#898989] uppercase">
+                classification
+                <br />
+                proprietary data / licensing
+              </p>
+            </div>
+
+            <div className="flex items-center">
+              <div className="relative flex items-center gap-1 border-[0.5px] border-[#898989]/40 p-1">
+                <p className="font-mono text-[4.2px] leading-[1.1] tracking-wide text-[#898989] uppercase">
+                  def load_dataset(source):
+                  <br />
+                  records = source.read()
+                  <br />
+                  return normalize(records)
+                </p>
+                <span className="absolute bottom-0.5 left-0.5 size-0.5 rounded-full bg-[#898989]" />
+              </div>
+              <div className="relative flex items-center gap-1 border-[0.5px] border-[#898989]/40 p-1">
+                <p className="font-mono text-[4.2px] leading-[1.1] tracking-wide text-[#898989] uppercase">
+                  def load_dataset(source):
+                  <br />
+                  records = source.read()
+                  <br />
+                  return normalize(records)
+                </p>
+                <span className="absolute bottom-0.5 left-0.5 size-0.5 rounded-full bg-[#898989]" />
+              </div>
+            </div>
+          </div>
+
+          <div className="pointer-events-none absolute top-[calc(50%-22px)] left-6 h-[334px] w-px -translate-y-1/2 border-l border-dashed border-black/10" />
+          <div className="pointer-events-none absolute top-[calc(50%-22px)] right-6 h-[334px] w-px -translate-y-1/2 border-l border-dashed border-black/10" />
+          <div className="pointer-events-none absolute inset-x-[61px] top-[calc(50%+141px)] border-t border-dashed border-black/10" />
         </div>
       </div>
     </section>
