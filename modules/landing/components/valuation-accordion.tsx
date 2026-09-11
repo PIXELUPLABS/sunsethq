@@ -1,5 +1,6 @@
 "use client";
 
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { HOW_IT_WORKS_STEP_INTERVAL_MS, VALUATION_STEPS } from "../lib/constants";
@@ -57,13 +58,14 @@ export function ValuationAccordion({
   onComplete,
 }: ValuationAccordionProps) {
   return (
-    <div className="flex w-full flex-col">
+    <div className="contents lg:flex lg:w-full lg:flex-col">
       {VALUATION_STEPS.map((step, index) => {
         const isOpen = activeIndex === index;
         return (
           <div
             key={step.label}
-            className={`border-b border-[#383535] ${
+            style={{ "--row-order": (index + 1) * 2 } as CSSProperties}
+            className={`order-[var(--row-order)] border-b border-[#383535] lg:order-none ${
               isOpen || index === VALUATION_STEPS.length - 1 ? "border-b-0" : ""
             }`}
           >
