@@ -4,7 +4,10 @@ import { IndustriesDiagram } from "./industries-diagram";
 
 export function IndustriesSection() {
   return (
-    <section className="relative flex justify-center overflow-hidden bg-[#eaebf1] px-6 py-20 sm:px-18">
+    <section
+      id="who-its-for"
+      className="relative flex scroll-mt-16 justify-center overflow-hidden bg-[#eaebf1] px-6 py-20 sm:px-18"
+    >
       <Image
         src="/images/texture-grain-white.png"
         alt=""

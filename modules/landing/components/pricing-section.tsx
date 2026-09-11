@@ -21,7 +21,10 @@ export function PricingSection() {
   const { ref: barsRef, inView: barsInView } = useInView<HTMLDivElement>({ threshold: 0.3 });
 
   return (
-    <section className="relative flex h-[990px] flex-col overflow-hidden bg-brand-gradient bg-ink px-6 pt-[110px] sm:px-18">
+    <section
+      id="what-you-earn"
+      className="relative flex h-[990px] scroll-mt-16 flex-col overflow-hidden bg-brand-gradient bg-ink px-6 pt-[110px] sm:px-18"
+    >
       <div
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
         style={{

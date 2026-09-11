@@ -32,7 +32,7 @@ export function DeidentificationSection() {
   return (
     <section
       id="de-identification"
-      className="relative flex justify-center overflow-hidden px-6 sm:px-18"
+      className="relative flex scroll-mt-16 justify-center overflow-hidden px-6 sm:px-18"
     >
       <Image
         src="/images/grain-light-texture.svg"

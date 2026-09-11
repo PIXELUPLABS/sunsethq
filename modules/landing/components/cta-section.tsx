@@ -17,7 +17,7 @@ export function CtaSection() {
     <section
       ref={containerRef}
       id="value-my-data"
-      className="relative w-full overflow-hidden bg-[#080808] py-20 sm:py-24 lg:aspect-[1440/716] lg:py-0"
+      className="relative w-full scroll-mt-16 overflow-hidden bg-[#080808] py-20 sm:py-24 lg:aspect-[1440/716] lg:py-0"
     >
       <Image
         src="/images/cta/background.webp"
