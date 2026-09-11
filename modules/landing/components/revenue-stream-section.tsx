@@ -74,6 +74,10 @@ export function RevenueStreamSection() {
             </div>
 
             <div className="relative w-full">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 border-x border-dashed border-[#a8a8a8] sm:hidden"
+              />
               <div className="lg:hidden">
                 <RevenueStreamShelfMobile />
               </div>

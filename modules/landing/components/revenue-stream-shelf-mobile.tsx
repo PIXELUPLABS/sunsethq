@@ -17,11 +17,11 @@ import {
 export function RevenueStreamShelfMobile() {
   return (
     <div className="mx-auto w-full">
-      <p className="mb-1.5 px-3 font-mono text-[8px] tracking-[-0.06px] text-black/60 uppercase">
+      <p className="border border-dashed border-[#a8a8a8] px-3 py-1 font-mono text-[8px] tracking-[-0.06px] text-black/60 uppercase">
         Historical operating data
       </p>
       <div
-        className="relative aspect-[366/436] w-full"
+        className="relative aspect-[366/416] w-full"
         style={{ containerType: "inline-size" }}
       >
         {/* room: top cap, two side walls, bottom cap */}
@@ -30,28 +30,56 @@ export function RevenueStreamShelfMobile() {
           alt=""
           width={346}
           height={32}
-          className="-scale-y-100 absolute top-[5.4645cqw] left-[2.7322cqw] h-[8.7432cqw] w-[94.5355cqw] max-w-none"
+          className="-scale-y-100 absolute top-0 left-[2.7322cqw] h-[8.7432cqw] w-[94.5355cqw] max-w-none"
         />
         <Image
           src={REVENUE_STREAM_MOBILE_WALL_LEFT}
           alt=""
           width={40}
           height={378}
-          className="absolute top-[5.4645cqw] left-[2.7322cqw] h-[103.2787cqw] w-[10.929cqw] max-w-none rotate-180"
+          className="absolute top-0 left-[2.7322cqw] h-[103.2787cqw] w-[10.929cqw] max-w-none rotate-180"
         />
         <Image
           src={REVENUE_STREAM_MOBILE_WALL_RIGHT}
           alt=""
           width={40}
           height={378}
-          className="absolute top-[5.4645cqw] left-[86.3388cqw] h-[103.2787cqw] w-[10.929cqw] max-w-none"
+          className="absolute top-0 left-[86.3388cqw] h-[103.2787cqw] w-[10.929cqw] max-w-none"
         />
         <Image
           src={REVENUE_STREAM_MOBILE_BAND}
           alt=""
           width={346}
           height={32}
-          className="absolute top-[100cqw] left-[2.7322cqw] h-[8.7432cqw] w-[94.5355cqw] max-w-none"
+          className="absolute top-[94.5355cqw] left-[2.7322cqw] h-[8.7432cqw] w-[94.5355cqw] max-w-none"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute left-[2.7322cqw] w-[94.5355cqw] border-x border-dashed border-[#a8a8a8]"
+          style={{ top: "-20px", height: "calc(103.2787cqw + 20px)" }}
+        />
+
+        {/* dashed lines connecting each corner of the outer room border to
+            the matching corner of the inner tiles card */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute h-0 w-[13.9959cqw] border-t border-dashed border-[#a8a8a8]"
+          style={{ top: 0, left: "2.7322cqw", transformOrigin: "0 0", transform: "rotate(38.6598deg)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute h-0 w-[13.9959cqw] border-t border-dashed border-[#a8a8a8]"
+          style={{ top: 0, left: "97.2677cqw", transformOrigin: "0 0", transform: "rotate(141.3402deg)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute h-0 w-[13.9959cqw] border-t border-dashed border-[#a8a8a8]"
+          style={{ top: "103.2787cqw", left: "2.7322cqw", transformOrigin: "0 0", transform: "rotate(-38.6598deg)" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute h-0 w-[13.9959cqw] border-t border-dashed border-[#a8a8a8]"
+          style={{ top: "103.2787cqw", left: "97.2677cqw", transformOrigin: "0 0", transform: "rotate(-141.3402deg)" }}
         />
 
         {/* blue floor, bleeding past the room like it does on desktop */}
@@ -60,11 +88,11 @@ export function RevenueStreamShelfMobile() {
           alt=""
           width={1874}
           height={205}
-          className="absolute top-[103cqw] left-1/2 z-10 h-[16cqw] w-auto max-w-none -translate-x-1/2 scale-x-90"
+          className="absolute top-[97.5355cqw] left-1/2 z-10 h-[16cqw] w-auto max-w-none -translate-x-1/2 scale-x-90"
         />
 
         {/* the stacked data rows */}
-        <div className="absolute top-[14.2077cqw] left-[13.6612cqw] h-[85.7923cqw] w-[72.6776cqw] bg-white">
+        <div className="absolute top-[8.7432cqw] left-[13.6612cqw] h-[85.7923cqw] w-[72.6776cqw] bg-white">
           <Image
             src="/images/texture-grain-white.png"
             alt=""
