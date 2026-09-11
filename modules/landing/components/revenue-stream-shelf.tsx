@@ -148,14 +148,14 @@ export function RevenueStreamShelf() {
         alt=""
         width={1147}
         height={65}
-        className="-scale-y-100 translate-y-[1px] absolute top-[2.3148cqw] left-[5.787cqw] h-[5.0154cqw] w-[88.5031cqw] max-w-none"
+        className="-scale-y-100 translate-y-[1px] absolute top-[2.3148cqw] left-[5.8256cqw] h-[5.0154cqw] w-[88.3488cqw] max-w-none"
       />
       <Image
         src={REVENUE_STREAM_PANEL_FLOOR}
         alt=""
         width={1147}
         height={95.5}
-        className="absolute left-[5.787cqw] top-[31.2515cqw] h-[7.3688cqw] w-[88.5031cqw] max-w-none"
+        className="absolute left-[5.8256cqw] top-[31.2515cqw] h-[7.3688cqw] w-[88.3488cqw] max-w-none"
       />
       <Image
         src={REVENUE_STREAM_PANEL_SIDE_LEFT}

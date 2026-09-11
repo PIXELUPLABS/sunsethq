@@ -85,7 +85,7 @@ export function CtaSection() {
           className="pointer-events-none object-cover"
         />
 
-        <p className="relative max-w-[90%] font-serif text-[32px] leading-none tracking-[-1.28px] text-black sm:text-[38px] sm:tracking-tight">
+        <p className="relative max-w-[min(90%,700px)] font-serif text-[32px] leading-none tracking-[-1.28px] text-black sm:text-[38px] sm:tracking-tight">
           Find out what your data is worth before you decide anything.
         </p>
         <a

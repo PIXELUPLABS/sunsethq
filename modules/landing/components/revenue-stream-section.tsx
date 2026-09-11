@@ -12,11 +12,11 @@ export function RevenueStreamSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative w-full border-b border-dashed border-[#d4d4d4] px-3 sm:px-18 lg:px-[72px] min-[1800px]:px-0">
+      <div className="relative w-full border-b border-dashed border-[#d4d4d4] px-3 sm:px-18 lg:px-[72px]">
         <div className="mx-auto h-16 max-w-[1560px] sm:h-20 border-x border-dashed border-[#d4d4d4]" />
       </div>
 
-      <div className="relative flex w-full flex-col items-center gap-16 bg-[#eaebf1]">
+      <div className="relative flex w-full flex-col items-center gap-16 bg-[#eaebf1] px-3 sm:px-18 lg:px-[72px]">
         <Image
           src="/images/grain-light-texture.svg"
           alt=""
@@ -25,18 +25,25 @@ export function RevenueStreamSection() {
         />
         <div className="pointer-events-none absolute inset-x-3 inset-y-0 bg-[#EAEBF1] sm:hidden" />
 
+        {/* The rules ride on the max-w-[1560px] container itself, as they do
+            in every other section. Insetting them inside the container instead
+            pushed them 72px further in once the cap started centring it. */}
         <div className="relative mx-auto w-full max-w-[1560px]">
-          <div className="pointer-events-none absolute inset-x-3 inset-y-0 hidden sm:inset-x-18 sm:block lg:inset-x-[72px] min-[1800px]:inset-x-0">
+          <div className="pointer-events-none absolute inset-0 hidden sm:block">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="pointer-events-none absolute inset-x-3 top-[28px] hidden sm:inset-x-18 sm:block lg:inset-x-[72px] min-[1800px]:inset-x-0">
+          <div className="pointer-events-none absolute inset-x-0 top-[28px] hidden sm:block">
             <div className="border-t border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="pointer-events-none absolute inset-x-6 top-0 hidden h-full sm:inset-x-18 sm:block lg:inset-x-[152px]">
+          {/* The second pair sits on the illustration's room walls, which are
+              placed in cqw, so this has to be a percentage too - a fixed inset
+              only lines up at one container width. 5.8256% is the wall's outer
+              edge in RevenueStreamShelf. */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-full sm:block lg:inset-x-[5.8256%]">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="relative w-full px-3 pt-16 sm:px-18 sm:pt-20 lg:px-[72px] min-[1800px]:px-0">
-            <div className="relative mb-16 flex w-full flex-col items-start gap-5 px-3 lg:flex-row lg:gap-10 lg:px-[86px]">
+          <div className="relative w-full pt-16 sm:pt-20">
+            <div className="relative mb-16 flex w-full flex-col items-start gap-5 px-3 lg:flex-row lg:gap-10 lg:px-[6.6358%]">
               <h2 className="flex-1 font-serif text-[36px] leading-none tracking-[-1.44px] text-[#181a1b] sm:text-[44px] sm:tracking-tight">
                 <span className="lg:hidden">
                   You already
