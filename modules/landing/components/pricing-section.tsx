@@ -23,7 +23,7 @@ export function PricingSection() {
   return (
     <section
       id="what-you-earn"
-      className="relative flex h-[990px] scroll-mt-16 flex-col overflow-hidden bg-brand-gradient bg-ink px-6 pt-[110px] sm:px-18"
+      className="relative flex scroll-mt-16 flex-col overflow-hidden bg-brand-gradient bg-ink px-3 pt-16 sm:px-18 lg:h-[990px] lg:px-18 lg:pt-[110px]"
     >
       <div
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
@@ -33,7 +33,7 @@ export function PricingSection() {
         }}
       />
 
-      <div className="relative mx-auto flex w-full max-w-[1560px] flex-col gap-10 overflow-hidden bg-black/10 px-6 py-10 sm:gap-[60px] sm:px-10 sm:py-[60px]">
+      <div className="relative mx-auto flex w-full max-w-[1560px] flex-col gap-16 overflow-hidden bg-black/10 px-3 py-10 sm:gap-[60px] sm:px-10 sm:py-[60px]">
         {/* tag + heading + texture panel, and the pricing tiers */}
         <div className="flex flex-col gap-8 lg:h-[400px] lg:flex-row lg:items-start">
           <div className="flex flex-col gap-10 lg:w-[400px] lg:shrink-0 lg:gap-[49px]">
@@ -50,7 +50,7 @@ export function PricingSection() {
                   />
                 }
               />
-              <h2 className="font-serif text-[32px] leading-none tracking-tight text-[#f1f1f1] sm:text-[44px] sm:tracking-[-1.76px]">
+              <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-[#f1f1f1] sm:text-[44px] sm:tracking-[-1.76px]">
                 What companies
                 <br />
                 your size get paid.
@@ -69,16 +69,16 @@ export function PricingSection() {
 
           <div
             ref={barsRef}
-            className="flex items-end gap-6 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8"
+            className="flex h-[296px] items-end gap-2.5 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8"
           >
             {PRICING_TIERS.map((tier, tierIndex) => (
               <div key={tier.value} className="flex h-full flex-1 items-end overflow-hidden">
                 <div className="h-full w-3 shrink-0 border-y border-l border-dashed border-white/30" />
 
-                <div className="flex flex-1 flex-col items-start gap-[26px] pb-3">
-                  <div className="flex w-full flex-col items-start gap-[14px]">
+                <div className="flex flex-1 flex-col items-start justify-end gap-3 pb-2 lg:gap-[26px] lg:pb-3">
+                  <div className="flex w-full flex-col items-start gap-2 lg:gap-[14px]">
                     <p
-                      className="font-serif text-[27px] leading-[1.04] tracking-[-0.81px] text-[#fafafa] uppercase transition-[transform,opacity] duration-500 ease-out"
+                      className="font-serif text-[22px] leading-[1.04] tracking-[-0.66px] text-[#fafafa] uppercase transition-[transform,opacity] duration-500 ease-out lg:text-[27px] lg:tracking-[-0.81px]"
                       style={{
                         transitionDelay: `${tierIndex * 150}ms`,
                         transform: barsInView ? "translateX(0)" : "translateX(-24px)",
@@ -87,11 +87,11 @@ export function PricingSection() {
                     >
                       {tier.value}
                     </p>
-                    <div className="flex w-full flex-col items-start gap-[6px]">
+                    <div className="flex w-full flex-col items-start gap-1 lg:gap-[6px]">
                       {Array.from({ length: tier.segments }).map((_, i) => (
                         <div
                           key={i}
-                          className="relative h-5 w-full overflow-hidden transition-[transform,opacity] duration-500 ease-out"
+                          className="relative h-3.5 w-full overflow-hidden transition-[transform,opacity] duration-500 ease-out lg:h-5"
                           style={{
                             backgroundColor: TONE_COLOR[tier.tone],
                             transitionDelay: `${(tier.segments - 1 - i) * 90}ms`,
