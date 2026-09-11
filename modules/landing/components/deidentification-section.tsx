@@ -61,7 +61,7 @@ export function DeidentificationSection() {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative flex flex-col gap-5 overflow-hidden lg:aspect-[1236/522] lg:flex-row lg:items-stretch lg:gap-0">
+          <div className="relative flex flex-col overflow-hidden lg:aspect-[1236/522] lg:flex-row lg:items-stretch">
             <Image
               src="/images/medium-grey-texture-bg.svg"
               alt=""
@@ -89,7 +89,7 @@ export function DeidentificationSection() {
                 <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black lg:text-[40px] lg:tracking-[-0.4px]">
                   Your data leaves cleaner than a medical record.
                 </h3>
-                <div className="flex flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 lg:gap-2 lg:text-base lg:tracking-[-0.48px] lg:text-[#727272]">
+                <div className="flex max-w-[294px] flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 opacity-80 lg:max-w-none lg:gap-2 lg:text-base lg:tracking-[-0.48px] lg:text-[#727272] lg:opacity-100">
                   <p>
                     The federal standard for de-identifying medical records
                     (HIPAA) lists eighteen categories that have to be
@@ -103,6 +103,15 @@ export function DeidentificationSection() {
                   </p>
                 </div>
               </div>
+            </div>
+
+            <div className="relative h-5 w-full shrink-0 overflow-hidden lg:hidden">
+              <Image
+                src={SIDE_GRAIN}
+                alt=""
+                fill
+                className="pointer-events-none object-cover opacity-48 mix-blend-multiply"
+              />
             </div>
 
             <div className="relative h-[292px] w-full min-w-0 overflow-hidden lg:h-full lg:w-1/2 lg:flex-none">

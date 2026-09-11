@@ -22,7 +22,7 @@ export function DeidentificationTabs({
             key={tab}
             type="button"
             onClick={() => onSelect(index)}
-            className={`group relative flex h-[72px] flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-lg transition-colors duration-300 ${
+            className={`group relative flex h-10 flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-l-0 border-[#ccc] font-serif text-base tracking-[-0.64px] transition-colors duration-300 first:border-l lg:h-[72px] lg:border-l lg:text-lg lg:tracking-normal ${
               isActive ? "bg-black text-[#f2f2f2]" : "bg-transparent text-black"
             }`}
           >
@@ -46,7 +46,7 @@ export function DeidentificationTabs({
             />
 
             {isActive ? (
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-2 overflow-hidden">
+              <div className="pointer-events-none absolute inset-y-0 -left-px w-[5px] overflow-hidden lg:left-0 lg:w-2">
                 <div className="absolute inset-0 bg-[#7E7E7E]" />
                 <Image
                   src={PATTERN_STRIP}
