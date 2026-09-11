@@ -15,7 +15,7 @@ export function Footer() {
         className="pointer-events-none absolute bottom-0 left-0 -z-10 w-[460px] max-w-none opacity-50 sm:w-[766px] sm:opacity-100"
       />
 
-      <div className="relative flex h-full flex-col justify-between gap-20 lg:items-end lg:gap-0">
+      <div className="relative mx-auto flex h-full w-full max-w-[1560px] flex-col justify-between gap-20 lg:items-end lg:gap-0">
         <nav
           aria-label="Footer"
           className="relative grid w-full grid-cols-2 gap-x-8 gap-y-12 sm:flex sm:justify-between"
