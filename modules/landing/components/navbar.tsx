@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS } from "../lib/constants";
+import { MobileNav } from "./mobile-nav";
 
 export function Navbar() {
   return (
@@ -12,7 +13,7 @@ export function Navbar() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-18">
+      <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-6 sm:px-18">
         <Link href="/" className="flex items-center">
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
@@ -29,9 +30,11 @@ export function Navbar() {
           ))}
         </nav>
 
+        <MobileNav />
+
         <a
           href="#value-my-data"
-          className="group relative flex items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs uppercase tracking-wide text-white"
+          className="group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs uppercase tracking-wide text-white md:flex"
         >
           <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
