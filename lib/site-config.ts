@@ -9,7 +9,7 @@ export const SITE_URL =
 export const SITE_NAME = "Replay";
 
 export const SITE_TITLE =
-  "Replay — Fund growth by licensing the data you already have";
+  "Replay - Fund growth by licensing the data you already have";
 
 export const SITE_DESCRIPTION =
   "Replay values your company's operating data, strips every name and identifier, and pays you to license it to frontier AI labs.";
