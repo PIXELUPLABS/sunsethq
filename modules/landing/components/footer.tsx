@@ -16,9 +16,11 @@ export function Footer() {
       />
 
       <div className="relative mx-auto flex h-full w-full max-w-[1560px] flex-col justify-between gap-20 lg:items-end lg:gap-0">
+        {/* Hovering one link recedes the rest of the list rather than
+            highlighting the one under the cursor. */}
         <nav
           aria-label="Footer"
-          className="relative grid w-full grid-cols-2 gap-x-8 gap-y-12 sm:flex sm:justify-between"
+          className="relative grid w-full grid-cols-2 gap-x-8 gap-y-12 sm:flex sm:justify-between [&:has(a:hover)_a:not(:hover)]:opacity-40"
         >
           {/* One continuous rule across all four columns, matching the design.
               It sits between the headings and the links without taking part in
@@ -46,7 +48,7 @@ export function Footer() {
                   <a
                     key={link}
                     href="#"
-                    className="relative w-fit font-mono text-[14px] leading-[1.3] tracking-[0.84px] text-white/60 uppercase transition-colors after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:text-white hover:after:w-full"
+                    className="w-fit font-mono text-[14px] leading-[1.3] tracking-[0.84px] text-white/60 uppercase transition-opacity duration-300 ease-out"
                   >
                     {link}
                   </a>
