@@ -58,7 +58,7 @@ export function BuyersSection() {
                   className="pointer-events-none object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 />
 
-                <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] transition-colors duration-300 group-hover:text-white md:text-[32px] md:leading-tight md:tracking-tight">
+                <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] transition-colors duration-300 group-hover:text-[#f4f4f4] md:text-[32px] md:tracking-[-0.32px]">
                   {card.headline}
                 </p>
                 <div className="relative mb-0 flex items-center gap-[9px] transition-all duration-300 group-hover:text-white group-hover:opacity-60 md:gap-3 md:group-hover:mb-5">
@@ -73,7 +73,7 @@ export function BuyersSection() {
                         : "transition-[filter] duration-300 group-hover:invert"
                     }`}
                   />
-                  <span className="text-sm font-medium uppercase md:text-base">
+                  <span className="text-sm leading-none font-medium uppercase md:text-base">
                     {card.tagLabel}
                   </span>
                 </div>
