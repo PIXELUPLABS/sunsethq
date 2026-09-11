@@ -12,7 +12,7 @@ const ICONS: Record<BuyerCard["icon"], string> = {
 
 export function BuyersSection() {
   return (
-    <section className="relative flex justify-center overflow-hidden px-6 sm:px-18">
+    <section className="relative flex justify-center overflow-hidden px-3 sm:px-18">
       <Image
         src="/images/grain-light-texture.svg"
         alt=""
@@ -21,7 +21,7 @@ export function BuyersSection() {
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-t border-dashed border-[#d4d4d4]">
-        <div className="flex flex-col gap-10 px-5 py-20 sm:px-10">
+        <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20">
           <div className="flex flex-col items-start gap-6">
             <SectionTag
               label="Who buys it"
