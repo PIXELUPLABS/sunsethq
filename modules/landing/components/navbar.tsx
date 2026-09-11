@@ -9,18 +9,13 @@ import { MobileNav } from "./mobile-nav";
  */
 export function Navbar({ linkBase = "" }: { linkBase?: string }) {
   return (
-    <header className="fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-black/8">
+    <header className="fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-[#dedede]">
       {/* backdrop-filter belongs on its own layer, not the header itself -
           on the header it would make it a containing block for the mobile
           nav panel's position:fixed, collapsing that panel to the header's
-          own height instead of the viewport. */}
-      <div className="pointer-events-none absolute inset-0 backdrop-blur-sm" />
-      <Image
-        src="/images/grain-light-texture.svg"
-        alt=""
-        fill
-        className="pointer-events-none object-cover"
-      />
+          own height instead of the viewport. The 97% ground is the design's:
+          it lets the blur read against whatever scrolls under the bar. */}
+      <div className="pointer-events-none absolute inset-0 bg-[#fcfcfc]/97 backdrop-blur-[16px]" />
 
       <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-6 sm:px-18">
         <Link href="/" className="flex items-center">

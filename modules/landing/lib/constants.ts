@@ -151,3 +151,17 @@ export const PROCESS_BAR_COLORS = [
   "#499df8",
   "#54702f",
 ] as const;
+
+/**
+ * The bar along the bottom of the open mobile menu. Widths are the design's
+ * own pixel values against a 1440px canvas, kept as pixels because the menu
+ * shows only the left-hand slice of the bar - see NavColorStrip.
+ */
+export const NAV_STRIP_SEGMENTS = [
+  { color: "#499df8", width: "237.182px" },
+  { color: "#54702f", width: "93px" },
+  { color: "#7e7e7e", width: "264.289px" },
+  { color: "#499df8", width: "52.18px" },
+  { color: "#54702f", width: "142.309px" },
+  { color: "#7e7e7e", width: "262.256px" },
+] as const;
