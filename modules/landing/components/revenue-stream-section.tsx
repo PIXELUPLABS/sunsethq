@@ -23,15 +23,16 @@ export function RevenueStreamSection() {
           fill
           className="pointer-events-none object-cover"
         />
+        <div className="pointer-events-none absolute inset-x-3 inset-y-0 bg-[#EAEBF1] sm:hidden" />
 
         <div className="relative mx-auto w-full max-w-[1560px]">
-          <div className="pointer-events-none absolute inset-x-3 inset-y-0 sm:inset-x-18 lg:inset-x-[72px] min-[1800px]:inset-x-0">
+          <div className="pointer-events-none absolute inset-x-3 inset-y-0 hidden sm:inset-x-18 sm:block lg:inset-x-[72px] min-[1800px]:inset-x-0">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="pointer-events-none absolute inset-x-3 top-[28px] sm:inset-x-18 lg:inset-x-[72px] min-[1800px]:inset-x-0">
+          <div className="pointer-events-none absolute inset-x-3 top-[28px] hidden sm:inset-x-18 sm:block lg:inset-x-[72px] min-[1800px]:inset-x-0">
             <div className="border-t border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="pointer-events-none absolute inset-x-3 top-0 h-full sm:inset-x-18 lg:inset-x-[152px]">
+          <div className="pointer-events-none absolute inset-x-6 top-0 hidden h-full sm:inset-x-18 sm:block lg:inset-x-[152px]">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
           <div className="relative w-full px-3 pt-16 sm:px-18 sm:pt-20 lg:px-[72px] min-[1800px]:px-0">
