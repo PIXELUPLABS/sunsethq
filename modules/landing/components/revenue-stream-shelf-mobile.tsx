@@ -17,7 +17,7 @@ import {
 export function RevenueStreamShelfMobile() {
   return (
     <div className="mx-auto w-full">
-      <p className="border border-dashed border-[#a8a8a8] px-3 py-1 font-mono text-[8px] tracking-[-0.06px] text-black/60 uppercase">
+      <p className="border border-dashed border-[#a8a8a8] py-1 pr-3 pl-[16px] font-mono text-[8px] tracking-[-0.06px] text-black/60 uppercase">
         Historical operating data
       </p>
       <div
