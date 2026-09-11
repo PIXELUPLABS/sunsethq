@@ -16,7 +16,7 @@ import {
  */
 export function RevenueStreamShelfMobile() {
   return (
-    <div className="mx-auto w-full max-w-[366px]">
+    <div className="mx-auto w-full">
       <p className="mb-1.5 font-mono text-[8px] tracking-[-0.06px] text-black/60 uppercase">
         Historical operating data
       </p>
@@ -60,7 +60,7 @@ export function RevenueStreamShelfMobile() {
           alt=""
           width={1874}
           height={205}
-          className="absolute top-[103cqw] left-1/2 z-10 h-[16cqw] w-auto max-w-none -translate-x-1/2"
+          className="absolute top-[103cqw] left-1/2 z-10 h-[16cqw] w-auto max-w-none -translate-x-1/2 scale-x-90"
         />
 
         {/* the stacked data rows */}
