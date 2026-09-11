@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ProcessBar } from "./process-bar";
 import { HeroSidePatternLeft } from "./hero-side-pattern-left";
 import { HeroSidePatternRight } from "./hero-side-pattern-right";
-import { HERO_FORM_3, HERO_PROCESS_DASH } from "../lib/hero-assets";
+import { HERO_PROCESS_DASH } from "../lib/hero-assets";
 
 export function HeroSection() {
   return (
@@ -120,16 +120,6 @@ export function HeroSection() {
         <ProcessBar className="h-2 lg:h-5" />
       </div>
 
-      <div className="pointer-events-none absolute right-[-44.88px] bottom-5 hidden h-[164.459px] w-[395.441px] items-center justify-center lg:flex">
-        <div className="relative h-[164.459px] w-[395.441px]">
-          <Image
-            src={HERO_FORM_3}
-            alt=""
-            fill
-            className="pointer-events-none object-fill"
-          />
-        </div>
-      </div>
     </section>
   );
 }

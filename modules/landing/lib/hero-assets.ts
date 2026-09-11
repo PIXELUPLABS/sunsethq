@@ -1,32 +1,8 @@
-export const HERO_GRAIN_MULTIPLY = "/images/hero/grain-multiply.webp";
-export const HERO_PHOTO_DOCUMENT = "/images/hero/photo-1751.webp";
-export const HERO_PHOTO_FORM = "/images/hero/photo-1754.webp";
 export const HERO_BUTTON_PATTERN = "/images/hero/button-pattern.webp";
-export const HERO_FORM_3 = "/images/hero/form-3.svg";
 export const HERO_BAR_NOISE = "/images/hero/bar-noise.webp";
 
-export const HERO_LINE_VERTICAL_LEFT = "/images/hero/line-587.svg";
-export const HERO_LINE_VERTICAL_RIGHT = "/images/hero/line-588.svg";
 export const HERO_LINE_HORIZONTAL = "/images/hero/line-720.svg";
 export const HERO_PROCESS_DASH = "/images/hero/vector-1803447439.svg";
 
-export const HERO_MASK_COLLAGE = "/images/hero/vector-11114.svg";
-export const HERO_SHAPE_TAN = "/images/hero/vector-11115.svg";
-export const HERO_MASK_LEFT_ACCENT = "/images/hero/image-1462569753.svg";
-export const HERO_MASK_RIGHT_ACCENT_LARGE = "/images/hero/image-1462569755.svg";
-export const HERO_MASK_RIGHT_ACCENT_SMALL = "/images/hero/image-1462569756.svg";
-
-export const HERO_CODE_SNIPPET_LINES = [
-  "def load_dataset(source):",
-  "records = source.read()",
-  "return normalize(records)",
-] as const;
-
-export const HERO_CLASSIFICATION_TEXT_TALL =
-  "CLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA /////";
-
-export const HERO_CLASSIFICATION_TEXT_RIGHT_LONG =
-  "CLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSING";
-
-export const HERO_CLASSIFICATION_TEXT_RIGHT_SHORT =
-  "CLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / LICENSINGCLASSIFICATION\nPROPRIETARY DATA / ";
+export const HERO_SIDE_COLLAGE_LEFT = "/images/hero/side-collage-left.webp";
+export const HERO_SIDE_COLLAGE_RIGHT = "/images/hero/side-collage-right.webp";
