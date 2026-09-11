@@ -5,7 +5,7 @@ export function Footer() {
   return (
     <footer className="relative isolate overflow-hidden bg-[#080808] px-6 pt-16 pb-6 sm:px-18 sm:py-14 lg:h-[627px] lg:px-[72px] lg:py-[54px]">
       <Image
-        src="/images/footer/backdrop.webp"
+        src="/images/footer/backdrop-1.webp"
         alt=""
         aria-hidden
         width={766}
