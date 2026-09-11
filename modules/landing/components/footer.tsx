@@ -22,7 +22,7 @@ export function Footer() {
             highlighting the one under the cursor. */}
         <nav
           aria-label="Footer"
-          className="relative grid w-full grid-cols-2 gap-x-5 gap-y-10 sm:flex sm:justify-between [&:has(a:hover)_a:not(:hover)]:opacity-40"
+          className="relative grid w-full grid-cols-2 gap-x-5 gap-y-10 sm:flex sm:justify-between [&:has(a:hover)_a:not(:hover)]:opacity-40 [&:has(a:hover)_a:not(:hover)]:delay-0"
         >
           {/* One continuous rule across all four columns, matching the design.
               It sits between the headings and the links without taking part in
@@ -53,7 +53,7 @@ export function Footer() {
                   <a
                     key={link}
                     href="#"
-                    className="relative w-fit font-mono text-[12px] leading-[1.3] tracking-[0.72px] text-white/60 uppercase transition-opacity duration-300 ease-out sm:text-[14px] sm:tracking-[0.84px] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
+                    className="relative w-fit font-mono text-[12px] leading-[1.3] tracking-[0.72px] text-white/60 uppercase transition-opacity delay-150 duration-300 ease-out sm:tracking-[0.84px] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
                   >
                     {link}
                   </a>
