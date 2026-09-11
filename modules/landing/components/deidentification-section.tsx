@@ -88,7 +88,9 @@ export function DeidentificationSection() {
                 <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black lg:text-[40px] lg:tracking-[-0.4px]">
                   Your data leaves cleaner than a medical record.
                 </h3>
-                <div className="flex max-w-[294px] flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 opacity-80 lg:max-w-none lg:gap-2 lg:text-base lg:tracking-[-0.48px] lg:text-[#727272] lg:opacity-100">
+                {/* The design's 294px measure inside a 326px panel, kept as a
+                    proportion so it widens with the panel. */}
+                <div className="flex max-w-[90%] flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 opacity-80 lg:max-w-none lg:gap-2 lg:text-base lg:tracking-[-0.48px] lg:text-[#727272] lg:opacity-100">
                   <p>
                     The federal standard for de-identifying medical records
                     (HIPAA) lists eighteen categories that have to be
@@ -113,7 +115,10 @@ export function DeidentificationSection() {
               />
             </div>
 
-            <div className="relative h-[292px] w-full min-w-0 overflow-hidden lg:h-full lg:w-1/2 lg:flex-none">
+            {/* The design's 364x292 panel as a ratio rather than a fixed
+                height, so the card inside keeps even margins as the column
+                widens instead of being cropped top and bottom. */}
+            <div className="relative aspect-[364/292] w-full min-w-0 overflow-hidden lg:aspect-auto lg:h-full lg:w-1/2 lg:flex-none">
               {mediaLayerKeys.map((index, layerPosition) => {
                 const tab = DEIDENTIFICATION_TABS[index];
                 return (
