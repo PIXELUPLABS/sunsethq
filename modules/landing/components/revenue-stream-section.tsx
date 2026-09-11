@@ -89,7 +89,7 @@ export function RevenueStreamSection() {
         </div>
       </div>
 
-      <div className="relative h-[100px] w-full">
+      <div className="relative -mt-0.5 h-[100px] w-full sm:mt-0">
         <Image
           src="/images/revenue-stream/revenue-bottom-panel.svg"
           alt=""
