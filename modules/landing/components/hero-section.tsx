@@ -68,6 +68,7 @@ export function HeroSection() {
             alt=""
             width={1050}
             height={891}
+            priority
             className="w-full max-w-[420px] lg:hidden"
           />
         </div>
