@@ -29,10 +29,12 @@ const ANIMATED_ITEM_OFFSETS: Record<
 > = {
   0: { x: -12, y: -12, delayMs: 400 }, // Product logs
   1: { x: 12, y: -12, delayMs: 1600 }, // Support history
-  2: { x: -12, y: -12, delayMs: 2400 }, // Decision threads
-  3: { x: 12, y: -12, delayMs: 800 }, // Product data
-  6: { x: -12, y: 12, delayMs: 2000 }, // Support
-  7: { x: 12, y: 12, delayMs: 0 }, // CRM
+  2: { x: -12, y: -6, delayMs: 2400 }, // Decision threads
+  3: { x: 12, y: -6, delayMs: 800 }, // Product data
+  4: { x: -12, y: 0, delayMs: 3200 }, // Billing
+  5: { x: 12, y: 0, delayMs: 3600 }, // Internal docs
+  6: { x: -12, y: 6, delayMs: 2000 }, // Support
+  7: { x: 12, y: 6, delayMs: 0 }, // CRM
   8: { x: -12, y: 12, delayMs: 2800 }, // Code and commits
   9: { x: 12, y: 12, delayMs: 1200 }, // Sales conversations
 };

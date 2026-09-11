@@ -31,7 +31,7 @@ export function RevenueStreamSection() {
           <div className="pointer-events-none absolute inset-x-3 top-[28px] sm:inset-x-18 lg:inset-x-[72px] min-[1800px]:inset-x-0">
             <div className="border-t border-dashed border-[#d4d4d4]" />
           </div>
-          <div className="pointer-events-none absolute inset-x-3 top-0 h-[372px] sm:inset-x-18 lg:inset-x-[152px]">
+          <div className="pointer-events-none absolute inset-x-3 top-0 h-full sm:inset-x-18 lg:inset-x-[152px]">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
           <div className="relative w-full px-3 pt-16 sm:px-18 sm:pt-20 lg:px-[72px] min-[1800px]:px-0">
