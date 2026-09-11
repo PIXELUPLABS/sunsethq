@@ -12,6 +12,7 @@ const MEDIA_CROSSFADE_MS = 500;
 
 const GRAIN_TEXTURE = "/images/grain-light-texture.svg";
 const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
+const STRIP_GRAIN = "/images/deidentification/grain-strip.webp";
 
 const BLUE_CARD_BY_TAB: Record<DeidentificationTab, string> = {
   Coverage: "/images/deidentification/blue-card.webp",
@@ -106,14 +107,20 @@ export function DeidentificationSection() {
               </div>
             </div>
 
-            <div className="relative h-5 w-full shrink-0 overflow-hidden lg:hidden">
-              <Image
-                src={SIDE_GRAIN}
-                alt=""
-                fill
-                className="pointer-events-none object-cover object-left-top opacity-48 mix-blend-multiply"
-              />
-            </div>
+            {/* The design paints this strip's grain at a fixed 384x288
+                anchored top-left, so it has to tile rather than stretch —
+                object-cover was squeezing a whole 288px-tall weave into 20px.
+                The asset is the 20px band that is actually visible. */}
+            <div
+              aria-hidden
+              className="pointer-events-none h-5 w-full shrink-0 opacity-48 mix-blend-multiply lg:hidden"
+              style={{
+                backgroundImage: `url("${STRIP_GRAIN}")`,
+                backgroundSize: "384px 20px",
+                backgroundPosition: "left top",
+                backgroundRepeat: "repeat-x",
+              }}
+            />
 
             {/* The design's 364x292 panel as a ratio rather than a fixed
                 height, so the card inside keeps even margins as the column

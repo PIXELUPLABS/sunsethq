@@ -10,9 +10,11 @@ export function Footer() {
         aria-hidden
         width={766}
         height={414}
-        // The design starts the texture below the links, so at 343px it never
-        // reaches up behind them and can stay at full strength.
-        className="pointer-events-none absolute bottom-0 -left-3.5 -z-10 w-[343px] max-w-none sm:left-0 sm:w-[766px]"
+        // The design starts the texture below the links, so it never reaches up
+        // behind them and can stay at full strength. On mobile it runs the full
+        // width of the footer — the 343px it used to be is the arc group inside
+        // the export, not the export itself, which left it visibly undersized.
+        className="pointer-events-none absolute bottom-0 left-0 -z-10 w-full max-w-none sm:w-[766px]"
       />
 
       <div className="relative mx-auto flex h-full w-full max-w-[1560px] flex-col justify-between gap-[120px] sm:gap-20 lg:items-end lg:gap-0">
