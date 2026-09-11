@@ -1,16 +1,20 @@
 import Image from "next/image";
-import { HERO_SIDE_COLLAGE_RIGHT } from "../lib/hero-assets";
+import { HERO_RIGHT_COLLAGE_IMAGES } from "../lib/hero-assets";
 
 export function HeroSidePatternRight() {
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <Image
-        src={HERO_SIDE_COLLAGE_RIGHT}
-        alt=""
-        width={272}
-        height={666}
-        className="pointer-events-none absolute top-12 right-0 h-auto w-[272px] max-w-none min-[1800px]:origin-top min-[1800px]:scale-y-[1.15]"
-      />
+      <div className="pointer-events-none absolute top-12 right-0 h-[666px] w-[272px] min-[1800px]:origin-top min-[1800px]:scale-y-[1.15]">
+        {HERO_RIGHT_COLLAGE_IMAGES.map((image, index) => (
+          <div
+            key={`${image.src}-${index}`}
+            className="absolute"
+            style={{ left: image.x, top: image.y, width: image.w, height: image.h }}
+          >
+            <Image src={image.src} alt="" fill className="object-contain" />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
