@@ -37,7 +37,7 @@ export function RevenueStreamShelfMobile() {
           alt=""
           width={40}
           height={378}
-          className="absolute top-[5.4645cqw] left-[2.7322cqw] h-[103.2787cqw] w-[10.929cqw] max-w-none"
+          className="absolute top-[5.4645cqw] left-[2.7322cqw] h-[103.2787cqw] w-[10.929cqw] max-w-none rotate-180"
         />
         <Image
           src={REVENUE_STREAM_MOBILE_WALL_RIGHT}
