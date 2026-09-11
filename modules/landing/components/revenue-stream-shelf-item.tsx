@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { REVENUE_STREAM_TILE_MS } from "../lib/constants";
 
 export function RevenueStreamShelfItem({
   icon,
@@ -26,7 +27,7 @@ export function RevenueStreamShelfItem({
   // the resting corner, so they connect the two as the card lifts off.
   const tetherLength = Math.hypot(offsetX, offsetY);
   const tetherAngleDeg = (Math.atan2(-offsetY, -offsetX) * 180) / Math.PI;
-  const tetherClasses = `pointer-events-none absolute h-0 border-t border-dashed border-[#a8a8a8] transition-opacity duration-400 ease-out ${
+  const tetherClasses = `pointer-events-none absolute h-0 border-t border-dashed border-[#a8a8a8] transition-opacity ease-out ${
     start ? "opacity-0" : "opacity-100"
   }`;
 
@@ -36,13 +37,14 @@ export function RevenueStreamShelfItem({
           offset, so the grid line isn't missing — hidden once the card
           settles back, since its own border then sits in the same place */}
       <div
-        className={`pointer-events-none absolute inset-0 bg-[#A8A8A8]/60 ${borderClasses} transition-opacity duration-400 ease-out ${
+        className={`pointer-events-none absolute inset-0 bg-[#A8A8A8]/60 ${borderClasses} transition-opacity ease-out ${
           start ? "opacity-0" : "opacity-100"
         }`}
         style={{
           borderTop: "5px solid #A6A6A6",
           borderRight: "5px solid #A6A6A6",
           transitionDelay: `${delayMs}ms`,
+          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
         }}
       />
 
@@ -56,6 +58,7 @@ export function RevenueStreamShelfItem({
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
           transitionDelay: `${delayMs}ms`,
+          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
         }}
       />
 
@@ -69,6 +72,7 @@ export function RevenueStreamShelfItem({
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
           transitionDelay: `${delayMs}ms`,
+          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
         }}
       />
 
@@ -82,6 +86,7 @@ export function RevenueStreamShelfItem({
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
           transitionDelay: `${delayMs}ms`,
+          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
         }}
       />
 
@@ -95,11 +100,12 @@ export function RevenueStreamShelfItem({
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
           transitionDelay: `${delayMs}ms`,
+          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
         }}
       />
 
       <div
-        className={`absolute inset-0 z-10 flex items-center gap-[1.2346cqw] bg-white px-[1.5432cqw] transition-[transform,border-color,border-top-width,border-left-width,border-bottom-width] duration-400 ease-out ${borderClasses} ${
+        className={`absolute inset-0 z-10 flex items-center gap-[1.2346cqw] bg-white px-[1.5432cqw] transition-[transform,border-color,border-top-width,border-left-width,border-bottom-width] ease-out ${borderClasses} ${
           start ? "border-t-0 border-l-0" : "border-t border-l"
         } ${isLastRow ? (start ? "" : "border-b") : ""}`}
         style={{
@@ -107,6 +113,7 @@ export function RevenueStreamShelfItem({
             ? "translate(0px, 0px)"
             : `translate(${offsetX}px, ${offsetY}px)`,
           transitionDelay: `${delayMs}ms`,
+          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
         }}
       >
         <Image

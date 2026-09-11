@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { RevenueStreamShelfItem } from "./revenue-stream-shelf-item";
 import { useInView } from "../hooks/use-in-view";
+import { REVENUE_STREAM_TILE_MS } from "../lib/constants";
 import {
   REVENUE_STREAM_DASH_TICK_LEFT,
   REVENUE_STREAM_DASH_TICK_RIGHT,
@@ -19,24 +20,25 @@ import {
 
 // Per-tile floating offsets (px) for the tiles animated so far — mirrored
 // left/right depending on which side of the grid the tile sits on, and
-// up/down depending on which direction the tile floats in from. Delays are
-// spaced a full transition (400ms) apart, in a hand-picked random order (not
-// index order), so each tile finishes snapping into place before the next
-// one starts — a sequence, not an overlapping sweep.
+// up/down depending on which direction the tile floats in from. `step` is the
+// tile's place in the sequence, in a hand-picked random order (not index
+// order); steps are a full transition apart, so each tile finishes snapping
+// into place before the next one starts — a sequence, not an overlapping
+// sweep.
 const ANIMATED_ITEM_OFFSETS: Record<
   number,
-  { x: number; y: number; delayMs: number }
+  { x: number; y: number; step: number }
 > = {
-  0: { x: -12, y: -12, delayMs: 400 }, // Product logs
-  1: { x: 12, y: -12, delayMs: 1600 }, // Support history
-  2: { x: -12, y: -6, delayMs: 2400 }, // Decision threads
-  3: { x: 12, y: -6, delayMs: 800 }, // Product data
-  4: { x: -12, y: 0, delayMs: 3200 }, // Billing
-  5: { x: 12, y: 0, delayMs: 3600 }, // Internal docs
-  6: { x: -12, y: 6, delayMs: 2000 }, // Support
-  7: { x: 12, y: 6, delayMs: 0 }, // CRM
-  8: { x: -12, y: 12, delayMs: 2800 }, // Code and commits
-  9: { x: 12, y: 12, delayMs: 1200 }, // Sales conversations
+  0: { x: -12, y: -12, step: 1 }, // Product logs
+  1: { x: 12, y: -12, step: 4 }, // Support history
+  2: { x: -12, y: -6, step: 6 }, // Decision threads
+  3: { x: 12, y: -6, step: 2 }, // Product data
+  4: { x: -12, y: 0, step: 8 }, // Billing
+  5: { x: 12, y: 0, step: 9 }, // Internal docs
+  6: { x: -12, y: 6, step: 5 }, // Support
+  7: { x: 12, y: 6, step: 0 }, // CRM
+  8: { x: -12, y: 12, step: 7 }, // Code and commits
+  9: { x: 12, y: 12, step: 3 }, // Sales conversations
 };
 
 export function RevenueStreamShelf() {
@@ -92,7 +94,7 @@ export function RevenueStreamShelf() {
                 start={offset ? inView : true}
                 offsetX={offset?.x ?? 0}
                 offsetY={offset?.y ?? 0}
-                delayMs={offset?.delayMs ?? 0}
+                delayMs={(offset?.step ?? 0) * REVENUE_STREAM_TILE_MS}
               />
             );
           })}
