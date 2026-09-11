@@ -9,8 +9,9 @@ export function HeroSidePatternLeft() {
         alt=""
         width={270}
         height={666}
-        className="pointer-events-none absolute top-0 left-0 h-auto w-[270px] max-w-none"
+        className="pointer-events-none absolute top-12 left-0 h-auto w-[270px] max-w-none"
       />
+      <div className="pointer-events-none absolute top-0 left-[270px] h-full border-r border-dashed border-black/8" />
     </div>
   );
 }
