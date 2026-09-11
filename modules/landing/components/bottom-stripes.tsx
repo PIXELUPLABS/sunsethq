@@ -6,6 +6,13 @@ import { useScrollProgress } from "../hooks/use-scroll-progress";
 const SOURCE = { width: 2882, height: 274 };
 const STRIPE_COLOR = "#0C0C0B";
 
+// The band is sized by the section's width, but the section itself is a fixed
+// 990px tall, so past the 1440px the artwork was drawn for it would keep
+// growing into the copy above it. Freeze it at the height it has there and let
+// the stripes stay full-bleed horizontally.
+const DESIGN_WIDTH = 1440;
+const MAX_HEIGHT_PX = Math.round((DESIGN_WIDTH * SOURCE.height) / SOURCE.width);
+
 const s = createIllustrationScaler(SOURCE.width, SOURCE.height);
 
 // Exact stripe geometry read directly off /public/images/pricing/bottom-stripes.png
@@ -37,7 +44,7 @@ export function BottomStripes() {
     <div
       ref={ref}
       className="pointer-events-none absolute inset-x-0 bottom-0 aspect-[2882/274] w-full overflow-hidden"
-      style={{ containerType: "size" }}
+      style={{ containerType: "size", maxHeight: MAX_HEIGHT_PX }}
     >
       {STRIPES.map((stripe, i) => {
         const delayIndex = STRIPES.length - 1 - i;

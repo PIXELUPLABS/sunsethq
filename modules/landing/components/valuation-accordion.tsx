@@ -65,19 +65,18 @@ export function ValuationAccordion({
           <div
             key={step.label}
             style={{ "--row-order": (index + 1) * 2 } as CSSProperties}
-            className={`order-[var(--row-order)] border-b border-[#383535] lg:order-none ${
+            className={`order-[var(--row-order)] border-b border-[#383535] pb-6 lg:order-none ${
               isOpen || index === VALUATION_STEPS.length - 1 ? "border-b-0" : ""
             }`}
           >
             <button
               type="button"
               onClick={() => onSelect(index)}
-              className={`group flex w-full cursor-pointer items-center gap-1.5 pt-6 ${
-                isOpen ? "" : "pb-6"
-              }`}
+              aria-expanded={isOpen}
+              className="group flex w-full cursor-pointer items-center gap-1.5 pt-6"
             >
               <span
-                className={`size-[5px] shrink-0 rounded-full ${
+                className={`size-[5px] shrink-0 rounded-full transition-colors duration-300 ${
                   isOpen ? "bg-[#25fff9]" : "bg-[#cecece]/50"
                 }`}
               />
@@ -97,15 +96,33 @@ export function ValuationAccordion({
               />
             </button>
 
-            {isOpen && step.title ? (
-              <div className="relative mt-2 flex flex-col gap-4 pb-6">
-                <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white lg:text-[32px] lg:tracking-tight">
-                  {step.title}
-                </p>
-                <p className="text-base leading-relaxed tracking-tight text-[#727272]">
-                  {step.description}
-                </p>
-                <StepProgressBar key={index} onComplete={onComplete} />
+            {/* The panel stays mounted so its height can animate: a grid row
+                interpolates 0fr→1fr where `height: auto` cannot. Only the
+                progress bar mounts on open, so one timer runs at a time. */}
+            {step.title ? (
+              <div
+                inert={!isOpen}
+                className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+                  isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div
+                    className={`relative mt-2 flex flex-col gap-4 transition-opacity duration-300 ${
+                      isOpen ? "opacity-100 delay-200" : "opacity-0"
+                    }`}
+                  >
+                    <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white lg:text-[32px] lg:tracking-tight">
+                      {step.title}
+                    </p>
+                    <p className="text-base leading-relaxed tracking-tight text-[#727272]">
+                      {step.description}
+                    </p>
+                    {isOpen ? (
+                      <StepProgressBar key={index} onComplete={onComplete} />
+                    ) : null}
+                  </div>
+                </div>
               </div>
             ) : null}
           </div>
