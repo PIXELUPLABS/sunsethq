@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { ProcessBar } from "./process-bar";
 import { HeroSidePatternLeft } from "./hero-side-pattern-left";
 import { HeroSidePatternRight } from "./hero-side-pattern-right";
@@ -98,9 +99,15 @@ export function HeroSection() {
                 className="hidden h-px w-[193px] max-w-none lg:block"
               />
             </div>
-            <p className="font-mono text-[8px] uppercase tracking-wide text-[#898989]">
+            <p className="flex flex-wrap items-center gap-1 font-mono text-[8px] uppercase tracking-wide text-[#898989]">
               <span className="lg:hidden">process: </span>
-              identified → structured → verified → licensed
+              <span>identified</span>
+              <ArrowRightIcon className="size-2.5 shrink-0" />
+              <span>structured</span>
+              <ArrowRightIcon className="size-2.5 shrink-0" />
+              <span>verified</span>
+              <ArrowRightIcon className="size-2.5 shrink-0" />
+              <span>licensed</span>
             </p>
           </div>
           <div className="flex items-center lg:w-[181px] lg:shrink-0 lg:border-r lg:border-dashed lg:border-black/8 lg:px-4.5 lg:py-4">

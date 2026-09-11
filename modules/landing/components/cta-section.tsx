@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { useElementParallax } from "../hooks/use-element-parallax";
 
 const PANEL_PARALLAX_SHIFT_X = 16;
@@ -107,8 +108,14 @@ export function CtaSection() {
             <p className="font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:text-[8px]">
               process
             </p>
-            <p className="font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:text-[8px]">
-              identified → structured → verified → licensed
+            <p className="flex items-center gap-0.5 font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:gap-1 sm:text-[8px]">
+              <span>identified</span>
+              <ArrowRightIcon className="size-1.5 shrink-0 sm:size-2.5" />
+              <span>structured</span>
+              <ArrowRightIcon className="size-1.5 shrink-0 sm:size-2.5" />
+              <span>verified</span>
+              <ArrowRightIcon className="size-1.5 shrink-0 sm:size-2.5" />
+              <span>licensed</span>
             </p>
           </div>
           <div className="shrink-0 border border-dashed border-[#d9d9d9] px-0.5 py-0.5 sm:px-2 sm:py-1.5">

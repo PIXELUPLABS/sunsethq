@@ -125,3 +125,11 @@ export function ArrowUpRightIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+export function ArrowRightIcon({ className }: IconProps) {
+  return (
+    <svg className={className} {...base}>
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
