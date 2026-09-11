@@ -5,7 +5,12 @@ import { MobileNav } from "./mobile-nav";
 
 export function Navbar() {
   return (
-    <header className="fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-black/8 backdrop-blur-sm">
+    <header className="fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-black/8">
+      {/* backdrop-filter belongs on its own layer, not the header itself -
+          on the header it would make it a containing block for the mobile
+          nav panel's position:fixed, collapsing that panel to the header's
+          own height instead of the viewport. */}
+      <div className="pointer-events-none absolute inset-0 backdrop-blur-sm" />
       <Image
         src="/images/grain-light-texture.svg"
         alt=""

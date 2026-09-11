@@ -43,9 +43,16 @@ export function MobileNav() {
       <div
         id="mobile-nav-panel"
         hidden={!isOpen}
-        className="fixed inset-x-0 top-16 bottom-0 z-10 flex flex-col gap-8 overflow-y-auto border-t border-dashed border-black/8 bg-[#fcfcfc]/97 px-6 pt-8 pb-10 backdrop-blur-md"
+        className="fixed inset-x-0 top-16 z-10 flex max-h-[calc(100vh-64px)] flex-col gap-8 overflow-y-auto border-t border-dashed border-black/8 bg-[#fcfcfc]/97 px-6 pt-8 pb-10 backdrop-blur-md"
       >
-        <nav aria-label="Main" className="flex flex-col">
+        <Image
+          src="/images/grain-light-texture.svg"
+          alt=""
+          fill
+          className="pointer-events-none object-cover"
+        />
+
+        <nav aria-label="Main" className="relative flex flex-col">
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
@@ -61,7 +68,7 @@ export function MobileNav() {
         <a
           href="#value-my-data"
           onClick={close}
-          className="flex h-13 items-center justify-center bg-[#141518] font-serif text-xs tracking-[0.1px] text-white uppercase"
+          className="relative flex h-13 items-center justify-center bg-[#141518] font-serif text-xs tracking-[0.1px] text-white uppercase"
         >
           Value my data
         </a>
