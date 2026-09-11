@@ -73,7 +73,14 @@ export function ValuationAccordion({
               type="button"
               onClick={() => onSelect(index)}
               aria-expanded={isOpen}
-              className="group flex w-full cursor-pointer items-center gap-1.5 pt-6"
+              // The row's bottom padding sits outside the button so the open
+              // transition has nothing to jump over, so a closed row extends
+              // its hit area over that gap instead of leaving it dead.
+              className={`group relative flex w-full cursor-pointer items-center gap-1.5 pt-6 ${
+                isOpen
+                  ? ""
+                  : "after:absolute after:inset-x-0 after:top-full after:h-6 after:content-['']"
+              }`}
             >
               <span
                 className={`size-[5px] shrink-0 rounded-full transition-colors duration-300 ${
