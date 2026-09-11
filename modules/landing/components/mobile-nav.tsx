@@ -1,6 +1,8 @@
 "use client";
 
+import { Fragment } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { NAV_LINKS } from "../lib/constants";
 import { useDisclosure } from "../hooks/use-disclosure";
 import { NavColorStrip } from "./nav-color-strip";
@@ -13,7 +15,7 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
   const { isOpen, close, toggle } = useDisclosure();
 
   return (
-    <div className="md:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         onClick={toggle}
@@ -82,16 +84,35 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
             isOpen ? "translate-y-0" : "-translate-y-2"
           }`}
         >
-          <nav aria-label="Main" className="flex flex-col gap-7">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={`${linkBase}${link.href}`}
-                onClick={close}
-                className="font-serif text-[20px] leading-[1.04] tracking-[-1px] text-black"
-              >
-                {link.label}
-              </a>
+          {/* A dashed rule sits between links, taking the 20px gap on either
+              side of it the way the design's zero-height divider does. */}
+          <nav aria-label="Main" className="flex flex-col gap-5">
+            {NAV_LINKS.map((link, index) => (
+              <Fragment key={link.label}>
+                {index > 0 && (
+                  <span
+                    aria-hidden
+                    className="block border-t border-dashed border-black/20"
+                  />
+                )}
+                {link.isRoute ? (
+                  <Link
+                    href={link.href}
+                    onClick={close}
+                    className="font-serif text-[20px] leading-[1.04] tracking-[-1px] text-black"
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <a
+                    href={`${linkBase}${link.href}`}
+                    onClick={close}
+                    className="font-serif text-[20px] leading-[1.04] tracking-[-1px] text-black"
+                  >
+                    {link.label}
+                  </a>
+                )}
+              </Fragment>
             ))}
           </nav>
 

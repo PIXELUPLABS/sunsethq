@@ -22,23 +22,33 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
 
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-7 md:flex">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.label}
-              href={`${linkBase}${link.href}`}
-              className="text-sm tracking-tight text-[#777] transition-colors hover:text-[#141518]"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 lg:flex xl:gap-7">
+          {NAV_LINKS.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm tracking-tight text-[#777] transition-colors hover:text-[#141518]"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={`${linkBase}${link.href}`}
+                className="text-sm tracking-tight text-[#777] transition-colors hover:text-[#141518]"
+              >
+                {link.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <MobileNav linkBase={linkBase} />
 
         <a
           href="#value-my-data"
-          className="group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs uppercase tracking-wide text-white md:flex"
+          className="group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs uppercase tracking-wide text-white lg:flex"
         >
           <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
