@@ -61,7 +61,7 @@ export function DeidentificationSection() {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative flex flex-col gap-10 overflow-hidden lg:aspect-[1236/522] lg:flex-row lg:items-stretch lg:gap-0">
+          <div className="relative flex flex-col gap-5 overflow-hidden lg:aspect-[1236/522] lg:flex-row lg:items-stretch lg:gap-0">
             <Image
               src="/images/medium-grey-texture-bg.svg"
               alt=""
@@ -75,7 +75,7 @@ export function DeidentificationSection() {
               className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
             />
 
-            <div className="relative flex min-w-0 flex-1 items-center gap-10 pr-6 pl-6 sm:pr-10 sm:pl-10 lg:h-full lg:w-1/2 lg:flex-none lg:pr-[108px] lg:pl-0">
+            <div className="relative flex min-w-0 flex-1 items-center px-5 pt-10 pb-5 lg:h-full lg:w-1/2 lg:flex-none lg:gap-10 lg:py-0 lg:pr-[108px] lg:pl-0">
               <div className="relative hidden h-full w-10 shrink-0 self-stretch overflow-hidden lg:block">
                 <Image
                   src={SIDE_GRAIN}
@@ -85,11 +85,11 @@ export function DeidentificationSection() {
                 />
               </div>
 
-              <div className="flex min-w-0 flex-1 flex-col justify-center gap-[100px]">
-                <h3 className="font-serif text-3xl leading-[1.1] tracking-tight text-black sm:text-[40px] sm:tracking-[-0.4px]">
+              <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 lg:gap-[100px]">
+                <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black lg:text-[40px] lg:tracking-[-0.4px]">
                   Your data leaves cleaner than a medical record.
                 </h3>
-                <div className="flex flex-col gap-2 text-base leading-[1.4] tracking-[-0.48px] text-[#727272]">
+                <div className="flex flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 lg:gap-2 lg:text-base lg:tracking-[-0.48px] lg:text-[#727272]">
                   <p>
                     The federal standard for de-identifying medical records
                     (HIPAA) lists eighteen categories that have to be
@@ -105,7 +105,7 @@ export function DeidentificationSection() {
               </div>
             </div>
 
-            <div className="relative min-w-0 flex-1 overflow-hidden lg:h-full lg:w-1/2 lg:flex-none">
+            <div className="relative h-[292px] w-full min-w-0 overflow-hidden lg:h-full lg:w-1/2 lg:flex-none">
               {mediaLayerKeys.map((index, layerPosition) => {
                 const tab = DEIDENTIFICATION_TABS[index];
                 return (

@@ -23,7 +23,7 @@ export function PricingSection() {
   return (
     <section
       id="what-you-earn"
-      className="relative flex scroll-mt-16 flex-col overflow-hidden bg-brand-gradient bg-ink px-3 pt-16 sm:px-18 lg:h-[990px] lg:px-18 lg:pt-[110px]"
+      className="relative flex scroll-mt-16 flex-col overflow-hidden bg-brand-gradient bg-ink px-3 pt-16 pb-20 sm:px-18 lg:h-[990px] lg:px-18 lg:pt-[110px] lg:pb-0"
     >
       <div
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
@@ -72,11 +72,11 @@ export function PricingSection() {
             className="flex h-[296px] items-end gap-2.5 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8"
           >
             {PRICING_TIERS.map((tier, tierIndex) => (
-              <div key={tier.value} className="flex h-full flex-1 items-end overflow-hidden">
-                <div className="h-full w-3 shrink-0 border-y border-l border-dashed border-white/30" />
+              <div key={tier.value} className="flex h-full flex-1 items-stretch overflow-hidden lg:items-end">
+                <div className="h-full w-2 shrink-0 border-y border-l border-dashed border-white/30 lg:w-3" />
 
-                <div className="flex flex-1 flex-col items-start justify-end gap-3 pb-2 lg:gap-[26px] lg:pb-3">
-                  <div className="flex w-full flex-col items-start gap-2 lg:gap-[14px]">
+                <div className="flex flex-1 flex-col items-start justify-between gap-3 py-2 lg:gap-[26px] lg:pt-0 lg:pb-3">
+                  <div className="flex w-full flex-1 flex-col items-start justify-between gap-2 lg:flex-none lg:gap-[14px]">
                     <p
                       className="font-serif text-[22px] leading-[1.04] tracking-[-0.66px] text-[#fafafa] uppercase transition-[transform,opacity] duration-500 ease-out lg:text-[27px] lg:tracking-[-0.81px]"
                       style={{
@@ -110,12 +110,12 @@ export function PricingSection() {
                       ))}
                     </div>
                   </div>
-                  <p className="font-mono text-[10px] leading-[1.1] font-medium tracking-[0.9px] text-[#ddd] uppercase">
+                  <p className="font-mono text-[10px] leading-[1.1] font-medium tracking-[0.9px] whitespace-nowrap text-[#ddd] uppercase">
                     {tier.people}
                   </p>
                 </div>
 
-                <div className="h-full w-3 shrink-0 border-y border-r border-dashed border-white/30" />
+                <div className="h-full w-2 shrink-0 border-y border-r border-dashed border-white/30 lg:w-3" />
               </div>
             ))}
           </div>
@@ -124,28 +124,28 @@ export function PricingSection() {
         {/* the deal / why it recurs */}
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
           <div className="flex flex-1 flex-col items-start gap-3">
-            <div className="flex items-start gap-4">
-              <AlignLeftIcon className="size-6" />
-              <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white">
+            <div className="flex items-center gap-2 lg:items-start lg:gap-4">
+              <AlignLeftIcon className="size-[18px] lg:size-6" />
+              <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
                 The deal
               </p>
             </div>
             <div className="hidden h-5 w-full lg:block" />
-            <p className="text-base leading-[1.4] tracking-[-0.48px] text-white">
+            <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/80 lg:text-base lg:tracking-[-0.48px] lg:text-white">
               Headcount is a proxy. How long you&apos;ve been operating, what
               industry you&apos;re in, which apps you run on and how much
               data sits in each all factor into the final price.
             </p>
           </div>
           <div className="flex flex-1 flex-col items-start gap-3">
-            <div className="flex items-start gap-4">
-              <AlignLeftIcon className="size-6" />
-              <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white">
+            <div className="flex items-center gap-2 lg:items-start lg:gap-4">
+              <AlignLeftIcon className="size-[18px] lg:size-6" />
+              <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
                 Why it recurs
               </p>
             </div>
             <div className="hidden h-5 w-full lg:block" />
-            <p className="text-base leading-[1.4] tracking-[-0.48px] text-white">
+            <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/80 lg:text-base lg:tracking-[-0.48px] lg:text-white">
               You&apos;re paid up front, plus a revenue share of every
               license. And because your company keeps producing data, the
               revenue recurs.

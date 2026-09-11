@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { RevenueStreamShelf } from "./revenue-stream-shelf";
+import { RevenueStreamShelfMobile } from "./revenue-stream-shelf-mobile";
 
 export function RevenueStreamSection() {
   return (
@@ -34,13 +35,20 @@ export function RevenueStreamSection() {
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
           <div className="relative w-full px-3 pt-16 sm:px-18 sm:pt-20 lg:px-[72px] min-[1800px]:px-0">
-            <div className="relative mb-16 flex w-full flex-col items-start gap-5 px-3 sm:flex-row sm:gap-10 sm:px-0 lg:gap-10 lg:px-[86px]">
+            <div className="relative mb-16 flex w-full flex-col items-start gap-5 px-3 lg:flex-row lg:gap-10 lg:px-[86px]">
               <h2 className="flex-1 font-serif text-[36px] leading-none tracking-[-1.44px] text-[#181a1b] sm:text-[44px] sm:tracking-tight">
-                You already own your
-                <br />
-                next revenue stream.
+                <span className="lg:hidden">
+                  You already
+                  <br />
+                  own your next revenue stream.
+                </span>
+                <span className="hidden lg:inline">
+                  You already own your
+                  <br />
+                  next revenue stream.
+                </span>
               </h2>
-              <div className="w-[552px] max-w-full shrink-0 text-base leading-[1.4] tracking-[-0.48px] text-[#727272]">
+              <div className="w-full text-base leading-[1.4] tracking-[-0.48px] text-[#727272] lg:w-[552px] lg:shrink-0">
                 <p className="mb-4">
                   Raising a round costs a piece of your company. Debt has to be
                   paid back no matter what. New customers take quarters you may
@@ -58,7 +66,12 @@ export function RevenueStreamSection() {
             </div>
 
             <div className="relative w-full">
-              <RevenueStreamShelf />
+              <div className="lg:hidden">
+                <RevenueStreamShelfMobile />
+              </div>
+              <div className="hidden lg:block">
+                <RevenueStreamShelf />
+              </div>
             </div>
           </div>
         </div>

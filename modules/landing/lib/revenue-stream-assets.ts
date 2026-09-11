@@ -53,3 +53,29 @@ export const REVENUE_STREAM_ITEMS = [
     label: "Sales conversations",
   },
 ] as const;
+
+export const REVENUE_STREAM_MOBILE_BAND =
+  "/images/revenue-stream/mobile/band.png";
+export const REVENUE_STREAM_MOBILE_WALL_LEFT =
+  "/images/revenue-stream/mobile/wall-left.png";
+export const REVENUE_STREAM_MOBILE_WALL_RIGHT =
+  "/images/revenue-stream/mobile/wall-right.png";
+
+// The mobile design stacks the shelf into a single column and shows eight of
+// the ten rows, in its own order.
+const MOBILE_LABELS = [
+  "Product logs",
+  "Decision threads",
+  "Billing",
+  "Support",
+  "Code and commits",
+  "Product data",
+  "CRM",
+  "Sales conversations",
+];
+
+export const REVENUE_STREAM_MOBILE_ITEMS = MOBILE_LABELS.map((label) => {
+  const item = REVENUE_STREAM_ITEMS.find((entry) => entry.label === label);
+  if (!item) throw new Error(`Unknown revenue stream item: ${label}`);
+  return item;
+});
