@@ -6,7 +6,7 @@ import { HERO_PROCESS_DASH } from "../lib/hero-assets";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc]">
+    <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] lg:flex lg:min-h-[80vh] lg:flex-col">
       <Image
         src="/images/grain-light-texture.svg"
         alt=""
@@ -15,13 +15,13 @@ export function HeroSection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative flex items-stretch">
+      <div className="relative flex items-stretch lg:flex-1">
         <div className="hidden flex-1 lg:flex">
           <HeroSidePatternLeft />
         </div>
 
         {/* pt on mobile clears the 64px fixed header plus the design's own 44px. */}
-        <div className="flex w-full flex-col items-center gap-7 border-dashed border-black/8 px-6 pt-[108px] pb-6 lg:w-[898px] lg:shrink-0 lg:gap-10 lg:px-0 lg:pt-[220px] lg:pb-[160px]">
+        <div className="flex w-full flex-col items-center gap-7 border-dashed border-black/8 px-6 pt-[108px] pb-6 lg:w-[898px] lg:shrink-0 lg:justify-center lg:gap-10 lg:px-0 lg:pt-[220px] lg:pb-[160px]">
           <div className="flex max-w-[840px] flex-col items-center gap-3 text-center lg:gap-6">
             <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-[#181a1b] sm:text-[56px] sm:leading-none sm:tracking-tight lg:text-[72px] lg:tracking-[-2.88px]">
               Fund growth by licensing the data you already have.
