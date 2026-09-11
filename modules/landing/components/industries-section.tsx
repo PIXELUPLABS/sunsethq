@@ -28,7 +28,7 @@ export function IndustriesSection() {
               />
             }
           />
-          <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
+          <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
             Any industry. One requirement.
           </h2>
           <div className="flex flex-col gap-2 text-base leading-relaxed tracking-tight text-[#727272]">

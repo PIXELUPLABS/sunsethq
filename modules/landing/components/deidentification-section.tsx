@@ -32,7 +32,7 @@ export function DeidentificationSection() {
   return (
     <section
       id="de-identification"
-      className="relative flex scroll-mt-16 justify-center overflow-hidden px-6 sm:px-18"
+      className="relative flex scroll-mt-16 justify-center overflow-hidden px-3 sm:px-18"
     >
       <Image
         src="/images/grain-light-texture.svg"
@@ -42,7 +42,7 @@ export function DeidentificationSection() {
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#d4d4d4]">
-        <div className="flex flex-col gap-20 px-5 py-20 sm:px-10">
+        <div className="flex flex-col gap-10 px-3 py-16 sm:gap-20 sm:px-10 sm:py-20">
         <div className="flex flex-col items-start gap-6">
           <SectionTag
             label="The Process"
@@ -55,7 +55,7 @@ export function DeidentificationSection() {
               />
             }
           />
-          <h2 className="font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px] sm:tracking-[-1.76px]">
+          <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-[-1.76px]">
             De-Identification
           </h2>
         </div>

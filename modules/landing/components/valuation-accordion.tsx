@@ -75,18 +75,29 @@ export function ValuationAccordion({
               }`}
             >
               <span
-                className={`size-[5px] rounded-full ${
+                className={`size-[5px] shrink-0 rounded-full ${
                   isOpen ? "bg-[#25fff9]" : "bg-[#cecece]/50"
                 }`}
               />
               <span className="text-xs uppercase tracking-wide text-[#cecece]/70 transition-colors group-hover:text-white">
                 {step.label}
               </span>
+              {/* The mobile design gives every row an expand affordance. */}
+              <Image
+                src="/images/arrow-up-s-line.svg"
+                alt=""
+                width={24}
+                height={24}
+                aria-hidden
+                className={`ml-auto size-6 transition-transform duration-300 lg:hidden ${
+                  isOpen ? "" : "rotate-180"
+                }`}
+              />
             </button>
 
             {isOpen && step.title ? (
               <div className="relative mt-2 flex flex-col gap-4 pb-6">
-                <p className="font-serif text-[32px] tracking-tight text-white">
+                <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white lg:text-[32px] lg:tracking-tight">
                   {step.title}
                 </p>
                 <p className="text-base leading-relaxed tracking-tight text-[#727272]">

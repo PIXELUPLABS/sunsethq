@@ -13,10 +13,10 @@ export function ValuationSection() {
   return (
     <section
       id="how-it-works"
-      className="flex scroll-mt-16 justify-center bg-[#0c0c0b] px-6 py-24 sm:px-18"
+      className="flex scroll-mt-16 justify-center bg-[#0c0c0b] px-6 pt-16 pb-14 sm:px-18 sm:py-24"
     >
-      <div className="mx-auto grid w-full max-w-[1560px] grid-cols-1 border border-[#444] lg:grid-cols-2">
-        <div className="flex flex-col justify-between gap-14 border-b border-[#444] p-8 sm:p-12 lg:border-b-0 lg:border-r">
+      <div className="mx-auto grid w-full max-w-[1560px] grid-cols-1 lg:grid-cols-2 lg:border lg:border-[#444]">
+        <div className="flex flex-col justify-between gap-16 lg:gap-14 lg:border-r lg:border-[#444] lg:p-12">
           <div className="flex flex-col items-start gap-6">
             <SectionTag
               label="How it works"
@@ -30,7 +30,7 @@ export function ValuationSection() {
                 />
               }
             />
-            <h2 className="font-serif text-[32px] leading-none tracking-tight text-white sm:text-[44px]">
+            <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-white sm:text-[44px] sm:tracking-tight">
               Four steps.
               <br />
               120 minutes of your time.

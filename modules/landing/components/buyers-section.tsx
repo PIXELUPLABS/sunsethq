@@ -34,16 +34,16 @@ export function BuyersSection() {
                 />
               }
             />
-            <h2 className="max-w-[522px] font-serif text-[32px] leading-none tracking-tight text-black sm:text-[44px]">
+            <h2 className="max-w-[522px] font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
               You&apos;ll know exactly who ends up with it.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-5">
             {BUYER_CARDS.map((card) => (
               <div
                 key={card.tagLabel}
-                className="group relative flex h-[430px] flex-col justify-between overflow-hidden border-y border-black/15 p-5 text-black"
+                className="group relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 p-5 text-black md:h-[430px] md:border-x-0 md:border-y"
               >
                 <Image
                   src="/images/hover-card-grey-bg.svg"
@@ -58,7 +58,7 @@ export function BuyersSection() {
                   className="pointer-events-none object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
                 />
 
-                <p className="relative font-serif text-[32px] leading-tight tracking-tight transition-colors duration-300 group-hover:text-white">
+                <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] transition-colors duration-300 group-hover:text-white md:text-[32px] md:leading-tight md:tracking-tight">
                   {card.headline}
                 </p>
                 <div className="relative mb-0 flex items-center gap-3 transition-all duration-300 group-hover:mb-5 group-hover:text-white group-hover:opacity-60">

@@ -23,7 +23,7 @@ export function CtaSection() {
         src="/images/cta/background.webp"
         alt=""
         fill
-        className="pointer-events-none hidden object-cover lg:block"
+        className="pointer-events-none object-cover"
       />
 
       <div
@@ -78,7 +78,7 @@ export function CtaSection() {
           className="pointer-events-none object-cover"
         />
 
-        <p className="relative max-w-[90%] font-serif text-3xl leading-none tracking-tight text-black sm:text-[38px]">
+        <p className="relative max-w-[90%] font-serif text-[32px] leading-none tracking-[-1.28px] text-black sm:text-[38px] sm:tracking-tight">
           Find out what your data is worth before you decide anything.
         </p>
         <a
