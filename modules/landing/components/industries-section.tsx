@@ -6,7 +6,7 @@ export function IndustriesSection() {
   return (
     <section
       id="who-its-for"
-      className="relative flex scroll-mt-16 justify-center overflow-hidden bg-[#eaebf1] px-6 py-20 sm:px-18"
+      className="relative flex scroll-mt-16 justify-center overflow-hidden bg-[#eaebf1] px-3 sm:px-18"
     >
       <Image
         src="/images/texture-grain-white.png"
@@ -15,8 +15,8 @@ export function IndustriesSection() {
         className="pointer-events-none object-cover mix-blend-multiply"
       />
 
-      <div className="relative mx-auto flex w-full max-w-[1560px] flex-col items-center gap-14 border-x border-dashed border-[#d4d4d4] px-5 py-10 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
-        <div className="flex max-w-[507px] flex-col items-start gap-6">
+      <div className="relative mx-auto flex w-full max-w-[1560px] flex-col items-center gap-10 border-x border-dashed border-[#d4d4d4] px-3 py-16 sm:px-10 sm:py-[120px] lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+        <div className="flex max-w-[507px] flex-col items-start gap-5 lg:gap-6">
           <SectionTag
             label="Who it's for"
             icon={
@@ -29,9 +29,11 @@ export function IndustriesSection() {
             }
           />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
-            Any industry. One requirement.
+            Any industry.
+            <br className="lg:hidden" />{" "}
+            One requirement.
           </h2>
-          <div className="flex flex-col gap-2 text-base leading-relaxed tracking-tight text-[#727272]">
+          <div className="flex flex-col gap-4 text-base leading-[1.4] tracking-[-0.48px] text-[#727272] lg:gap-2 lg:leading-relaxed lg:tracking-tight">
             <p>
               We work with companies in every industry. What matters
               isn&apos;t what you do, it&apos;s whether there&apos;s a record

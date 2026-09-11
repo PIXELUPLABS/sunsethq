@@ -61,19 +61,19 @@ export function BuyersSection() {
                 <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] transition-colors duration-300 group-hover:text-white md:text-[32px] md:leading-tight md:tracking-tight">
                   {card.headline}
                 </p>
-                <div className="relative mb-0 flex items-center gap-3 transition-all duration-300 group-hover:mb-5 group-hover:text-white group-hover:opacity-60">
+                <div className="relative mb-0 flex items-center gap-[9px] transition-all duration-300 group-hover:text-white group-hover:opacity-60 md:gap-3 md:group-hover:mb-5">
                   <Image
                     src={ICONS[card.icon]}
                     alt=""
                     width={18}
                     height={18}
-                    className={
+                    className={`size-4 md:size-[18px] ${
                       card.icon === "entity"
                         ? "invert transition-[filter] duration-300 group-hover:invert-0"
                         : "transition-[filter] duration-300 group-hover:invert"
-                    }
+                    }`}
                   />
-                  <span className="text-base font-medium uppercase">
+                  <span className="text-sm font-medium uppercase md:text-base">
                     {card.tagLabel}
                   </span>
                 </div>
@@ -83,7 +83,7 @@ export function BuyersSection() {
                   style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
                 />
 
-                <ProcessBar className="absolute inset-x-0 bottom-0 h-[8px] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <ProcessBar className="absolute inset-x-0 bottom-0 h-1.5 transition-opacity duration-300 md:h-[8px] md:opacity-0 md:group-hover:opacity-100" />
               </div>
             ))}
           </div>

@@ -17,13 +17,20 @@ export function CtaSection() {
     <section
       ref={containerRef}
       id="value-my-data"
-      className="relative w-full scroll-mt-16 overflow-hidden bg-[#080808] py-20 sm:py-24 lg:aspect-[1440/716] lg:py-0"
+      className="relative aspect-[390/572] w-full scroll-mt-16 overflow-hidden bg-[#080808] lg:aspect-[1440/716]"
     >
+      <Image
+        src="/images/cta/background-mobile.webp"
+        alt=""
+        fill
+        priority={false}
+        className="pointer-events-none object-cover lg:hidden"
+      />
       <Image
         src="/images/cta/background.webp"
         alt=""
         fill
-        className="pointer-events-none object-cover"
+        className="pointer-events-none hidden object-cover lg:block"
       />
 
       <div
@@ -69,7 +76,7 @@ export function CtaSection() {
       </div>
 
       <div
-        className="relative mx-auto flex w-full max-w-[859px] flex-col items-center justify-center gap-8 overflow-hidden bg-[#fcfcfc] px-6 py-10 text-center sm:gap-14 sm:px-10 sm:py-14 lg:absolute lg:top-[23.6%] lg:left-[20.14%] lg:h-[52.79%] lg:w-[59.65%] lg:max-w-none lg:px-10 lg:py-0"
+        className="absolute top-[29.427%] left-[6.1538%] flex h-[45.804%] w-[87.692%] flex-col items-center justify-center gap-6 overflow-hidden bg-[#fcfcfc] px-3 text-center lg:top-[23.6%] lg:left-[20.14%] lg:h-[52.79%] lg:w-[59.65%] lg:gap-14 lg:px-10"
       >
         <Image
           src="/images/grain-light-texture.svg"
@@ -95,21 +102,21 @@ export function CtaSection() {
           <span className="relative">Value my data</span>
         </a>
 
-        <div className="relative flex w-full flex-col items-center gap-2 border-t border-dashed border-black/8 pt-6 text-center sm:absolute sm:inset-x-0 sm:bottom-0 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:border-t sm:px-4.5 sm:py-3 sm:text-left">
-          <div className="flex flex-col items-center gap-1 sm:flex-row sm:items-center sm:gap-4">
-            <p className="font-mono text-[8px] whitespace-nowrap text-[#898989] uppercase tracking-wide">
+        <div className="absolute inset-x-2.5 bottom-3.5 flex items-center justify-between gap-1 text-left sm:inset-x-0 sm:bottom-0 sm:gap-4 sm:border-t sm:border-dashed sm:border-black/8 sm:px-4.5 sm:py-3">
+          <div className="flex flex-col gap-px sm:flex-row sm:items-center sm:gap-4">
+            <p className="font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:text-[8px]">
               process
             </p>
-            <p className="font-mono text-[8px] whitespace-nowrap text-[#898989] uppercase tracking-wide">
+            <p className="font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:text-[8px]">
               identified → structured → verified → licensed
             </p>
           </div>
-          <div className="border border-dashed border-[#d9d9d9] px-2 py-1.5">
-            <p className="font-mono text-[8px] whitespace-nowrap text-[#898989] uppercase tracking-wide">
+          <div className="shrink-0 border border-dashed border-[#d9d9d9] px-0.5 py-0.5 sm:px-2 sm:py-1.5">
+            <p className="font-mono text-[3px] whitespace-nowrap text-[#898989] uppercase tracking-wide sm:text-[8px]">
               RL-2026-001 // Version 1.0
             </p>
           </div>
-          <p className="font-mono text-[8px] leading-tight text-[#898989] uppercase tracking-wide">
+          <p className="font-mono text-[3px] leading-tight text-[#898989] uppercase tracking-wide sm:text-[8px]">
             classification
             <br />
             proprietary data / licensing
