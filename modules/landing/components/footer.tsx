@@ -48,7 +48,7 @@ export function Footer() {
                   <a
                     key={link}
                     href="#"
-                    className="relative w-fit font-mono text-[14px] leading-[1.3] tracking-[0.84px] text-white/60 uppercase transition-opacity duration-300 ease-out after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
+                    className="relative w-fit font-mono text-[12px] leading-[1.3] tracking-[0.84px] text-white/60 uppercase transition-opacity duration-300 ease-out sm:text-[14px] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
                   >
                     {link}
                   </a>
