@@ -11,7 +11,13 @@ type ValuationAccordionProps = {
   onComplete: () => void;
 };
 
-function StepProgressBar({ onComplete }: { onComplete: () => void }) {
+function StepProgressBar({
+  active,
+  onComplete,
+}: {
+  active: boolean;
+  onComplete: () => void;
+}) {
   const [progress, setProgress] = useState(0);
   const onCompleteRef = useRef(onComplete);
 
@@ -20,6 +26,10 @@ function StepProgressBar({ onComplete }: { onComplete: () => void }) {
   }, [onComplete]);
 
   useEffect(() => {
+    // A closed row still renders the track - it is clipped to nothing - but
+    // must not run a timer, or every step would advance the cycle at once.
+    if (!active) return;
+
     let frameId: number;
     const start = performance.now();
 
@@ -36,7 +46,7 @@ function StepProgressBar({ onComplete }: { onComplete: () => void }) {
 
     frameId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frameId);
-  }, []);
+  }, [active]);
 
   return (
     <div className="relative mt-2 h-1 w-full overflow-hidden">
@@ -109,8 +119,9 @@ export function ValuationAccordion({
             </button>
 
             {/* The panel stays mounted so its height can animate: a grid row
-                interpolates 0fr→1fr where `height: auto` cannot. Only the
-                progress bar mounts on open, so one timer runs at a time. */}
+                interpolates 0fr→1fr where `height: auto` cannot. Every panel
+                holds identical content, so the closing and opening rows
+                cancel each other out mid-transition. */}
             {step.title ? (
               <div
                 inert={!isOpen}
@@ -143,9 +154,11 @@ export function ValuationAccordion({
                         </p>
                       ))}
                     </div>
-                    {isOpen ? (
-                      <StepProgressBar key={index} onComplete={onComplete} />
-                    ) : null}
+                    <StepProgressBar
+                      key={`${index}-${isOpen}`}
+                      active={isOpen}
+                      onComplete={onComplete}
+                    />
                   </div>
                 </div>
               </div>

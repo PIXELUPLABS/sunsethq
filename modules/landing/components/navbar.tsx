@@ -3,7 +3,11 @@ import Link from "next/link";
 import { NAV_LINKS } from "../lib/constants";
 import { MobileNav } from "./mobile-nav";
 
-export function Navbar() {
+/**
+ * `linkBase` prefixes the section anchors so pages other than the home page
+ * can point back at it - "/" turns "#how-it-works" into "/#how-it-works".
+ */
+export function Navbar({ linkBase = "" }: { linkBase?: string }) {
   return (
     <header className="fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-black/8">
       {/* backdrop-filter belongs on its own layer, not the header itself -
@@ -27,7 +31,7 @@ export function Navbar() {
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
-              href={link.href}
+              href={`${linkBase}${link.href}`}
               className="text-sm tracking-tight text-[#777] transition-colors hover:text-[#141518]"
             >
               {link.label}
@@ -35,7 +39,7 @@ export function Navbar() {
           ))}
         </nav>
 
-        <MobileNav />
+        <MobileNav linkBase={linkBase} />
 
         <a
           href="#value-my-data"

@@ -47,9 +47,12 @@ export function ValuationSection() {
 
         {/* --media-order drops the illustration straight after the open row on
             mobile, matching the design, without a second copy of the videos.
-            Rows are 2,4,6,8 so an odd order lands between two of them. */}
+            Rows are 2,4,6,8 so an odd order lands between two of them.
+            The box is a ratio rather than a pixel floor so it can never be
+            sized by whichever video is loaded, capped at the design's 374px so
+            it only ever scales down on narrower phones. */}
         <div
-          className="relative order-[var(--media-order)] mt-3 min-h-[374px] w-full overflow-hidden bg-[#0c0c0b] lg:order-none lg:mt-0 lg:min-h-[420px]"
+          className="relative order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full overflow-hidden bg-[#0c0c0b] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px]"
           style={{ "--media-order": activeIndex * 2 + 3 } as CSSProperties}
         >
           <ValuationMedia activeIndex={activeIndex} />

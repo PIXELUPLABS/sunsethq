@@ -4,7 +4,7 @@ import Image from "next/image";
 import { NAV_LINKS } from "../lib/constants";
 import { useDisclosure } from "../hooks/use-disclosure";
 
-export function MobileNav() {
+export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
   const { isOpen, close, toggle } = useDisclosure();
 
   return (
@@ -56,7 +56,7 @@ export function MobileNav() {
           {NAV_LINKS.map((link) => (
             <a
               key={link.label}
-              href={link.href}
+              href={`${linkBase}${link.href}`}
               onClick={close}
               className="border-b border-dashed border-black/8 py-4 font-serif text-2xl tracking-tight text-[#141518]"
             >
