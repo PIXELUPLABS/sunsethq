@@ -7,12 +7,15 @@ import { ValuationAccordion } from "./valuation-accordion";
 import { ValuationMedia } from "./valuation-media";
 import { VALUATION_STEPS } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
+import { useInView } from "../hooks/use-in-view";
 
 export function ValuationSection() {
   const { activeIndex, setActiveIndex, advance } = useStepCycle(VALUATION_STEPS.length);
+  const { ref, inView } = useInView<HTMLElement>({ threshold: 0.3 });
 
   return (
     <section
+      ref={ref}
       id="how-it-works"
       className="flex scroll-mt-16 justify-center bg-[#0c0c0b] px-6 pt-16 pb-14 sm:px-18 sm:py-24"
     >
@@ -55,7 +58,7 @@ export function ValuationSection() {
           className="relative order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full overflow-hidden bg-[#0c0c0b] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px]"
           style={{ "--media-order": activeIndex * 2 + 3 } as CSSProperties}
         >
-          <ValuationMedia activeIndex={activeIndex} />
+          <ValuationMedia activeIndex={activeIndex} hasEnteredViewport={inView} />
         </div>
       </div>
     </section>

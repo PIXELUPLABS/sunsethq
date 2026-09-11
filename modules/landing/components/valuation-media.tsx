@@ -10,7 +10,13 @@ const STEP_VIDEOS = [
 ];
 
 /** The crossfading stack of step illustrations, one layer per valuation step. */
-export function ValuationMedia({ activeIndex }: { activeIndex: number }) {
+export function ValuationMedia({
+  activeIndex,
+  hasEnteredViewport,
+}: {
+  activeIndex: number;
+  hasEnteredViewport: boolean;
+}) {
   return (
     <>
       {VALUATION_STEPS.map((step, index) => {
@@ -23,7 +29,7 @@ export function ValuationMedia({ activeIndex }: { activeIndex: number }) {
         if (videoSrc) {
           return (
             <div key={step.label} className={fadeClassName}>
-              <StepVideo src={videoSrc} active={isActive} />
+              {hasEnteredViewport && <StepVideo src={videoSrc} active={isActive} />}
             </div>
           );
         }
