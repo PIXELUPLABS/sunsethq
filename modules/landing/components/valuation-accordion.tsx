@@ -65,8 +65,13 @@ export function ValuationAccordion({
           <div
             key={step.label}
             style={{ "--row-order": (index + 1) * 2 } as CSSProperties}
-            className={`order-[var(--row-order)] border-b border-[#383535] pb-6 lg:order-none ${
-              isOpen || index === VALUATION_STEPS.length - 1 ? "border-b-0" : ""
+            // An open row hides its divider (the progress bar stands in for
+            // it) rather than dropping it, so the row count never changes the
+            // stack's height by a pixel.
+            className={`order-[var(--row-order)] pb-6 lg:order-none ${
+              index === VALUATION_STEPS.length - 1
+                ? ""
+                : `border-b ${isOpen ? "border-transparent" : "border-[#383535]"}`
             }`}
           >
             <button
@@ -122,9 +127,22 @@ export function ValuationAccordion({
                     <p className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-white lg:text-[32px] lg:tracking-tight">
                       {step.title}
                     </p>
-                    <p className="text-base leading-relaxed tracking-tight text-[#727272]">
-                      {step.description}
-                    </p>
+                    {/* All four descriptions share one grid cell so every
+                        panel is as tall as the longest one at the current
+                        width - otherwise the section grows or shrinks by a
+                        line of copy each time the open step changes. */}
+                    <div className="grid">
+                      {VALUATION_STEPS.map((other, otherIndex) => (
+                        <p
+                          key={other.label}
+                          className={`[grid-area:1/1] text-base leading-relaxed tracking-tight text-[#727272] ${
+                            otherIndex === index ? "" : "invisible"
+                          }`}
+                        >
+                          {other.description}
+                        </p>
+                      ))}
+                    </div>
                     {isOpen ? (
                       <StepProgressBar key={index} onComplete={onComplete} />
                     ) : null}
