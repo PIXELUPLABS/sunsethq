@@ -61,13 +61,12 @@ export function DeidentificationSection() {
         </div>
 
         <div className="flex flex-col">
-          <div className="relative flex flex-col overflow-hidden lg:aspect-[1236/522] lg:flex-row lg:items-stretch">
-            <Image
-              src="/images/medium-grey-texture-bg.svg"
-              alt=""
-              fill
-              className="pointer-events-none object-cover"
-            />
+          {/*
+            The panel ground is the design's flat #eaebf1 plus an 11% grain
+            multiply. It used to come from a 1.1MB SVG that bundled both, but
+            next/image refuses to serve SVG here, so the panel rendered bare.
+          */}
+          <div className="relative flex flex-col overflow-hidden bg-[#eaebf1] lg:aspect-[1236/522] lg:flex-row lg:items-stretch">
             <Image
               src={GRAIN_TEXTURE}
               alt=""
@@ -110,7 +109,7 @@ export function DeidentificationSection() {
                 src={SIDE_GRAIN}
                 alt=""
                 fill
-                className="pointer-events-none object-cover opacity-48 mix-blend-multiply"
+                className="pointer-events-none object-cover object-left-top opacity-48 mix-blend-multiply"
               />
             </div>
 
