@@ -17,7 +17,7 @@ import {
 export function RevenueStreamShelfMobile() {
   return (
     <div className="mx-auto w-full">
-      <p className="mb-1.5 font-mono text-[8px] tracking-[-0.06px] text-black/60 uppercase">
+      <p className="mb-1.5 px-3 font-mono text-[8px] tracking-[-0.06px] text-black/60 uppercase">
         Historical operating data
       </p>
       <div
