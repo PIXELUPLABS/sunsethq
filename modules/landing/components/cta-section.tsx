@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { useElementParallax } from "../hooks/use-element-parallax";
+import { CtaSectionMobile } from "./cta-section-mobile";
 
 const TOP_LEFT_PARALLAX_SHIFT_X = 20;
 const TOP_LEFT_PARALLAX_SHIFT_Y = 12;
@@ -22,13 +23,9 @@ export function CtaSection() {
       id="value-my-data"
       className="relative aspect-[390/572] w-full scroll-mt-16 overflow-hidden bg-[#080808] lg:aspect-[1440/716] lg:bg-transparent"
     >
-      <Image
-        src="/images/cta/background-mobile.webp"
-        alt=""
-        fill
-        priority={false}
-        className="pointer-events-none object-cover lg:hidden"
-      />
+      <div className="lg:hidden">
+        <CtaSectionMobile />
+      </div>
       <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-[43%] overflow-hidden bg-[#eaebf1] lg:block">
         <Image
           src="/images/texture-grain-white.png"
