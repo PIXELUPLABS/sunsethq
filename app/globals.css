@@ -50,6 +50,17 @@ svg {
   }
 }
 
+@keyframes reveal-fade-blur {
+  from {
+    opacity: 0;
+    filter: blur(var(--reveal-blur, 10px));
+  }
+  to {
+    opacity: var(--reveal-opacity, 1);
+    filter: blur(0px);
+  }
+}
+
 @keyframes reveal-fade-slide {
   from {
     opacity: 0;
