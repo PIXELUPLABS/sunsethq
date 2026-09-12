@@ -24,16 +24,16 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
         aria-controls="mobile-nav-panel"
         className="flex size-9 items-center justify-center px-1.5 py-px"
       >
-        {/* Both icons stay mounted and swap with a quarter turn, so the button
-            reads as one control changing state rather than two icons. */}
+        {/* Both icons stay mounted and crossfade, so the button reads as one
+            control changing state rather than two icons. */}
         <span className="relative block size-5">
           <Image
             src={MENU_ICON}
             alt=""
             width={20}
             height={20}
-            className={`absolute inset-0 size-5 transition duration-300 ease-out motion-reduce:transition-none ${
-              isOpen ? "rotate-90 opacity-0" : "rotate-0 opacity-100"
+            className={`absolute inset-0 size-5 transition-opacity duration-300 ease-out motion-reduce:transition-none ${
+              isOpen ? "opacity-0" : "opacity-100"
             }`}
           />
           <Image
@@ -41,8 +41,8 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
             alt=""
             width={20}
             height={20}
-            className={`absolute inset-0 size-5 transition duration-300 ease-out motion-reduce:transition-none ${
-              isOpen ? "rotate-0 opacity-100" : "-rotate-90 opacity-0"
+            className={`absolute inset-0 size-5 transition-opacity duration-300 ease-out motion-reduce:transition-none ${
+              isOpen ? "opacity-100" : "opacity-0"
             }`}
           />
         </span>
