@@ -17,7 +17,14 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           it lets the blur read against whatever scrolls under the bar. */}
       <div className="pointer-events-none absolute inset-0 bg-[#fcfcfc]/97 backdrop-blur-[16px]" />
 
-      <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-6 sm:px-18">
+      {/* Below 1800px this is unchanged: max-w-[1560px] + px-6 sm:px-18,
+          same as before. At 1800px and up the padding drops to 0 (kept
+          `!important` - Tailwind emits the min-[1800px] block before the
+          sm: block, so without it sm:px-18, same specificity but later in
+          the stylesheet, would win and the padding would stick) while
+          max-w-[1560px] stays, so mx-auto centers a fixed 1560px bar
+          instead of letting it stretch full-bleed. */}
+      <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-6 sm:px-18 min-[1800px]:px-0!">
         <Link href="/" className="flex items-center">
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
