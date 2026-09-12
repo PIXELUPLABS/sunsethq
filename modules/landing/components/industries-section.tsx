@@ -21,7 +21,7 @@ export function IndustriesSection() {
             label="Who it's for"
             icon={
               <Image
-                src="/images/how-it-works-icon.svg"
+                src="/images/illustration-section-icon.png"
                 alt=""
                 width={18}
                 height={18}

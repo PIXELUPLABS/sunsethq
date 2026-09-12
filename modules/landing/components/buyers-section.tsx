@@ -27,10 +27,10 @@ export function BuyersSection() {
               label="Who buys it"
               icon={
                 <Image
-                  src="/images/the-process-icon.svg"
+                  src="/images/who-buys-it-icon.png"
                   alt=""
-                  width={18}
-                  height={18}
+                  width={22}
+                  height={22}
                 />
               }
             />
