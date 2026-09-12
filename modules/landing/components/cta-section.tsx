@@ -119,7 +119,7 @@ export function CtaSection() {
             <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
               <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
             </div>
-            <span className="relative font-serif text-xs leading-[0.8] tracking-wide text-white uppercase">
+            <span className="relative font-serif text-xs leading-[0.8] tracking-wide text-white">
               Value my data
             </span>
           </a>

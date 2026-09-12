@@ -72,7 +72,7 @@ export function CtaSectionMobile() {
             <div className="pointer-events-none absolute inset-y-0 right-0 w-[0.3cqw] opacity-0 transition-opacity duration-300 group-active:opacity-100">
               <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
             </div>
-            <span className="relative font-serif text-[3.0769cqw] leading-[0.8] tracking-wide text-white uppercase">
+            <span className="relative font-serif text-[3.0769cqw] leading-[0.8] tracking-wide text-white">
               Value my data
             </span>
           </a>

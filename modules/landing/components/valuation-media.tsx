@@ -3,10 +3,10 @@ import { VALUATION_STEPS } from "../lib/constants";
 import { StepVideo } from "./step-video";
 
 const STEP_VIDEOS = [
-  "/images/htw-1.webm",
-  "/images/htw-2.webm",
-  "/images/htw-3.webm",
-  "/images/htw-4.webm",
+  "/images/htw-1.mp4",
+  "/images/htw-2.mp4",
+  "/images/htw-3.mp4",
+  "/images/htw-4.mp4",
 ];
 
 /** The crossfading stack of step illustrations, one layer per valuation step. */

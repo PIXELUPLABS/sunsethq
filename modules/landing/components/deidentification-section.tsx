@@ -21,9 +21,9 @@ const BLUE_CARD_BY_TAB: Record<DeidentificationTab, string> = {
 };
 
 const VIDEO_BY_TAB: Partial<Record<DeidentificationTab, string>> = {
-  Coverage: encodeURI("/images/deidentification/De-Identification-1-new.mp4"),
-  "The pipeline": encodeURI("/images/deidentification/De-Identification - 2.webm"),
-  Policy: encodeURI("/images/deidentification/De-Identification - 3.webm"),
+  Coverage: encodeURI("/images/deidentification/De-Identification - 1.mp4"),
+  "The pipeline": encodeURI("/images/deidentification/De-Identification - 2.mp4"),
+  Policy: encodeURI("/images/deidentification/De-Identification - 3.mp4"),
 };
 
 export function DeidentificationSection() {
