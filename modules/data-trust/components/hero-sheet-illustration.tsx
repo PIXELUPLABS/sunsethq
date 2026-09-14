@@ -1,10 +1,7 @@
 import Image from "next/image";
 import { ProcessBar } from "@/modules/landing/components/process-bar";
 import { HERO_PROCESS_DASH } from "@/modules/landing/lib/hero-assets";
-import {
-  DATA_TRUST_HERO_SHEET,
-  DATA_TRUST_HERO_TOPSHEET,
-} from "../lib/assets";
+import { DATA_TRUST_HERO_PLANE } from "../lib/assets";
 
 /**
  * The perspective spreadsheet that fills the bottom of the hero, plus the
@@ -15,35 +12,16 @@ import {
 export function HeroSheetIllustration() {
   return (
     <div className="relative aspect-[1440/444] w-full">
-      {/* The design clips the sheet twice: to a 1690x313 box, and again to the
-          1297x422 rect its gradient mask covers. What survives is the overlap -
-          the content column, from 103px down the band - with the fade landing
-          at 52.5% and 98.2% of that. */}
-      <div
-        className="absolute top-[23.1892%] left-[5%] h-[70.4970%] w-[90.0694%] overflow-hidden"
-        style={{
-          maskImage:
-            "linear-gradient(to bottom, #000 52.46%, transparent 98.24%)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, #000 52.46%, transparent 98.24%)",
-        }}
-      >
-        <Image
-          src={DATA_TRUST_HERO_SHEET}
-          alt=""
-          width={2767}
-          height={641}
-          priority
-          className="absolute top-0 left-[-17.7132%] h-[125.2013%] w-[130.4279%] max-w-none"
-        />
-      </div>
-
+      {/* The design lands the sheet in a 1297x422 rect at the 72px gutter, at
+          the very top of the band. */}
       <Image
-        src={DATA_TRUST_HERO_TOPSHEET}
+        src={DATA_TRUST_HERO_PLANE}
         alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
-        width={2254}
-        height={418}
-        className="absolute top-[34.3468%] left-[9.0972%] h-[47.0721%] w-[78.2639%] max-w-none"
+        width={2594}
+        height={844}
+        priority
+        sizes="100vw"
+        className="absolute top-0 left-[5%] h-[95.0450%] w-[90.0694%] max-w-none"
       />
 
       {/* dashed band the version and classification chips sit in */}

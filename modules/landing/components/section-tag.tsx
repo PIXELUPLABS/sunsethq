@@ -5,6 +5,7 @@ type SectionTagProps = {
   icon?: ReactNode;
   tone?: "light" | "dark";
   textClassName?: string;
+  borderClassName?: string;
 };
 
 export function SectionTag({
@@ -12,8 +13,11 @@ export function SectionTag({
   icon,
   tone = "light",
   textClassName,
+  borderClassName,
 }: SectionTagProps) {
-  const border = tone === "dark" ? "border-[#a9b8c8]" : "border-[#b2b2b2]";
+  const border =
+    borderClassName ??
+    (tone === "dark" ? "border-[#a9b8c8]" : "border-[#b2b2b2]");
   const text = textClassName ?? (tone === "dark" ? "text-[#a9b8c8]" : "text-[#7b7b7b]");
 
   return (
