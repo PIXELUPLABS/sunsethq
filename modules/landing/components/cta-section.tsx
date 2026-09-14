@@ -96,16 +96,16 @@ export function CtaSection() {
           className="pointer-events-none object-cover"
         />
       </div>
-      <div className="absolute top-1/2 left-1/2 hidden h-[378px] w-[860px] -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-[#fcfcfc] lg:block">
+      <div className="absolute top-1/2 left-1/2 hidden h-[378px] w-[860px] -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-[#eaebf1] lg:block">
         <Image
-          src="/images/grain-light-texture.svg"
+          src="/images/texture-grain-white.png"
           alt=""
           fill
-          className="pointer-events-none object-cover"
+          className="pointer-events-none object-cover mix-blend-multiply"
         />
 
         <div className="relative flex h-full w-full flex-col items-center justify-center gap-14">
-          <p className="relative w-full max-w-[755px] text-center font-serif text-[54px] leading-none tracking-[-2.16px] text-black">
+          <p className="relative w-full max-w-[755px] text-center font-serif text-[50px] leading-none tracking-[-2.16px] text-black">
             Find out what your data is worth before you decide anything.
           </p>
           <a
