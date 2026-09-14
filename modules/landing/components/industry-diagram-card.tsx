@@ -34,11 +34,12 @@ export function IndustryDiagramCard({
       }}
     >
       <div className="pointer-events-none absolute inset-0 bg-[#eaebf1]" />
-      <Image
-        src="/images/texture-grain-white.png"
-        alt=""
-        fill
-        className="pointer-events-none object-cover mix-blend-multiply"
+      <div
+        className="pointer-events-none absolute inset-0 mix-blend-multiply"
+        style={{
+          backgroundImage: "url(/images/texture-grain-white.png)",
+          backgroundSize: "160px 160px",
+        }}
       />
       <Image
         src={icon}
