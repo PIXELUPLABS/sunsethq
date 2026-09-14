@@ -6,25 +6,18 @@ import { NAV_LINKS } from "../lib/constants";
 import { MobileNav } from "./mobile-nav";
 import { usePageScrolled } from "../hooks/use-page-scrolled";
 
-// How far the header shifts down once scrolled, in px - tracked 1:1 against
-// the actual scroll position (not CSS-transitioned) so it moves exactly in
-// step with the user's own scroll gesture instead of snapping in afterward.
-const NAVBAR_SHIFT_PX = 24;
-
 /**
  * `linkBase` prefixes the section anchors so pages other than the home page
  * can point back at it - "/" turns "#how-it-works" into "/#how-it-works".
  */
 export function Navbar({ linkBase = "" }: { linkBase?: string }) {
-  const { scrolled, scrollY } = usePageScrolled();
-  const shiftPx = Math.min(scrollY, NAVBAR_SHIFT_PX);
+  const { scrolled } = usePageScrolled();
 
   return (
     <header
-      className={`fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed transition-colors duration-700 ${
-        scrolled ? "border-transparent" : "border-[#dedede]"
+      className={`fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed transition-[border-color,translate] duration-200 ease-[cubic-bezier(0.65,0,0.35,1)] ${
+        scrolled ? "border-transparent translate-y-6" : "border-[#dedede] translate-y-0"
       }`}
-      style={{ transform: `translateY(${shiftPx}px)` }}
     >
       {/* backdrop-filter belongs on its own layer, not the header itself -
           on the header it would make it a containing block for the mobile
@@ -39,29 +32,42 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
         }`}
       />
 
-      {/* Fades in once the page scrolls - covers the right half of the bar,
-          inset the same 72px other sections use for their desktop side
-          padding. */}
-      <div
-        className={`pointer-events-none absolute inset-y-0 right-[72px] w-1/2 bg-cover bg-right transition-opacity duration-500 ${
-          scrolled ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ backgroundImage: "url(/images/header-bg-right.svg)" }}
-      />
+      {/* Bounds the right-bg section (and the logo swapped in over it) to
+          the same 1560px-capped, centered band the nav content itself sits
+          in, instead of the full-bleed header - otherwise "50%" meant 50%
+          of the viewport, which on wide screens was far wider than the
+          content row it's meant to align with. */}
+      <div className="pointer-events-none absolute inset-0 mx-auto max-w-[1560px]">
+        {/* Fades in once the page scrolls - covers the right half of this
+            band, inset the same 72px other sections use for their desktop
+            side padding. At 1800px+ the content row's own padding drops to
+            0 (matching it further down), so this drops its inset to 0 too -
+            otherwise it fell 72px short of reaching the "Value my data"
+            button's now-flush-right edge. Width widens to a flat 50% at
+            that point so the left edge still lands exactly on the band's
+            center line either way. */}
+        <div
+          className={`absolute inset-y-0 right-[72px] w-[calc(50%-72px)] bg-cover bg-right transition-opacity duration-500 min-[1800px]:right-0 min-[1800px]:w-1/2 ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ backgroundImage: "url(/images/header-bg-right.svg)" }}
+        />
 
-      {/* Fades in over the same right-bg section, 12px in from its own left
-          edge (that section is `right-[72px] w-1/2`, so its left edge sits
-          at `50% - 72px`). Swaps places with the top-left logo above. */}
-      <Link
-        href="/"
-        aria-hidden={!scrolled}
-        tabIndex={scrolled ? undefined : -1}
-        className={`absolute top-1/2 left-[calc(50%-60px)] flex -translate-y-1/2 items-center transition-opacity duration-500 ${
-          scrolled ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      >
-        <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} />
-      </Link>
+        {/* Fades in over the same right-bg section, 12px in from its own
+            left edge (that section is `right-[72px] w-[calc(50%-72px)]`, so
+            its left edge sits exactly at the band's own 50% mark). Swaps
+            places with the top-left logo above. */}
+        <Link
+          href="/"
+          aria-hidden={!scrolled}
+          tabIndex={scrolled ? undefined : -1}
+          className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_12px)] flex -translate-y-1/2 items-center transition-opacity duration-500 ${
+            scrolled ? "opacity-100" : "pointer-events-none opacity-0"
+          }`}
+        >
+          <Image src="/favicon-light.svg" alt="Replay" width={28} height={28} />
+        </Link>
+      </div>
 
       {/* Below 1800px this is unchanged: max-w-[1560px] + px-6 sm:px-18,
           same as before. At 1800px and up the padding drops to 0 (kept
