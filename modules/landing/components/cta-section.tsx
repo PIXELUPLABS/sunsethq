@@ -14,19 +14,53 @@ const RIGHT_BOTTOM_PARALLAX_SHIFT_Y = 11;
 const LEFT_BOTTOM_PARALLAX_SHIFT_X = 14;
 const LEFT_BOTTOM_PARALLAX_SHIFT_Y = 9;
 
-export function CtaSection() {
+type CtaSectionProps = {
+  headline?: string;
+  buttonLabel?: string;
+  href?: string;
+  /** Override the section's top-band color to match whatever precedes it on the page (defaults to `bg-[#eaebf1]`, matching the section that precedes this on the home and data-trust pages). */
+  topBandClassName?: string;
+  /** Override the bottom band's image (defaults to `cta-bg-text.png`) - e.g. Careers passes the same striped asset used in `benefits-section.tsx` so the page's two dark sections share one motif. */
+  bottomBandImageSrc?: string;
+};
+
+const DEFAULT_HEADLINE = "Find out what your data is worth before you decide anything.";
+const DEFAULT_BUTTON_LABEL = "Value my data";
+const DEFAULT_HREF = "#value-my-data";
+const DEFAULT_TOP_BAND_CLASS_NAME = "bg-[#eaebf1]";
+const DEFAULT_BOTTOM_BAND_IMAGE_SRC = "/images/cta-bg-text.png";
+
+export function CtaSection({
+  headline = DEFAULT_HEADLINE,
+  buttonLabel = DEFAULT_BUTTON_LABEL,
+  href = DEFAULT_HREF,
+  topBandClassName = DEFAULT_TOP_BAND_CLASS_NAME,
+  bottomBandImageSrc = DEFAULT_BOTTOM_BAND_IMAGE_SRC,
+}: CtaSectionProps = {}) {
   const { containerRef, offset } = useElementParallax<HTMLElement>();
 
   return (
     <section
       ref={containerRef}
+      // Kept as "value-my-data" regardless of `href` above - the navbar's
+      // own CTA always points at "#value-my-data" on every page, so this
+      // section needs to stay reachable at that id no matter what its own
+      // button links to.
       id="value-my-data"
       className="relative aspect-[390/572] w-full scroll-mt-16 overflow-hidden bg-[#080808] lg:aspect-[1440/716] lg:bg-transparent"
     >
       <div className="lg:hidden">
-        <CtaSectionMobile />
+        <CtaSectionMobile
+          headline={headline}
+          buttonLabel={buttonLabel}
+          href={href}
+          topBandClassName={topBandClassName}
+          bottomBandImageSrc={bottomBandImageSrc}
+        />
       </div>
-      <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-[43%] overflow-hidden bg-[#eaebf1] lg:block">
+      <div
+        className={`pointer-events-none absolute inset-x-0 top-0 hidden h-[43%] overflow-hidden lg:block ${topBandClassName}`}
+      >
         <Image
           src="/images/texture-grain-white.png"
           alt=""
@@ -37,7 +71,7 @@ export function CtaSection() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[57%] overflow-hidden bg-[#080808] lg:block">
         <div className="absolute inset-x-0 top-0 aspect-[4320/321] w-full">
           <Image
-            src="/images/cta-bg-text.png"
+            src={bottomBandImageSrc}
             alt=""
             fill
             className="pointer-events-none object-cover"
@@ -106,21 +140,21 @@ export function CtaSection() {
 
         <div className="relative flex h-full w-full flex-col items-center justify-center gap-14">
           <p className="relative w-full max-w-[755px] text-center font-serif text-[54px] leading-none tracking-[-2.16px] text-black">
-            Find out what your data is worth before you decide anything.
+            {headline}
           </p>
           <a
-            href="#value-my-data"
-            className="group relative flex items-center overflow-hidden bg-[#141518] px-5 py-3"
+            href={href}
+            className="group relative flex items-center overflow-hidden bg-[#141518] px-5 py-3 transition-transform duration-150 ease-snap active:scale-[0.97]"
           >
-            <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-30" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
               <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
             </div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
               <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
             </div>
             <span className="relative font-serif text-xs leading-[0.8] tracking-wide text-white">
-              Value my data
+              {buttonLabel}
             </span>
           </a>
 
