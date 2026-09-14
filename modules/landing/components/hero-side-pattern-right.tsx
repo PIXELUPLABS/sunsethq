@@ -88,6 +88,7 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           );
         })}
       </div>
+      <div className="pointer-events-none absolute top-0 right-[272px] h-full border-l border-dashed border-black/8" />
     </div>
   );
 }
