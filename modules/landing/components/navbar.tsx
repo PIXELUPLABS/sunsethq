@@ -1,15 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { NAV_LINKS } from "../lib/constants";
 import { MobileNav } from "./mobile-nav";
+import { useNavbarVisibility } from "../hooks/use-navbar-visibility";
 
 /**
  * `linkBase` prefixes the section anchors so pages other than the home page
  * can point back at it - "/" turns "#how-it-works" into "/#how-it-works".
  */
 export function Navbar({ linkBase = "" }: { linkBase?: string }) {
+  const visible = useNavbarVisibility();
+
   return (
-    <header className="fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-[#dedede]">
+    <header
+      className={`fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-[#dedede] transition-transform duration-300 ease-out ${
+        visible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       {/* backdrop-filter belongs on its own layer, not the header itself -
           on the header it would make it a containing block for the mobile
           nav panel's position:fixed, collapsing that panel to the header's
@@ -29,7 +38,8 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
 
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 lg:flex xl:gap-7">
+        {/* Hidden for now - restore by dropping the leading `hidden`. */}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 xl:gap-7">
           {NAV_LINKS.map((link) =>
             link.isRoute ? (
               <Link
