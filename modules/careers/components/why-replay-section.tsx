@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useInView } from "@/modules/landing/hooks/use-in-view";
 import { WHY_REPLAY_STATEMENTS } from "../lib/constants";
@@ -24,8 +25,18 @@ export function WhyReplaySection() {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 });
 
   return (
-    <section className="flex justify-center bg-[#fcfcfc] px-3 sm:px-18">
-      <div className="mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
+    <section className="relative flex justify-center overflow-hidden bg-[#fcfcfc] px-3 sm:px-18">
+      {/* Same grain texture as the hero above (`careers-hero.tsx`), both on
+          the same flat `#fcfcfc` - without it the hero/section boundary
+          reads as a visible seam between textured and flat fills. */}
+      <Image
+        src="/images/grain-light-texture.svg"
+        alt=""
+        fill
+        className="pointer-events-none object-cover"
+      />
+
+      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
         <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20">
           <div className="flex max-w-[560px] flex-col items-start gap-6">
             <SectionTag label="Why Replay" />

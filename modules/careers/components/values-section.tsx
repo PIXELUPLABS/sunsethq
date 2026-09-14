@@ -51,22 +51,25 @@ export function ValuesSection() {
             return (
               <div
                 key={value.title}
-                // `background-color` rides in the same transition-property
-                // list as the entrance's opacity/transform, not a separate
-                // `transition-colors` class - Tailwind's transition
-                // utilities each replace the whole `transition-property`
-                // value rather than merge with it, so two `transition-*`
-                // classes on one element would silently fight over which
-                // property list wins (confirmed via this project's
-                // compiled CSS) instead of combining.
-                className={`flex min-h-[220px] flex-col justify-between border-dashed border-[#353535] bg-[#0c0c0b] p-6 transition-[opacity,transform,background-color] duration-500 ease-snap hover:bg-white/[0.04] sm:min-h-[240px] ${
+                // No hover state: these cards are plain content, not links
+                // or buttons - a hover response would train people to
+                // expect a click to do something, and nothing does. Only
+                // `opacity`/`transform` need to transition now (the
+                // scroll-in stagger), so they're the only properties listed
+                // rather than also carrying a now-unused `background-color`.
+                className={`flex min-h-[220px] flex-col justify-between border-dashed border-[#353535] bg-[#0c0c0b] p-6 transition-[opacity,transform] duration-700 ease-snap sm:min-h-[240px] ${
                   isLastMobile ? "border-b-0" : "border-b"
                 } ${isLastRowSm ? "sm:border-b-0" : "sm:border-b"} ${
                   needsRightBorderSm ? "sm:border-r" : "sm:border-r-0"
                 } ${isLastRowLg ? "lg:border-b-0" : "lg:border-b"} ${
                   needsRightBorderLg ? "lg:border-r" : "lg:border-r-0"
-                } ${inView ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`}
-                style={{ transitionDelay: `${i * 60}ms` }}
+                } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
+                // 700ms + 80ms/card: this fires once per visit (`useInView`
+                // disconnects after triggering, see the hook), not a
+                // frequent interactive response, so it can afford to be
+                // slower/more deliberate than the ~150-250ms this project
+                // uses for repeatable hover/press feedback elsewhere.
+                style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <div className="flex items-center justify-between">
                   <Image src="/images/careers/coin.png" alt="" width={40} height={40} />

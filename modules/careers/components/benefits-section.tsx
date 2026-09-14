@@ -3,6 +3,11 @@
 import { BottomStripes } from "@/modules/landing/components/bottom-stripes";
 import { useInView } from "@/modules/landing/hooks/use-in-view";
 
+// Same grain source/tiling as the main page's pricing section
+// (`pricing-section.tsx`'s `GRAIN_TEXTURE`), applied here so this section's
+// dark gradient carries the same texture treatment.
+const GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
+
 /**
  * Benefits, "asymmetric split" layout: a left column (title / diagram /
  * intro, three individually dashed-bordered boxes stacked flush against
@@ -51,15 +56,8 @@ const PLACEHOLDER_BENEFITS = [
 export function BenefitsSection() {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 });
 
-  // `background-color` rides in the same transition-property list as the
-  // entrance's opacity/transform (not a separate `transition-colors`
-  // class) - Tailwind's transition utilities each set the whole
-  // `transition-property` value outright rather than merging with
-  // whatever's already there, so two `transition-*` classes on one
-  // element silently fight over which property list wins instead of
-  // combining, and confirmed via this project's own compiled CSS.
   const enter = (delayMs: number) => ({
-    className: `transition-[opacity,transform,background-color] duration-500 ease-snap ${
+    className: `transition-[opacity,transform] duration-500 ease-snap ${
       inView ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
     }`,
     style: { transitionDelay: `${delayMs}ms` },
@@ -71,6 +69,15 @@ export function BenefitsSection() {
       className="relative flex justify-center overflow-hidden px-3 sm:px-18"
       style={{ backgroundImage: "linear-gradient(180deg, #133264 0%, #147dba 160%)" }}
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 mix-blend-soft-light"
+        style={{
+          backgroundImage: `url(${GRAIN_TEXTURE})`,
+          backgroundSize: "296px 296px",
+        }}
+      />
+
       {/* Dashed grid frame matching the main page's own grid system
           (`buyers-section.tsx`, `stats-section.tsx`: a max-w-[1560px]
           column bracketed by `border-x border-dashed`), at the same width
@@ -154,7 +161,11 @@ export function BenefitsSection() {
                     <div
                       key={benefit.label}
                       style={cardEnter.style}
-                      className={`flex min-h-[180px] flex-col justify-between gap-10 border-dashed border-white/30 p-6 hover:bg-white/[0.03] sm:h-full ${
+                      // No hover state: plain content cards, not links or
+                      // buttons - a hover response would train people to
+                      // expect a click to do something, and nothing does
+                      // (same reasoning as `values-section.tsx`'s cards).
+                      className={`flex min-h-[180px] flex-col justify-between gap-10 border-dashed border-white/30 p-6 sm:h-full ${
                         isLastMobile ? "border-b-0" : "border-b"
                       } ${isTopRow ? "sm:border-b" : "sm:border-b-0"} ${isLeftCol ? "sm:border-r" : ""} ${cardEnter.className}`}
                     >

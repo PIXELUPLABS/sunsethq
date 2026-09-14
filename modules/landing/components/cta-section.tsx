@@ -20,6 +20,8 @@ type CtaSectionProps = {
   href?: string;
   /** Override the section's top-band color to match whatever precedes it on the page (defaults to `bg-[#eaebf1]`, matching the section that precedes this on the home and data-trust pages). */
   topBandClassName?: string;
+  /** Override the dashed stroke color of the two vertical lines that run the full height of this section, to match the frame color the preceding section closes with (defaults to `border-[#d4d4d4]`, matching `industries-section.tsx`/`assurance-section.tsx` on the home and data-trust pages) - e.g. Careers passes `border-[#a8a8a8]` to match `open-roles-section.tsx`'s own frame color, chosen there because `#d4d4d4` read as invisible against that page's grain-textured backgrounds. */
+  sideBorderClassName?: string;
   /** Override the bottom band's image (defaults to `cta-bg-text.png`) - e.g. Careers passes the same striped asset used in `benefits-section.tsx` so the page's two dark sections share one motif. */
   bottomBandImageSrc?: string;
 };
@@ -28,6 +30,7 @@ const DEFAULT_HEADLINE = "Find out what your data is worth before you decide any
 const DEFAULT_BUTTON_LABEL = "Value my data";
 const DEFAULT_HREF = "#value-my-data";
 const DEFAULT_TOP_BAND_CLASS_NAME = "bg-[#eaebf1]";
+const DEFAULT_SIDE_BORDER_CLASS_NAME = "border-[#d4d4d4]";
 const DEFAULT_BOTTOM_BAND_IMAGE_SRC = "/images/cta-bg-text.png";
 
 export function CtaSection({
@@ -35,6 +38,7 @@ export function CtaSection({
   buttonLabel = DEFAULT_BUTTON_LABEL,
   href = DEFAULT_HREF,
   topBandClassName = DEFAULT_TOP_BAND_CLASS_NAME,
+  sideBorderClassName = DEFAULT_SIDE_BORDER_CLASS_NAME,
   bottomBandImageSrc = DEFAULT_BOTTOM_BAND_IMAGE_SRC,
 }: CtaSectionProps = {}) {
   const { containerRef, offset } = useElementParallax<HTMLElement>();
@@ -68,6 +72,22 @@ export function CtaSection({
           className="pointer-events-none object-cover mix-blend-multiply"
         />
       </div>
+
+      {/* Left/right continuation of the frame the section above
+          (`open-roles-section.tsx` on careers, `industries-section.tsx`/
+          `assurance-section.tsx` elsewhere) draws around its own
+          `max-w-[1560px]` column - same `px-3 sm:px-18` outer padding +
+          `mx-auto max-w-[1560px]` inner column those frames use, so these
+          two lines land exactly under that frame's own left/right edges
+          and read as one continuous line running down into this section,
+          not a second, offset pair starting fresh. Full section height
+          (not just the top band) so the line carries all the way through
+          to the CTA content below. `sideBorderClassName` matches the
+          stroke color to whichever of those frames precedes this section. */}
+      <div className="pointer-events-none absolute inset-0 hidden px-3 sm:px-18 lg:block">
+        <div className={`mx-auto h-full w-full max-w-[1560px] border-x border-dashed ${sideBorderClassName}`} />
+      </div>
+
       <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[57%] overflow-hidden bg-[#080808] lg:block">
         <div className="absolute inset-x-0 top-0 aspect-[4320/321] w-full">
           <Image
@@ -130,12 +150,19 @@ export function CtaSection({
           className="pointer-events-none object-cover"
         />
       </div>
-      <div className="absolute top-1/2 left-1/2 hidden h-[378px] w-[860px] -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-[#fcfcfc] lg:block">
+      <div className="absolute top-1/2 left-1/2 hidden h-[378px] w-[860px] -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-[#eaebf1] lg:block">
+        {/* `mix-blend-multiply`, unlike this same texture's plain
+            `object-cover` use in `careers-hero.tsx`/`why-replay-section.tsx`
+            - those sit on `#fcfcfc`, close enough to the texture's own
+            near-white fill that it reads fine unblended. This card's
+            `#eaebf1` is visibly darker, so without multiplying, the
+            texture's own near-white background painted over it washed the
+            card back out to white instead of showing the tint through. */}
         <Image
           src="/images/grain-light-texture.svg"
           alt=""
           fill
-          className="pointer-events-none object-cover"
+          className="pointer-events-none object-cover mix-blend-multiply"
         />
 
         <div className="relative flex h-full w-full flex-col items-center justify-center gap-14">

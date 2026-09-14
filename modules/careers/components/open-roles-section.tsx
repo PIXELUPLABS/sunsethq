@@ -1,25 +1,59 @@
 "use client";
 
 import Image from "next/image";
+import { useLayoutEffect, useRef } from "react";
 import { SearchIcon } from "@/components/ui/icons";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useOpenRoles } from "../hooks/use-open-roles";
 import { CAREERS_EMAIL, DONT_SEE_A_FIT_BODY } from "../lib/constants";
 import { RoleRow } from "./role-row";
 
+/** Matches `--ease-swift` in `globals.css` - the indicator bar's own
+ * `translateY` already animates with this curve, so switching teams and
+ * the bar sliding to point at the new one read as one coordinated motion
+ * rather than two animations on different curves. WAAPI's `easing` option
+ * takes a literal easing-function string, not a `var()` reference, so the
+ * value is duplicated here; keep the two in sync if either changes. */
+const PANEL_HEIGHT_EASE = "cubic-bezier(0.77, 0, 0.175, 1)";
+const PANEL_HEIGHT_EASE_MS = 220;
+
+/** Matches the rail buttons' own `min-h-[56px]` / `h-14` - see the
+ * indicator bar below, positioned by this fixed value rather than a
+ * percentage of the rail's rendered height. */
+const RAIL_ROW_HEIGHT_PX = 56;
+
 /**
- * Team rail: pick a team on the left, its roles - the same accordion
- * `RoleRow` used before - expand on the right. One team visible at a
- * time, chosen over the earlier flat-list layout after reviewing it
- * alongside two other options on a since-removed comparison route.
+ * Team rail: pick a team on the left, its roles listed on the right, each
+ * one linking out to its own page (`RoleRow` → `/careers/roles/[id]`). One
+ * team visible at a time, chosen over the earlier flat-list layout after
+ * reviewing it alongside two other options on a since-removed comparison
+ * route.
  *
- * Rail rows share a `min-h` so the active-team indicator bar can be
- * positioned with plain percentage math (`activeTeamIndex / teams.length`)
- * instead of measuring rendered heights - without it, "Data / Trust &
- * Safety" wrapping to two lines would throw the bar off.
+ * Teams and roles come from Sunset's live Ashby job board
+ * (`useOpenRoles` → `lib/ashby.ts`), grouped by Ashby's own
+ * department field - the rail is whatever departments currently have a
+ * listed role, not a fixed local list.
+ *
+ * Rail rows share a `min-h` (`RAIL_ROW_HEIGHT_PX`) so the active-team
+ * indicator bar can be positioned with fixed pixel math
+ * (`activeTeamIndex * RAIL_ROW_HEIGHT_PX`) instead of measuring rendered
+ * heights - without it, a department name long enough to wrap to two
+ * lines would throw the bar off.
+ *
+ * The rail column also needs `self-start`: it sits in the same grid row as
+ * the roles panel, and that panel's height swings wildly by team (1 role
+ * vs. Engineering's 8, plus whatever's expanded) - without `self-start`,
+ * grid's default `align-items: stretch` makes the rail's own box match
+ * that panel's height instead of its own 5-row content. That alone doesn't
+ * corrupt the indicator any more now that its math is in fixed pixels, but
+ * it did make the rail's own right-hand divider stretch for thousands of
+ * pixels alongside an expanded job description, which read as broken.
+ * Confirmed via measurement: the rail box grew to 9,513px tall with
+ * Engineering's roles expanded, instead of its own constant ~330px.
  */
 export function OpenRolesSection() {
   const {
+    status,
     teams,
     activeTeamIndex,
     selectTeam,
@@ -28,25 +62,72 @@ export function OpenRolesSection() {
     visibleRoles,
     query,
     setQuery,
-    openRoleIds,
-    toggleRole,
     hasAnyRoles,
   } = useOpenRoles();
+
+  const panelRef = useRef<HTMLDivElement>(null);
+  const previousPanelHeightRef = useRef<number | null>(null);
+
+  /**
+   * Eases the roles panel's height across a team switch instead of letting
+   * it snap - Engineering (8 roles) and Product (1 role) differ enough
+   * that an instant swap visibly jumps everything below the section.
+   * Scoped to `activeTeamIndex` (and `status`, so the first team's real
+   * height gets captured once data loads) rather than `visibleRoles`,
+   * since that also changes on every search keystroke - a frequent,
+   * keyboard-driven update that shouldn't animate per the "should this
+   * animate at all" rule (occasional mouse actions do, frequent
+   * keystrokes don't).
+   *
+   * `useLayoutEffect` runs after the new team's content is already in the
+   * DOM but before paint, so `getBoundingClientRect()` reads the real
+   * final height - the WAAPI keyframes below then animate from the
+   * *previous* render's height to it, exactly like a FLIP transition,
+   * without a separate measure-old-height step.
+   */
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    const nextHeight = panel.getBoundingClientRect().height;
+    const previousHeight = previousPanelHeightRef.current;
+
+    if (previousHeight !== null && previousHeight !== nextHeight) {
+      panel.animate(
+        [{ height: `${previousHeight}px` }, { height: `${nextHeight}px` }],
+        { duration: PANEL_HEIGHT_EASE_MS, easing: PANEL_HEIGHT_EASE },
+      );
+    }
+
+    previousPanelHeightRef.current = nextHeight;
+  }, [activeTeamIndex, status]);
 
   return (
     <section
       id="open-roles"
       className="relative scroll-mt-16 overflow-hidden bg-[#eaebf1] px-3 sm:px-18"
     >
-      {/* Same grain-over-flat-color treatment as the CTA section's top
-          band (`cta-section.tsx`) directly below this one - without it,
-          the two `#eaebf1` fills read as a visible seam despite sharing a
-          hex value, since the CTA's texture darkens the flat color. */}
-      <Image
-        src="/images/texture-grain-white.png"
-        alt=""
-        fill
-        className="pointer-events-none object-cover mix-blend-multiply"
+      {/* `grain-light-texture.svg`, same source as `why-replay-section.tsx`
+          (and `careers-hero.tsx` above that), but back on `mix-blend-multiply`
+          here - unlike those two, this section is immediately followed by
+          the CTA section's own top band, which shares this exact
+          `bg-[#eaebf1]` fill (`cta-section.tsx`'s `DEFAULT_TOP_BAND_CLASS_NAME`)
+          textured with `mix-blend-multiply` too. Dropping the blend here
+          left this section visibly lighter than that band despite the
+          identical hex value, reading as two different fills meeting at a
+          seam rather than one continuous surface running into the CTA.
+          Still a tiled CSS background rather than `next/image`'s `fill` +
+          `object-cover`, though: this section's height isn't fixed (the
+          panel-height WAAPI animation above grows/shrinks it on a team
+          switch), and `object-cover` re-fits the image to the container's
+          *current* height on every layout frame - visibly rescaling the
+          grain mid-transition. `background-size: 100% auto` ties the
+          tile's size to the section's width only (stable during that
+          animation) and repeats it downward instead, so a taller team's
+          roles reveal more tile rather than rescaling it. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
       />
 
       {/* Dashed grid frame matching the main page's own grid system
@@ -57,13 +138,11 @@ export function OpenRolesSection() {
           `border-x border-t`), matching `benefits-section.tsx`'s frame,
           so the boundary reads as complete down to the bottom of the
           section rather than left open on that side.
-          `#a8a8a8`, matching careers-hero.tsx/why-replay-section.tsx -
-          `#d4d4d4` measured as applied correctly but read as effectively
-          invisible against this section's grain-textured light
-          background. Only this outer frame changes color; the internal
-          search input/rail/row borders below keep `#d4d4d4` since they
-          weren't part of the invisibility report. */}
-      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
+          `#d4d4d4`, matching `cta-section.tsx`'s own vertical lines
+          (its `DEFAULT_SIDE_BORDER_CLASS_NAME`) directly below this
+          section, so the two read as one continuous stroke value rather
+          than switching color at the seam. */}
+      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
         <div className="px-3 py-16 sm:px-10 sm:py-24 lg:py-[120px]">
           <div className="mx-auto flex w-full max-w-[1100px] flex-col items-start gap-6">
             <SectionTag
@@ -82,7 +161,16 @@ export function OpenRolesSection() {
             </h2>
           </div>
 
-          {hasAnyRoles ? (
+          {status === "error" ? (
+            <p className="mx-auto mt-10 w-full max-w-[1100px] text-sm text-[#727272]">
+              We couldn&rsquo;t load open roles right now. Refresh to try again, or reach us
+              directly below.
+            </p>
+          ) : status === "loading" ? (
+            <p className="mx-auto mt-10 w-full max-w-[1100px] text-sm text-[#727272]">
+              Loading open roles&hellip;
+            </p>
+          ) : hasAnyRoles && activeTeam ? (
             <div className="mx-auto mt-10 w-full max-w-[1100px]">
               <div className="relative mb-6">
                 <SearchIcon className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-[#a8a8a8]" />
@@ -97,14 +185,24 @@ export function OpenRolesSection() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] lg:border lg:border-[#d4d4d4]">
-                <div className="relative flex flex-col border-b border-[#d4d4d4] lg:border-r lg:border-b-0 lg:p-6">
+                <div className="relative flex flex-col self-start border-b border-[#d4d4d4] lg:border-r lg:border-b-0 lg:p-6">
+                  {/* Fixed pixels, not a percentage of this container's
+                      height: `h-14` (56px) matches each row's own
+                      `min-h-[56px]`, and `lg:top-6` (24px) matches this
+                      container's own `lg:p-6` top padding - so the
+                      indicator's size/position come from the same spacing
+                      tokens the rows and padding already use, rather than
+                      being derived from the container's total rendered
+                      height. That total height isn't a reliable basis: it
+                      also depends on padding contributing to it (a %
+                      calc'd against the padded box came out to 65.6px for
+                      one 56px row), so pixel values sidestep the whole
+                      category of "size relative to the wrong box" bug
+                      instead of getting the box exactly right. */}
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute top-0 left-0 w-[2px] bg-black transition-transform duration-300 ease-swift"
-                    style={{
-                      height: `${100 / teams.length}%`,
-                      transform: `translateY(${activeTeamIndex * 100}%)`,
-                    }}
+                    className="pointer-events-none absolute top-0 left-0 h-14 w-[2px] bg-black transition-transform duration-300 ease-swift lg:top-6"
+                    style={{ transform: `translateY(${activeTeamIndex * RAIL_ROW_HEIGHT_PX}px)` }}
                   />
 
                   {teams.map((team, i) => {
@@ -132,7 +230,8 @@ export function OpenRolesSection() {
                 </div>
 
                 <div
-                  className={`flex flex-col px-6 py-4 transition-opacity duration-150 ease-snap lg:p-6 ${
+                  ref={panelRef}
+                  className={`flex flex-col overflow-hidden px-6 py-4 transition-opacity duration-150 ease-snap lg:p-6 ${
                     isSwitchingTeam ? "opacity-0" : "opacity-100"
                   }`}
                 >
@@ -150,9 +249,7 @@ export function OpenRolesSection() {
                         key={role.id}
                         role={role}
                         index={i}
-                        isOpen={openRoleIds.has(role.id)}
                         isLast={i === visibleRoles.length - 1}
-                        onToggle={() => toggleRole(role.id)}
                       />
                     ))
                   )}

@@ -1,4 +1,4 @@
-import type { Team, Value, WhyReplayStatement } from "../types";
+import type { Value, WhyReplayStatement } from "../types";
 
 export const CAREERS_EYEBROW = "Careers";
 
@@ -55,55 +55,6 @@ export const VALUES: Value[] = [
   {
     title: "Compound the boring parts",
     body: "The unglamorous infrastructure work — de-identification, verification, compliance — is the product.",
-  },
-];
-
-/**
- * Illustrative only - no real open roles were found anywhere in this repo
- * or the live site at the time this page was built. Confirm real team
- * names and current openings before shipping; do not treat these as live
- * listings.
- */
-export const TEAMS: Team[] = [
-  {
-    name: "Engineering",
-    roles: [
-      {
-        id: "ml-engineer",
-        title: "Machine Learning Engineer",
-        location: "Remote (US)",
-        employmentType: "Full-time",
-        description:
-          "Work on the detection models that find PII across Slack threads, support tickets, code commits, PDFs, images, and email — the pipeline that currently finds 3x more identifiers than the leading frontier model on our benchmark. You'll own accuracy and recall across new data sources as we add them.",
-        applyHref: "#",
-      },
-      {
-        id: "product-engineer",
-        title: "Product Engineer",
-        location: "Remote (US)",
-        employmentType: "Full-time",
-        description:
-          "Build the systems companies use to connect their data sources, review a valuation, and track a license end to end — from first call to ongoing payout. Full-stack, small team, direct ownership of what you ship.",
-        applyHref: "#",
-      },
-      {
-        id: "design-engineer",
-        title: "Design Engineer",
-        location: "Remote (US)",
-        employmentType: "Full-time",
-        description:
-          "Shape how Replay explains a genuinely unfamiliar transaction — licensing your own operating data — clearly enough that a founder or ops lead trusts it on first read. Equal parts interface and interaction craft.",
-        applyHref: "#",
-      },
-    ],
-  },
-  {
-    name: "Data / Trust & Safety",
-    roles: [],
-  },
-  {
-    name: "Go-to-Market",
-    roles: [],
   },
 ];
 

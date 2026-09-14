@@ -19,15 +19,11 @@ export function CareersPage() {
         <ValuesSection />
         <OpenRolesSection />
         {/* Same section every other page reuses (see data-trust-page.tsx),
-            now with Careers' own copy via CtaSection's content props -
-            the section keeps its "value-my-data" id regardless, since
-            the navbar's own CTA always targets that id on every page. */}
-        <CtaSection
-          headline="Ready to find your place?"
-          buttonLabel="See open roles"
-          href="#open-roles"
-          bottomBandImageSrc="/images/careers/practical-stuff-wave.png"
-        />
+            unchanged - no Careers-specific copy/prop overrides, per
+            feedback to match the main page's CtaSection exactly. Keeps
+            its "value-my-data" id regardless, since the navbar's own CTA
+            always targets that id on every page. */}
+        <CtaSection />
       </main>
       <Footer />
     </div>
