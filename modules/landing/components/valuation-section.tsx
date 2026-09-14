@@ -45,6 +45,7 @@ export function ValuationSection() {
             activeIndex={activeIndex}
             onSelect={setActiveIndex}
             onComplete={advance}
+            hasEnteredViewport={inView}
           />
         </div>
 

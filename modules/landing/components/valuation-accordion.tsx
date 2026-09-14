@@ -9,6 +9,7 @@ type ValuationAccordionProps = {
   activeIndex: number;
   onSelect: (index: number) => void;
   onComplete: () => void;
+  hasEnteredViewport: boolean;
 };
 
 function StepProgressBar({
@@ -66,6 +67,7 @@ export function ValuationAccordion({
   activeIndex,
   onSelect,
   onComplete,
+  hasEnteredViewport,
 }: ValuationAccordionProps) {
   return (
     <div className="contents lg:flex lg:w-full lg:flex-col">
@@ -102,7 +104,11 @@ export function ValuationAccordion({
                   isOpen ? "bg-[#25fff9]" : "bg-[#cecece]/50"
                 }`}
               />
-              <span className="text-xs uppercase tracking-wide text-[#cecece]/70 transition-colors group-hover:text-white">
+              <span
+                className={`text-xs uppercase tracking-wide transition-colors group-hover:text-white ${
+                  isOpen ? "text-white" : "text-[#cecece]/70"
+                }`}
+              >
                 {step.label}
               </span>
               {/* The mobile design gives every row an expand affordance. */}
@@ -156,7 +162,7 @@ export function ValuationAccordion({
                     </div>
                     <StepProgressBar
                       key={`${index}-${isOpen}`}
-                      active={isOpen}
+                      active={isOpen && hasEnteredViewport}
                       onComplete={onComplete}
                     />
                   </div>
