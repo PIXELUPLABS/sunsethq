@@ -55,7 +55,7 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
 
         <a
           href="#value-my-data"
-          className="group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs uppercase tracking-wide text-white lg:flex"
+          className="group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs tracking-wide text-white lg:flex"
         >
           <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">

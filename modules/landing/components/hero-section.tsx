@@ -123,7 +123,7 @@ export function HeroSection() {
 
             <a
               href="#value-my-data"
-              className="group relative flex h-13 w-[300px] max-w-full items-center justify-center overflow-hidden bg-[#141518] font-serif text-xs tracking-[0.1px] text-white uppercase lg:h-auto lg:py-6 lg:text-base lg:tracking-wide"
+              className="group relative flex h-13 w-[300px] max-w-full items-center justify-center overflow-hidden bg-[#141518] font-serif text-xs tracking-[0.1px] text-white lg:h-auto lg:py-6 lg:text-base lg:tracking-wide"
             >
               <Image
                 src="/images/hero/btn-pattern.svg"
