@@ -163,7 +163,7 @@ export function HeroSection() {
           </div>
 
           <Image
-            src="/images/hero-img-mobile.webp"
+            src="/images/hero/hero-img-mobile.webp"
             alt=""
             width={1050}
             height={891}
