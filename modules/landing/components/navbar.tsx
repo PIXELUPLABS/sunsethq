@@ -15,8 +15,14 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed transition-[border-color,translate] duration-200 ease-[cubic-bezier(0.65,0,0.35,1)] ${
-        scrolled ? "border-transparent translate-y-6" : "border-[#dedede] translate-y-0"
+      className={`fixed top-0 left-0 z-20 w-full overflow-hidden border-b border-dashed border-[#dedede] transition-[border-color,translate] duration-200 ease-[cubic-bezier(0.65,0,0.35,1)] ${
+        // No translate utility at all below `lg` - even a zero translate-y-0
+        // would make this header a containing block for MobileNav's `fixed`
+        // panel, anchoring it to the header's own box instead of the
+        // viewport (the same class of bug the backdrop-filter comment above
+        // warns about). The shift is desktop-only anyway, and MobileNav is
+        // `lg:hidden`, so this only needs to exist at `lg:` and up.
+        scrolled ? "lg:translate-y-4 lg:border-transparent" : "lg:translate-y-0"
       }`}
     >
       {/* backdrop-filter belongs on its own layer, not the header itself -
@@ -28,16 +34,23 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           the elements that live in it) stay visible. */}
       <div
         className={`pointer-events-none absolute inset-0 bg-[#fcfcfc]/97 backdrop-blur-[16px] transition-opacity duration-500 ${
-          scrolled ? "opacity-0" : "opacity-100"
+          scrolled ? "opacity-100 lg:opacity-0" : "opacity-100"
         }`}
-      />
+      >
+        <Image
+          src="/images/grain-light-texture.svg"
+          alt=""
+          fill
+          className="pointer-events-none object-cover"
+        />
+      </div>
 
       {/* Bounds the right-bg section (and the logo swapped in over it) to
           the same 1560px-capped, centered band the nav content itself sits
           in, instead of the full-bleed header - otherwise "50%" meant 50%
           of the viewport, which on wide screens was far wider than the
           content row it's meant to align with. */}
-      <div className="pointer-events-none absolute inset-0 mx-auto max-w-[1560px]">
+      <div className="pointer-events-none absolute inset-0 mx-auto hidden max-w-[1560px] lg:block">
         {/* Fades in once the page scrolls - covers the right half of this
             band, inset the same 72px other sections use for their desktop
             side padding. At 1800px+ the content row's own padding drops to
@@ -80,7 +93,7 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
         <Link
           href="/"
           className={`flex items-center transition-opacity duration-500 ${
-            scrolled ? "opacity-0" : "opacity-100"
+            scrolled ? "opacity-100 lg:opacity-0" : "opacity-100"
           }`}
         >
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
