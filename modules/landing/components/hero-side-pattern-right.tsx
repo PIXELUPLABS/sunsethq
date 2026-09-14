@@ -3,6 +3,7 @@ import Image from "next/image";
 import {
   HERO_CONVERGE_STACK_CENTER_Y,
   HERO_CONVERGE_STACK_STEP_Y,
+  HERO_CONVERGE_X_PX_OFFSET,
   HERO_CONVERGE_X_VW,
   HERO_RIGHT_COLLAGE_IMAGES,
 } from "../lib/hero-assets";
@@ -41,12 +42,11 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           const { delay, power } = RIGHT_STAGGER[index] ?? { delay: 0, power: 1 };
           const t = Math.min(1, Math.max(0, (progress - delay) / (1 - delay)));
           const pieceProgress = Math.pow(t, power);
-          // This vw term is negative (the right stack travels left to
-          // converge), so max() - not min() - is what caps its magnitude at
-          // the 1800px-viewport-equivalent px value past that width,
-          // keeping the (fixed-px-wide) converged cluster centered instead
-          // of drifting further left as the viewport keeps growing.
-          const translateX = `calc(max(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw, ${(pieceProgress * (HERO_CONVERGE_X_VW - 100) * 18).toFixed(2)}px) + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
+          // Mirrors the left side's HERO_CONVERGE_X_CSS math: this vw term
+          // is negative (the right stack travels left to converge), plus
+          // the same fixed px offset subtracted again, so the convergence
+          // anchor stays centered in the section at any viewport width.
+          const translateX = `calc(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw - ${(pieceProgress * HERO_CONVERGE_X_PX_OFFSET).toFixed(2)}px + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
           const translateY = `${(pieceProgress * (stackY - centerY)).toFixed(2)}px`;
           const scale = (1 - pieceProgress * 0.08).toFixed(3);
 

@@ -52,7 +52,7 @@ export function HeroSection() {
 
   return (
     <div ref={pinRef} className="relative lg:h-[475vh]">
-      <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] lg:sticky lg:top-0 lg:flex lg:min-h-[80vh] lg:flex-col">
+      <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] lg:sticky lg:top-0 lg:flex lg:min-h-[80vh] lg:flex-col min-[1800px]:min-h-[100vh]">
         <Image
           src="/images/grain-light-texture.svg"
           alt=""
@@ -180,7 +180,8 @@ export function HeroSection() {
             transform: `translateY(${((1 - card2Progress) * 24).toFixed(2)}px)`,
           }}
         >
-          <Image src={HERO_CARD_2} alt="" fill className="object-contain" />
+          <div className="absolute inset-0 bg-white" />
+          <Image src={HERO_CARD_2} alt="" fill className="relative object-contain" />
         </div>
 
         {/* Peeks out from the bottom-right of card-2, arriving in its own

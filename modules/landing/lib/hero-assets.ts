@@ -22,19 +22,25 @@ export const HERO_PATTERN = "/images/hero/hero-pattern.webp";
  * to that same stack.
  */
 export const HERO_PATTERN_TOP_OFFSET = 48; // px - matches the `top-12` on both boxes
-export const HERO_CONVERGE_X_VW = 27;
+// HERO_PATTERN_BOX (the combined stack + cards 2-4 bounding box) sits at
+// `HERO_CONVERGE_X_CSS - 200px`, 956px wide - so its own center is
+// HERO_CONVERGE_X_CSS + 278px. HERO_CONVERGE_X_VW/PX_OFFSET below are picked
+// so that resolves to exactly 50vw, keeping the whole group centered in the
+// section at any viewport width instead of anchored to a flat vw fraction
+// from the left edge (which only looked centered in a narrow width range).
+export const HERO_CONVERGE_X_VW = 50;
+export const HERO_CONVERGE_X_PX_OFFSET = 278;
 export const HERO_CONVERGE_STACK_CENTER_Y = 170;
 export const HERO_CONVERGE_STACK_STEP_Y = 10;
 
 /**
- * HERO_CONVERGE_X_VW as a CSS length, capped at its value for a 1800px-wide
- * viewport (1800 * HERO_CONVERGE_X_VW/100). Past that width the whole
- * converged cluster (stack, cards 2-4, both patterns) is a fixed-px-wide
- * group anchored to a vw fraction, so left uncapped it drifts away from
- * center as the viewport keeps growing - this freezes its horizontal anchor
- * once the row is wide enough that the drift would show.
+ * The point (in row-relative coordinates) every collage piece converges on,
+ * as a CSS length: half the viewport width minus the funnel pattern's own
+ * half-width offset, so the combined stack + cards 2-4 + funnel pattern
+ * (everything anchored off this one point) center on the section at any
+ * viewport width - no viewport-width cap needed, unlike a flat vw fraction.
  */
-export const HERO_CONVERGE_X_CSS = `min(${HERO_CONVERGE_X_VW}vw, ${HERO_CONVERGE_X_VW * 18}px)`;
+export const HERO_CONVERGE_X_CSS = `calc(${HERO_CONVERGE_X_VW}vw - ${HERO_CONVERGE_X_PX_OFFSET}px)`;
 
 /**
  * Bounding box the converged collage stack plus cards 2-4 occupy once
