@@ -71,7 +71,7 @@ export const HERO_LINE_PATTERN = "/images/hero/hero-line-pattern.png";
  */
 export const HERO_LINE_PATTERN_BOX = {
   left: `calc(${HERO_CONVERGE_X_CSS} - 258px)`,
-  top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 88,
+  top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 85,
   width: 732,
   height: 494,
 } as const;

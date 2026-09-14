@@ -14,6 +14,11 @@ const BOX_WIDTH = 272;
 // collage stack slightly left of its default convergence point.
 const STACK_X_NUDGE = 32;
 
+// Mirrors LARGE_SCREEN_STACK_SCALE_Y in HeroSidePatternLeft - must match the
+// box's own `min-[1800px]:scale-y-[...]` class below, compensating so each
+// piece's --hero-lift contribution isn't doubly amplified by that scale.
+const LARGE_SCREEN_STACK_SCALE_Y = 1.35;
+
 /**
  * Per-image stagger so the pieces don't converge in perfect lockstep - each
  * has its own start delay (as a fraction of the shared progress) and easing
@@ -38,7 +43,7 @@ const RIGHT_STAGGER = [
 export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
   return (
     <div className="relative h-full w-full">
-      <div className="pointer-events-none absolute top-12 right-0 h-[666px] w-[272px] min-[1800px]:origin-top min-[1800px]:scale-y-[1.15]">
+      <div className="pointer-events-none absolute top-12 right-0 h-[666px] w-[272px] min-[1800px]:origin-top min-[1800px]:scale-y-[1.35]">
         {HERO_RIGHT_COLLAGE_IMAGES.map((image, index) => {
           const centerX = image.x + image.w / 2;
           const centerY = image.y + image.h / 2;
@@ -51,7 +56,11 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           // the same fixed px offset subtracted again, so the convergence
           // anchor stays centered in the section at any viewport width.
           const translateX = `calc(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw - ${(pieceProgress * (HERO_CONVERGE_X_PX_OFFSET + STACK_X_NUDGE)).toFixed(2)}px + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
-          const translateY = `calc(${(pieceProgress * (stackY - centerY)).toFixed(2)}px + var(--hero-lift, 0px))`;
+          // The 1800px+ vertical-centering lift (see HeroSection) is scaled
+          // by pieceProgress too, so it's fully off at rest (matching this
+          // piece's untouched starting position) and fully applied only
+          // once converged (matching cards 2-4, which get the full lift).
+          const translateY = `calc(${(pieceProgress * (stackY - centerY)).toFixed(2)}px + ${(pieceProgress / LARGE_SCREEN_STACK_SCALE_Y).toFixed(4)} * (var(--hero-lift, 0px) + var(--hero-stack-extra-lift, 0px)))`;
           const scale = (1 - pieceProgress * 0.08).toFixed(3);
 
           return (

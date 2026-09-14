@@ -52,7 +52,7 @@ export function HeroSection() {
 
   return (
     <div ref={pinRef} className="relative lg:h-[475vh]">
-      <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] lg:sticky lg:top-0 lg:flex lg:min-h-[80vh] lg:flex-col min-[1800px]:min-h-[100vh]">
+      <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] lg:sticky lg:top-0 lg:flex lg:min-h-[80vh] lg:flex-col min-[1800px]:min-h-[100vh]!">
         <Image
           src="/images/grain-light-texture.svg"
           alt=""
@@ -61,7 +61,17 @@ export function HeroSection() {
           className="pointer-events-none object-cover"
         />
 
-        <div className="relative flex items-stretch lg:flex-1 min-[1800px]:[--hero-lift:-24px]">
+        {/* --hero-lift also vertically centers the combined stack + cards +
+            patterns group in the row at 1800px+: HERO_PATTERN_BOX (the
+            group's own bounding box) sits at top=136, height=518, so its
+            center is 395px down from the row's top - `50vh - 395px` would
+            put that same center at the row's own vertical middle; the extra
+            -15px nudges it a little higher than dead-center.
+            --hero-stack-extra-lift is added on top of that, but only inside
+            the converging collage stack (see HeroSidePatternLeft/Right) -
+            not cards 2-4 or the funnel/line patterns - shifting just the
+            stack images further up still. */}
+        <div className="relative flex items-stretch lg:flex-1 min-[1800px]:[--hero-lift:calc(50vh_-_410px)] min-[1800px]:[--hero-stack-extra-lift:-30px]">
           {/* Funnel pattern behind the converged stack and cards 2-4 - sized
               to their combined bounding box, fades/scales in only once
               card-4 has fully arrived. z-0 keeps it under the z-10 stack
