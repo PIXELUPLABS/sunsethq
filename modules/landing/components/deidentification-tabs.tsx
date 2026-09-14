@@ -20,7 +20,7 @@ export function DeidentificationTabs({
   onSelect: (index: number) => void;
 }) {
   return (
-    <div className="relative flex w-full">
+    <div className="relative flex w-full overflow-hidden">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-y-0 left-0 bg-black"
