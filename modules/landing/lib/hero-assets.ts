@@ -51,10 +51,13 @@ export const HERO_CONVERGE_X_CSS = `calc(${HERO_CONVERGE_X_VW}vw - ${HERO_CONVER
  * sized to exactly this box.
  */
 export const HERO_PATTERN_BOX = {
-  left: `calc(${HERO_CONVERGE_X_CSS} - 200px)`,
+  // Widened symmetrically (+30px each side) from the original 956px so the
+  // box - and HERO_CONVERGE_X_PX_OFFSET, tuned against its old half-width -
+  // stays centered on the same anchor point.
+  left: `calc(${HERO_CONVERGE_X_CSS} - 230px)`,
   top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 82,
-  width: 956,
-  height: 529,
+  width: 1016,
+  height: 518,
 } as const;
 
 export const HERO_LINE_PATTERN = "/images/hero/hero-line-pattern.png";
@@ -67,10 +70,10 @@ export const HERO_LINE_PATTERN = "/images/hero/hero-line-pattern.png";
  * of it.
  */
 export const HERO_LINE_PATTERN_BOX = {
-  left: `calc(${HERO_CONVERGE_X_CSS} - 223px)`,
-  top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 85,
-  width: 772,
-  height: 520,
+  left: `calc(${HERO_CONVERGE_X_CSS} - 258px)`,
+  top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 88,
+  width: 732,
+  height: 494,
 } as const;
 
 /**

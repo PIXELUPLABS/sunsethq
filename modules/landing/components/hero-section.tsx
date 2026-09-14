@@ -61,7 +61,7 @@ export function HeroSection() {
           className="pointer-events-none object-cover"
         />
 
-        <div className="relative flex items-stretch lg:flex-1">
+        <div className="relative flex items-stretch lg:flex-1 min-[1800px]:[--hero-lift:-24px]">
           {/* Funnel pattern behind the converged stack and cards 2-4 - sized
               to their combined bounding box, fades/scales in only once
               card-4 has fully arrived. z-0 keeps it under the z-10 stack
@@ -74,7 +74,7 @@ export function HeroSection() {
               width: HERO_PATTERN_BOX.width,
               height: HERO_PATTERN_BOX.height,
               opacity: patternProgress,
-              transform: `scale(${(0.94 + patternProgress * 0.06).toFixed(3)})`,
+              transform: `translateY(var(--hero-lift, 0px)) scale(${(0.94 + patternProgress * 0.06).toFixed(3)})`,
             }}
           >
             <Image src={HERO_PATTERN} alt="" fill className="object-cover" />
@@ -93,7 +93,7 @@ export function HeroSection() {
               width: HERO_LINE_PATTERN_BOX.width,
               height: HERO_LINE_PATTERN_BOX.height,
               opacity: linePatternProgress,
-              transform: `scale(${(0.94 + linePatternProgress * 0.06).toFixed(3)})`,
+              transform: `translateY(var(--hero-lift, 0px)) scale(${(0.94 + linePatternProgress * 0.06).toFixed(3)})`,
               clipPath: `inset(0 ${((1 - linePatternProgress) * 100).toFixed(2)}% 0 0)`,
             }}
           >
@@ -172,12 +172,12 @@ export function HeroSection() {
         <div
           className="pointer-events-none absolute z-18 hidden lg:block"
           style={{
-            left: `calc(${HERO_CONVERGE_X_CSS} + 40px)`,
-            top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y + 8,
+            left: `calc(${HERO_CONVERGE_X_CSS} + 5px)`,
+            top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 12,
             width: 316,
             height: 316,
             opacity: card2Progress,
-            transform: `translateY(${((1 - card2Progress) * 24).toFixed(2)}px)`,
+            transform: `translateY(calc(${((1 - card2Progress) * 24).toFixed(2)}px + var(--hero-lift, 0px)))`,
           }}
         >
           <div className="absolute inset-0 bg-white" />
@@ -189,12 +189,12 @@ export function HeroSection() {
         <div
           className="pointer-events-none absolute z-19 hidden lg:block"
           style={{
-            left: `calc(${HERO_CONVERGE_X_CSS} + 40px + 210px)`,
-            top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y + 10 + 55,
+            left: `calc(${HERO_CONVERGE_X_CSS} + 40px + 210px - 5px)`,
+            top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y + 55,
             width: 316,
             height: 316,
             opacity: card3Progress,
-            transform: `translateY(${((1 - card3Progress) * 24).toFixed(2)}px)`,
+            transform: `translateY(calc(${((1 - card3Progress) * 24).toFixed(2)}px + var(--hero-lift, 0px)))`,
           }}
         >
           <Image src={HERO_CARD_3} alt="" fill className="object-contain" />
@@ -205,12 +205,12 @@ export function HeroSection() {
         <div
           className="pointer-events-none absolute z-20 hidden lg:block"
           style={{
-            left: `calc(${HERO_CONVERGE_X_CSS} + 40px + 210px + 189px)`,
-            top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y + 10 + 50 + 58,
+            left: `calc(${HERO_CONVERGE_X_CSS} + 470px)`,
+            top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y + 119,
             width: 316,
             height: 316,
             opacity: card4Progress,
-            transform: `translateY(${((1 - card4Progress) * 24).toFixed(2)}px)`,
+            transform: `translateY(calc(${((1 - card4Progress) * 24).toFixed(2)}px + var(--hero-lift, 0px)))`,
           }}
         >
           <Image src={HERO_CARD_4} alt="" fill className="object-contain" />

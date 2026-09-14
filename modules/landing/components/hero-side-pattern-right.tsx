@@ -10,6 +10,10 @@ import {
 
 const BOX_WIDTH = 272;
 
+// Mirrors STACK_X_NUDGE in HeroSidePatternLeft - nudges just the converging
+// collage stack slightly left of its default convergence point.
+const STACK_X_NUDGE = 32;
+
 /**
  * Per-image stagger so the pieces don't converge in perfect lockstep - each
  * has its own start delay (as a fraction of the shared progress) and easing
@@ -46,8 +50,8 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           // is negative (the right stack travels left to converge), plus
           // the same fixed px offset subtracted again, so the convergence
           // anchor stays centered in the section at any viewport width.
-          const translateX = `calc(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw - ${(pieceProgress * HERO_CONVERGE_X_PX_OFFSET).toFixed(2)}px + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
-          const translateY = `${(pieceProgress * (stackY - centerY)).toFixed(2)}px`;
+          const translateX = `calc(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw - ${(pieceProgress * (HERO_CONVERGE_X_PX_OFFSET + STACK_X_NUDGE)).toFixed(2)}px + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
+          const translateY = `calc(${(pieceProgress * (stackY - centerY)).toFixed(2)}px + var(--hero-lift, 0px))`;
           const scale = (1 - pieceProgress * 0.08).toFixed(3);
 
           return (

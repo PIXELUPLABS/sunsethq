@@ -8,6 +8,10 @@ import {
   HERO_LEFT_COLLAGE_IMAGES,
 } from "../lib/hero-assets";
 
+// Nudges just the converging collage stack (not the funnel/line patterns or
+// cards 2-4) slightly left of its default convergence point.
+const STACK_X_NUDGE = 32;
+
 export function HeroSidePatternLeft({ progress = 0 }: { progress?: number }) {
   return (
     <div className="relative h-full w-full">
@@ -19,8 +23,8 @@ export function HeroSidePatternLeft({ progress = 0 }: { progress?: number }) {
           // Matches HERO_CONVERGE_X_CSS (progress-scaled): a vw term plus a
           // fixed px offset, so the convergence anchor stays centered in the
           // section at any viewport width rather than drifting off-center.
-          const translateX = `calc(${(progress * HERO_CONVERGE_X_VW).toFixed(3)}vw - ${(progress * (HERO_CONVERGE_X_PX_OFFSET + centerX + 37)).toFixed(2)}px)`;
-          const translateY = `${(progress * (stackY - centerY)).toFixed(2)}px`;
+          const translateX = `calc(${(progress * HERO_CONVERGE_X_VW).toFixed(3)}vw - ${(progress * (HERO_CONVERGE_X_PX_OFFSET + STACK_X_NUDGE + centerX + 37)).toFixed(2)}px)`;
+          const translateY = `calc(${(progress * (stackY - centerY)).toFixed(2)}px + var(--hero-lift, 0px))`;
           const scale = (1 - progress * 0.08).toFixed(3);
 
           return (
