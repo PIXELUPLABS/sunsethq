@@ -63,10 +63,7 @@ export function HeroSheetIllustration() {
         </p>
       </div>
 
-      {/* Straddles the sheet image's bottom edge (top-0 h-95.045%) - half
-          tucked behind it, half peeking out below, instead of sitting fully
-          within its covered area where the opaque image hides it entirely. */}
-      <ProcessBar className="absolute inset-x-0 top-[92.7928%] z-0 h-[4.5045%]" />
+      <ProcessBar className="absolute inset-x-0 top-[50.4505%] z-0 h-[4.5045%]" />
     </div>
   );
 }
