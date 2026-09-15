@@ -7,6 +7,7 @@ import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useStepCycle } from "@/modules/landing/hooks/use-step-cycle";
 import { useInView } from "@/modules/landing/hooks/use-in-view";
 import {
+  DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION,
   DATA_TRUST_DEIDENTIFICATION_PANEL_IMAGES,
   DATA_TRUST_GRAIN_STRIP,
   DATA_TRUST_GRAIN_STRIP_SIZE,
@@ -184,27 +185,61 @@ export function DeidentificationPanel() {
             </ol>
           </div>
 
-          {/* Right column: a single image now stands in for the headline,
-              body copy, and card area this column used to lay out
-              piece-by-piece - one per step, crossfaded as the active step
-              changes. `border-r` closes the panel's own right edge, 40px
-              shy of the column's true edge - drawn as specified even
+          {/* Right column: `border-r` closes the panel's own right edge,
+              40px shy of the column's true edge - drawn as specified even
               though it reads as a subtle inner seam rather than a divider
               between the two columns. */}
           <div className="relative min-h-[400px] overflow-hidden lg:h-full lg:min-h-0 lg:flex-1 lg:border-r lg:border-dashed lg:border-[#a8a8a8]">
-            {DATA_TRUST_DEIDENTIFICATION_PANEL_IMAGES.map((src, index) => (
-              <Image
-                key={src}
-                src={src}
-                alt={PANEL_IMAGE_ALTS[index]}
-                fill
-                className={`object-cover transition-opacity duration-700 ease-in-out ${
-                  index === activeIndex ? "opacity-100" : "opacity-0"
-                }`}
-                style={{ transform: "scale(0.97)" }}
-                priority={index === 0}
-              />
-            ))}
+            {/* Tab 1 ([01] De-Identification): headline + body side by
+                side, then the card area below - matching Figma node
+                6672:20338 exactly, rather than the single full-bleed image
+                tabs 2 and 3 still use below. */}
+            <div
+              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:gap-0 lg:p-8 ${
+                activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
+              }`}
+            >
+              <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-6 lg:pb-8">
+                <p className="font-serif text-[26px] leading-[1.1] tracking-[-0.26px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
+                  Your data.
+                  <br />
+                  De-identified.
+                </p>
+                <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white lg:w-[360px] lg:shrink-0">
+                  {DEIDENTIFICATION_BODY}
+                </p>
+              </div>
+
+              {/* The card area: the illustration, exported from Figma node
+                  6672:20349 (the glass card, woven-texture surround, email
+                  copy, and redaction bars are all one live composition in
+                  Figma, not an exportable image) as a flattened screenshot
+                  at 2x for retina sharpness. */}
+              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:min-h-0">
+                <Image
+                  src={DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION}
+                  alt="A customer email with names, contact details, and an API key struck out by redaction bars"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </div>
+
+            {/* Tabs 2 & 3: unchanged - a single full-bleed image each. */}
+            {DATA_TRUST_DEIDENTIFICATION_PANEL_IMAGES.map((src, index) =>
+              index === 0 ? null : (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={PANEL_IMAGE_ALTS[index]}
+                  fill
+                  className={`object-cover transition-opacity duration-700 ease-in-out ${
+                    index === activeIndex ? "opacity-100" : "opacity-0"
+                  }`}
+                  style={{ transform: "scale(0.97)" }}
+                />
+              ),
+            )}
           </div>
         </div>
       </div>

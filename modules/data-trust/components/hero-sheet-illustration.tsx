@@ -12,68 +12,101 @@ import { DATA_TRUST_HERO_PLANE, DATA_TRUST_HERO_PLANE_MOBILE } from "../lib/asse
  */
 export function HeroSheetIllustration() {
   return (
-    <div className="relative aspect-[780/976] w-full lg:aspect-[1440/444]">
-      <Image
-        src={DATA_TRUST_HERO_PLANE_MOBILE}
-        alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover lg:hidden"
-      />
+    <>
+      <div className="relative aspect-[780/976] w-full lg:aspect-[1440/444]">
+        <Image
+          src={DATA_TRUST_HERO_PLANE_MOBILE}
+          alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover lg:hidden"
+        />
 
-      {/* Stretched edge-to-edge across the full band width (no side gutter),
-          height unchanged at 95.045% (422/444) of the band - a deliberate
-          departure from the Figma-exact 1297x422-at-72px-gutter placement
-          above. */}
-      <Image
-        src={DATA_TRUST_HERO_PLANE}
-        alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
-        width={2594}
-        height={844}
-        priority
-        sizes="100vw"
-        className="absolute top-0 left-0 z-10 hidden h-[95.0450%] w-full max-w-none lg:block"
-      />
+        {/* Stretched edge-to-edge across the full band width (no side gutter),
+            height unchanged at 95.045% (422/444) of the band - a deliberate
+            departure from the Figma-exact 1297x422-at-72px-gutter placement
+            above. */}
+        <Image
+          src={DATA_TRUST_HERO_PLANE}
+          alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
+          width={2594}
+          height={844}
+          priority
+          sizes="100vw"
+          className="absolute top-0 left-0 z-10 hidden h-[95.0450%] w-full max-w-none lg:block"
+        />
 
-      {/* dashed band the version and classification chips sit in */}
-      <div className="pointer-events-none absolute inset-x-0 top-[23.8739%] hidden h-[13.7387%] border-y border-dashed border-black/8 lg:block">
-        <div className="absolute inset-y-0 left-[74.4444%] border-r border-dashed border-black/8" />
-      </div>
-
-      <div className="pointer-events-none absolute top-[26.5766%] left-[82.4306%] hidden lg:block">
-        <div className="border border-dashed border-[#d9d9d9] px-2 py-1.5">
-          <p className="font-mono text-[8px] tracking-wide whitespace-nowrap text-[#898989] uppercase">
-            RL-2026-001 {"//"} Version 1.0
-          </p>
+        {/* dashed band the version and classification chips sit in */}
+        <div className="pointer-events-none absolute inset-x-0 top-[23.8739%] hidden h-[13.7387%] border-y border-dashed border-black/8 lg:block">
+          <div className="absolute inset-y-0 left-[74.4444%] border-r border-dashed border-black/8" />
         </div>
-      </div>
 
-      <p className="pointer-events-none absolute top-[40.9910%] left-[82.3611%] hidden font-mono text-[8px] leading-tight tracking-wide whitespace-nowrap text-[#898989] uppercase lg:block">
-        classification
-        <br />
-        proprietary data / licensing
-      </p>
-
-      <div className="pointer-events-none absolute top-[41.4414%] left-[1.3194%] hidden lg:block">
-        <div className="flex items-center gap-1">
-          <p className="font-mono text-[8px] tracking-wide text-[#898989] uppercase">
-            process
-          </p>
-          <Image
-            src={HERO_PROCESS_DASH}
-            alt=""
-            width={193}
-            height={1}
-            className="h-px w-[193px] max-w-none"
-          />
+        <div className="pointer-events-none absolute top-[26.5766%] left-[82.4306%] hidden lg:block">
+          <div className="border border-dashed border-[#d9d9d9] px-2 py-1.5">
+            <p className="font-mono text-[8px] tracking-wide whitespace-nowrap text-[#898989] uppercase">
+              RL-2026-001 {"//"} Version 1.0
+            </p>
+          </div>
         </div>
-        <p className="font-mono text-[8px] tracking-wide whitespace-nowrap text-[#898989] uppercase">
-          identified → structured → verified → licensed
+
+        <p className="pointer-events-none absolute top-[40.9910%] left-[82.3611%] hidden font-mono text-[8px] leading-tight tracking-wide whitespace-nowrap text-[#898989] uppercase lg:block">
+          classification
+          <br />
+          proprietary data / licensing
         </p>
+
+        <div className="pointer-events-none absolute top-[41.4414%] left-[1.3194%] hidden lg:block">
+          <div className="flex items-center gap-1">
+            <p className="font-mono text-[8px] tracking-wide text-[#898989] uppercase">
+              process
+            </p>
+            <Image
+              src={HERO_PROCESS_DASH}
+              alt=""
+              width={193}
+              height={1}
+              className="h-px w-[193px] max-w-none"
+            />
+          </div>
+          <p className="font-mono text-[8px] tracking-wide whitespace-nowrap text-[#898989] uppercase">
+            identified → structured → verified → licensed
+          </p>
+        </div>
+
+        <ProcessBar className="absolute inset-x-0 top-[50.4505%] z-0 hidden h-[4.5045%] lg:block" />
       </div>
 
-      <ProcessBar className="absolute inset-x-0 top-[50.4505%] z-0 hidden h-[4.5045%] lg:block" />
-    </div>
+      {/* Mobile-only process/version/classification row + bar (Figma node
+          6672:23290) - stacked in normal flow directly below the portrait
+          image instead of overlaid on top of it like the desktop band
+          above. */}
+      <div className="lg:hidden">
+        <div className="border-t border-dashed border-[#ddd] px-6 pt-3.5 pb-[17px]">
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex flex-col gap-2">
+              <p className="font-mono text-[8px] leading-[1.4] tracking-wide text-[#858585] uppercase">
+                Process
+              </p>
+              <p className="font-mono text-[8px] leading-[1.4] tracking-wide text-[#858585] uppercase">
+                Process: identified → structured → verified → licensed
+              </p>
+            </div>
+            <div className="shrink-0 border border-dashed border-[#d4d4d4] px-1.5 py-[7px]">
+              <p className="font-mono text-[6.8px] leading-[1.35] whitespace-nowrap text-[#8d8d8d]">
+                RL-2026-001
+                <br />
+                VERSION 1.0
+              </p>
+            </div>
+          </div>
+          <p className="mt-2 font-mono text-[7px] leading-[1.3] tracking-wide text-[#aaa] uppercase">
+            Classification: Proprietary data / licensing
+          </p>
+        </div>
+
+        <ProcessBar className="h-2 w-full" />
+      </div>
+    </>
   );
 }
