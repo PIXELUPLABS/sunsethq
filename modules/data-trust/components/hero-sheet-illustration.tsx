@@ -12,8 +12,10 @@ import { DATA_TRUST_HERO_PLANE } from "../lib/assets";
 export function HeroSheetIllustration() {
   return (
     <div className="relative aspect-[1440/444] w-full">
-      {/* The design lands the sheet in a 1297x422 rect at the 72px gutter, at
-          the very top of the band. */}
+      {/* Stretched edge-to-edge across the full band width (no side gutter),
+          height unchanged at 95.045% (422/444) of the band - a deliberate
+          departure from the Figma-exact 1297x422-at-72px-gutter placement
+          above. */}
       <Image
         src={DATA_TRUST_HERO_PLANE}
         alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
@@ -21,7 +23,7 @@ export function HeroSheetIllustration() {
         height={844}
         priority
         sizes="100vw"
-        className="absolute top-0 left-[5%] h-[95.0450%] w-[90.0694%] max-w-none"
+        className="absolute top-0 left-0 z-10 h-[95.0450%] w-full max-w-none"
       />
 
       {/* dashed band the version and classification chips sit in */}
@@ -61,7 +63,10 @@ export function HeroSheetIllustration() {
         </p>
       </div>
 
-      <ProcessBar className="absolute inset-x-0 top-[50.4505%] h-[4.5045%]" />
+      {/* Straddles the sheet image's bottom edge (top-0 h-95.045%) - half
+          tucked behind it, half peeking out below, instead of sitting fully
+          within its covered area where the opaque image hides it entirely. */}
+      <ProcessBar className="absolute inset-x-0 top-[92.7928%] z-0 h-[4.5045%]" />
     </div>
   );
 }

@@ -4,7 +4,7 @@
  * 2x. The gradient mask and the coloured top sheet are baked into the export,
  * so it drops straight into the 1297x422 box the design gives it.
  */
-export const DATA_TRUST_HERO_PLANE = "/images/data-trust/hero-plane.png";
+export const DATA_TRUST_HERO_PLANE = "/images/data-trust/hero-plane.webp";
 
 /**
  * Tiling textures. Each one is exported at the size the design paints it at,
