@@ -29,6 +29,14 @@ export function ShieldIcon({ className }: IconProps) {
   );
 }
 
+export function BarChartIcon({ className }: IconProps) {
+  return (
+    <svg className={className} {...base}>
+      <path d="M4 20V11M12 20V4M20 20v-6" />
+    </svg>
+  );
+}
+
 export function CheckCircleIcon({ className }: IconProps) {
   return (
     <svg className={className} {...base}>
@@ -147,6 +155,14 @@ export function ChevronRightIcon({ className }: IconProps) {
   return (
     <svg className={className} {...base}>
       <path d="m9 6 6 6-6 6" />
+    </svg>
+  );
+}
+
+export function ChevronDownIcon({ className }: IconProps) {
+  return (
+    <svg className={className} {...base}>
+      <path d="m6 9 6 6 6-6" />
     </svg>
   );
 }

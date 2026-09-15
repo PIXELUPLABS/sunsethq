@@ -1,23 +1,11 @@
 import Image from "next/image";
 import { FOOTER_COLUMNS } from "../lib/constants";
+import { ReplayWordmark } from "./replay-wordmark";
 
 export function Footer() {
   return (
     <footer className="relative isolate overflow-hidden bg-[#080808] px-6 pt-16 pb-6 sm:px-18 sm:py-14 lg:h-[627px] lg:px-[72px] lg:py-[54px]">
-      <Image
-        src="/images/footer/backdrop-1.webp"
-        alt=""
-        aria-hidden
-        width={766}
-        height={414}
-        // The design starts the texture below the links, so it never reaches up
-        // behind them and can stay at full strength. On mobile it runs the full
-        // width of the footer — the 343px it used to be is the arc group inside
-        // the export, not the export itself, which left it visibly undersized.
-        className="pointer-events-none absolute bottom-0 left-0 -z-10 w-full max-w-none sm:w-[766px]"
-      />
-
-      <div className="relative mx-auto flex h-full w-full max-w-[1560px] flex-col justify-between gap-[120px] sm:gap-20 lg:items-end lg:gap-0">
+      <div className="relative mx-auto flex h-full w-full max-w-[1560px] flex-col justify-between gap-16 sm:gap-20">
         {/* Hovering one link recedes the rest of the list rather than
             highlighting the one under the cursor. */}
         <nav
@@ -63,15 +51,9 @@ export function Footer() {
           ))}
         </nav>
 
-        <div className="flex w-full flex-col gap-3 sm:gap-4 lg:w-[403px]">
-          <Image
-            src="/images/footer/wordmark.webp"
-            alt="Replay"
-            width={403}
-            height={133}
-            className="h-auto w-[244px] max-w-full sm:w-[330px] lg:w-[403px]"
-          />
-          <div className="flex items-end justify-between gap-6">
+        <div className="relative aspect-[1297/337] w-full">
+          <ReplayWordmark className="absolute inset-0 h-full w-full" />
+          <div className="absolute inset-x-0 bottom-4 flex items-end justify-between gap-6 sm:bottom-6">
             <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase sm:text-white/60">
               © 2026 Replay. All rights reserved
               <br />

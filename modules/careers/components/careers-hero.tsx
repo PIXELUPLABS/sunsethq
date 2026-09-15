@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRightIcon, BriefcaseIcon } from "@/components/ui/icons";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { ProcessBar } from "@/modules/landing/components/process-bar";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { HERO_PROCESS_DASH } from "@/modules/landing/lib/hero-assets";
@@ -21,16 +21,29 @@ export function CareersHero() {
           open-roles-section.tsx) - the hero previously used its own
           one-off full-bleed `border-b`, leaving it visually disconnected
           from that frame chain instead of starting it.
-          `#a8a8a8`, not those sections' `#d4d4d4`: at 1px against this
-          section's grain-textured `#fcfcfc`, `#d4d4d4` measured correctly
-          in computed styles but read as effectively invisible - confirmed
-          by eye, not just assumed from the class name. */}
-      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
+          `#d4d4d4`, matching the main page's own dashed grid lines
+          (buyers-section.tsx, deidentification-section.tsx,
+          stats-section.tsx, etc.) - per review, this page's whole grid
+          frame should use the same line color as the main page rather
+          than its own `#a8a8a8` deviation, even though an earlier pass
+          found `#d4d4d4` harder to see against this section's
+          grain-textured `#fcfcfc`. */}
+      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
         {/* pt clears the 64px fixed header; shorter than data-trust's hero
             since this section has no illustration pushing content down. */}
         <div className="relative flex flex-col items-center px-6 pt-[108px] pb-16 text-center lg:px-0 lg:pt-[160px] lg:pb-24">
           <div className="flex flex-col items-center gap-6">
-            <SectionTag label={CAREERS_EYEBROW} icon={<BriefcaseIcon className="size-[18px]" />} />
+            <SectionTag
+              label={CAREERS_EYEBROW}
+              icon={
+                <Image
+                  src="/images/careers/careers-section-tag.webp"
+                  alt=""
+                  width={18}
+                  height={18}
+                />
+              }
+            />
 
             {/* Two short lines, like the site's other hero headlines
                 (e.g. data-trust-hero's "Securely license your data. /
