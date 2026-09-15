@@ -1,7 +1,6 @@
 import Image from "next/image";
 import {
   CTA_BG_TEXT,
-  CTA_GRAIN_LIGHT,
   CTA_MOBILE_BOTTOM_LEFT,
   CTA_MOBILE_BOTTOM_RIGHT,
   CTA_MOBILE_TOP_LEFT,
@@ -70,8 +69,8 @@ export function CtaSectionMobile({
         <Image src={CTA_MOBILE_BOTTOM_RIGHT} alt="" fill className="pointer-events-none object-cover" />
       </div>
 
-      <div className="absolute top-[29.43%] right-[6.1538%] bottom-[24.77%] left-[6.1538%] border border-[#d4d4d4] bg-[#f4f4f4]">
-        <Image src={CTA_GRAIN_LIGHT} alt="" fill className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply" />
+      <div className="absolute top-[29.43%] right-[6.1538%] bottom-[24.77%] left-[6.1538%] border border-[#d4d4d4] bg-[#eaebf1]">
+        <Image src={CTA_GRAIN_WHITE} alt="" fill className="pointer-events-none object-cover mix-blend-multiply" />
 
         <div className="relative flex h-full w-full flex-col items-center gap-[6.1538cqw] px-[6.1538cqw] pt-[10.2564cqw] pb-[16.4103cqw]">
           <p className="relative w-full text-center font-serif text-[8.2051cqw] leading-none tracking-[-0.04em] text-black">

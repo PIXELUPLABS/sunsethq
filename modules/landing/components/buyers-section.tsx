@@ -43,35 +43,37 @@ export function BuyersSection() {
             {BUYER_CARDS.map((card) => (
               <div
                 key={card.tagLabel}
-                className="group relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 p-5 text-black md:h-[430px] md:border-x-0 md:border-y"
+                className="group relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 p-5 text-black md:h-[430px]"
               >
-                <Image
-                  src="/images/hover-card-grey-bg.svg"
-                  alt=""
-                  fill
-                  className="pointer-events-none object-cover"
+                {/* Wrapped 1px past the card's own edges so object-cover
+                    rounding never leaves a hairline gap along any side. */}
+                <div className="pointer-events-none absolute -inset-px">
+                  <Image
+                    src="/images/hover-card-grey-bg.svg"
+                    alt=""
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div
+                  className="pointer-events-none absolute inset-0 opacity-0 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-20"
+                  style={{
+                    backgroundImage: "url(/images/buyer-card-hover-mesh.png)",
+                    backgroundSize: "408px 306px",
+                  }}
                 />
-                <Image
-                  src="/images/hover-card-blue-bg.svg"
-                  alt=""
-                  fill
-                  className="pointer-events-none object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                />
+                <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-[0.04]" />
 
-                <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] transition-colors duration-300 group-hover:text-[#f4f4f4] md:text-[32px] md:tracking-[-0.32px]">
+                <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] md:text-[32px] md:tracking-[-0.32px]">
                   {card.headline}
                 </p>
-                <div className="relative mb-0 flex items-center gap-[9px] transition-all duration-300 group-hover:text-white group-hover:opacity-60 md:gap-3 md:group-hover:mb-5">
+                <div className="relative mb-0 flex items-center gap-[9px] opacity-60 transition-all duration-300 md:gap-3 md:mb-[42px] md:group-hover:mb-[64px]">
                   <Image
                     src={ICONS[card.icon]}
                     alt=""
                     width={18}
                     height={18}
-                    className={`size-4 md:size-[18px] ${
-                      card.icon === "entity"
-                        ? "invert transition-[filter] duration-300 group-hover:invert-0"
-                        : "transition-[filter] duration-300 group-hover:invert"
-                    }`}
+                    className={`size-4 md:size-[18px] ${card.icon === "entity" ? "invert" : ""}`}
                   />
                   <span className="text-sm leading-none font-medium uppercase md:text-base">
                     {card.tagLabel}
@@ -79,11 +81,28 @@ export function BuyersSection() {
                 </div>
 
                 <div
-                  className="absolute -top-[2px] right-[0.5px] size-4 bg-black transition-colors duration-300 group-hover:bg-[#499DF8]"
+                  className="absolute -top-[2px] right-0 size-4 bg-black transition-colors duration-300 group-hover:bg-[#499DF8]"
                   style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
                 />
 
-                <ProcessBar className="absolute inset-x-0 bottom-0 h-1.5 transition-opacity duration-300 md:h-[8px] md:opacity-0 md:group-hover:opacity-100" />
+                {/* Bottom-edge texture: half-height window showing just the
+                    image's top half by default, growing to full height on
+                    hover - the fixed, top-anchored image behind it appears
+                    to slide its bottom half into view as the window grows. */}
+                <div
+                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[22px] overflow-hidden transition-[height,bottom] duration-300 md:block md:group-hover:h-[44px] md:group-hover:bottom-[16px]"
+                  aria-hidden
+                >
+                  <div
+                    className="absolute inset-x-0 top-0 h-[44px] bg-top bg-no-repeat"
+                    style={{
+                      backgroundImage: "url(/images/hover-card-texture-lines.png)",
+                      backgroundSize: "100% 44px",
+                    }}
+                  />
+                </div>
+
+                <ProcessBar className="absolute inset-x-0 bottom-0 h-3 transition-opacity duration-300 md:h-[16px] md:opacity-0 md:group-hover:opacity-100" />
               </div>
             ))}
           </div>

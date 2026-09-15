@@ -159,14 +159,14 @@ export function CtaSection({
             texture's own near-white background painted over it washed the
             card back out to white instead of showing the tint through. */}
         <Image
-          src="/images/grain-light-texture.svg"
+          src="/images/texture-grain-white.png"
           alt=""
           fill
           className="pointer-events-none object-cover mix-blend-multiply"
         />
 
         <div className="relative flex h-full w-full flex-col items-center justify-center gap-14">
-          <p className="relative w-full max-w-[755px] text-center font-serif text-[54px] leading-none tracking-[-2.16px] text-black">
+          <p className="relative w-full max-w-[755px] text-center font-serif text-[50px] leading-none tracking-[-2.16px] text-black">
             {headline}
           </p>
           <a

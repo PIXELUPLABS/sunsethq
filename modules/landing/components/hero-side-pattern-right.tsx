@@ -3,11 +3,21 @@ import Image from "next/image";
 import {
   HERO_CONVERGE_STACK_CENTER_Y,
   HERO_CONVERGE_STACK_STEP_Y,
+  HERO_CONVERGE_X_PX_OFFSET,
   HERO_CONVERGE_X_VW,
   HERO_RIGHT_COLLAGE_IMAGES,
 } from "../lib/hero-assets";
 
 const BOX_WIDTH = 272;
+
+// Mirrors STACK_X_NUDGE in HeroSidePatternLeft - nudges just the converging
+// collage stack slightly left of its default convergence point.
+const STACK_X_NUDGE = 32;
+
+// Mirrors LARGE_SCREEN_STACK_SCALE_Y in HeroSidePatternLeft - must match the
+// box's own `min-[1800px]:scale-y-[...]` class below, compensating so each
+// piece's --hero-lift contribution isn't doubly amplified by that scale.
+const LARGE_SCREEN_STACK_SCALE_Y = 1.35;
 
 /**
  * Per-image stagger so the pieces don't converge in perfect lockstep - each
@@ -33,7 +43,7 @@ const RIGHT_STAGGER = [
 export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
   return (
     <div className="relative h-full w-full">
-      <div className="pointer-events-none absolute top-12 right-0 h-[666px] w-[272px] min-[1800px]:origin-top min-[1800px]:scale-y-[1.15]">
+      <div className="pointer-events-none absolute top-12 right-0 h-[666px] w-[272px] min-[1800px]:origin-top min-[1800px]:scale-y-[1.35]">
         {HERO_RIGHT_COLLAGE_IMAGES.map((image, index) => {
           const centerX = image.x + image.w / 2;
           const centerY = image.y + image.h / 2;
@@ -41,13 +51,16 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           const { delay, power } = RIGHT_STAGGER[index] ?? { delay: 0, power: 1 };
           const t = Math.min(1, Math.max(0, (progress - delay) / (1 - delay)));
           const pieceProgress = Math.pow(t, power);
-          // This vw term is negative (the right stack travels left to
-          // converge), so max() - not min() - is what caps its magnitude at
-          // the 1800px-viewport-equivalent px value past that width,
-          // keeping the (fixed-px-wide) converged cluster centered instead
-          // of drifting further left as the viewport keeps growing.
-          const translateX = `calc(max(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw, ${(pieceProgress * (HERO_CONVERGE_X_VW - 100) * 18).toFixed(2)}px) + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
-          const translateY = `${(pieceProgress * (stackY - centerY)).toFixed(2)}px`;
+          // Mirrors the left side's HERO_CONVERGE_X_CSS math: this vw term
+          // is negative (the right stack travels left to converge), plus
+          // the same fixed px offset subtracted again, so the convergence
+          // anchor stays centered in the section at any viewport width.
+          const translateX = `calc(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw - ${(pieceProgress * (HERO_CONVERGE_X_PX_OFFSET + STACK_X_NUDGE)).toFixed(2)}px + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
+          // The 1800px+ vertical-centering lift (see HeroSection) is scaled
+          // by pieceProgress too, so it's fully off at rest (matching this
+          // piece's untouched starting position) and fully applied only
+          // once converged (matching cards 2-4, which get the full lift).
+          const translateY = `calc(${(pieceProgress * (stackY - centerY)).toFixed(2)}px + ${(pieceProgress / LARGE_SCREEN_STACK_SCALE_Y).toFixed(4)} * (var(--hero-lift, 0px) + var(--hero-stack-extra-lift, 0px)))`;
           const scale = (1 - pieceProgress * 0.08).toFixed(3);
 
           return (
@@ -75,6 +88,7 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           );
         })}
       </div>
+      <div className="pointer-events-none absolute top-0 right-[272px] h-full border-l border-dashed border-black/8" />
     </div>
   );
 }

@@ -47,7 +47,7 @@ export const HOW_IT_WORKS_STEP_INTERVAL_MS = 5000;
  * The tiles are also sequenced a full transition apart, so this sets the
  * pace of the whole shelf animation: ten tiles run in 10x this.
  */
-export const REVENUE_STREAM_TILE_MS = 320;
+export const REVENUE_STREAM_TILE_MS = 200;
 
 export const VALUATION_STEPS = [
   {

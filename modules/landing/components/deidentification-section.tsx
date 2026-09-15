@@ -76,6 +76,13 @@ export function DeidentificationSection() {
             />
 
             <div className="relative flex min-w-0 flex-1 items-center px-5 pt-10 pb-5 lg:h-full lg:w-1/2 lg:flex-none lg:gap-10 lg:py-0 lg:pr-[108px] lg:pl-0">
+              <Image
+                src="/images/medium-grey-texture-bg.svg"
+                alt=""
+                fill
+                className="pointer-events-none object-cover"
+              />
+
               <div className="relative hidden h-full w-10 shrink-0 self-stretch overflow-hidden lg:block">
                 <Image
                   src={SIDE_GRAIN}
@@ -85,7 +92,7 @@ export function DeidentificationSection() {
                 />
               </div>
 
-              <div className="flex min-w-0 flex-1 flex-col justify-center gap-4 lg:gap-[100px]">
+              <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-4 lg:gap-[100px]">
                 <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black lg:text-[40px] lg:tracking-[-0.4px]">
                   Your data leaves cleaner than a medical record.
                 </h3>
