@@ -55,7 +55,7 @@ export const VALUATION_STEPS = [
     title: "Get a valuation",
     description:
       "Replay reviews your industry, the systems you run on, how much data sits in each, and how your team worked, to understand what it's worth.",
-    image: "/images/valuation-illustration.png",
+    image: "/images/valuation/how-it-works/valuation-illustration.png",
     alt: "Illustration of stacked data cards totalling an 8M indicated value across 25M+ records",
   },
   {
@@ -63,7 +63,7 @@ export const VALUATION_STEPS = [
     title: "Receive an offer",
     description:
       "Based on the valuation, Replay presents an offer to license your data. These are typically structured as an upfront cash payment plus a perpetual revenue share.",
-    image: "/images/terms-illustration.png",
+    image: "/images/valuation/how-it-works/terms-illustration.png",
     alt: "Illustration of an offer to license card showing an $8M indicated total split between an upfront payment and a perpetual revenue share",
   },
   {
@@ -71,7 +71,7 @@ export const VALUATION_STEPS = [
     title: "De-identify your data",
     description:
       "We securely export your data and remove every category of identifying information, from names and emails to customer records and account numbers.",
-    image: "/images/protect-illustration.png",
+    image: "/images/valuation/how-it-works/protect-illustration.png",
     alt: "Illustration of records having identifying information stripped out during de-identification",
   },
   {
@@ -79,7 +79,7 @@ export const VALUATION_STEPS = [
     title: "Get paid",
     description:
       "You're paid for your historical data first. New data you produce follows the same path, and continues to pay you.",
-    image: "/images/payout-illustration.png",
+    image: "/images/valuation/how-it-works/payout-illustration.png",
     alt: "Bar chart illustration showing payments over time, starting with historical data and continuing with recurring new data",
   },
 ];

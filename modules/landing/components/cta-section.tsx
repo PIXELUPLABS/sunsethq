@@ -31,7 +31,7 @@ const DEFAULT_BUTTON_LABEL = "Value my data";
 const DEFAULT_HREF = "#value-my-data";
 const DEFAULT_TOP_BAND_CLASS_NAME = "bg-[#eaebf1]";
 const DEFAULT_SIDE_BORDER_CLASS_NAME = "border-[#d4d4d4]";
-const DEFAULT_BOTTOM_BAND_IMAGE_SRC = "/images/cta-bg-text.png";
+const DEFAULT_BOTTOM_BAND_IMAGE_SRC = "/images/cta/cta-bg-text.png";
 
 export function CtaSection({
   headline = DEFAULT_HEADLINE,
@@ -105,7 +105,7 @@ export function CtaSection({
         }}
       >
         <Image
-          src="/images/top-left-cta-img.webp"
+          src="/images/cta/top-left-cta-img.webp"
           alt=""
           fill
           className="pointer-events-none object-cover"
@@ -118,7 +118,7 @@ export function CtaSection({
         }}
       >
         <Image
-          src="/images/top-right-cta-img.png"
+          src="/images/cta/top-right-cta-img.png"
           alt=""
           fill
           className="pointer-events-none object-cover"
@@ -131,7 +131,7 @@ export function CtaSection({
         }}
       >
         <Image
-          src="/images/right-bottom-cta-img.webp"
+          src="/images/cta/right-bottom-cta-img.webp"
           alt=""
           fill
           className="pointer-events-none object-cover"
@@ -144,7 +144,7 @@ export function CtaSection({
         }}
       >
         <Image
-          src="/images/left-bottom-cta-img.png"
+          src="/images/cta/left-bottom-cta-img.png"
           alt=""
           fill
           className="pointer-events-none object-cover"
