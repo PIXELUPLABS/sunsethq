@@ -19,10 +19,26 @@ import {
  * (image placement, the card, its footer row) uses plain percentages
  * against its own positioned ancestor, matching the frame's own layout.
  */
-export function CtaSectionMobile() {
+type CtaSectionMobileProps = {
+  headline: string;
+  buttonLabel: string;
+  href: string;
+  topBandClassName?: string;
+  bottomBandImageSrc?: string;
+};
+
+export function CtaSectionMobile({
+  headline,
+  buttonLabel,
+  href,
+  topBandClassName = "bg-[#eaebf1]",
+  bottomBandImageSrc = CTA_BG_TEXT,
+}: CtaSectionMobileProps) {
   return (
     <div className="absolute inset-0" style={{ containerType: "inline-size" }}>
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[72%] overflow-hidden bg-[#eaebf1]">
+      <div
+        className={`pointer-events-none absolute inset-x-0 top-0 h-[72%] overflow-hidden ${topBandClassName}`}
+      >
         <Image
           src={CTA_GRAIN_WHITE}
           alt=""
@@ -32,7 +48,7 @@ export function CtaSectionMobile() {
       </div>
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] overflow-hidden bg-[#080808]">
         <div className="absolute inset-x-0 top-0 aspect-[4320/321] w-full">
-          <Image src={CTA_BG_TEXT} alt="" fill className="pointer-events-none object-cover" />
+          <Image src={bottomBandImageSrc} alt="" fill className="pointer-events-none object-cover" />
         </div>
       </div>
 
@@ -58,11 +74,11 @@ export function CtaSectionMobile() {
 
         <div className="relative flex h-full w-full flex-col items-center gap-[6.1538cqw] px-[6.1538cqw] pt-[10.2564cqw] pb-[16.4103cqw]">
           <p className="relative w-full text-center font-serif text-[8.2051cqw] leading-none tracking-[-0.04em] text-black">
-            Find out what your data is worth before you decide anything.
+            {headline}
           </p>
           <a
-            href="#value-my-data"
-            className="group relative flex items-center overflow-hidden border border-[#141518] bg-[#141518] px-[5.1282cqw] py-[3.0769cqw]"
+            href={href}
+            className="group relative flex items-center overflow-hidden border border-[#141518] bg-[#141518] px-[5.1282cqw] py-[3.0769cqw] transition-transform duration-150 ease-snap active:scale-[0.97]"
           >
             <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-active:opacity-30" />
             <div className="pointer-events-none absolute inset-y-0 left-0 w-[0.3cqw] opacity-0 transition-opacity duration-300 group-active:opacity-100">
@@ -72,7 +88,7 @@ export function CtaSectionMobile() {
               <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
             </div>
             <span className="relative font-serif text-[3.0769cqw] leading-[0.8] tracking-wide text-white">
-              Value my data
+              {buttonLabel}
             </span>
           </a>
 

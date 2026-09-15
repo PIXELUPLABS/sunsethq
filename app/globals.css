@@ -19,6 +19,16 @@
   --color-ink: var(--color-ink);
   --color-blue-deep: var(--color-blue-deep);
   --color-blue-bright: var(--color-blue-bright);
+
+  /*
+   * Named separately from Tailwind's built-in `ease-out`/`ease-in-out` -
+   * those already have 22+ existing call sites across the (already
+   * shipped) landing/data-trust modules, and redefining them here would
+   * silently change animations no one asked to revisit. These are opt-in
+   * for new work (currently: the careers module).
+   */
+  --ease-snap: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-swift: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 body {

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Hedvig_Letters_Serif } from "next/font/google";
 import localFont from "next/font/local";
+import { Agentation } from "agentation";
 import {
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -78,7 +79,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       // readers who've asked for reduced motion, who get an instant jump.
       className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${hedvigLettersSerif.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        {process.env.NODE_ENV === "development" && <Agentation />}
+      </body>
     </html>
   );
 }
