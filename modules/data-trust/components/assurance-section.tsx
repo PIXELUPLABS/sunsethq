@@ -62,7 +62,7 @@ export function AssuranceSection() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pb-16 sm:mx-10 sm:gap-6 sm:pb-[140px]">
+        <div className="flex flex-col gap-10 pb-16 sm:mx-10 sm:gap-6 sm:pb-[140px]">
           {ASSURANCE_ROWS.map((row, index) => (
             <AssuranceRow
               key={row.title}

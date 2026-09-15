@@ -29,7 +29,7 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
 
   return (
     <article
-      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-3 sm:p-6 lg:items-center lg:gap-6 ${
+      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-6 lg:items-center lg:gap-6 ${
         mediaFirst ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}
     >
@@ -58,7 +58,7 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
             pinned to the column's bottom edge (`lg:mt-auto`) at its
             original position instead of following the heading up too. */}
         <h3
-          className={`mt-6 font-serif text-[26px] leading-[1.1] tracking-[-0.26px] text-black lg:mt-5 lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
+          className={`mt-6 font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-5 lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
         >
           {row.title}
         </h3>

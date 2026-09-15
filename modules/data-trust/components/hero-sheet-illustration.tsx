@@ -1,17 +1,27 @@
 import Image from "next/image";
 import { ProcessBar } from "@/modules/landing/components/process-bar";
 import { HERO_PROCESS_DASH } from "@/modules/landing/lib/hero-assets";
-import { DATA_TRUST_HERO_PLANE } from "../lib/assets";
+import { DATA_TRUST_HERO_PLANE, DATA_TRUST_HERO_PLANE_MOBILE } from "../lib/assets";
 
 /**
  * The perspective spreadsheet that fills the bottom of the hero, plus the
  * blueprint furniture drawn over it. The design lays this out in a 1440x444
  * band, so every length here is a percentage of that box and the whole thing
- * scales with the viewport.
+ * scales with the viewport - lg only, since mobile swaps in its own
+ * portrait illustration (780x976) below, with its own aspect ratio.
  */
 export function HeroSheetIllustration() {
   return (
-    <div className="relative aspect-[1440/444] w-full">
+    <div className="relative aspect-[780/976] w-full lg:aspect-[1440/444]">
+      <Image
+        src={DATA_TRUST_HERO_PLANE_MOBILE}
+        alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover lg:hidden"
+      />
+
       {/* Stretched edge-to-edge across the full band width (no side gutter),
           height unchanged at 95.045% (422/444) of the band - a deliberate
           departure from the Figma-exact 1297x422-at-72px-gutter placement
@@ -23,7 +33,7 @@ export function HeroSheetIllustration() {
         height={844}
         priority
         sizes="100vw"
-        className="absolute top-0 left-0 z-10 h-[95.0450%] w-full max-w-none"
+        className="absolute top-0 left-0 z-10 hidden h-[95.0450%] w-full max-w-none lg:block"
       />
 
       {/* dashed band the version and classification chips sit in */}
@@ -63,7 +73,7 @@ export function HeroSheetIllustration() {
         </p>
       </div>
 
-      <ProcessBar className="absolute inset-x-0 top-[50.4505%] z-0 h-[4.5045%]" />
+      <ProcessBar className="absolute inset-x-0 top-[50.4505%] z-0 hidden h-[4.5045%] lg:block" />
     </div>
   );
 }

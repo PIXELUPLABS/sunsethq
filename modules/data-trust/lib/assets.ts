@@ -6,6 +6,11 @@
  */
 export const DATA_TRUST_HERO_PLANE = "/images/data-trust/hero-plane.webp";
 
+/** Portrait replacement for the hero illustration on mobile, swapped in
+ *  for `DATA_TRUST_HERO_PLANE` below `lg` only. */
+export const DATA_TRUST_HERO_PLANE_MOBILE =
+  "/images/data-trust/data-trust-hero-mobile.png";
+
 /**
  * Tiling textures. Each one is exported at the size the design paints it at,
  * so they are tiled with `background-size` rather than stretched to fit.
