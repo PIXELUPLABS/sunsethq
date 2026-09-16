@@ -13,6 +13,15 @@
  * exactly the live content block's measured position (583x256.78 centered
  * at 1440px wide, 160px from the top, plus a 16px margin) so the two don't
  * double-render on top of each other.
+ * A second, full-width hole is punched from y=1235px down to the image's
+ * own bottom edge (2880x1280 native) for the same reason: the export also
+ * baked in a copy of the colored process-bar strip the live `<ProcessBar>`
+ * renders at this section's own bottom edge. Both scale together (uniform
+ * `object-cover` at a matching aspect ratio, no cropping), but the live
+ * strip's height is a fixed `h-5` (20px) that doesn't grow with the
+ * image's own proportional scale-up past ~1500px viewport width, letting
+ * a sliver of the baked-in strip peek out above/below it - the reported
+ * "double stroke" - once the two stopped lining up exactly.
  */
 export const BLOGS_HERO_BACKGROUND = "/images/blogs/hero-bg.webp";
 
