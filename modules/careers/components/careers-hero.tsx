@@ -3,6 +3,10 @@ import { ArrowRightIcon } from "@/components/ui/icons";
 import { ProcessBar } from "@/modules/landing/components/process-bar";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { HERO_PROCESS_DASH } from "@/modules/landing/lib/hero-assets";
+// Reused as-is from the Blogs page hero (blogs-hero.tsx), per review - the
+// same flattened decorative background/illustration pattern behind this
+// hero's own live content too, rather than a page-specific recreation.
+import { BLOGS_HERO_BACKGROUND } from "@/modules/blogs/lib/assets";
 import { CAREERS_EYEBROW, CAREERS_INTRO } from "../lib/constants";
 
 export function CareersHero() {
@@ -14,6 +18,23 @@ export function CareersHero() {
         fill
         priority
         className="pointer-events-none object-cover"
+      />
+
+      {/* Same decorative background pattern as the Blogs hero
+          (blogs-hero.tsx) - a full-bleed layer behind this section's own
+          live tag/headline/paragraph, `lg:` only just like that page.
+          `unoptimized`: that image has a transparent hole punched out of
+          it for its own page's content position - Next's image optimizer
+          flattens that hole to solid black when it re-encodes the file, so
+          this bypasses it and serves the pre-sized webp as-is. */}
+      <Image
+        src={BLOGS_HERO_BACKGROUND}
+        alt=""
+        width={2880}
+        height={1280}
+        priority
+        unoptimized
+        className="pointer-events-none absolute inset-0 hidden h-full w-full object-cover lg:block"
       />
 
       {/* Same max-w-[1560px] bordered-frame system every section below
