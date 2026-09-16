@@ -1,20 +1,29 @@
-import { BarChartIcon, BriefcaseIcon, SearchIcon, ShieldIcon } from "@/components/ui/icons";
+import Image from "next/image";
 import type { Benefit, BenefitIcon } from "../types";
 
-const ICONS: Record<BenefitIcon, typeof SearchIcon> = {
-  search: SearchIcon,
-  briefcase: BriefcaseIcon,
-  chart: BarChartIcon,
-  shield: ShieldIcon,
+/** Real icon set supplied for this page (public/images/value/), one per
+ * benefit - referenced by file path via next/image rather than inlined as
+ * components in components/ui/icons.tsx, matching how values-section.tsx
+ * (careers module) handles its own per-item SVG set: these are page-scoped
+ * glyphs, not generic shared UI. */
+const ICON_SRC: Record<BenefitIcon, string> = {
+  search: "/images/value/icon-1.svg",
+  briefcase: "/images/value/icon-2.svg",
+  chart: "/images/value/icon-3.svg",
+  shield: "/images/value/icon-4.svg",
 };
 
 export function BenefitRow({ benefit }: { benefit: Benefit }) {
-  const Icon = ICONS[benefit.icon];
-
   return (
     <div className="flex items-start gap-4">
       <div className="flex size-10 shrink-0 items-center justify-center border border-black/15">
-        <Icon className="size-[18px] text-black/70" />
+        <Image
+          src={ICON_SRC[benefit.icon]}
+          alt=""
+          width={18}
+          height={18}
+          className="opacity-70"
+        />
       </div>
       <div className="flex flex-col gap-1 pt-0.5">
         <p className="font-serif text-base tracking-[-0.2px] text-black">{benefit.title}</p>
