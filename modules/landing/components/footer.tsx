@@ -4,7 +4,28 @@ import { ReplayWordmark } from "./replay-wordmark";
 
 export function Footer() {
   return (
-    <footer className="relative isolate overflow-hidden bg-[#080808] px-6 pt-16 pb-6 sm:px-18 sm:py-14 lg:h-[627px] lg:px-[72px] lg:py-[54px]">
+    <footer
+      className="relative isolate overflow-hidden bg-[#080808] px-6 pt-16 pb-6 sm:px-18 sm:py-14 lg:h-[627px] lg:px-[72px] lg:py-[54px] min-[1500px]:h-[740px]!"
+    >
+      {/* `min-[1500px]:h-[740px]!`: the wordmark block's `aspect-[1297/337]`
+          height grows with its own width (measured, not just derived from
+          the `max-w-[1560px]` cap - the nav row's own height turned out not
+          to be quite as width-independent as that math assumed), and nav +
+          the `sm:gap-20` (80px) + that wordmark height + this padding
+          (108px) start exceeding the base 627px right around a 1500px
+          viewport, then keep growing until the wordmark's width hits its
+          1560px cap past ~1704px, where the total plateaus at ~737.5px.
+          Since this whole block relies on `h-full` + `justify-between` to
+          spread nav and the wordmark block across the footer's own exact
+          height (with the wordmark's bottom always flush against the
+          footer's own bottom edge), that requires an explicit, definite
+          height on the footer itself - `min-height` alone breaks `h-full`
+          against an auto-sized parent, which silently stopped that spread
+          and left the bottom of the wordmark block (including the social
+          icons and copyright line) clipped by this section's own
+          `overflow-hidden`, past the end of the page. 740px covers the
+          worst case with a couple of px to spare; the breakpoint starts a
+          little before 1500px so the switch itself never dips negative. */}
       <div className="relative mx-auto flex h-full w-full max-w-[1560px] flex-col justify-between gap-16 sm:gap-20">
         {/* Hovering one link recedes the rest of the list rather than
             highlighting the one under the cursor. */}
