@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import {
   CTA_BG_TEXT,
   CTA_MOBILE_BOTTOM_LEFT,
@@ -76,7 +77,7 @@ export function CtaSectionMobile({
           <p className="relative w-full text-center font-serif text-[8.2051cqw] leading-none tracking-[-0.04em] text-black">
             {headline}
           </p>
-          <a
+          <Link
             href={href}
             className="group relative flex items-center overflow-hidden border border-[#141518] bg-[#141518] px-[5.1282cqw] py-[3.0769cqw] transition-transform duration-150 ease-snap active:scale-[0.97]"
           >
@@ -90,7 +91,7 @@ export function CtaSectionMobile({
             <span className="relative font-serif text-[3.0769cqw] leading-[0.8] tracking-wide text-white">
               {buttonLabel}
             </span>
-          </a>
+          </Link>
 
           <div className="pointer-events-none absolute bottom-[5.18%] left-[2.63%] flex items-center justify-between right-[3.22%]">
             <div className="flex items-center gap-[0.85cqw]">

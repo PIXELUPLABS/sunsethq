@@ -134,8 +134,8 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
 
         <MobileNav linkBase={linkBase} />
 
-        <a
-          href="#value-my-data"
+        <Link
+          href="/value-my-data"
           className={`group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs tracking-wide text-white transition-transform duration-500 lg:flex ${
             scrolled ? "-translate-x-3" : "translate-x-0"
           }`}
@@ -148,7 +148,7 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
             <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
           </div>
           <span className="relative">Value my data</span>
-        </a>
+        </Link>
       </div>
     </header>
   );

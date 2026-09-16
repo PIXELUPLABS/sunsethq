@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/icons";
 import { useElementParallax } from "../hooks/use-element-parallax";
 import { CtaSectionMobile } from "./cta-section-mobile";
@@ -28,7 +29,7 @@ type CtaSectionProps = {
 
 const DEFAULT_HEADLINE = "Find out what your data is worth before you decide anything.";
 const DEFAULT_BUTTON_LABEL = "Value my data";
-const DEFAULT_HREF = "#value-my-data";
+const DEFAULT_HREF = "/value-my-data";
 const DEFAULT_TOP_BAND_CLASS_NAME = "bg-[#eaebf1]";
 const DEFAULT_SIDE_BORDER_CLASS_NAME = "border-[#d4d4d4]";
 const DEFAULT_BOTTOM_BAND_IMAGE_SRC = "/images/cta/cta-bg-text.png";
@@ -46,12 +47,7 @@ export function CtaSection({
   return (
     <section
       ref={containerRef}
-      // Kept as "value-my-data" regardless of `href` above - the navbar's
-      // own CTA always points at "#value-my-data" on every page, so this
-      // section needs to stay reachable at that id no matter what its own
-      // button links to.
-      id="value-my-data"
-      className="relative aspect-[390/572] w-full scroll-mt-16 overflow-hidden bg-[#080808] lg:aspect-[1440/716] lg:bg-transparent"
+      className="relative aspect-[390/572] w-full overflow-hidden bg-[#080808] lg:aspect-[1440/716] lg:bg-transparent"
     >
       <div className="lg:hidden">
         <CtaSectionMobile
@@ -169,7 +165,7 @@ export function CtaSection({
           <p className="relative w-full max-w-[755px] text-center font-serif text-[50px] leading-none tracking-[-2.16px] text-black">
             {headline}
           </p>
-          <a
+          <Link
             href={href}
             className="group relative flex items-center overflow-hidden bg-[#141518] px-5 py-3 transition-transform duration-150 ease-snap active:scale-[0.97]"
           >
@@ -183,7 +179,7 @@ export function CtaSection({
             <span className="relative font-serif text-xs leading-[0.8] tracking-wide text-white">
               {buttonLabel}
             </span>
-          </a>
+          </Link>
 
           <div className="pointer-events-none absolute inset-x-6 top-[342px] flex items-center justify-between">
             <div className="flex items-center gap-8">
