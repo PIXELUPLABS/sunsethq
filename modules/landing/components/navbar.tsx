@@ -69,7 +69,7 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
               0), so filling its right half exactly reaches the target edge
               at every width. */}
           <div
-            className={`absolute inset-y-0 right-0 w-1/2 bg-cover bg-right transition-opacity duration-500 ${
+            className={`absolute inset-y-0 right-0 w-1/2 border border-[#A8A8A8] bg-cover bg-right transition-opacity duration-500 ${
               scrolled ? "opacity-100" : "opacity-0"
             }`}
             style={{ backgroundImage: "url(/images/header-bg-right.svg)" }}
