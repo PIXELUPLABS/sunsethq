@@ -131,19 +131,19 @@ export function OpenRolesSection() {
 
       {/* Dashed grid frame matching the main page's own grid system
           (`buyers-section.tsx`, `stats-section.tsx`, etc: a max-w-[1560px]
-          column bracketed by `border-x border-dashed border-[#d4d4d4]`) -
-          ties this section into the site's structure instead of floating
-          as a plain block. Closed with a `border-b` too (full `border`,
-          not just `border-x border-t`), matching `benefits-section.tsx`'s
-          frame, so the boundary reads as complete down to the bottom of
-          the section rather than left open on that side.
-          `#d4d4d4` also matches `cta-section.tsx`'s default line color
-          directly below this section, and (per review) `team-collage-section.tsx`/
-          `why-replay-section.tsx`/`careers-hero.tsx` above it, now that
-          those all use the main page's own `#d4d4d4` too instead of the
-          page-local `#a8a8a8` they briefly diverged to - one color for
-          the whole chain, matching the main page throughout. */}
-      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
+          column bracketed by `border-x border-dashed`) - ties this section
+          into the site's structure instead of floating as a plain block.
+          Closed with a `border-b` too (full `border`, not just
+          `border-x border-t`), matching `benefits-section.tsx`'s frame,
+          so the boundary reads as complete down to the bottom of the
+          section rather than left open on that side.
+          Per review, this section's dashed lines (this frame and the
+          team-rail row dividers below) use `#a8a8a8` at full opacity
+          rather than the `#d4d4d4` the rest of the chain
+          (`team-collage-section.tsx`/`why-replay-section.tsx`/
+          `careers-hero.tsx`) settled on - a deliberate divergence for
+          this section, not a leftover from before that decision. */}
+      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
         {/* Same `max-w-[1560px]` frame + `px-3 py-16 sm:px-10 sm:py-20`
             inner padding as `<WhyReplaySection>` (and, above that,
             `<TeamCollageSection>` - see that file's own comment) - all
@@ -189,12 +189,12 @@ export function OpenRolesSection() {
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={`Search ${activeTeam.name.toLowerCase()} roles`}
                   aria-label={`Search ${activeTeam.name} roles`}
-                  className="w-full border border-[#d4d4d4] bg-transparent py-3 pr-4 pl-11 text-sm text-black transition-colors duration-150 ease-snap placeholder:text-[#727272] focus:border-black focus:outline-none"
+                  className="w-full border border-[#a8a8a8] bg-transparent py-3 pr-4 pl-11 text-sm text-black transition-colors duration-150 ease-snap placeholder:text-[#727272] focus:border-black focus:outline-none"
                 />
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] lg:border lg:border-[#d4d4d4]">
-                <div className="relative flex flex-col border-b border-[#d4d4d4] lg:border-r lg:border-b-0 lg:p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] lg:border lg:border-[#a8a8a8]">
+                <div className="relative flex flex-col border-b border-[#a8a8a8] lg:border-r lg:border-b-0 lg:p-6">
                   {/* Fixed pixels, not a percentage of this container's
                       height: `h-14` (56px) matches each row's own
                       `min-h-[56px]`, and `lg:top-6` (24px) matches this
@@ -223,7 +223,7 @@ export function OpenRolesSection() {
                         type="button"
                         onClick={() => selectTeam(i)}
                         aria-pressed={isActive}
-                        className={`flex min-h-[56px] items-center justify-between gap-3 border-b border-dashed border-[#d4d4d4] px-6 py-4 text-left font-mono text-xs tracking-wide uppercase transition-[color,transform] duration-150 ease-snap last:border-b-0 active:scale-[0.98] lg:px-0 ${
+                        className={`flex min-h-[56px] items-center justify-between gap-3 border-b border-dashed border-[#a8a8a8] px-6 py-4 text-left font-mono text-xs tracking-wide uppercase transition-[color,transform] duration-150 ease-snap last:border-b-0 active:scale-[0.98] lg:px-0 ${
                           hasNoRoles
                             ? "text-[#a8a8a8] hover:text-[#727272]"
                             : isActive
