@@ -119,22 +119,34 @@ export function HeroSheetIllustration() {
             (tried and reverted - it painted a flat, untextured rectangle
             that didn't match the grained page background), this
             `clip-path` cuts the strip's own rendering down to just the
-            two slivers that sit outside the sheet's opaque silhouette at
-            this exact row - the middle is genuinely absent, not covered,
-            so it shows the real page background beneath everything.
-            21.4448% / 77.5832% come from sampling `hero-plane-2.webp`'s
-            alpha channel at the row this strip lands on (40.53% down the
-            image's own box) for the first/last non-transparent pixel,
-            then converting those image-relative x's to this band's own
-            coordinates via the image's `left-[-4%] w-[108%]` placement.
-            The polygon traces two rectangles joined by a zero-height
-            seam at 50% - the standard way to clip a single element to a
-            disjoint shape. */}
+            two slivers that sit outside the sheet's opaque silhouette -
+            the middle is genuinely absent, not covered, so it shows the
+            real page background beneath everything.
+            The cut is angled, not a straight vertical line: the sheet is
+            a perspective-drawn trapezoid, wider at the bottom than the
+            top, so its left/right edges slant across the strip's own
+            height instead of running straight down. A vertical cut
+            (matching only one row) left a sliver of the strip visibly
+            peeking out from behind the sheet at whichever end of the
+            strip that row didn't match. Fixed by sampling
+            `hero-plane-2.webp`'s alpha channel at *both* the strip's top
+            row (top-50.4505%, 40.53% down the image's own box) and
+            bottom row (top-54.955%, 45.83% down) for the first/last
+            non-transparent pixel, then converting those image-relative
+            x's to this band's own coordinates via the image's
+            `left-[-4%] w-[108%]` placement - giving four corners
+            (21.4406%/20.2058% on the left, 77.5801%/78.7723% on the
+            right, top/bottom respectively) instead of two. The polygon
+            traces two slanted quadrilaterals joined by a zero-height seam
+            at each side's own vertical midpoint - the standard way to
+            clip a single element to a disjoint shape, adapted so the
+            "bridge" sits exactly on the slanted line instead of a
+            vertical one. */}
         <div
           className="absolute inset-x-0 top-[50.4505%] z-[5] hidden h-[4.5045%] lg:block"
           style={{
             clipPath:
-              "polygon(0% 0%, 21.4448% 0%, 21.4448% 50%, 77.5832% 50%, 77.5832% 0%, 100% 0%, 100% 100%, 77.5832% 100%, 77.5832% 50%, 21.4448% 50%, 21.4448% 100%, 0% 100%)",
+              "polygon(0% 0%, 21.4406% 0%, 20.8232% 50%, 78.1762% 50%, 77.5801% 0%, 100% 0%, 100% 100%, 78.7723% 100%, 78.1762% 50%, 20.8232% 50%, 20.2058% 100%, 0% 100%)",
           }}
         >
           <ProcessBar className="h-full w-full" />

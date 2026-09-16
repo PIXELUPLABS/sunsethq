@@ -131,11 +131,15 @@ export function DeidentificationPanel() {
 
           {/* Left column: a 40px sliver of the panel's own gradient down
               the left edge, then a solid black box for the rest of the
-              495px column. `gap-[249px]` between the copy and the step
+              495px column. `gap-[225px]` between the copy and the step
               index is large but deliberate: it's what pins the index to
               the bottom of this fixed 600px-tall column while the copy
-              stays pinned to the top. */}
-          <div className="relative flex flex-col gap-5 px-5 pt-8 pb-10 lg:ml-10 lg:h-full lg:w-[calc(495px-40px)] lg:shrink-0 lg:gap-[249px] lg:bg-black lg:px-10 lg:py-10">
+              stays pinned to the top - reduced from 249px per the tab
+              list's own `gap-3` below (2 gaps x 12px = 24px added to that
+              list's height), so the column's total height still comes out
+              to exactly 600px instead of overflowing past it and getting
+              clipped by this panel's `overflow-hidden`. */}
+          <div className="relative flex flex-col gap-5 px-5 pt-8 pb-10 lg:ml-10 lg:h-full lg:w-[calc(495px-40px)] lg:shrink-0 lg:gap-[225px] lg:bg-black lg:px-10 lg:py-10">
             <div className="flex flex-col gap-5 lg:gap-6">
               <div className="flex flex-col gap-3">
                 <SectionTag
@@ -154,7 +158,7 @@ export function DeidentificationPanel() {
               </p>
             </div>
 
-            <ol className="flex flex-col">
+            <ol className="flex flex-col gap-3">
               {DEIDENTIFICATION_STEPS.map((step, index) => {
                 const active = index === activeIndex;
                 return (
@@ -201,7 +205,7 @@ export function DeidentificationPanel() {
                 6672:20338 exactly, rather than the single full-bleed image
                 tab 3 still uses below. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:py-8 lg:pr-10 lg:pl-0 ${
+              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pb-0 lg:pl-0 ${
                 activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
@@ -225,20 +229,23 @@ export function DeidentificationPanel() {
                   exactly, rather than each stretching/shrinking to fill
                   whatever width its own flex column happens to compute)
                   and scaled fluidly below that.
-                  `lg:mt-[62px]` per review: this tab's own headline+body
-                  row measures 136px tall at `lg:` (fixed - it's sized by
-                  a fixed-width body column, not by viewport width), 62px
-                  short of tab 3's 198px, since tab 3's row carries an
-                  extra "Value my data" link tabs 1/2 don't - without this,
-                  switching to/from tab 3 visibly jumps the card up/down
-                  instead of holding it in place. */}
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:min-h-0">
+                  `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
+                  image within this wrapper instead of top-margining it
+                  down by a per-tab fixed amount (the old approach): since
+                  this wrapper is `flex-1` inside a `pb-0` row, its own
+                  bottom always lands exactly on the panel's bottom edge
+                  regardless of how tall this tab's own header row is, so
+                  bottom-aligning the image here both touches the panel's
+                  bottom edge (no leftover gap below it) *and* keeps the
+                  image at the same height across tabs 1-3 automatically -
+                  no more per-tab offset math needed. */}
+              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION}
                   alt="A customer email with names, contact details, and an API key struck out by redaction bars"
                   width={696}
                   height={372}
-                  className="h-auto w-full lg:mt-[62px] lg:h-[372px] lg:w-[696px]"
+                  className="h-auto w-full lg:h-[372px] lg:w-[696px]"
                 />
               </div>
             </div>
@@ -247,7 +254,7 @@ export function DeidentificationPanel() {
                 pattern as tab 1 above, matching Figma node 6672:22994
                 exactly. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:py-8 lg:pr-10 lg:pl-0 ${
+              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pb-0 lg:pl-0 ${
                 activeIndex === 1 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
@@ -271,19 +278,18 @@ export function DeidentificationPanel() {
                   1's. Rendered at its real 696x372 native export size at
                   `lg:` (matching tabs 1 and 3 exactly) and scaled fluidly
                   below that.
-                  `lg:mt-[55.625px]` per review - see tab 1's own image for
-                  the full explanation; this tab's headline+body row just
-                  measures 142.375px tall at `lg:` rather than tab 1's
-                  136px (its own body copy is a little longer, wrapping to
-                  an extra line), so it needs 5.625px less than tab 1's
-                  62px to land on tab 3's same 198px. */}
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:min-h-0">
+                  `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
+                  image within this wrapper - see tab 1's own image for the
+                  full explanation of why that both closes the gap below
+                  it and keeps it level with tabs 1 and 3 automatically,
+                  in place of the old per-tab `mt-*` offset. */}
+              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DETECTION_ILLUSTRATION}
                   alt="A benchmark card showing PII coverage across Slack, PDFs, tickets, commits, images, and email, with Replay finding 3x more identifiers than the leading frontier model"
                   width={696}
                   height={372}
-                  className="h-auto w-full lg:mt-[55.625px] lg:h-[372px] lg:w-[696px]"
+                  className="h-auto w-full lg:h-[372px] lg:w-[696px]"
                 />
               </div>
             </div>
@@ -295,7 +301,7 @@ export function DeidentificationPanel() {
                 design - routes to the real page like every other "Value
                 my data" CTA on the site. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:py-8 lg:pr-10 lg:pl-0 ${
+              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pb-0 lg:pl-0 ${
                 activeIndex === 2 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
@@ -328,8 +334,12 @@ export function DeidentificationPanel() {
                   (matching tabs 1 and 2 exactly, rather than shrinking to
                   fit whatever height this tab's own taller headline row -
                   it has the extra "Value my data" link the other two
-                  don't - leaves for it) and scaled fluidly below that. */}
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:min-h-0">
+                  don't - leaves for it) and scaled fluidly below that.
+                  `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
+                  image within this wrapper - see tab 1's own image for the
+                  full explanation of why that both closes the gap below
+                  it and keeps it level with tabs 1 and 2 automatically. */}
+              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_STANDARD_ILLUSTRATION}
                   alt="The Replay Standard for Real-World Data De-identification: 60+ categories, per-class thresholds, a 4-stage process, and benchmark-held verification, with isolated tenants, raw data in, no shared storage, no cross-client access, and clean data out"
