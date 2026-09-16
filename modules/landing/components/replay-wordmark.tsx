@@ -86,8 +86,8 @@ export function ReplayWordmark({ className }: { className?: string }) {
           opacity: 0;
           mix-blend-mode: screen;
           transition:
-            opacity 200ms cubic-bezier(0.23, 1, 0.32, 1),
-            filter 200ms cubic-bezier(0.23, 1, 0.32, 1);
+            opacity 500ms cubic-bezier(0.23, 1, 0.32, 1) 80ms,
+            filter 500ms cubic-bezier(0.23, 1, 0.32, 1) 80ms;
           filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
         }
         .replay-wordmark:global(.is-hovering) .shimmer-path {
@@ -96,8 +96,8 @@ export function ReplayWordmark({ className }: { className?: string }) {
             0 0 ${REPLAY_WORDMARK_GLOW_BLUR_PX}px ${REPLAY_WORDMARK_GLOW_RGBA}
           );
           transition:
-            opacity 260ms cubic-bezier(0.23, 1, 0.32, 1),
-            filter 260ms cubic-bezier(0.23, 1, 0.32, 1);
+            opacity 600ms cubic-bezier(0.23, 1, 0.32, 1) 120ms,
+            filter 600ms cubic-bezier(0.23, 1, 0.32, 1) 120ms;
         }
         @media (prefers-reduced-motion: reduce) {
           .shimmer-path {

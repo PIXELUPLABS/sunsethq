@@ -10,7 +10,7 @@ import { DiamondMarkIcon } from "./diamond-mark-icon";
  */
 export function BlogsHero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#fcfcfc] lg:min-h-0 lg:aspect-[1440/640]">
+    <section className="relative h-screen overflow-hidden bg-[#fcfcfc]">
       {/* Plain grain texture, at every size - not just the mobile
           fallback: the flattened composition below has its own hole
           punched out (see its comment) exactly where the live content

@@ -139,8 +139,14 @@ export function CareersHero() {
         {/* Same real, content-free `ProcessBar` component
             (modules/landing/components/process-bar.tsx) the real
             homepage's own hero closes with, and already reused
-            cross-module in why-replay-row.tsx - not a recreation. */}
-        <ProcessBar className="h-2 lg:h-5" />
+            cross-module in why-replay-row.tsx - not a recreation.
+            Unlike the rest of this section, the bar itself stays
+            full-bleed to the viewport (like the homepage/blogs heroes'
+            own `ProcessBar`s) instead of stopping at this frame's
+            max-w-[1560px] edge - the classic `left-1/2 w-screen
+            -translate-x-1/2` breakout, since the parent frame is
+            centered with `mx-auto`. */}
+        <ProcessBar className="relative left-1/2 h-2 w-screen -translate-x-1/2 lg:h-5" />
       </div>
     </section>
   );
