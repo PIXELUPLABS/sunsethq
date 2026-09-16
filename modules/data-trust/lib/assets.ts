@@ -43,15 +43,30 @@ export const DATA_TRUST_PANEL_MARK = "/images/data-trust/panel-mark.webp";
 export const DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION =
   "/images/data-trust/deidentification-card.webp";
 
-/** Full-bleed replacement for the de-identification panel's entire right
- *  (blue) column - headline, body copy, and illustration all in one image,
- *  one per step tab ([01] De-identification, [02] Detection, [03] The
- *  Standard), crossfaded as the active tab changes. */
-export const DATA_TRUST_DEIDENTIFICATION_PANEL_IMAGES = [
-  "/images/data-trust/di-1.webp",
-  "/images/data-trust/di-2.webp",
-  "/images/data-trust/di-3.webp",
-];
+/**
+ * The whole card area under "How your data gets cleaned" (Figma node
+ * 6672:23005) - the grain-textured backdrop, glass card, coverage-type
+ * grid, and benchmark bars are all one live composition in Figma, not an
+ * exportable image, so this is a flattened screenshot of that node at 3x
+ * (696x372 native, 2088x1116 exported) rather than a source asset - a
+ * higher export scale than `DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION`'s 2x
+ * since this card carries finer detail (the coverage grid's icons/labels,
+ * the benchmark bars) that read soft at 2x.
+ */
+export const DATA_TRUST_DETECTION_ILLUSTRATION =
+  "/images/data-trust/detection-card.webp";
+
+/**
+ * The whole card area under "We're setting the standard" (Figma node
+ * 6672:23214) - the grain-textured backdrop, glass card, hexagon lock
+ * mark, spec table, and feature-check chips are all one live composition
+ * in Figma, not an exportable image, so this is a flattened screenshot of
+ * that node at 3x (696x372 native, 2088x1116 exported), matching
+ * `DATA_TRUST_DETECTION_ILLUSTRATION`'s scale for the same fine-detail
+ * reason (the spec table's numerals/labels and chip text read soft at 2x).
+ */
+export const DATA_TRUST_STANDARD_ILLUSTRATION =
+  "/images/data-trust/standard-card.webp";
 
 /** The plate image beside each of the 4 "Your data stays yours" rows,
  *  in row order. */

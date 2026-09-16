@@ -15,6 +15,14 @@ export const DEIDENTIFICATION_STEP_INTERVAL_MS = 5000;
 export const DEIDENTIFICATION_BODY =
   "Names, emails, API keys, access tokens, customer records. Our de-identification covers 60+ categories, across every file type and application your business works in.";
 
+/** Tab 2 ([02] Detection)'s own body copy, distinct from `DEIDENTIFICATION_BODY` above. */
+export const DETECTION_BODY =
+  "We've trained models to accurately find PII hidden in Slack threads, support tickets, code commits, PDFs, images, email threads, and more. On the same benchmark, our models correctly find 3X more identifiers than the leading frontier AI.";
+
+/** Tab 3 ([03] The Standard)'s own body copy. */
+export const STANDARD_BODY =
+  "HIPAA's Safe Harbor was created to protect people's health records. We are doing the same for enterprise data. We have created and published what we believe should be the industry standard for real-world data de-identification. It sets out the categories, thresholds, and processes we hold ourselves to.";
+
 export const ASSURANCE_ROWS: AssuranceRow[] = [
   {
     tagLabel: "Jurisdiction",
