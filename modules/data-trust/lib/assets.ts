@@ -82,10 +82,10 @@ export const DATA_TRUST_STANDARD_ILLUSTRATION =
 /** The plate image beside each of the 4 "Your data stays yours" rows,
  *  in row order. */
 export const DATA_TRUST_ASSURANCE_IMAGES = [
-  "/images/data-trust/legal-1.webp",
-  "/images/data-trust/legal-2.webp",
-  "/images/data-trust/legal-3.webp",
-  "/images/data-trust/legal-4.webp",
+  "/images/data-trust/legal-1.avif",
+  "/images/data-trust/legal-2.avif",
+  "/images/data-trust/legal-3.avif",
+  "/images/data-trust/legal-4.avif",
 ];
 
 /** Shared with the landing page. */
