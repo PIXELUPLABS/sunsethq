@@ -92,14 +92,38 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
         </div>
       </div>
 
-      {/* Below 1800px this is unchanged: max-w-[1560px] + px-6 sm:px-18,
-          same as before. At 1800px and up the padding drops to 0 (kept
-          `!important` - Tailwind emits the min-[1800px] block before the
-          sm: block, so without it sm:px-18, same specificity but later in
-          the stylesheet, would win and the padding would stick) while
-          max-w-[1560px] stays, so mx-auto centers a fixed 1560px bar
-          instead of letting it stretch full-bleed. */}
-      <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-6 sm:px-18 min-[1800px]:px-0!">
+      {/* Below 1560px and at 1800px+ this is unchanged (see that rule's own
+          comment above for the 1800px handoff).
+          1560-1800px: the goal is the scrolled "Value my data" button
+          sitting a constant 12px inside the right edge of the 50%
+          floating band above (not the viewport edge). That 12px already
+          exists as this button's own `-translate-x-3` (scrolled-only), so
+          the padding math below only needs to bring the button *flush*
+          with the band's edge (0px gap) pre-transform - the existing
+          transform then supplies the 12px inset on top of that whenever
+          the band is actually visible.
+          The band's own right edge is *not* a fixed distance from the
+          viewport across this whole range, since it uses the fixed
+          padding-first/cap-second order (72px flush from 1560 up to
+          1704px, where its own max-w-[1560px] starts engaging, then a
+          growing margin on top of that 72px past 1704px), while this row
+          still uses the older cap-first/padding-second order (mx-auto
+          max-w-[1560px], *then* padding), so its own margin starts
+          growing immediately at 1560px instead of at 1704px - the two
+          edges drift apart by up to 72px across 1560-1704px before
+          converging.
+          The fix is a `padding-right` that cancels exactly that drift:
+          `calc(852px_-_50vw)` (1560-1704px) is 72px at 1560px (matching
+          the band's own flush 72px, since the row isn't over-margined
+          yet there either), sliding down to 0px at 1704px, where the
+          drift has fully closed; 1704-1800px then holds flat at `0px`,
+          since past 1704px both boxes are centered by the same
+          `max-w-[1560px]`/`mx-auto`, so their edges move in lockstep and
+          the drift is already gone. `max-[1704px]` is exclusive (< 1704)
+          in this Tailwind version, matching `max-[1800px]`'s exclusivity
+          noted below, so the two ranges hand off with no overlap or gap
+          at the boundary. */}
+      <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-6 sm:px-18 min-[1560px]:max-[1704px]:pr-[calc(852px_-_50vw)]! min-[1704px]:max-[1800px]:pr-0! min-[1800px]:px-0!">
         <Link
           href="/"
           className={`flex items-center transition-opacity duration-500 ${
