@@ -8,10 +8,8 @@ import type {
 } from "../types";
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "What you earn", href: "#what-you-earn" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "De-identification", href: "#de-identification" },
-  { label: "Who it's for", href: "#who-its-for" },
+  { label: "Data & Trust", href: "/data-and-trust", isRoute: true },
+  { label: "Blogs", href: "/blogs", isRoute: true },
 ];
 
 export const HERO_STATS: StatItem[] = [
@@ -135,6 +133,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     // Privacy and Terms have no page to link to yet, so they stay "#".
     links: [
       { label: "Data & Trust", href: "/data-and-trust" },
+      { label: "Careers", href: "/careers" },
       { label: "Privacy", href: "#" },
       { label: "Terms", href: "#" },
     ],

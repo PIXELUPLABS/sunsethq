@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { NAV_LINKS } from "../lib/constants";
 import { MobileNav } from "./mobile-nav";
+import { NavLinks } from "./nav-links";
 import { usePageScrolled } from "../hooks/use-page-scrolled";
 
 /**
@@ -59,7 +59,13 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           reproduces the exact same math as those sections at every width, so
           the two stay aligned continuously instead of only above ~1704px.
           `min-[1800px]:px-0!` mirrors the content row's own override just
-          below, for the same specificity reason noted there. */}
+          below, for the same specificity reason noted there. `z-index` isn't
+          set here on purpose - it stays below the content row (a later,
+          unpositioned-z sibling that paints on top per DOM order) so that
+          row's real "Value my data" button keeps showing over this band's
+          right-side bg image. Only the icon/links below need to win that
+          stacking fight, so they carry their own `z-10` instead of lifting
+          the whole band. */}
       <div className="pointer-events-none absolute inset-0 hidden px-6 sm:px-18 lg:block min-[1800px]:px-0!">
         <div className="relative mx-auto h-full max-w-[1560px]">
           {/* Fades in once the page scrolls - covers the right half of the
@@ -83,12 +89,23 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
             href="/"
             aria-hidden={!scrolled}
             tabIndex={scrolled ? undefined : -1}
-            className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_12px)] flex -translate-y-1/2 items-center transition-opacity duration-500 ${
+            className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_12px)] z-10 flex -translate-y-1/2 items-center transition-opacity duration-500 ${
               scrolled ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
           >
             <Image src="/favicon-light.svg" alt="Replay" width={28} height={28} />
           </Link>
+
+          {/* Icon sits at `50% + 12px`, is 28px wide, so its right edge is at
+              `50% + 40px` - the requested 24px gap from that edge lands this
+              nav at `50% + 64px`. */}
+          <NavLinks
+            linkBase={linkBase}
+            hidden={!scrolled}
+            className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_64px)] z-10 flex -translate-y-1/2 items-center gap-5 whitespace-nowrap transition-opacity duration-500 xl:gap-7 ${
+              scrolled ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+          />
         </div>
       </div>
 
@@ -133,28 +150,12 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
 
-        {/* Hidden for now - restore by dropping the leading `hidden`. */}
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-5 xl:gap-7">
-          {NAV_LINKS.map((link) =>
-            link.isRoute ? (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-sm tracking-tight text-[#777] transition-colors hover:text-[#141518]"
-              >
-                {link.label}
-              </Link>
-            ) : (
-              <a
-                key={link.label}
-                href={`${linkBase}${link.href}`}
-                className="text-sm tracking-tight text-[#777] transition-colors hover:text-[#141518]"
-              >
-                {link.label}
-              </a>
-            ),
-          )}
-        </nav>
+        <NavLinks
+          linkBase={linkBase}
+          className={`absolute left-1/2 flex -translate-x-1/2 items-center gap-5 transition-opacity duration-500 xl:gap-7 ${
+            scrolled ? "opacity-100 lg:opacity-0" : "opacity-100"
+          }`}
+        />
 
         <MobileNav linkBase={linkBase} />
 
