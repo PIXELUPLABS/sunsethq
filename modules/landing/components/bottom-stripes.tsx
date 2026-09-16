@@ -4,7 +4,7 @@ import { createIllustrationScaler } from "../lib/illustration-scale";
 import { useScrollProgress } from "../hooks/use-scroll-progress";
 
 const SOURCE = { width: 2882, height: 274 };
-const STRIPE_COLOR = "#0C0C0B";
+const DEFAULT_STRIPE_COLOR = "#0C0C0B";
 
 // The band is sized by the section's width, but the section itself is a fixed
 // 990px tall, so past the 1440px the artwork was drawn for it would keep
@@ -37,13 +37,36 @@ const STRIPE_TOPS = STRIPES.reduce<number[]>((tops, stripe, i) => {
   return tops;
 }, []);
 
-export function BottomStripes() {
+export function BottomStripes({
+  color = DEFAULT_STRIPE_COLOR,
+  grainTexture = false,
+  overlay = true,
+}: {
+  color?: string;
+  /** Blends the same `grain-light-texture.svg` (`mix-blend-multiply`) the
+   *  Blogs page's own light sections use into each stripe, so a light
+   *  `color` (e.g. the Blogs "standard" section's white) doesn't read as a
+   *  flat, untextured fill next to them. Off by default - the pricing
+   *  section's own dark stripes were never textured, and this only ever
+   *  needed to change for the new light-colored usage. */
+  grainTexture?: boolean;
+  /** `true` (default, matches the pricing section's own usage): pins this
+   *  over the *previous* element's own bottom edge via `absolute bottom-0`,
+   *  reading as an overlay on top of whatever section it's placed in.
+   *  `false`: renders as a normal in-flow block instead, occupying its own
+   *  real space between two sections rather than overlapping either one -
+   *  used by the Blogs page so the animation reads as its own band sitting
+   *  below the blue section, not on top of it. */
+  overlay?: boolean;
+}) {
   const { ref, progress } = useScrollProgress<HTMLDivElement>();
 
   return (
     <div
       ref={ref}
-      className="pointer-events-none absolute inset-x-0 bottom-0 aspect-[2882/274] w-full overflow-hidden"
+      className={`pointer-events-none aspect-[2882/274] w-full overflow-hidden ${
+        overlay ? "absolute inset-x-0 bottom-0" : "relative"
+      }`}
       style={{ containerType: "size", maxHeight: MAX_HEIGHT_PX }}
     >
       {STRIPES.map((stripe, i) => {
@@ -62,11 +85,18 @@ export function BottomStripes() {
             style={{
               top: s.y(STRIPE_TOPS[i]),
               height: s.y(stripe.height),
-              background: STRIPE_COLOR,
+              background: color,
               transform: `translateY(${(1 - stripeProgress) * 14}px)`,
               opacity: stripeProgress,
             }}
-          />
+          >
+            {grainTexture ? (
+              <div
+                className="absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat mix-blend-multiply"
+                style={{ backgroundSize: "1440px auto" }}
+              />
+            ) : null}
+          </div>
         );
       })}
     </div>

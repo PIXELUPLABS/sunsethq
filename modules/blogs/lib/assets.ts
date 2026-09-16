@@ -15,3 +15,22 @@
  * double-render on top of each other.
  */
 export const BLOGS_HERO_BACKGROUND = "/images/blogs/hero-bg.webp";
+
+/**
+ * The whole chart card under "The Replay De-identification Standard"
+ * (Figma node 6672:16865) - the glass container, grain/soft-light texture
+ * overlays, and both benchmark bar charts (Nvidia 30% / Replay 86%) are all
+ * one live composition in Figma, not an exportable image, so this is a
+ * flattened screenshot of that node at 3x (664x438 native, 1992x1314
+ * exported) rather than a source asset - matching the same technique the
+ * data-trust page's own chart/glass-card illustrations use.
+ */
+export const BLOGS_STANDARD_CARD = "/images/blogs/standard-card.webp";
+
+/**
+ * The small mark inside the "Featured" tag next to it (Figma node
+ * 6672:16917) - a vector composition of rotated, masked gradient bars, not
+ * a simple icon glyph, so it's exported as a flattened image (4x, 72x72)
+ * rather than hand-built as SVG.
+ */
+export const BLOGS_STANDARD_ICON = "/images/blogs/featured-icon.webp";
