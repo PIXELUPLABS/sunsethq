@@ -40,16 +40,15 @@ const RAIL_ROW_HEIGHT_PX = 56;
  * heights - without it, a department name long enough to wrap to two
  * lines would throw the bar off.
  *
- * The rail column also needs `self-start`: it sits in the same grid row as
- * the roles panel, and that panel's height swings wildly by team (1 role
- * vs. Engineering's 8, plus whatever's expanded) - without `self-start`,
- * grid's default `align-items: stretch` makes the rail's own box match
- * that panel's height instead of its own 5-row content. That alone doesn't
- * corrupt the indicator any more now that its math is in fixed pixels, but
- * it did make the rail's own right-hand divider stretch for thousands of
- * pixels alongside an expanded job description, which read as broken.
- * Confirmed via measurement: the rail box grew to 9,513px tall with
- * Engineering's roles expanded, instead of its own constant ~330px.
+ * The rail column relies on grid's default `align-items: stretch`: it sits
+ * in the same grid row as the roles panel, and that panel's height swings
+ * wildly by team (1 role vs. Engineering's 8, plus whatever's expanded).
+ * Stretching keeps the rail's box - and its right-hand divider - matching
+ * the panel's full height instead of stopping at its own ~330px of content,
+ * so the two columns always read as one bordered block. Safe to rely on the
+ * indicator bar's own fixed-pixel math (`activeTeamIndex * RAIL_ROW_HEIGHT_PX`)
+ * staying correct regardless, since it's positioned from row height, not
+ * the rail box's total height.
  */
 export function OpenRolesSection() {
   const {
@@ -138,18 +137,30 @@ export function OpenRolesSection() {
           `border-x border-t`), matching `benefits-section.tsx`'s frame,
           so the boundary reads as complete down to the bottom of the
           section rather than left open on that side.
-          `#d4d4d4`, matching `cta-section.tsx`'s own vertical lines
-          (its `DEFAULT_SIDE_BORDER_CLASS_NAME`) directly below this
-          section, so the two read as one continuous stroke value rather
-          than switching color at the seam. */}
-      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
-        <div className="px-3 py-16 sm:px-10 sm:py-24 lg:py-[120px]">
-          <div className="mx-auto flex w-full max-w-[1100px] flex-col items-start gap-6">
+          Per review, this section's dashed lines (this frame and the
+          team-rail row dividers below) use `#a8a8a8` at full opacity
+          rather than the `#d4d4d4` the rest of the chain
+          (`team-collage-section.tsx`/`why-replay-section.tsx`/
+          `careers-hero.tsx`) settled on - a deliberate divergence for
+          this section, not a leftover from before that decision. */}
+      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
+        {/* Same `max-w-[1560px]` frame + `px-3 py-16 sm:px-10 sm:py-20`
+            inner padding as `<WhyReplaySection>` (and, above that,
+            `<TeamCollageSection>` - see that file's own comment) - all
+            three sections need to land at the same content width/margins
+            stacked on top of each other, so this mirrors that exact
+            structure rather than defining its own. Only the heading text
+            narrows further (`max-w-[560px]`, matching why-replay's own
+            heading), not the search/role-list content below it - same
+            split why-replay uses between its heading and its (uncapped)
+            card grid. */}
+        <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20">
+          <div className="flex max-w-[560px] flex-col items-start gap-6">
             <SectionTag
               label="Open Roles"
               icon={
                 <Image
-                  src="/images/illustration-section-icon.png"
+                  src="/images/careers/values-icons/our_team_interlocking_modules_4x.webp"
                   alt=""
                   width={18}
                   height={18}
@@ -162,16 +173,14 @@ export function OpenRolesSection() {
           </div>
 
           {status === "error" ? (
-            <p className="mx-auto mt-10 w-full max-w-[1100px] text-sm text-[#727272]">
+            <p className="text-sm text-[#727272]">
               We couldn&rsquo;t load open roles right now. Refresh to try again, or reach us
               directly below.
             </p>
           ) : status === "loading" ? (
-            <p className="mx-auto mt-10 w-full max-w-[1100px] text-sm text-[#727272]">
-              Loading open roles&hellip;
-            </p>
+            <p className="text-sm text-[#727272]">Loading open roles&hellip;</p>
           ) : hasAnyRoles && activeTeam ? (
-            <div className="mx-auto mt-10 w-full max-w-[1100px]">
+            <div className="w-full">
               <div className="relative mb-6">
                 <SearchIcon className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-[#a8a8a8]" />
                 <input
@@ -180,12 +189,12 @@ export function OpenRolesSection() {
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder={`Search ${activeTeam.name.toLowerCase()} roles`}
                   aria-label={`Search ${activeTeam.name} roles`}
-                  className="w-full border border-[#d4d4d4] bg-transparent py-3 pr-4 pl-11 text-sm text-black transition-colors duration-150 ease-snap placeholder:text-[#727272] focus:border-black focus:outline-none"
+                  className="w-full border border-[#a8a8a8] bg-transparent py-3 pr-4 pl-11 text-sm text-black transition-colors duration-150 ease-snap placeholder:text-[#727272] focus:border-black focus:outline-none"
                 />
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] lg:border lg:border-[#d4d4d4]">
-                <div className="relative flex flex-col self-start border-b border-[#d4d4d4] lg:border-r lg:border-b-0 lg:p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] lg:border lg:border-[#a8a8a8]">
+                <div className="relative flex flex-col border-b border-[#a8a8a8] lg:border-r lg:border-b-0 lg:p-6">
                   {/* Fixed pixels, not a percentage of this container's
                       height: `h-14` (56px) matches each row's own
                       `min-h-[56px]`, and `lg:top-6` (24px) matches this
@@ -214,7 +223,7 @@ export function OpenRolesSection() {
                         type="button"
                         onClick={() => selectTeam(i)}
                         aria-pressed={isActive}
-                        className={`flex min-h-[56px] items-center justify-between gap-3 border-b border-dashed border-[#d4d4d4] px-6 py-4 text-left font-mono text-xs tracking-wide uppercase transition-[color,transform] duration-150 ease-snap last:border-b-0 active:scale-[0.98] lg:px-0 ${
+                        className={`flex min-h-[56px] items-center justify-between gap-3 border-b border-dashed border-[#a8a8a8] px-6 py-4 text-left font-mono text-xs tracking-wide uppercase transition-[color,transform] duration-150 ease-snap last:border-b-0 active:scale-[0.98] lg:px-0 ${
                           hasNoRoles
                             ? "text-[#a8a8a8] hover:text-[#727272]"
                             : isActive
@@ -258,8 +267,8 @@ export function OpenRolesSection() {
             </div>
           ) : null}
 
-          <div className="mx-auto mt-8 flex w-full max-w-[1100px] flex-col gap-2 text-left">
-            <h3 className="max-w-[480px] font-serif text-sm tracking-[-0.4px] text-black">
+          <div className="flex w-full flex-col gap-2 text-left">
+            <h3 className="max-w-[480px] font-serif text-[20px] tracking-[-0.4px] text-black">
               Don&rsquo;t see a fit?
             </h3>
             <p className="max-w-[480px] text-sm leading-[1.5] text-[#727272]">

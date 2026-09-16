@@ -43,6 +43,50 @@ svg {
   -webkit-user-select: none;
 }
 
+/**
+ * Careers page photo collage (`team-collage-section.tsx`). Composes:
+ * - `--base-rotate`: fixed per-photo pile rotation
+ * - `--tilt-*`: hover lift/scale/pointer-tilt, written directly to `style`
+ *   by `use-team-collage-tilt.ts` on every pointer move - kept out of
+ *   React state so a move doesn't re-render the other seven photos
+ *
+ * The one-time scroll-in fade is a separate `animation` (below), not part
+ * of this `transition` - it used to be a `transition-delay` set inline
+ * per photo (`index * 50ms`, for the stagger), but `transition-delay`
+ * applies to every property in this rule's `transition` list, not just
+ * the one that triggered it. Once a photo had scrolled into view, its
+ * hover response inherited that same delay - up to 350ms for the last
+ * photo - so crossing the pile to hover a later card could land mid-delay
+ * and show no tilt at all until the delay ran out. `animation-delay` is a
+ * fully separate property from `transition-delay`, so the fade's stagger
+ * can no longer bleed into hover.
+ */
+.team-collage-photo {
+  transform: rotate(var(--base-rotate, 0deg)) translateY(var(--tilt-lift, 0px))
+    scale(var(--tilt-scale, 1)) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 300ms var(--ease-snap), box-shadow 300ms var(--ease-snap);
+  /* One flat, barely-there shadow at rest - same for every photo,
+     regardless of stacking order. An earlier version scaled this by
+     `baseZ` so the pile had visible depth before any hover; per review,
+     that (plus the base rotation) was doing the "playful" work before
+     the user ever touched anything, when the whole point of the hover
+     interaction below is to be the one place that happens. */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.team-collage-photo:hover {
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.22);
+}
+
+@keyframes team-collage-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .bg-brand-gradient {
   background-image: linear-gradient(
     180deg,

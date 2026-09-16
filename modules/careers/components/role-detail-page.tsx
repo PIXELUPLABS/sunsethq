@@ -51,7 +51,7 @@ export function RoleDetailPage({ role }: RoleDetailPageProps) {
             className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto]"
           />
 
-          <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
+          <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
             <div className="mx-auto flex w-full max-w-[760px] flex-col items-start gap-10 px-6 pt-[108px] pb-16 lg:px-0 lg:pt-[160px] lg:pb-24">
               <Link
                 href="/careers#open-roles"

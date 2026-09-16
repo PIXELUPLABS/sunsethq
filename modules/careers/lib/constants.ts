@@ -5,6 +5,13 @@ export const CAREERS_EYEBROW = "Careers";
 export const CAREERS_INTRO =
   "We're a small team of engineers, data scientists, and operators building that pipeline end to end — and we're looking for people who want real ownership over hard, consequential work.";
 
+export const TEAM_COLLAGE_EYEBROW = "Inside Replay";
+
+export const TEAM_COLLAGE_TITLE = "The people behind the work.";
+
+export const TEAM_COLLAGE_BODY =
+  "We're a small team building ambitious things together — with plenty happening beyond the screen too.";
+
 /**
  * The 3x/60+ categories figures and "isolated tenancy" language are
  * already-published product claims (see the de-identification section on
@@ -25,36 +32,36 @@ export const WHY_REPLAY_STATEMENTS: WhyReplayStatement[] = [
   },
 ];
 
-/**
- * Placeholder values, per review feedback - no About page/module exists
- * yet in this repo to source real values from. Replace wholesale once
- * About defines the canonical list; Careers should then import that exact
- * content rather than keep its own.
- */
 export const VALUES: Value[] = [
   {
-    title: "Protect what isn't ours",
-    body: "Every dataset we handle belongs to someone else first. Treat it that way.",
+    title: "Be the painkiller",
+    body: "Lead with empathy, understand the fundamental problem, and fix it.",
+    icon: "/images/careers/values-icons/pill.svg",
   },
   {
-    title: "Show your work",
-    body: "Named buyers, a published de-identification standard, verifiable numbers — for customers and for each other.",
+    title: "Keep your promises",
+    body: "If you say you're going to do something, do it. Follow through every time.",
+    icon: "/images/careers/values-icons/shield-check.svg",
   },
   {
-    title: "Small team, real ownership",
-    body: "Everyone touches the pipeline end to end. No layer between the work and the person who did it.",
+    title: "Swing big, learn fast",
+    body: "Bias towards action, learn by doing, and pursue the big opportunities.",
+    icon: "/images/careers/values-icons/trend-up.svg",
   },
   {
-    title: "Move at the speed of trust",
-    body: "Fast, but never faster than the diligence requires.",
+    title: "Make it world-class",
+    body: "With everything you do, no matter how big or small, ask: “is this world-class?”",
+    icon: "/images/careers/values-icons/sparkle.svg",
   },
   {
-    title: "Make it defensible",
-    body: "If we can't explain a decision plainly, we don't ship it.",
+    title: "Carry each other",
+    body: "We win and we lose as one team. Show humility, help your teammates.",
+    icon: "/images/careers/values-icons/unite.svg",
   },
   {
-    title: "Compound the boring parts",
-    body: "The unglamorous infrastructure work — de-identification, verification, compliance — is the product.",
+    title: "Set good goals",
+    body: "What’s outcome (not the output) you’re aiming to achieve. Make it clear and measurable.",
+    icon: "/images/careers/values-icons/cube-transparent.svg",
   },
 ];
 
