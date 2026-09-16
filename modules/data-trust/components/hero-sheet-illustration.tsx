@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { ProcessBar } from "@/modules/landing/components/process-bar";
 import { HERO_PROCESS_DASH } from "@/modules/landing/lib/hero-assets";
-import { DATA_TRUST_HERO_PLANE, DATA_TRUST_HERO_PLANE_MOBILE } from "../lib/assets";
+import { DATA_TRUST_HERO_PLANE_2 } from "../lib/assets";
 
 /**
  * The perspective spreadsheet that fills the bottom of the hero, plus the
@@ -14,35 +14,73 @@ export function HeroSheetIllustration() {
   return (
     <>
       <div className="relative aspect-[780/976] w-full lg:aspect-[1440/444]">
+        {/* The hero illustration. `z-10`, so the overlay rows below
+            (`z-20`) still read on top of it.
+            Widened past the band's own width (`left-[-4%] w-[108%]`) per
+            review - grown out symmetrically past even the full band-width
+            match (`left-0 w-full`), which itself had already grown out
+            from Figma's own exact box (node 6672:20290's 72/1440-1297/1440
+            ratio, `left-[5%] w-[90.0694%]`). The overflowing left/right
+            edges get clipped by the section's own `overflow-hidden`
+            (`data-trust-hero.tsx`), reading as a full bleed rather than a
+            hard cutoff.
+            Height is stretched well past the image's own native ratio
+            (which stopped right at the process-bar strip, `top-50.4505%`
+            + `h-4.5045%` = 54.955% - barely touching it) to `h-[85%]`
+            per review, so the sheet clearly overflows past the strip and
+            reads as bleeding off the bottom of the section, matching how
+            `DATA_TRUST_HERO_PLANE` (the previous asset here) used to
+            extend well past it too.
+            `top-[4%]` (was `top-0`) per review, nudging it down slightly
+            within the band. */}
         <Image
-          src={DATA_TRUST_HERO_PLANE_MOBILE}
+          src={DATA_TRUST_HERO_PLANE_2}
           alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
-          fill
+          width={5073}
+          height={940}
           priority
-          sizes="100vw"
-          className="object-cover lg:hidden"
+          sizes="108vw"
+          className="absolute top-[16%] left-[-4%] z-10 hidden h-[85%] w-[108%] max-w-none lg:block"
         />
 
-        {/* Stretched edge-to-edge across the full band width (no side gutter),
-            height unchanged at 95.045% (422/444) of the band - a deliberate
-            departure from the Figma-exact 1297x422-at-72px-gutter placement
-            above. */}
-        <Image
-          src={DATA_TRUST_HERO_PLANE}
-          alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
-          width={2594}
-          height={844}
-          priority
-          sizes="100vw"
-          className="absolute top-0 left-0 z-10 hidden h-[95.0450%] w-full max-w-none lg:block"
+        {/* Fades the illustration's own bottom edge into the section's
+            actual background - the same `grain-light-texture.svg` tile
+            over `#fcfcfc` that `data-trust-hero.tsx` paints behind
+            everything - rather than a flat white blur, and only over the
+            image's own box (`left-[-4%] w-[108%]`, matching the image
+            exactly) rather than the full section width, so it doesn't
+            wash out anything beside the image. Matches Figma's own
+            gradient-masked version of this asset, which this flattened
+            export doesn't bake in. `z-[15]`: above the image (`z-10`)
+            but below the process-bar/chip/text overlays (`z-20`), so it
+            only fades the illustration, not them. A CSS mask (not
+            Tailwind's `bg-gradient-to-b`, which only fades color, not a
+            background-image tile) is what lets the texture itself fade
+            in via opacity rather than getting cropped by a hard edge. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-0 left-[-4%] z-[15] hidden h-[35%] w-[108%] lg:block"
+          style={{
+            backgroundColor: "#fcfcfc",
+            backgroundImage: "url(/images/grain-light-texture.svg)",
+            backgroundSize: "cover",
+            maskImage: "linear-gradient(to bottom, transparent, black)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent, black)",
+          }}
         />
 
-        {/* dashed band the version and classification chips sit in */}
-        <div className="pointer-events-none absolute inset-x-0 top-[23.8739%] hidden h-[13.7387%] border-y border-dashed border-black/8 lg:block">
+        {/* dashed band the version and classification chips sit in.
+            `z-20` on this and every overlay below - the hero-plane image
+            above is `z-10`, and without an explicit z-index these were
+            all painting *behind* it (their DOM order after the image
+            doesn't help, since it created its own stacking context),
+            silently hiding the process bar and every text/chip overlay
+            entirely. */}
+        <div className="pointer-events-none absolute inset-x-0 top-[23.8739%] z-20 hidden h-[13.7387%] border-y border-dashed border-black/8 lg:block">
           <div className="absolute inset-y-0 left-[74.4444%] border-r border-dashed border-black/8" />
         </div>
 
-        <div className="pointer-events-none absolute top-[26.5766%] left-[82.4306%] hidden lg:block">
+        <div className="pointer-events-none absolute top-[26.5766%] left-[82.4306%] z-20 hidden lg:block">
           <div className="border border-dashed border-[#d9d9d9] px-2 py-1.5">
             <p className="font-mono text-[8px] tracking-wide whitespace-nowrap text-[#898989] uppercase">
               RL-2026-001 {"//"} Version 1.0
@@ -50,13 +88,13 @@ export function HeroSheetIllustration() {
           </div>
         </div>
 
-        <p className="pointer-events-none absolute top-[40.9910%] left-[82.3611%] hidden font-mono text-[8px] leading-tight tracking-wide whitespace-nowrap text-[#898989] uppercase lg:block">
+        <p className="pointer-events-none absolute top-[40.9910%] left-[82.3611%] z-20 hidden font-mono text-[8px] leading-tight tracking-wide whitespace-nowrap text-[#898989] uppercase lg:block">
           classification
           <br />
           proprietary data / licensing
         </p>
 
-        <div className="pointer-events-none absolute top-[41.4414%] left-[1.3194%] hidden lg:block">
+        <div className="pointer-events-none absolute top-[41.4414%] left-[1.3194%] z-20 hidden lg:block">
           <div className="flex items-center gap-1">
             <p className="font-mono text-[8px] tracking-wide text-[#898989] uppercase">
               process
@@ -74,7 +112,33 @@ export function HeroSheetIllustration() {
           </p>
         </div>
 
-        <ProcessBar className="absolute inset-x-0 top-[50.4505%] z-0 hidden h-[4.5045%] lg:block" />
+        {/* Per review: rather than relying on z-order (the strip sat at
+            `z-[5]`, behind the image's `z-10`, but the image has real
+            transparent/soft-edge pixels around its sheet shape, so the
+            strip still leaked through there) or an opaque backdrop patch
+            (tried and reverted - it painted a flat, untextured rectangle
+            that didn't match the grained page background), this
+            `clip-path` cuts the strip's own rendering down to just the
+            two slivers that sit outside the sheet's opaque silhouette at
+            this exact row - the middle is genuinely absent, not covered,
+            so it shows the real page background beneath everything.
+            21.4448% / 77.5832% come from sampling `hero-plane-2.webp`'s
+            alpha channel at the row this strip lands on (40.53% down the
+            image's own box) for the first/last non-transparent pixel,
+            then converting those image-relative x's to this band's own
+            coordinates via the image's `left-[-4%] w-[108%]` placement.
+            The polygon traces two rectangles joined by a zero-height
+            seam at 50% - the standard way to clip a single element to a
+            disjoint shape. */}
+        <div
+          className="absolute inset-x-0 top-[50.4505%] z-[5] hidden h-[4.5045%] lg:block"
+          style={{
+            clipPath:
+              "polygon(0% 0%, 21.4448% 0%, 21.4448% 50%, 77.5832% 50%, 77.5832% 0%, 100% 0%, 100% 100%, 77.5832% 100%, 77.5832% 50%, 21.4448% 50%, 21.4448% 100%, 0% 100%)",
+          }}
+        >
+          <ProcessBar className="h-full w-full" />
+        </div>
       </div>
 
       {/* Mobile-only process/version/classification row + bar (Figma node
