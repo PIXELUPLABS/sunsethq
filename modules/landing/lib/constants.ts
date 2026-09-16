@@ -123,11 +123,21 @@ export const INDUSTRY_CARDS: IndustryCard[] = [
 export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Product",
-    links: ["Overview", "How it works", "Valuation", "Data cleaning"],
+    links: [
+      { label: "Overview", href: "/#overview" },
+      { label: "How it works", href: "/#how-it-works" },
+      { label: "De-identification", href: "/#de-identification" },
+      { label: "Who it's for", href: "/#who-its-for" },
+    ],
   },
   {
     title: "Company",
-    links: ["Data & Trust", "Privacy", "Terms"],
+    // Privacy and Terms have no page to link to yet, so they stay "#".
+    links: [
+      { label: "Data & Trust", href: "/data-and-trust" },
+      { label: "Privacy", href: "#" },
+      { label: "Terms", href: "#" },
+    ],
   },
 ];
 

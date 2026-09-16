@@ -53,7 +53,10 @@ export function HeroSection() {
 
   return (
     <div ref={pinRef} className="relative lg:h-[475vh]">
-      <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] lg:sticky lg:top-0 lg:flex lg:min-h-[100vh] lg:flex-col">
+      <section
+        id="overview"
+        className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] lg:sticky lg:top-0 lg:flex lg:min-h-[100vh] lg:flex-col"
+      >
         <Image
           src="/images/grain-light-texture.svg"
           alt=""

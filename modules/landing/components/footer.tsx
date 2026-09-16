@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { FOOTER_COLUMNS } from "../lib/constants";
 import { ReplayWordmark } from "./replay-wordmark";
 
@@ -68,13 +69,13 @@ export function Footer() {
                   (`gap-[40px]`) only once there's room for it. */}
               <div className="flex flex-col gap-2 lg:flex-row lg:gap-10">
                 {column.links.map((link) => (
-                  <a
-                    key={link}
-                    href="#"
+                  <Link
+                    key={link.label}
+                    href={link.href}
                     className="relative w-fit font-mono text-[12px] leading-[1.3] tracking-[0.72px] text-white/60 uppercase transition-opacity delay-150 duration-300 ease-out lg:text-sm lg:tracking-[0.84px] lg:whitespace-nowrap after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
                   >
-                    {link}
-                  </a>
+                    {link.label}
+                  </Link>
                 ))}
               </div>
             </div>

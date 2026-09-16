@@ -28,7 +28,12 @@ export type IndustryCard = {
   className: string;
 };
 
+export type FooterLink = {
+  label: string;
+  href: string;
+};
+
 export type FooterColumn = {
   title: string;
-  links: string[];
+  links: FooterLink[];
 };
