@@ -31,38 +31,47 @@ export function Footer() {
             highlighting the one under the cursor. */}
         <nav
           aria-label="Footer"
-          className="relative grid w-full grid-cols-2 gap-x-5 gap-y-10 sm:flex sm:justify-between [&:has(a:hover)_a:not(:hover)]:opacity-40 [&:has(a:hover)_a:not(:hover)]:delay-0"
+          className="relative grid w-full grid-cols-2 gap-x-5 gap-y-10 lg:flex lg:justify-between [&:has(a:hover)_a:not(:hover)]:opacity-40 [&:has(a:hover)_a:not(:hover)]:delay-0"
         >
-          {/* One continuous rule across all four columns, matching the design.
-              It sits between the headings and the links without taking part in
-              layout, so the column gap stays exactly 32px. */}
+          {/* One continuous rule across both columns, matching the design
+              (node 6684:32825) - sits between the headings and the links
+              without taking part in layout, so the column gap stays exactly
+              32px. `lg:` only: the mobile 2-col grid below runs its own
+              per-column rule instead (its columns can stack to different
+              heights, which one shared rule can't span cleanly). */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 top-9 hidden border-t border-dashed border-white/16 sm:block"
+            className="pointer-events-none absolute inset-x-0 top-9 hidden border-t border-dashed border-white/16 lg:block"
           />
 
           {FOOTER_COLUMNS.map((column, index) => (
             <div
               key={column.title}
-              className="relative flex flex-col gap-6 sm:w-[135px] sm:gap-8"
+              className="relative flex flex-col gap-6 lg:min-w-[200px] lg:gap-8"
             >
-              {/* The design runs one rule across each row of the 2x2 grid, so
-                  a left-hand column carries its half plus the 20px gutter. */}
+              {/* The design runs one rule across each row of the mobile
+                  2-col grid, so a left-hand column carries its half plus
+                  the 20px gutter. `lg:` swaps this for the single rule
+                  spanning the whole row above. */}
               <div
                 aria-hidden
-                className={`pointer-events-none absolute top-[30px] left-0 border-t border-dashed border-white/16 sm:hidden ${
+                className={`pointer-events-none absolute top-[30px] left-0 border-t border-dashed border-white/16 lg:hidden ${
                   index % 2 === 0 ? "-right-5" : "right-0"
                 }`}
               />
-              <p className="font-serif-accent text-[16px] leading-[1.1] tracking-[-0.16px] text-white sm:text-[18px] sm:tracking-[-0.18px]">
-                {column.index} {column.title}
+              <p className="font-serif-accent text-[16px] leading-[1.1] tracking-[-0.16px] text-white lg:text-[18px] lg:tracking-[-0.18px]">
+                {column.title}
               </p>
-              <div className="flex flex-col gap-2 sm:gap-2.5">
+              {/* Links stack vertically below `lg:` (narrow mobile/tablet
+                  widths can't fit "How it works" and friends side by
+                  side), matching the design's own horizontal row
+                  (`gap-[40px]`) only once there's room for it. */}
+              <div className="flex flex-col gap-2 lg:flex-row lg:gap-10">
                 {column.links.map((link) => (
                   <a
                     key={link}
                     href="#"
-                    className="relative w-fit font-mono text-[12px] leading-[1.3] tracking-[0.72px] text-white/60 uppercase transition-opacity delay-150 duration-300 ease-out sm:tracking-[0.84px] after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
+                    className="relative w-fit font-mono text-[12px] leading-[1.3] tracking-[0.72px] text-white/60 uppercase transition-opacity delay-150 duration-300 ease-out lg:text-sm lg:tracking-[0.84px] lg:whitespace-nowrap after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-white after:transition-[width] after:duration-300 after:ease-out hover:after:w-full"
                   >
                     {link}
                   </a>

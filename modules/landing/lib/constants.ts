@@ -122,24 +122,12 @@ export const INDUSTRY_CARDS: IndustryCard[] = [
 
 export const FOOTER_COLUMNS: FooterColumn[] = [
   {
-    index: "01",
     title: "Product",
     links: ["Overview", "How it works", "Valuation", "Data cleaning"],
   },
   {
-    index: "02",
     title: "Company",
-    links: ["About", "Customers", "Blog", "Careers"],
-  },
-  {
-    index: "03",
-    title: "Partners",
-    links: ["Clients", "Investors", "Law Firms", "Accountants"],
-  },
-  {
-    index: "04",
-    title: "Legal",
-    links: ["Privacy", "Terms", "Cookies", "Compliance"],
+    links: ["Data & Trust", "Privacy", "Terms"],
   },
 ];
 
