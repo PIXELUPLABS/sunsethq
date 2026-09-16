@@ -1,7 +1,8 @@
 import Image from "next/image";
+import { ArrowRightIcon } from "@/components/ui/icons";
 import { ProcessBar } from "@/modules/landing/components/process-bar";
 import { HERO_PROCESS_DASH } from "@/modules/landing/lib/hero-assets";
-import { DATA_TRUST_HERO_PLANE_2 } from "../lib/assets";
+import { DATA_TRUST_HERO_PLANE_2, DATA_TRUST_HERO_PLANE_MOBILE } from "../lib/assets";
 
 /**
  * The perspective spreadsheet that fills the bottom of the hero, plus the
@@ -13,7 +14,22 @@ import { DATA_TRUST_HERO_PLANE_2 } from "../lib/assets";
 export function HeroSheetIllustration() {
   return (
     <>
-      <div className="relative aspect-[780/976] w-full lg:aspect-[1440/444]">
+      <div className="relative aspect-[780/900] w-full lg:aspect-[1440/444]">
+        {/* Portrait mobile counterpart to `DATA_TRUST_HERO_PLANE_2` below -
+            this box is shortened a little past this asset's own 780x976
+            native ratio (`aspect-[780/900]`, was `aspect-[780/976]`) per
+            review, so `object-cover` crops a bit off its height; `object-top`
+            keeps that crop anchored to the bottom of the image rather than
+            trimming evenly off both ends. */}
+        <Image
+          src={DATA_TRUST_HERO_PLANE_MOBILE}
+          alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-top lg:hidden"
+        />
+
         {/* The hero illustration. `z-10`, so the overlay rows below
             (`z-20`) still read on top of it.
             Widened past the band's own width (`left-[-4%] w-[108%]`) per
@@ -153,32 +169,57 @@ export function HeroSheetIllustration() {
         </div>
       </div>
 
-      {/* Mobile-only process/version/classification row + bar (Figma node
-          6672:23290) - stacked in normal flow directly below the portrait
-          image instead of overlaid on top of it like the desktop band
-          above. */}
-      <div className="lg:hidden">
-        <div className="border-t border-dashed border-[#ddd] px-6 pt-3.5 pb-[17px]">
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex flex-col gap-2">
-              <p className="font-mono text-[8px] leading-[1.4] tracking-wide text-[#858585] uppercase">
-                Process
-              </p>
-              <p className="font-mono text-[8px] leading-[1.4] tracking-wide text-[#858585] uppercase">
-                Process: identified → structured → verified → licensed
-              </p>
-            </div>
-            <div className="shrink-0 border border-dashed border-[#d4d4d4] px-1.5 py-[7px]">
-              <p className="font-mono text-[6.8px] leading-[1.35] whitespace-nowrap text-[#8d8d8d]">
+      {/* Mobile-only process/version/classification row + bar, copied from
+          the careers page hero's own mobile row (careers-hero.tsx) rather
+          than this section's earlier one-off version, which had drifted
+          from it (a duplicated "Process" line, a mismatched border color,
+          and plain "→" characters instead of `ArrowRightIcon`) - stacked
+          in normal flow directly below the portrait image instead of
+          overlaid on top of it like the desktop band above.
+          `relative` (was a plain static div): `data-trust-hero.tsx` paints
+          its grain-texture background as a `fill` image stretched over the
+          *whole* section (all the way past this block's own bottom edge,
+          not just the hero illustration above it) - a positioned element
+          with `z-index: auto`, which CSS paints after every ordinary
+          static in-flow box in the same stacking context regardless of
+          DOM order. Without its own position this block stayed static, so
+          that image silently painted over it every time, leaving only its
+          `ProcessBar` visible below (each of that component's own bars is
+          already `relative`, the same fix, so it alone kept showing) - the
+          exact class of bug this file's desktop overlays already needed
+          `z-20` for, just not yet applied here since this block reads as
+          "below" the illustration rather than "on top of" it. */}
+      <div className="relative lg:hidden">
+        <div className="grid w-full grid-cols-[1fr_auto] items-center gap-2 border-t border-dashed border-black/8 px-6 pt-3.5 pb-[17px]">
+          <div>
+            <p className="font-mono text-[8px] tracking-wide text-[#898989] uppercase">
+              process
+            </p>
+            <p className="flex flex-wrap items-center gap-1 font-mono text-[8px] tracking-wide text-[#898989] uppercase">
+              <span>process: </span>
+              <span>identified</span>
+              <ArrowRightIcon className="size-2.5 shrink-0" />
+              <span>structured</span>
+              <ArrowRightIcon className="size-2.5 shrink-0" />
+              <span>verified</span>
+              <ArrowRightIcon className="size-2.5 shrink-0" />
+              <span>licensed</span>
+            </p>
+          </div>
+          <div className="flex items-center">
+            <div className="border border-dashed border-[#d9d9d9] px-1.5 py-1.5">
+              <p className="font-mono text-[6.8px] tracking-wide text-[#8d8d8d] uppercase">
                 RL-2026-001
                 <br />
-                VERSION 1.0
+                Version 1.0
               </p>
             </div>
           </div>
-          <p className="mt-2 font-mono text-[7px] leading-[1.3] tracking-wide text-[#aaa] uppercase">
-            Classification: Proprietary data / licensing
-          </p>
+          <div className="col-span-2 flex items-center">
+            <p className="font-mono text-[7px] tracking-wide text-[#aaa] uppercase">
+              classification: proprietary data / licensing
+            </p>
+          </div>
         </div>
 
         <ProcessBar className="h-2 w-full" />
