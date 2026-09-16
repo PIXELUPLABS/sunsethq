@@ -6,10 +6,7 @@ import { useInView } from "@/modules/landing/hooks/use-in-view";
 import { VALUES } from "../lib/constants";
 
 /**
- * Placeholder values (see lib/constants.ts) - no About page/module exists
- * anywhere in this repo yet, so there's nothing real to reuse. Per review
- * feedback, this renders 6 illustrative values now rather than an empty
- * pointer note; replace wholesale once About defines the canonical list.
+ * Values copy (see lib/constants.ts) sourced from Figma - node 6712:63.
  * Dark palette per review feedback, matching `valuation-section.tsx`'s
  * existing dark-section precedent (`bg-[#0c0c0b]`). Grid dividers are
  * `border-dashed border-[#353535]`, not the earlier solid `border-[#444]`,
@@ -31,7 +28,18 @@ export function ValuesSection() {
     <section className="flex justify-center bg-[#0c0c0b] px-6 py-16 sm:px-18 sm:py-24 lg:py-[120px]">
       <div className="mx-auto flex w-full max-w-[1560px] flex-col items-center gap-10">
         <div className="flex flex-col items-center gap-6 text-center">
-          <SectionTag label="Values" tone="dark" />
+          <SectionTag
+            label="Values"
+            tone="dark"
+            icon={
+              <Image
+                src="/images/careers/values-icons/values_pillars.webp"
+                alt=""
+                width={18}
+                height={18}
+              />
+            }
+          />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-white sm:text-[44px] sm:tracking-tight">
             What we believe.
           </h2>
@@ -72,7 +80,7 @@ export function ValuesSection() {
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <div className="flex items-center justify-between">
-                  <Image src="/images/careers/coin.png" alt="" width={40} height={40} />
+                  <Image src={value.icon} alt="" width={40} height={40} />
                   <p className="font-mono text-xs text-white/40">
                     {String(i + 1).padStart(2, "0")}
                   </p>

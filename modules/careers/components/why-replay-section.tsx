@@ -15,11 +15,12 @@ import { WhyReplayRow } from "./why-replay-row";
  * previously had zero scroll-entrance motion despite that pattern
  * existing elsewhere in the codebase.
  *
- * Frame border: full `border` (all sides) at `#a8a8a8`, matching
- * careers-hero.tsx/benefits-section.tsx/open-roles-section.tsx - this
- * section was the one left behind on the old partial `border-x border-t
- * border-[#d4d4d4]`, both missing the bottom edge those got and using
- * the same low-contrast gray that read as invisible on the hero.
+ * Frame border: full `border` (all sides) at `#d4d4d4`, matching the main
+ * page's own dashed grid lines (buyers-section.tsx, stats-section.tsx,
+ * etc.) - was `#a8a8a8` (matching careers-hero.tsx/benefits-section.tsx/
+ * open-roles-section.tsx's own local deviation from that), but per review
+ * this page's grid frame should use the same line color as the main page
+ * throughout rather than its own value.
  */
 export function WhyReplaySection() {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 });
@@ -36,7 +37,7 @@ export function WhyReplaySection() {
         className="pointer-events-none object-cover"
       />
 
-      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">
+      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
         <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20">
           <div className="flex max-w-[560px] flex-col items-start gap-6">
             <SectionTag label="Why Replay" />
