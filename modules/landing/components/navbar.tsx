@@ -45,41 +45,51 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
         />
       </div>
 
-      {/* Bounds the right-bg section (and the logo swapped in over it) to
-          the same 1560px-capped, centered band the nav content itself sits
-          in, instead of the full-bleed header - otherwise "50%" meant 50%
-          of the viewport, which on wide screens was far wider than the
-          content row it's meant to align with. */}
-      <div className="pointer-events-none absolute inset-0 mx-auto hidden max-w-[1560px] lg:block">
-        {/* Fades in once the page scrolls - covers the right half of this
-            band, inset the same 72px other sections use for their desktop
-            side padding. At 1800px+ the content row's own padding drops to
-            0 (matching it further down), so this drops its inset to 0 too -
-            otherwise it fell 72px short of reaching the "Value my data"
-            button's now-flush-right edge. Width widens to a flat 50% at
-            that point so the left edge still lands exactly on the band's
-            center line either way. */}
-        <div
-          className={`absolute inset-y-0 right-[72px] w-[calc(50%-72px)] bg-cover bg-right transition-opacity duration-500 min-[1800px]:right-0 min-[1800px]:w-1/2 ${
-            scrolled ? "opacity-100" : "opacity-0"
-          }`}
-          style={{ backgroundImage: "url(/images/header-bg-right.svg)" }}
-        />
+      {/* Same two-layer box every content section uses - `px-6 sm:px-18`
+          padding first, then a `mx-auto max-w-[1560px]` band nested inside
+          the padded area - instead of capping the outer wrapper itself at
+          1560px. Capping the outer wrapper directly made it hit its cap (and
+          start centering with mx-auto slack) as soon as the viewport passed
+          1560px, while every content section's own band - padded first,
+          capped second - doesn't reach that same centered state until the
+          padded-down width also hits 1560px (1704px viewport). Between
+          1560-1704px that mismatch left this band's right edge up to ~72px
+          short of, and its center line off from, the matching section
+          band's (e.g. the how-it-works video column's) edges. Padding first
+          reproduces the exact same math as those sections at every width, so
+          the two stay aligned continuously instead of only above ~1704px.
+          `min-[1800px]:px-0!` mirrors the content row's own override just
+          below, for the same specificity reason noted there. */}
+      <div className="pointer-events-none absolute inset-0 hidden px-6 sm:px-18 lg:block min-[1800px]:px-0!">
+        <div className="relative mx-auto h-full max-w-[1560px]">
+          {/* Fades in once the page scrolls - covers the right half of the
+              band above. No inset of its own needed now: the band itself is
+              already flush against the outer wrapper's padding (or, at
+              1800px+, against the viewport edge once that padding drops to
+              0), so filling its right half exactly reaches the target edge
+              at every width. */}
+          <div
+            className={`absolute inset-y-0 right-0 w-1/2 bg-cover bg-right transition-opacity duration-500 ${
+              scrolled ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ backgroundImage: "url(/images/header-bg-right.svg)" }}
+          />
 
-        {/* Fades in over the same right-bg section, 12px in from its own
-            left edge (that section is `right-[72px] w-[calc(50%-72px)]`, so
-            its left edge sits exactly at the band's own 50% mark). Swaps
-            places with the top-left logo above. */}
-        <Link
-          href="/"
-          aria-hidden={!scrolled}
-          tabIndex={scrolled ? undefined : -1}
-          className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_12px)] flex -translate-y-1/2 items-center transition-opacity duration-500 ${
-            scrolled ? "opacity-100" : "pointer-events-none opacity-0"
-          }`}
-        >
-          <Image src="/favicon-light.svg" alt="Replay" width={28} height={28} />
-        </Link>
+          {/* Fades in over the same right-bg section, 12px in from its own
+              left edge (that section is `right-0 w-1/2`, so its left edge
+              sits exactly at the band's own 50% mark). Swaps places with the
+              top-left logo above. */}
+          <Link
+            href="/"
+            aria-hidden={!scrolled}
+            tabIndex={scrolled ? undefined : -1}
+            className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_12px)] flex -translate-y-1/2 items-center transition-opacity duration-500 ${
+              scrolled ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+          >
+            <Image src="/favicon-light.svg" alt="Replay" width={28} height={28} />
+          </Link>
+        </div>
       </div>
 
       {/* Below 1800px this is unchanged: max-w-[1560px] + px-6 sm:px-18,

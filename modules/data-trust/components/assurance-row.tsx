@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { JURISDICTION_ICON } from "../lib/assets";
+import { DATA_TRUST_ASSURANCE_IMAGES, JURISDICTION_ICON } from "../lib/assets";
 import type { AssuranceRow as AssuranceRowData } from "../types";
 import { AssuranceMedia } from "./assurance-media";
 import { AssuranceProgress } from "./assurance-progress";
@@ -29,11 +29,11 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
 
   return (
     <article
-      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-3 sm:p-6 lg:items-center lg:gap-6 ${
+      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-6 lg:items-center lg:gap-6 ${
         mediaFirst ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}
     >
-      <div className="flex min-w-0 flex-1 flex-col gap-6 lg:h-[408px] lg:justify-between lg:gap-0">
+      <div className="flex min-w-0 flex-1 flex-col lg:h-[490px]">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2.5 lg:gap-3">
             <Image
@@ -50,23 +50,28 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
           <AssuranceProgress activeIndex={index} total={total} />
         </div>
 
-        <div className="flex flex-col gap-4 lg:gap-5">
-          <h3
-            className={`font-serif text-[26px] leading-[1.1] tracking-[-0.26px] text-black lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
-          >
-            {row.title}
-          </h3>
-          <div
-            className={`flex flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black ${BODY_SIZE[row.bodySize]}`}
-          >
-            {row.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
+        {/* Heading sits a fixed 20px below the jurisdiction row above it
+            on desktop (`lg:mt-5`); the mobile gap here is unchanged from
+            before (`mt-6`, matching this column's old mobile `gap-6`).
+            The body paragraph keeps its own old mobile gap to the heading
+            (`mt-4`, matching the old `gap-4`), but on desktop stays
+            pinned to the column's bottom edge (`lg:mt-auto`) at its
+            original position instead of following the heading up too. */}
+        <h3
+          className={`mt-6 font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-5 lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
+        >
+          {row.title}
+        </h3>
+        <div
+          className={`mt-4 flex flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black lg:mt-auto ${BODY_SIZE[row.bodySize]}`}
+        >
+          {row.body.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
       </div>
 
-      <AssuranceMedia />
+      <AssuranceMedia src={DATA_TRUST_ASSURANCE_IMAGES[index]} alt="" />
     </article>
   );
 }

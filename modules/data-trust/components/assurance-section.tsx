@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { ProcessMarkIcon } from "@/components/ui/process-mark-icon";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import {
@@ -11,14 +10,24 @@ import { AssuranceRow } from "./assurance-row";
 export function AssuranceSection() {
   return (
     <section className="relative flex justify-center overflow-hidden bg-[#eaebf1] px-3 sm:px-18">
-      <Image
-        src="/images/texture-grain-light.png"
-        alt=""
-        fill
-        className="pointer-events-none object-cover opacity-11 mix-blend-multiply"
+      {/* Same bg colour + texture as the "Find out what your data is
+          worth..." card in cta-section.tsx, tiled at that same card's own
+          860x378 box scale (860/4320 of the asset's native 4320x2439, i.e.
+          860x486) rather than the full native size - the native size is so
+          much bigger than this section that a single tile would barely
+          repeat at all, reading as one huge stretched image instead of a
+          small tile. Repeats by default since no `background-repeat`
+          override is set. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 mix-blend-multiply"
+        style={{
+          backgroundImage: `url("/images/texture-grain-white.png")`,
+          backgroundSize: "860px 486px",
+        }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#d4d4d4]">
+      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#a8a8a8]">
         {/* the grain band and rule the design opens the section with */}
         <div
           aria-hidden
@@ -28,11 +37,11 @@ export function AssuranceSection() {
             backgroundSize: DATA_TRUST_GRAIN_STRIP_SIZE,
           }}
         />
-        <div className="border-t border-dashed border-[#d4d4d4]" />
+        <div className="border-t border-dashed border-[#a8a8a8]" />
 
         {/* The inner rules only frame the heading - below it the rows draw
             their own borders on the same lines. */}
-        <div className="border-dashed border-[#d4d4d4] sm:mx-10 sm:border-x">
+        <div className="border-dashed border-[#a8a8a8] sm:mx-10 sm:border-x">
           <div className="px-3 pt-16 pb-10 sm:pt-[107px] sm:pb-[94px]">
             <div className="mx-auto flex max-w-[511px] flex-col items-center gap-3 text-center">
               <div className="flex flex-col items-center gap-6">
@@ -53,7 +62,7 @@ export function AssuranceSection() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 pb-16 sm:mx-10 sm:gap-6 sm:pb-[140px]">
+        <div className="flex flex-col gap-10 pb-16 sm:mx-10 sm:gap-6 sm:pb-[140px]">
           {ASSURANCE_ROWS.map((row, index) => (
             <AssuranceRow
               key={row.title}

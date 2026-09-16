@@ -27,7 +27,7 @@ export function ValuationSection() {
               textClassName="text-[#b2b2b2]"
               icon={
                 <Image
-                  src="/images/how-it-works-icon.svg"
+                  src="/images/valuation/how-it-works/how-it-works-icon.svg"
                   alt=""
                   width={18}
                   height={18}

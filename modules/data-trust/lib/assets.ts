@@ -4,7 +4,12 @@
  * 2x. The gradient mask and the coloured top sheet are baked into the export,
  * so it drops straight into the 1297x422 box the design gives it.
  */
-export const DATA_TRUST_HERO_PLANE = "/images/data-trust/hero-plane.png";
+export const DATA_TRUST_HERO_PLANE = "/images/data-trust/hero-plane.webp";
+
+/** Portrait replacement for the hero illustration on mobile, swapped in
+ *  for `DATA_TRUST_HERO_PLANE` below `lg` only. */
+export const DATA_TRUST_HERO_PLANE_MOBILE =
+  "/images/data-trust/data-trust-hero-mobile.png";
 
 /**
  * Tiling textures. Each one is exported at the size the design paints it at,
@@ -26,6 +31,36 @@ export const DATA_TRUST_INDICATOR_TEXTURE_SIZE = "336px 252px";
 
 /** The oversized watermark in the bottom-left of the de-identification panel. */
 export const DATA_TRUST_PANEL_MARK = "/images/data-trust/panel-mark.webp";
+
+/**
+ * The whole card area under "Your data. De-identified." (Figma node
+ * 6672:20349) - the glass card, its woven-texture surround, the email
+ * copy, and the redaction bars are all one live composition in Figma, not
+ * an exportable image, so this is a flattened screenshot of that node at
+ * 2x (696x372 native, upscaled with Lanczos resampling) rather than a
+ * source asset.
+ */
+export const DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION =
+  "/images/data-trust/deidentification-card.webp";
+
+/** Full-bleed replacement for the de-identification panel's entire right
+ *  (blue) column - headline, body copy, and illustration all in one image,
+ *  one per step tab ([01] De-identification, [02] Detection, [03] The
+ *  Standard), crossfaded as the active tab changes. */
+export const DATA_TRUST_DEIDENTIFICATION_PANEL_IMAGES = [
+  "/images/data-trust/di-1.webp",
+  "/images/data-trust/di-2.webp",
+  "/images/data-trust/di-3.webp",
+];
+
+/** The plate image beside each of the 4 "Your data stays yours" rows,
+ *  in row order. */
+export const DATA_TRUST_ASSURANCE_IMAGES = [
+  "/images/data-trust/legal-1.webp",
+  "/images/data-trust/legal-2.webp",
+  "/images/data-trust/legal-3.webp",
+  "/images/data-trust/legal-4.webp",
+];
 
 /** Shared with the landing page. */
 export const SOFT_LIGHT_TEXTURE = "/images/texture-canvas-blue.png";

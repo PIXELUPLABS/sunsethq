@@ -53,7 +53,7 @@ function StepProgressBar({
     <div className="relative mt-2 h-1 w-full overflow-hidden">
       <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-[#383535]" />
       <Image
-        src="/images/progress-loader.svg"
+        src="/images/valuation/how-it-works/progress-loader.svg"
         alt=""
         fill
         className="object-cover"
@@ -113,7 +113,7 @@ export function ValuationAccordion({
               </span>
               {/* The mobile design gives every row an expand affordance. */}
               <Image
-                src="/images/arrow-up-s-line.svg"
+                src="/images/valuation/how-it-works/arrow-up-s-line.svg"
                 alt=""
                 width={24}
                 height={24}

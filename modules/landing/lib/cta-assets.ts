@@ -1,4 +1,4 @@
-export const CTA_BG_TEXT = "/images/cta-bg-text.png";
+export const CTA_BG_TEXT = "/images/cta/cta-bg-text.png";
 export const CTA_GRAIN_LIGHT = "/images/grain-light-texture.svg";
 export const CTA_GRAIN_WHITE = "/images/texture-grain-white.png";
 

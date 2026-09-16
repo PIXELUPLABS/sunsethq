@@ -13,25 +13,29 @@ type AssuranceMediaProps = {
 };
 
 /**
- * The 703x408 plate beside each row: a flat ground, a soft-light weave, and
- * the grain band the design runs along the bottom edge.
+ * The 703x490 plate beside each row. With real artwork, it's just that
+ * image - the flat ground, soft-light weave, and grain band below are the
+ * empty-placeholder's own look, not something layered on top of real art.
  */
 export function AssuranceMedia({ src, alt = "" }: AssuranceMediaProps) {
-  return (
-    <div className="relative aspect-[703/408] w-full shrink-0 overflow-hidden bg-[#cbccd5] lg:aspect-auto lg:h-[408px] lg:w-[703px]">
-      {src ? (
+  if (src) {
+    return (
+      <div className="relative aspect-[703/490] w-full shrink-0 overflow-hidden bg-[#cbccd5] lg:aspect-auto lg:h-[490px] lg:w-[703px]">
         <Image src={src} alt={alt} fill sizes="(max-width: 1024px) 100vw, 703px" className="object-cover" />
-      ) : (
-        <div
-          aria-hidden
-          className="absolute inset-0 mix-blend-soft-light"
-          style={{
-            backgroundImage: `url("${SOFT_LIGHT_TEXTURE}")`,
-            backgroundSize: SOFT_LIGHT_TEXTURE_SIZE,
-          }}
-        />
-      )}
+      </div>
+    );
+  }
 
+  return (
+    <div className="relative aspect-[703/490] w-full shrink-0 overflow-hidden bg-[#cbccd5] lg:aspect-auto lg:h-[490px] lg:w-[703px]">
+      <div
+        aria-hidden
+        className="absolute inset-0 mix-blend-soft-light"
+        style={{
+          backgroundImage: `url("${SOFT_LIGHT_TEXTURE}")`,
+          backgroundSize: SOFT_LIGHT_TEXTURE_SIZE,
+        }}
+      />
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-48 mix-blend-multiply"

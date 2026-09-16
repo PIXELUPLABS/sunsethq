@@ -1,13 +1,16 @@
 import type { AssuranceRow } from "../types";
 
-/** The three-up index beneath the de-identification copy. */
+/** The three-up index beneath the de-identification copy. Cycles the same
+ *  way the home page's "How it works" steps do: click to jump to a step,
+ *  or let its progress strip fill and auto-advance. */
 export const DEIDENTIFICATION_STEPS = [
   "[01] DEIDENTIFICATION",
-  "[02] DEIDENTIFICATION",
-  "[03] DEIDENTIFICATION",
+  "[02] DETECTION",
+  "[03] THE STANDARD",
 ];
 
-export const DEIDENTIFICATION_EYEBROW = "[01] DEIDENTIFICATION";
+/** Matches `HOW_IT_WORKS_STEP_INTERVAL_MS` on the home page - same pace. */
+export const DEIDENTIFICATION_STEP_INTERVAL_MS = 5000;
 
 export const DEIDENTIFICATION_BODY =
   "Names, emails, API keys, access tokens, customer records. Our de-identification covers 60+ categories, across every file type and application your business works in.";

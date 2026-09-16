@@ -7,7 +7,7 @@ import { CAREERS_EYEBROW, CAREERS_INTRO } from "../lib/constants";
 
 export function CareersHero() {
   return (
-    <section className="relative overflow-hidden bg-[#fcfcfc]">
+    <section className="relative flex h-screen flex-col overflow-hidden bg-[#fcfcfc]">
       <Image
         src="/images/grain-light-texture.svg"
         alt=""
@@ -28,10 +28,10 @@ export function CareersHero() {
           than its own `#a8a8a8` deviation, even though an earlier pass
           found `#d4d4d4` harder to see against this section's
           grain-textured `#fcfcfc`. */}
-      <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
+      <div className="relative mx-auto flex w-full max-w-[1560px] flex-1 flex-col border border-dashed border-[#d4d4d4]">
         {/* pt clears the 64px fixed header; shorter than data-trust's hero
             since this section has no illustration pushing content down. */}
-        <div className="relative flex flex-col items-center px-6 pt-[108px] pb-16 text-center lg:px-0 lg:pt-[160px] lg:pb-24">
+        <div className="relative flex flex-1 flex-col items-center justify-center px-6 pt-[108px] pb-16 text-center lg:px-0 lg:pt-[160px] lg:pb-24">
           <div className="flex flex-col items-center gap-6">
             <SectionTag
               label={CAREERS_EYEBROW}
