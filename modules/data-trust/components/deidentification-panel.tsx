@@ -93,17 +93,22 @@ export function DeidentificationPanel() {
   return (
     <section
       ref={ref}
-      className="relative flex justify-center overflow-hidden bg-[#fcfcfc] px-3 sm:px-18"
+      className="relative flex justify-center overflow-hidden bg-black px-3 sm:px-18 lg:bg-[#fcfcfc]"
     >
       <Image
         src={PAGE_GRAIN_TEXTURE}
         alt=""
         fill
-        className="pointer-events-none object-cover"
+        className="pointer-events-none hidden object-cover lg:block"
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-black/8">
-        <div className="pt-10 sm:pt-[65px]">
+        {/* Figma's mobile frame (node 6672:23319) opens straight into the
+            bordered black box below with a plain 24px top/bottom margin -
+            no grain band/rule divider - so that divider is desktop-only
+            here, and the panel box below picks up the 24px margin plus its
+            own `border-[#272727]` box outline for mobile instead. */}
+        <div className="hidden pt-10 sm:pt-[65px] lg:block">
           {/* the grain band and rule the design opens the section with */}
           <div
             aria-hidden
@@ -117,7 +122,7 @@ export function DeidentificationPanel() {
         </div>
 
         <div
-          className="relative overflow-hidden lg:flex lg:h-[600px]"
+          className="relative mt-6 mb-6 overflow-hidden border border-[#272727] lg:mt-0 lg:mb-0 lg:flex lg:h-[600px] lg:border-none"
           style={{ background: PANEL_GRADIENT }}
         >
           <div
@@ -139,9 +144,9 @@ export function DeidentificationPanel() {
               list's height), so the column's total height still comes out
               to exactly 600px instead of overflowing past it and getting
               clipped by this panel's `overflow-hidden`. */}
-          <div className="relative flex flex-col gap-5 px-5 pt-8 pb-10 lg:ml-10 lg:h-full lg:w-[calc(495px-40px)] lg:shrink-0 lg:gap-[225px] lg:bg-black lg:px-10 lg:py-10">
-            <div className="flex flex-col gap-5 lg:gap-6">
-              <div className="flex flex-col gap-3">
+          <div className="relative flex flex-col bg-black pt-3 pb-3 lg:ml-10 lg:h-full lg:w-[calc(495px-40px)] lg:shrink-0 lg:gap-[225px] lg:px-10 lg:py-10">
+            <div className="flex flex-col gap-[18px] px-3 lg:gap-6 lg:px-0">
+              <div className="flex flex-col gap-3.5 lg:gap-3">
                 <SectionTag
                   label="The Process"
                   tone="dark"
@@ -149,16 +154,21 @@ export function DeidentificationPanel() {
                   textClassName="text-[#ebebeb]"
                   icon={<ProcessMarkIcon tone="dark" className="size-[18px]" />}
                 />
-                <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-white lg:text-[44px] lg:tracking-[-1.76px]">
+                <h2 className="font-serif text-[43px] leading-[40.42px] tracking-[-1.65px] text-white lg:text-[44px] lg:leading-none lg:tracking-[-1.76px]">
                   De-Identification
                 </h2>
               </div>
-              <p className="text-sm leading-[1.4] tracking-[-0.42px] text-[#f2f2f2]">
+              <p className="text-sm leading-[19.88px] tracking-[-0.32px] text-[#f2f2f2] lg:leading-[1.4] lg:tracking-[-0.42px]">
                 {DEIDENTIFICATION_BODY}
               </p>
             </div>
 
-            <ol className="flex flex-col gap-3">
+            {/* Desktop-only vertical step list (Figma's own left-column
+                layout for the wide `lg:` panel) - mobile swaps in the
+                horizontal 3-up tab strip below instead, matching this
+                page's mobile Figma frame (node 6672:23336) exactly rather
+                than squeezing this tall list into a narrow phone width. */}
+            <ol className="hidden lg:flex lg:flex-col lg:gap-3">
               {DEIDENTIFICATION_STEPS.map((step, index) => {
                 const active = index === activeIndex;
                 return (
@@ -189,6 +199,74 @@ export function DeidentificationPanel() {
                 );
               })}
             </ol>
+
+            {/* Mobile-only horizontal tab strip (Figma node 6672:23336): 3
+                equal columns, each a `[0N]` index over an uppercase label,
+                separated by `border-[#272727]` rules, with the active
+                column lifted to `#080808` and a white underline beneath its
+                label (Figma's own static export only draws this under tab
+                1, but it's clearly the active-tab indicator, so it tracks
+                `activeIndex` here) plus the same color progress-fill strip
+                the desktop list uses, narrowed to one column's width and
+                slid under whichever tab is active. */}
+            <div className="pt-6 lg:hidden">
+              <div className="relative h-[60px] overflow-hidden border-y border-[#272727]">
+                <div className="grid h-full grid-cols-3">
+                  {DEIDENTIFICATION_STEPS.map((step, index) => {
+                    const active = index === activeIndex;
+                    const match = step.match(/^(\[\d+\])\s*(.+)$/);
+                    const [stepIndex, stepLabel] = match ? [match[1], match[2]] : [step, ""];
+                    return (
+                      <button
+                        key={step}
+                        type="button"
+                        onClick={() => setActiveIndex(index)}
+                        aria-current={active}
+                        className={`flex h-[58px] cursor-pointer flex-col items-start justify-center gap-[7px] self-start border-r border-[#272727] px-2.5 pt-2 pb-[9px] last:border-r-0 ${
+                          active ? "bg-[#080808]" : "bg-black"
+                        }`}
+                      >
+                        <span
+                          className={`font-mono text-[9px] leading-[9px] whitespace-nowrap ${
+                            active ? "text-white" : "text-white/56"
+                          }`}
+                        >
+                          {stepIndex}
+                        </span>
+                        <span
+                          className={`border-b pb-px text-[9px] leading-[9.36px] font-medium tracking-[-0.1px] whitespace-nowrap uppercase ${
+                            active ? "border-white text-white" : "border-transparent text-white/56"
+                          }`}
+                        >
+                          {stepLabel}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 overflow-hidden">
+                  <div
+                    className="h-full w-1/3 transition-transform duration-500 ease-out"
+                    style={{ transform: `translateX(${activeIndex * 100}%)` }}
+                  >
+                    {/* `onComplete` is a no-op here, not `advance`: the
+                        desktop `<ol>` above is only `hidden` via CSS, not
+                        unmounted, so its own progress strip for this same
+                        active index is already running and already calls
+                        `advance()` on completion. Wiring this one to
+                        `advance` too fired it twice per cycle, jumping the
+                        index by 2 instead of 1 (the reported 1→3→2 order) -
+                        this strip only needs to mirror the fill visually. */}
+                    <DeidentificationProgressStrip
+                      key={`mobile-${activeIndex}`}
+                      active={inView}
+                      onComplete={() => {}}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right column. The dashed line inset 40px (`right-10`) from
@@ -205,17 +283,17 @@ export function DeidentificationPanel() {
                 6672:20338 exactly, rather than the single full-bleed image
                 tab 3 still uses below. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pb-0 lg:pl-0 ${
+              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-0 lg:pt-8 lg:pr-10 lg:pb-0 ${
                 activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
               <div className="flex flex-col gap-6 lg:w-[696px] lg:flex-row lg:items-start lg:gap-6 lg:pb-8">
-                <p className="font-serif text-[26px] leading-[1.1] tracking-[-0.26px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
+                <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   Your data.
                   <br />
                   De-identified.
                 </p>
-                <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white lg:w-[360px] lg:shrink-0">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-[360px] lg:shrink-0 lg:leading-[1.4] lg:tracking-[-0.42px]">
                   {DEIDENTIFICATION_BODY}
                 </p>
               </div>
@@ -254,17 +332,17 @@ export function DeidentificationPanel() {
                 pattern as tab 1 above, matching Figma node 6672:22994
                 exactly. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pb-0 lg:pl-0 ${
+              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-0 lg:pt-8 lg:pr-10 lg:pb-0 ${
                 activeIndex === 1 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
               <div className="flex flex-col gap-6 lg:w-[696px] lg:flex-row lg:items-start lg:gap-6 lg:pb-8">
-                <p className="font-serif text-[26px] leading-[1.1] tracking-[-0.26px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
+                <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   How your data
                   <br />
                   gets cleaned
                 </p>
-                <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white lg:w-[360px] lg:shrink-0">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-[360px] lg:shrink-0 lg:leading-[1.4] lg:tracking-[-0.42px]">
                   {DETECTION_BODY}
                 </p>
               </div>
@@ -301,13 +379,13 @@ export function DeidentificationPanel() {
                 design - routes to the real page like every other "Value
                 my data" CTA on the site. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-8 px-5 pt-8 pb-10 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pb-0 lg:pl-0 ${
+              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-0 lg:pt-8 lg:pr-10 lg:pb-0 ${
                 activeIndex === 2 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
               <div className="flex flex-col gap-6 lg:w-[696px] lg:flex-row lg:items-start lg:gap-6 lg:pb-8">
                 <div className="flex flex-col items-start gap-5 lg:flex-1">
-                  <p className="font-serif text-[26px] leading-[1.1] tracking-[-0.26px] text-white lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
+                  <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                     We&rsquo;re setting
                     <br />
                     the standard
@@ -319,7 +397,7 @@ export function DeidentificationPanel() {
                     Value my data
                   </Link>
                 </div>
-                <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white lg:w-[360px] lg:shrink-0">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-[360px] lg:shrink-0 lg:leading-[1.4] lg:tracking-[-0.42px]">
                   {STANDARD_BODY}
                 </p>
               </div>
