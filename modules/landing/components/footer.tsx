@@ -72,9 +72,28 @@ export function Footer() {
           ))}
         </nav>
 
-        <div className="relative aspect-[1297/337] w-full">
-          <ReplayWordmark className="absolute inset-0 h-full w-full" />
-          <div className="absolute inset-x-0 bottom-4 flex items-end justify-between gap-6 sm:bottom-6">
+        <div className="relative w-full">
+          {/* The wordmark's own dedicated aspect box - kept separate from
+              the copyright/social row below now, so that row's absolute
+              positioning at `sm:` and up still anchors to this same box
+              (via the outer `relative` wrapper collapsing to this box's
+              own height once the row is taken out of flow there). */}
+          <div className="relative aspect-[1297/337] w-full">
+            <ReplayWordmark className="absolute inset-0 h-full w-full" />
+          </div>
+
+          {/* Stacked in normal flow below the wordmark on mobile instead of
+              overlaid on it: this row's `bottom-6` inset is a fixed pixel
+              offset from the wordmark box's own bottom edge, and that box's
+              height scales with viewport width (`aspect-[1297/337]`) - at
+              desktop's much taller box that offset clears the glyphs'
+              ink comfortably, but at mobile's short box it sat inside the
+              lower half of the letterforms, overlapping them. `sm:` and up
+              restores the exact original overlay (absolute, anchored to
+              the outer `relative` wrapper above, which is equivalent to
+              anchoring to the wordmark box itself once this row is out of
+              flow there). */}
+          <div className="mt-4 flex items-end justify-between gap-6 sm:absolute sm:inset-x-0 sm:bottom-6 sm:mt-0">
             <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase sm:text-white/60">
               © 2026 Replay. All rights reserved
               <br />
