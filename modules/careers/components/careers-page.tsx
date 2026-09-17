@@ -5,7 +5,6 @@ import { CareersHero } from "./careers-hero";
 import { WhyReplaySection } from "./why-replay-section";
 import { BenefitsSection } from "./benefits-section";
 import { ValuesSection } from "./values-section";
-import { TeamCollageSection } from "./team-collage-section";
 import { OpenRolesSection } from "./open-roles-section";
 
 export function CareersPage() {
@@ -18,7 +17,6 @@ export function CareersPage() {
         <WhyReplaySection />
         <BenefitsSection />
         <ValuesSection />
-        <TeamCollageSection />
         <OpenRolesSection />
         {/* Same section every other page reuses (see data-trust-page.tsx),
             unchanged - no Careers-specific copy/prop overrides, per
