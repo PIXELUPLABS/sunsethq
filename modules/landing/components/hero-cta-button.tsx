@@ -9,7 +9,7 @@ export function HeroCtaButton() {
   return (
     <Link
       href="/value-my-data"
-      className="group relative flex h-13 w-[300px] max-w-full items-center justify-center overflow-hidden bg-[#141518] font-serif text-xs tracking-[0.1px] text-white lg:h-auto lg:py-6 lg:text-base lg:tracking-wide"
+      className="group relative flex h-auto w-auto max-w-full items-center justify-center overflow-hidden bg-[#141518] px-[77px] py-5 font-serif text-base tracking-[0.1px] text-white lg:tracking-wide"
     >
       <Image
         src="/images/hero/btn-pattern.svg"

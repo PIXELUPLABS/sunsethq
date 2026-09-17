@@ -43,7 +43,7 @@ export function BuyersSection() {
             {BUYER_CARDS.map((card) => (
               <div
                 key={card.tagLabel}
-                className="group relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 p-5 text-black lg:h-[430px]"
+                className="relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 p-5 text-black lg:h-[430px]"
               >
                 {/* Wrapped 1px past the card's own edges so object-cover
                     rounding never leaves a hairline gap along any side. */}
@@ -56,18 +56,18 @@ export function BuyersSection() {
                   />
                 </div>
                 <div
-                  className="pointer-events-none absolute inset-0 opacity-0 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-20"
+                  className="pointer-events-none absolute inset-0 opacity-0 mix-blend-multiply"
                   style={{
                     backgroundImage: "url(/images/buyer-card-hover-mesh.png)",
                     backgroundSize: "408px 306px",
                   }}
                 />
-                <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-[0.04]" />
+                <div className="pointer-events-none absolute inset-0 bg-black opacity-0" />
 
                 <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] lg:text-[32px] lg:tracking-[-0.32px]">
                   {card.headline}
                 </p>
-                <div className="relative mb-3 flex items-center gap-[9px] opacity-60 transition-all duration-300 lg:gap-3 lg:mb-[42px] lg:group-hover:mb-[64px]">
+                <div className="relative mb-3 flex items-center gap-[9px] opacity-60 lg:gap-3 lg:mb-[42px]">
                   <Image
                     src={ICONS[card.icon]}
                     alt=""
@@ -81,7 +81,7 @@ export function BuyersSection() {
                 </div>
 
                 <div
-                  className="absolute -top-[2px] right-0 size-4 bg-black transition-colors duration-300 group-hover:bg-[#499DF8]"
+                  className="absolute -top-[2px] right-0 size-4 bg-black"
                   style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
                 />
 
@@ -90,7 +90,7 @@ export function BuyersSection() {
                     hover - the fixed, top-anchored image behind it appears
                     to slide its bottom half into view as the window grows. */}
                 <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[22px] overflow-hidden transition-[height,bottom] duration-300 lg:block lg:group-hover:h-[44px] lg:group-hover:bottom-[16px]"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[22px] overflow-hidden lg:block"
                   aria-hidden
                 >
                   <div
@@ -102,7 +102,7 @@ export function BuyersSection() {
                   />
                 </div>
 
-                <ProcessBar className="absolute inset-x-0 bottom-0 h-3 transition-opacity duration-300 lg:h-[16px] lg:opacity-0 lg:group-hover:opacity-100" />
+                <ProcessBar className="absolute inset-x-0 bottom-0 h-3 lg:h-[16px] lg:opacity-0" />
               </div>
             ))}
           </div>
