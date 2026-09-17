@@ -2,7 +2,7 @@ import Image from "next/image";
 import { HeroCtaButton } from "./hero-cta-button";
 import { HeroFooterBar } from "./hero-footer-bar";
 import { HeroGridLines } from "./hero-grid-lines";
-import { HERO_HOME_ILLUSTRATION } from "../lib/hero-assets";
+import { HERO_HOME_ILLUSTRATION, HERO_HOME_ILLUSTRATION_MOBILE } from "../lib/hero-assets";
 
 /**
  * The static home hero: same copy/CTA/footer as the scroll-animated
@@ -56,6 +56,41 @@ export function HomeHero() {
         <HeroCtaButton />
       </div>
 
+      {/* Dedicated portrait crop for mobile/tablet (Figma node 6672:23318),
+          not the landscape desktop asset scaled down - that asset is a
+          5.4:1 wide strip that reads as a thin, cramped sliver at phone
+          widths. Matches how the data-trust hero this shell was adapted
+          from always carried its own separate mobile plane. Unclipped
+          (528px wide against the 390px frame, left -69px), so it bleeds
+          past both edges - `left-[-17.69%] w-[135.38%]` reproduces that
+          box as a percentage of the section's own width. */}
+      <div className="relative mt-8 left-[-17.69%] w-[135.38%] lg:hidden">
+        <Image
+          src={HERO_HOME_ILLUSTRATION_MOBILE}
+          alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
+          width={528}
+          height={360}
+          priority
+          sizes="136vw"
+          className="h-auto w-full"
+        />
+
+        {/* Fades the illustration's own bottom edge into the section's
+            actual background - the same grain-texture-over-#fcfcfc this
+            section paints behind everything - rather than a hard cutoff. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
+          style={{
+            backgroundColor: "#fcfcfc",
+            backgroundImage: "url(/images/grain-light-texture.svg)",
+            backgroundSize: "cover",
+            maskImage: "linear-gradient(to bottom, transparent, black)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent, black)",
+          }}
+        />
+      </div>
+
       {/* Pushed down by its own exact Figma `top` (570.96px, here mt-[571px])
           rather than a margin tuned against the text column above - the
           text column is `lg:absolute` at `lg:top-[178px]` and out of flow,
@@ -66,15 +101,30 @@ export function HomeHero() {
           frame), so it bleeds past both edges on lg - `left-[-10.93%]
           w-[117.43%]` reproduces that exact box as a percentage of the
           section's own width. */}
-      <div className="relative mt-8 lg:mt-[571px] lg:left-[-10.93%] lg:w-[117.43%]">
+      <div className="relative hidden lg:block lg:mt-[571px] lg:left-[-10.93%] lg:w-[117.43%]">
         <Image
           src={HERO_HOME_ILLUSTRATION}
           alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
           width={1691}
           height={313}
           priority
-          sizes="(min-width: 1024px) 117vw, 100vw"
+          sizes="117vw"
           className="h-auto w-full"
+        />
+
+        {/* Fades the illustration's own bottom edge into the section's
+            actual background - the same grain-texture-over-#fcfcfc this
+            section paints behind everything - rather than a hard cutoff. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
+          style={{
+            backgroundColor: "#fcfcfc",
+            backgroundImage: "url(/images/grain-light-texture.svg)",
+            backgroundSize: "cover",
+            maskImage: "linear-gradient(to bottom, transparent, black)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent, black)",
+          }}
         />
       </div>
 

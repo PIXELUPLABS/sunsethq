@@ -23,6 +23,20 @@ export const HERO_PATTERN = "/images/hero/hero-pattern.webp";
 export const HERO_HOME_ILLUSTRATION = "/images/hero/home-hero-illustration-2.webp";
 
 /**
+ * Portrait counterpart to `HERO_HOME_ILLUSTRATION`, swapped in below `lg`
+ * (Figma node 6672:23318, file AYzBKhVneW9mct6tUchEo7's mobile hero frame) -
+ * its own crop/fade of the same illustration, not the landscape desktop
+ * asset scaled down, matching how the data-trust hero this page's hero
+ * shell was adapted from always carried a dedicated mobile plane
+ * (`DATA_TRUST_HERO_PLANE_MOBILE`) rather than reflowing its desktop one.
+ * Unclipped (528px wide against the 390px mobile frame, like
+ * `HERO_HOME_ILLUSTRATION`'s own unclipped desktop export), so it bleeds
+ * past both edges - see the `left`/`w` bleed classes on its `<Image>` in
+ * `home-hero.tsx`.
+ */
+export const HERO_HOME_ILLUSTRATION_MOBILE = "/images/hero/home-hero-illustration-mobile.png";
+
+/**
  * Shared by HeroSidePatternLeft/Right and HeroSection: the point (in the
  * side patterns' own local box coordinates, box top offset by
  * HERO_PATTERN_TOP_OFFSET within the row) that every collage piece
