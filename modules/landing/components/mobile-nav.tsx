@@ -15,7 +15,7 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
   const { isOpen, close, toggle } = useDisclosure();
 
   return (
-    <div className="lg:hidden">
+    <div className="md:hidden">
       <button
         type="button"
         onClick={toggle}

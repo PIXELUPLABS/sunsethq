@@ -20,8 +20,10 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
         // would make this header a containing block for MobileNav's `fixed`
         // panel, anchoring it to the header's own box instead of the
         // viewport (the same class of bug the backdrop-filter comment above
-        // warns about). The shift is desktop-only anyway, and MobileNav is
-        // `lg:hidden`, so this only needs to exist at `lg:` and up.
+        // warns about). MobileNav itself is only ever mounted `md:hidden` and
+        // below, so this doesn't need to worry about that until `lg:` - the
+        // floating/scrolled treatment is deliberately `lg:`-only everywhere
+        // in this file, so 768-1024px always renders the plain default bar.
         scrolled ? "lg:translate-y-4 lg:border-transparent" : "lg:translate-y-0"
       }`}
     >
@@ -145,18 +147,18 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
 
         <MobileNav linkBase={linkBase} />
 
-        <div className="flex items-center gap-6">
+        <div className="hidden items-center gap-6 md:flex">
           <NavLinks
             linkBase={linkBase}
-            className={`flex items-center gap-6 transition-transform duration-500 ${
-              scrolled ? "-translate-x-3" : "translate-x-0"
+            className={`hidden items-center gap-6 transition-transform duration-500 md:flex ${
+              scrolled ? "lg:-translate-x-3" : "lg:translate-x-0"
             }`}
           />
 
           <Link
             href="/value-my-data"
-            className={`group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs tracking-wide text-white transition-transform duration-500 lg:flex ${
-              scrolled ? "-translate-x-3" : "translate-x-0"
+            className={`group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs tracking-wide text-white transition-transform duration-500 md:flex ${
+              scrolled ? "lg:-translate-x-3" : "lg:translate-x-0"
             }`}
           >
             <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />

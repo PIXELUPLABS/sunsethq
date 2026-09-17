@@ -54,9 +54,12 @@ export function ValuationSection() {
             Rows are 2,4,6,8 so an odd order lands between two of them.
             The box is a ratio rather than a pixel floor so it can never be
             sized by whichever video is loaded, capped at the design's 374px so
-            it only ever scales down on narrower phones. */}
+            it only ever scales down on narrower phones - raised to 650px at
+            `md:` since the column runs much wider than a phone there but is
+            still single-column/stacked (the `lg:` side-by-side layout hasn't
+            kicked in yet), so the 374px cap was cropping the box short. */}
         <div
-          className="relative order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full overflow-hidden bg-[#0c0c0b] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px]"
+          className="relative order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full overflow-hidden bg-[#0c0c0b] md:max-h-[650px] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px]"
           style={{ "--media-order": activeIndex * 2 + 3 } as CSSProperties}
         >
           <ValuationMedia activeIndex={activeIndex} hasEnteredViewport={inView} />
