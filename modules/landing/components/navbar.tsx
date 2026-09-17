@@ -68,44 +68,37 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           the whole band. */}
       <div className="pointer-events-none absolute inset-0 hidden px-6 sm:px-18 lg:block min-[1800px]:px-0!">
         <div className="relative mx-auto h-full max-w-[1560px]">
-          {/* Fades in once the page scrolls - covers the right half of the
-              band above. No inset of its own needed now: the band itself is
-              already flush against the outer wrapper's padding (or, at
-              1800px+, against the viewport edge once that padding drops to
-              0), so filling its right half exactly reaches the target edge
-              at every width. */}
+          {/* Fades in once the page scrolls - covers the full band above.
+              Same grain-texture background the default (unscrolled) bar
+              uses above, not a dedicated floating-bar image. */}
           <div
-            className={`absolute inset-y-0 right-0 w-1/2 border border-[#A8A8A8] bg-cover bg-right transition-opacity duration-500 ${
+            className={`absolute inset-y-0 right-0 w-full border border-[#A8A8A8] bg-cover bg-right transition-opacity duration-500 ${
               scrolled ? "opacity-100" : "opacity-0"
             }`}
-            style={{ backgroundImage: "url(/images/header-bg-right.svg)" }}
+            style={{ backgroundImage: "url(/images/grain-light-texture.svg)" }}
           />
 
-          {/* Fades in over the same right-bg section, 12px in from its own
-              left edge (that section is `right-0 w-1/2`, so its left edge
-              sits exactly at the band's own 50% mark). Swaps places with the
-              top-left logo above. */}
+          {/* Mirrors the right-side band above on the left edge, same width. */}
+          <div
+            className={`absolute inset-y-0 left-0 w-full border border-[#A8A8A8] bg-cover bg-left transition-opacity duration-500 ${
+              scrolled ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ backgroundImage: "url(/images/grain-light-texture.svg)" }}
+          />
+
+          {/* Fades in over the bg bands above, 12px in from the row's own
+              left edge - lands near where the top-left logo below fades
+              out, a near-positional swap rather than just a role swap. */}
           <Link
             href="/"
             aria-hidden={!scrolled}
             tabIndex={scrolled ? undefined : -1}
-            className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_12px)] z-10 flex -translate-y-1/2 items-center transition-opacity duration-500 ${
+            className={`pointer-events-auto absolute top-1/2 left-3 z-10 flex -translate-y-1/2 items-center transition-opacity duration-500 ${
               scrolled ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
           >
             <Image src="/favicon-light.svg" alt="Replay" width={28} height={28} />
           </Link>
-
-          {/* Icon sits at `50% + 12px`, is 28px wide, so its right edge is at
-              `50% + 40px` - the requested 24px gap from that edge lands this
-              nav at `50% + 64px`. */}
-          <NavLinks
-            linkBase={linkBase}
-            hidden={!scrolled}
-            className={`pointer-events-auto absolute top-1/2 left-[calc(50%_+_64px)] z-10 flex -translate-y-1/2 items-center gap-5 whitespace-nowrap transition-opacity duration-500 xl:gap-7 ${
-              scrolled ? "opacity-100" : "pointer-events-none opacity-0"
-            }`}
-          />
         </div>
       </div>
 
@@ -150,30 +143,32 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
         </Link>
 
-        <NavLinks
-          linkBase={linkBase}
-          className={`absolute left-1/2 flex -translate-x-1/2 items-center gap-5 transition-opacity duration-500 xl:gap-7 ${
-            scrolled ? "opacity-100 lg:opacity-0" : "opacity-100"
-          }`}
-        />
-
         <MobileNav linkBase={linkBase} />
 
-        <Link
-          href="/value-my-data"
-          className={`group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs tracking-wide text-white transition-transform duration-500 lg:flex ${
-            scrolled ? "-translate-x-3" : "translate-x-0"
-          }`}
-        >
-          <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
-          </div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
-          </div>
-          <span className="relative">Value my data</span>
-        </Link>
+        <div className="flex items-center gap-6">
+          <NavLinks
+            linkBase={linkBase}
+            className={`flex items-center gap-6 transition-transform duration-500 ${
+              scrolled ? "-translate-x-3" : "translate-x-0"
+            }`}
+          />
+
+          <Link
+            href="/value-my-data"
+            className={`group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs tracking-wide text-white transition-transform duration-500 lg:flex ${
+              scrolled ? "-translate-x-3" : "translate-x-0"
+            }`}
+          >
+            <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
+            </div>
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+              <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
+            </div>
+            <span className="relative">Value my data</span>
+          </Link>
+        </div>
       </div>
     </header>
   );

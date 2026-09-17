@@ -8,7 +8,7 @@ import type {
 } from "../types";
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Data & Trust", href: "/data-and-trust", isRoute: true },
+  { label: "Data privacy", href: "/data-and-trust", isRoute: true },
   { label: "Blogs", href: "/blogs", isRoute: true },
 ];
 
