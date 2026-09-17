@@ -113,48 +113,48 @@ export function Footer() {
             <ReplayWordmark className="absolute inset-0 h-full w-full" />
           </div>
 
-          {/* Stacked in normal flow below the wordmark on mobile instead of
+          {/* Stacked in normal flow below the wordmark below `lg:` instead of
               overlaid on it: this row's `bottom-6` inset is a fixed pixel
               offset from the wordmark box's own bottom edge, and that box's
               height scales with viewport width (`aspect-[1297/337]`) - at
               desktop's much taller box that offset clears the glyphs'
-              ink comfortably, but at mobile's short box it sat inside the
-              lower half of the letterforms, overlapping them. `sm:` and up
-              restores the exact original overlay (absolute, anchored to
-              the outer `relative` wrapper above, which is equivalent to
-              anchoring to the wordmark box itself once this row is out of
-              flow there). */}
-          <div className="mt-4 flex items-end justify-between gap-6 sm:absolute sm:inset-x-0 sm:bottom-6 sm:mt-0 lg:bottom-[34px]">
-            <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase sm:text-white/60">
+              ink comfortably, but anywhere short of that (mobile through
+              1024-1439px) it sat inside the lower half of the letterforms,
+              overlapping them. `lg:` and up restores the exact original
+              overlay (absolute, anchored to the outer `relative` wrapper
+              above, which is equivalent to anchoring to the wordmark box
+              itself once this row is out of flow there). */}
+          <div className="mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
+            <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase lg:text-white/60">
               © 2026 Replay. All rights reserved
               <br />
               Sunset HQ Corp.
             </p>
-            <div className="flex shrink-0 items-center gap-2 opacity-[0.68] sm:gap-2.5">
+            <div className="flex shrink-0 items-center gap-2 opacity-[0.68] lg:gap-2.5">
               <a
                 href="#"
                 aria-label="X (Twitter)"
-                className="flex size-[30px] items-center justify-center transition-opacity duration-300 hover:opacity-70 sm:size-[24px]"
+                className="flex size-[30px] items-center justify-center transition-opacity duration-300 hover:opacity-70 lg:size-[24px]"
               >
                 <Image
                   src="/images/social-x.svg"
                   alt=""
                   width={17}
                   height={15}
-                  className="h-auto w-[21px] sm:w-[17px]"
+                  className="h-auto w-[21px] lg:w-[17px]"
                 />
               </a>
               <a
                 href="#"
                 aria-label="LinkedIn"
-                className="flex size-[30px] items-center justify-center transition-opacity duration-300 hover:opacity-70 sm:size-[24px]"
+                className="flex size-[30px] items-center justify-center transition-opacity duration-300 hover:opacity-70 lg:size-[24px]"
               >
                 <Image
                   src="/images/social-linkedin.svg"
                   alt=""
                   width={17}
                   height={18}
-                  className="h-auto w-[21px] sm:w-[17px]"
+                  className="h-auto w-[21px] lg:w-[17px]"
                 />
               </a>
             </div>
