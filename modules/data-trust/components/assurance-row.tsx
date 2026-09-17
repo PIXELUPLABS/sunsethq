@@ -1,5 +1,11 @@
 import Image from "next/image";
-import { DATA_TRUST_ASSURANCE_IMAGES, JURISDICTION_ICON } from "../lib/assets";
+import {
+  DATA_TRUST_ASSURANCE_IMAGES,
+  DATA_TRUST_LIABILITY_ICON,
+  DATA_TRUST_OWNERSHIP_ICON,
+  DATA_TRUST_STRUCTURE_ICON,
+  JURISDICTION_ICON,
+} from "../lib/assets";
 import type { AssuranceRow as AssuranceRowData } from "../types";
 import { AssuranceMedia } from "./assurance-media";
 import { AssuranceProgress } from "./assurance-progress";
@@ -8,6 +14,14 @@ type AssuranceRowProps = {
   row: AssuranceRowData;
   index: number;
   total: number;
+};
+
+/** "Counsel" keeps the original jurisdiction icon; the other three rows
+ *  each get their own eyebrow icon. */
+const TAG_ICONS: Record<string, string> = {
+  Structure: DATA_TRUST_STRUCTURE_ICON,
+  Liability: DATA_TRUST_LIABILITY_ICON,
+  Ownership: DATA_TRUST_OWNERSHIP_ICON,
 };
 
 const HEADING_TRACKING = {
@@ -45,13 +59,13 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2.5 lg:gap-3">
             <Image
-              src={JURISDICTION_ICON}
+              src={TAG_ICONS[row.tagLabel] ?? JURISDICTION_ICON}
               alt=""
               width={18}
               height={18}
               className="size-4 lg:size-[18px]"
             />
-            <p className="text-sm leading-none font-medium text-black uppercase lg:text-base">
+            <p className="text-sm leading-none font-medium text-black uppercase">
               {row.tagLabel}
             </p>
           </div>

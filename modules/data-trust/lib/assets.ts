@@ -70,3 +70,8 @@ export const SOFT_LIGHT_TEXTURE = "/images/texture-canvas-blue.png";
 export const SOFT_LIGHT_TEXTURE_SIZE = "296px 296px";
 export const PAGE_GRAIN_TEXTURE = "/images/grain-light-texture.svg";
 export const JURISDICTION_ICON = "/images/jurisdiction-icon.svg";
+
+/** Per-row eyebrow icons for the "Your data stays yours" assurance rows. */
+export const DATA_TRUST_STRUCTURE_ICON = "/images/data-trust/structure-icon.svg";
+export const DATA_TRUST_LIABILITY_ICON = "/images/data-trust/liability-icon.svg";
+export const DATA_TRUST_OWNERSHIP_ICON = "/images/data-trust/ownership-icon.svg";
