@@ -63,6 +63,10 @@ export function ReplayWordmark({ className }: { className?: string }) {
             clipRule={path.evenOdd ? "evenodd" : undefined}
             d={path.d}
             fill="url(#footerGrainPattern)"
+            stroke="#FFFFFF"
+            strokeOpacity={0.2}
+            strokeDasharray="1.5 1"
+            strokeWidth={0.5}
           />
         ))}
         {REPLAY_WORDMARK_PATHS.map((path, i) => (
