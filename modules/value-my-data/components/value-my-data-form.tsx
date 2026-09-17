@@ -8,7 +8,6 @@ import {
   ENGLISH_SHARE_OPTIONS,
   YEARS_OF_OPERATION_OPTIONS,
 } from "../lib/constants";
-import { FormDecorativeRail } from "./form-decorative-rail";
 
 /** Bigger than the Figma comp's own 39px inputs - per review, that literal
  * size read as too small/compact against this card's own padding, making
@@ -88,7 +87,6 @@ export function ValueMyDataForm() {
       <div className="relative flex min-h-[420px] flex-col items-center justify-center gap-3 overflow-hidden bg-white p-10 text-center shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)]">
         <FormGrainTexture />
         <FormGuideLine />
-        <FormDecorativeRail className="absolute top-3.5 bottom-2.5 left-3 hidden sm:flex" />
         <p className="relative font-serif text-2xl text-black">Thanks — we&rsquo;ll be in touch.</p>
         <p className="relative max-w-[360px] text-sm leading-[1.5] text-[#727272]">
           Someone from our team will follow up with an initial view of what your data could be
@@ -102,7 +100,6 @@ export function ValueMyDataForm() {
     <form onSubmit={handleSubmit} className={CARD_CLASS}>
       <FormGrainTexture />
       <FormGuideLine />
-      <FormDecorativeRail className="absolute top-3.5 bottom-2.5 left-3 hidden sm:flex" />
 
       <div className="relative flex flex-col gap-6">
         <div className="flex flex-col gap-2">
