@@ -13,7 +13,7 @@ export function ReplayWordmark({ className }: { className?: string }) {
   const { wrapRef, svgRef, gradRef } = useReplayWordmark();
 
   return (
-    <div ref={wrapRef} className={`replay-wordmark ${className ?? ""}`}>
+    <div ref={wrapRef} className={`replay-wordmark z-10 ${className ?? ""}`}>
       <svg
         ref={svgRef}
         viewBox={`0 0 ${REPLAY_WORDMARK_VB_WIDTH} ${REPLAY_WORDMARK_VB_HEIGHT}`}

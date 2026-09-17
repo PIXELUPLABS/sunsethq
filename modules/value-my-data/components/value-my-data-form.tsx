@@ -72,13 +72,19 @@ function FormGrainTexture() {
 /**
  * No backend integration exists for this form yet, so submission is mocked
  * locally - it swaps the form for a confirmation state instead of posting
- * anywhere. Wire this up to a real handler once one exists.
+ * anywhere. The payload is built and logged so the shape is there to wire
+ * up once a real handler exists, but nothing is sent yet.
  */
 export function ValueMyDataForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const payload = Object.fromEntries(formData.entries());
+    console.log(payload);
+
     setIsSubmitted(true);
   }
 
