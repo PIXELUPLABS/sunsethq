@@ -29,11 +29,19 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
 
   return (
     <article
-      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-6 lg:items-center lg:gap-6 ${
+      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-6 lg:items-stretch lg:gap-6 ${
         mediaFirst ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}
     >
-      <div className="flex min-w-0 flex-1 flex-col lg:h-[490px]">
+      {/* `min-[1440px]:h-[490px]` only (no height between 1024-1439px) - in
+          that bounded range the plate's own height shrinks with the row
+          (see `AssuranceMedia`), so this column is left at `h-auto` and
+          `lg:items-stretch` above grows it to match the plate's now-shorter
+          height instead of staying rigidly 490px and leaving the plate
+          looking short/misaligned next to it. At `min-[1440px]:` the plate
+          is back to a fixed 490px itself, so this reproduces the exact
+          original fixed-height pairing there, unchanged. */}
+      <div className="flex min-w-0 flex-1 flex-col min-[1440px]:h-[490px]">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2.5 lg:gap-3">
             <Image

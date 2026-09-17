@@ -136,15 +136,22 @@ export function DeidentificationPanel() {
 
           {/* Left column: a 40px sliver of the panel's own gradient down
               the left edge, then a solid black box for the rest of the
-              495px column. `gap-[225px]` between the copy and the step
-              index is large but deliberate: it's what pins the index to
-              the bottom of this fixed 600px-tall column while the copy
-              stays pinned to the top - reduced from 249px per the tab
-              list's own `gap-3` below (2 gaps x 12px = 24px added to that
-              list's height), so the column's total height still comes out
-              to exactly 600px instead of overflowing past it and getting
-              clipped by this panel's `overflow-hidden`. */}
-          <div className="relative flex flex-col bg-black pt-3 pb-3 lg:ml-10 lg:h-full lg:w-[calc(495px-40px)] lg:shrink-0 lg:gap-[225px] lg:px-10 lg:py-10">
+              column - 495px at the design's own reference width, but
+              `lg:w-[35%]` (not a flat 495px) so this black box actually
+              shrinks with the panel between 1024-1440px instead of staying
+              rigidly full-width and forcing the right column's fixed-size
+              image to overflow/clip. `lg:min-w-[320px]` keeps the copy from
+              getting uncomfortably narrow at the low end.
+              `lg:justify-between` (not a fixed `gap-[225px]`) pins the step
+              index to the bottom of this fixed 600px-tall column while the
+              copy stays pinned to the top - a fixed gap was tuned against
+              the copy's rendered height at one width only, so narrowing
+              this column at 1024-1250px wrapped the copy onto extra lines
+              and pushed the step list past the column's bottom edge,
+              clipping tab 3 under `overflow-hidden`. `justify-between`
+              adapts to however tall the copy actually renders at any
+              width, so the list never overflows. */}
+          <div className="relative flex flex-col bg-black pt-3 pb-3 lg:ml-10 lg:h-full lg:w-[35%] lg:min-w-[320px] lg:shrink-0 lg:justify-between lg:px-10 lg:py-10">
             <div className="flex flex-col gap-[18px] px-3 lg:gap-6 lg:px-0">
               <div className="flex flex-col gap-3.5 lg:gap-3">
                 <SectionTag
@@ -272,28 +279,32 @@ export function DeidentificationPanel() {
           {/* Right column. The dashed line inset 40px (`right-10`) from
               its own right edge - matching this section's own dashed line
               color (`#a8a8a8`, full opacity) rather than sitting flush at
-              the true edge like a plain divider. */}
+              the true edge like a plain divider. Only shown at
+              `min-[1440px]:` - below that the right column has already
+              shrunk enough (per the fluid `lg:max-w-[696px]` content sizing
+              above) that this line sat awkwardly close to/over the image
+              and copy instead of reading as a clean margin rule. */}
           <div className="relative min-h-[400px] overflow-hidden lg:h-full lg:min-h-0 lg:flex-1">
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-y-0 right-10 hidden border-r border-dashed border-[#a8a8a8] lg:block"
+              className="pointer-events-none absolute inset-y-0 right-10 hidden border-r border-dashed border-[#a8a8a8] min-[1440px]:block"
             />
             {/* Tab 1 ([01] De-Identification): headline + body side by
                 side, then the card area below - matching Figma node
                 6672:20338 exactly, rather than the single full-bleed image
                 tab 3 still uses below. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-0 lg:pt-8 lg:pr-10 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
                 activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-[696px] lg:flex-row lg:items-start lg:gap-6 lg:pb-8">
+              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 lg:pb-8 min-[1440px]:flex-row min-[1440px]:items-start">
                 <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   Your data.
                   <br />
                   De-identified.
                 </p>
-                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-[360px] lg:shrink-0 lg:leading-[1.4] lg:tracking-[-0.42px]">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px]">
                   {DEIDENTIFICATION_BODY}
                 </p>
               </div>
@@ -302,11 +313,11 @@ export function DeidentificationPanel() {
                   6672:20349 (the glass card, woven-texture surround, email
                   copy, and redaction bars are all one live composition in
                   Figma, not an exportable image) as a flattened screenshot
-                  at 2x for retina sharpness. Rendered at its real 696x372
-                  native export size at `lg:` (matching tabs 2 and 3
-                  exactly, rather than each stretching/shrinking to fill
-                  whatever width its own flex column happens to compute)
-                  and scaled fluidly below that.
+                  at 2x for retina sharpness. Caps out at its real 696x372
+                  native export size (`lg:max-w-[696px]`, matching tabs 2
+                  and 3 exactly) but stays fluid below that (`w-full`) so it
+                  shrinks with the right column between 1024-1440px instead
+                  of clipping past it.
                   `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
                   image within this wrapper instead of top-margining it
                   down by a per-tab fixed amount (the old approach): since
@@ -317,13 +328,13 @@ export function DeidentificationPanel() {
                   bottom edge (no leftover gap below it) *and* keeps the
                   image at the same height across tabs 1-3 automatically -
                   no more per-tab offset math needed. */}
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:min-h-0 lg:flex-col lg:justify-end">
+              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION}
                   alt="A customer email with names, contact details, and an API key struck out by redaction bars"
                   width={696}
                   height={372}
-                  className="h-auto w-full lg:h-[372px] lg:w-[696px]"
+                  className="h-auto w-full lg:max-w-[696px]"
                 />
               </div>
             </div>
@@ -332,17 +343,17 @@ export function DeidentificationPanel() {
                 pattern as tab 1 above, matching Figma node 6672:22994
                 exactly. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-0 lg:pt-8 lg:pr-10 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
                 activeIndex === 1 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-[696px] lg:flex-row lg:items-start lg:gap-6 lg:pb-8">
+              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 lg:pb-8 min-[1440px]:flex-row min-[1440px]:items-start">
                 <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   How your data
                   <br />
                   gets cleaned
                 </p>
-                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-[360px] lg:shrink-0 lg:leading-[1.4] lg:tracking-[-0.42px]">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px]">
                   {DETECTION_BODY}
                 </p>
               </div>
@@ -353,21 +364,21 @@ export function DeidentificationPanel() {
                   Figma, not an exportable image) as a flattened screenshot
                   at 3x - see `DATA_TRUST_DETECTION_ILLUSTRATION`'s own
                   comment for why this one needed a higher scale than tab
-                  1's. Rendered at its real 696x372 native export size at
-                  `lg:` (matching tabs 1 and 3 exactly) and scaled fluidly
-                  below that.
+                  1's. Caps out at its real 696x372 native export size
+                  (`lg:max-w-[696px]`, matching tabs 1 and 3 exactly) but
+                  stays fluid (`w-full`) below that.
                   `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
                   image within this wrapper - see tab 1's own image for the
                   full explanation of why that both closes the gap below
                   it and keeps it level with tabs 1 and 3 automatically,
                   in place of the old per-tab `mt-*` offset. */}
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:min-h-0 lg:flex-col lg:justify-end">
+              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DETECTION_ILLUSTRATION}
                   alt="A benchmark card showing PII coverage across Slack, PDFs, tickets, commits, images, and email, with Replay finding 3x more identifiers than the leading frontier model"
                   width={696}
                   height={372}
-                  className="h-auto w-full lg:h-[372px] lg:w-[696px]"
+                  className="h-auto w-full lg:max-w-[696px]"
                 />
               </div>
             </div>
@@ -379,12 +390,12 @@ export function DeidentificationPanel() {
                 design - routes to the real page like every other "Value
                 my data" CTA on the site. */}
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-0 lg:pt-8 lg:pr-10 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
                 activeIndex === 2 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-[696px] lg:flex-row lg:items-start lg:gap-6 lg:pb-8">
-                <div className="flex flex-col items-start gap-5 lg:flex-1">
+              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 lg:pb-8 min-[1440px]:flex-row min-[1440px]:items-start">
+                <div className="flex flex-row items-center justify-between gap-5 lg:flex-1">
                   <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                     We&rsquo;re setting
                     <br />
@@ -397,7 +408,7 @@ export function DeidentificationPanel() {
                     Value my data
                   </Link>
                 </div>
-                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-[360px] lg:shrink-0 lg:leading-[1.4] lg:tracking-[-0.42px]">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px]">
                   {STANDARD_BODY}
                 </p>
               </div>
@@ -408,22 +419,20 @@ export function DeidentificationPanel() {
                   live composition in Figma, not an exportable image) as a
                   flattened screenshot at 3x - see
                   `DATA_TRUST_STANDARD_ILLUSTRATION`'s own comment for why.
-                  Rendered at its real 696x372 native export size at `lg:`
-                  (matching tabs 1 and 2 exactly, rather than shrinking to
-                  fit whatever height this tab's own taller headline row -
-                  it has the extra "Value my data" link the other two
-                  don't - leaves for it) and scaled fluidly below that.
+                  Caps out at its real 696x372 native export size
+                  (`lg:max-w-[696px]`, matching tabs 1 and 2 exactly) but
+                  stays fluid (`w-full`) below that.
                   `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
                   image within this wrapper - see tab 1's own image for the
                   full explanation of why that both closes the gap below
                   it and keeps it level with tabs 1 and 2 automatically. */}
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:min-h-0 lg:flex-col lg:justify-end">
+              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_STANDARD_ILLUSTRATION}
                   alt="The Replay Standard for Real-World Data De-identification: 60+ categories, per-class thresholds, a 4-stage process, and benchmark-held verification, with isolated tenants, raw data in, no shared storage, no cross-client access, and clean data out"
                   width={696}
                   height={372}
-                  className="h-auto w-full lg:h-[372px] lg:w-[696px]"
+                  className="h-auto w-full lg:max-w-[696px]"
                 />
               </div>
             </div>
