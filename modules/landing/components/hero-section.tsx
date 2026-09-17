@@ -2,7 +2,6 @@
 
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import { HeroCtaButton } from "./hero-cta-button";
 import { HeroFooterBar } from "./hero-footer-bar";
 import { HeroSidePatternLeft } from "./hero-side-pattern-left";
 import { HeroSidePatternRight } from "./hero-side-pattern-right";
@@ -123,16 +122,17 @@ export function HeroSection() {
           >
             <div className="flex max-w-[840px] flex-col items-center gap-3 text-center lg:gap-6">
               <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-[#181a1b] sm:text-[56px] sm:leading-none sm:tracking-tight lg:text-[72px] lg:tracking-[-2.88px]">
-                Fund growth by licensing the data you already have.
+                Securely license your data.
+                <br />
+                Stay in compliance.
               </h1>
               <p className="max-w-[669px] text-[14.5px] leading-[1.45] tracking-[-0.37px] text-[#727272] sm:text-base sm:leading-relaxed sm:tracking-tight">
-                Frontier AI labs need training data on how real companies run.
-                You&apos;re sitting on years of it. We value your data, strip out
-                every name and identifier, and get you paid.
+                Replay removes PII, confirms your right to license, and
+                identifies any risk.
+                <br />
+                All before your data moves.
               </p>
             </div>
-
-            <HeroCtaButton />
           </div>
 
           <Image
