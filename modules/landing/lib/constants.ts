@@ -9,7 +9,7 @@ import type {
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Data privacy", href: "/data-and-trust", isRoute: true },
-  { label: "Blogs", href: "/blogs", isRoute: true },
+  { label: "De-identification", href: "#de-identification" },
 ];
 
 export const HERO_STATS: StatItem[] = [
@@ -130,12 +130,9 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
   {
     title: "Company",
-    // Privacy and Terms have no page to link to yet, so they stay "#".
     links: [
-      { label: "Data & Trust", href: "/data-and-trust" },
+      { label: "Data privacy", href: "/data-and-trust" },
       { label: "Careers", href: "/careers" },
-      { label: "Privacy", href: "#" },
-      { label: "Terms", href: "#" },
     ],
   },
 ];
