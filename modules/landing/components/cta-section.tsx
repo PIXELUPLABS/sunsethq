@@ -101,7 +101,7 @@ export function CtaSection({
         }}
       >
         <Image
-          src="/images/cta/top-left-cta-img.webp"
+          src="/images/cta/top-left-cta-img-1.webp"
           alt=""
           fill
           className="pointer-events-none object-cover"

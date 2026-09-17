@@ -85,31 +85,12 @@ export function Footer() {
               keeps the design's own ~24px clearance from the footer's true
               bottom edge, not this now-longer block's edge. */}
 
-          {/* The decorative code/data-snippet texture behind the wordmark
-              (node 6684:32370) - full-bleed past this block's own `lg:`
-              padding via matching negative insets (`-72px`, the same value
-              as the footer's `lg:px-[72px]`), and overhanging top/bottom the
-              same way it does in the design. Sits before the wordmark box
-              below so it paints underneath it; not present below `lg:`
-              since the source design is a desktop-only (1440px) frame. */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 hidden lg:top-[-24px] lg:right-[-72px] lg:bottom-[-64px] lg:left-[-72px] lg:block"
-          >
-            <Image
-              src="/images/footer/pattern.png"
-              alt=""
-              fill
-              className="object-cover"
-            />
-          </div>
-
           {/* The wordmark's own dedicated aspect box - kept separate from
               the copyright/social row below now, so that row's absolute
               positioning at `sm:` and up still anchors to this same box
               (via the outer `relative` wrapper collapsing to this box's
               own height once the row is taken out of flow there). */}
-          <div className="relative aspect-[1297/337] w-full">
+          <div className="relative aspect-[1297/337] w-full bg-[#080808]">
             <ReplayWordmark className="absolute inset-0 h-full w-full" />
           </div>
 

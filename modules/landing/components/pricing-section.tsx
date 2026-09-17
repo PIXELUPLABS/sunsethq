@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { AlignLeftIcon } from "@/components/ui/icons";
 import { PRICING_TIERS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
 import { BottomStripes } from "./bottom-stripes";
@@ -119,7 +118,13 @@ export function PricingSection() {
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
           <div className="flex flex-1 flex-col items-start gap-6">
             <div className="flex items-center gap-2 lg:items-start lg:gap-4">
-              <AlignLeftIcon className="size-[18px] lg:size-6" />
+              <Image
+                src="/images/pricing/deal-icon.svg"
+                alt=""
+                width={24}
+                height={24}
+                className="size-[18px] lg:size-6"
+              />
               <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
                 The deal
               </p>
@@ -132,7 +137,13 @@ export function PricingSection() {
           </div>
           <div className="flex flex-1 flex-col items-start gap-6">
             <div className="flex items-center gap-2 lg:items-start lg:gap-4">
-              <AlignLeftIcon className="size-[18px] lg:size-6" />
+              <Image
+                src="/images/pricing/recurs-icon.svg"
+                alt=""
+                width={24}
+                height={24}
+                className="size-[18px] lg:size-6"
+              />
               <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
                 Why it recurs
               </p>
