@@ -27,7 +27,7 @@ const GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
  * as-is - the same real, scroll-animated component the home page's own
  * "Who it's for" section (`pricing-section.tsx`) uses for its bottom
  * edge. It's absolutely positioned against the section, not the padded
- * content, so `sm:pb-48` below exists purely to keep the benefits grid
+ * content, so `min-[900px]:pb-48` below exists purely to keep the benefits grid
  * clear of it - `why-replay-section.tsx`/`open-roles-section.tsx` don't
  * need any equivalent padding since they don't carry a bottom stripe
  * band.
@@ -66,7 +66,7 @@ export function BenefitsSection() {
 
   return (
     <section
-      className="relative flex justify-center overflow-hidden px-3 sm:px-18"
+      className="relative flex justify-center overflow-hidden px-3 min-[900px]:px-18"
       style={{ backgroundImage: "linear-gradient(180deg, #133264 0%, #147dba 160%)" }}
     >
       <div
@@ -94,22 +94,22 @@ export function BenefitsSection() {
             edges, echoing the diagram's internal alignment-guide lines so
             the empty side gutters don't read as bare next to that busy
             grid - purely decorative, same `border-white/30` as the rest. */}
-        <div className="pointer-events-none absolute inset-y-0 left-3 hidden border-l border-dashed border-white/30 sm:left-10 sm:block" />
-        <div className="pointer-events-none absolute inset-y-0 right-3 hidden border-r border-dashed border-white/30 sm:right-10 sm:block" />
+        <div className="pointer-events-none absolute inset-y-0 left-3 hidden border-l border-dashed border-white/30 min-[900px]:left-10 min-[900px]:block" />
+        <div className="pointer-events-none absolute inset-y-0 right-3 hidden border-r border-dashed border-white/30 min-[900px]:right-10 min-[900px]:block" />
 
-        <div className="px-3 pt-[144px] pb-32 sm:px-10 sm:pt-[144px] sm:pb-48">
-          <div ref={ref} className="relative flex w-full flex-col sm:flex-row">
+        <div className="px-3 pt-[144px] pb-32 min-[900px]:px-10 min-[900px]:pt-[144px] min-[900px]:pb-48">
+          <div ref={ref} className="relative flex w-full flex-col min-[900px]:flex-row">
             <div
               style={leftColumnEnter.style}
-              className={`flex flex-col bg-black/[0.18] sm:flex-1 ${leftColumnEnter.className}`}
+              className={`flex flex-col bg-black/[0.18] min-[900px]:flex-1 ${leftColumnEnter.className}`}
             >
               {/* No bottom border - the diagram image directly below already
                   draws its own top edge, so a border here would double it.
                   Declared as `border` + `border-b-0` (not 3 separate side
                   utilities) to match the same declaration pattern every
                   other bordered div in this section uses. */}
-              <div className="flex min-h-[100px] items-center border border-b-0 border-dashed border-white/30 px-6 sm:min-h-[114px]">
-                <h2 className="font-serif text-[32px] leading-[1.1] tracking-[-0.32px] text-white sm:text-[36px]">
+              <div className="flex min-h-[100px] items-center border border-b-0 border-dashed border-white/30 px-6 min-[900px]:min-h-[114px]">
+                <h2 className="font-serif text-[32px] leading-[1.1] tracking-[-0.32px] text-white min-[900px]:text-[36px]">
                   The practical stuff.
                 </h2>
               </div>
@@ -141,7 +141,7 @@ export function BenefitsSection() {
                   draws its own bottom edge, so a border here would double
                   it. Declared as `border` + `border-t-0`, matching the
                   title box above and every other bordered div here. */}
-              <div className="flex min-h-[100px] items-center border border-t-0 border-dashed border-white/30 px-6 sm:min-h-[114px]">
+              <div className="flex min-h-[100px] items-center border border-t-0 border-dashed border-white/30 px-6 min-[900px]:min-h-[114px]">
                 <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/70">
                   More modular, but still restrained. A tiny system visual sits under the intro
                   while benefits occupy a structured 2×2 board.
@@ -149,8 +149,8 @@ export function BenefitsSection() {
               </div>
             </div>
 
-            <div className="border border-dashed border-white/30 sm:flex-1">
-              <div className="grid grid-cols-1 sm:h-full sm:grid-cols-2 sm:grid-rows-2">
+            <div className="border border-dashed border-white/30 min-[900px]:flex-1">
+              <div className="grid grid-cols-1 min-[900px]:h-full min-[900px]:grid-cols-2 min-[900px]:grid-rows-2">
                 {PLACEHOLDER_BENEFITS.map((benefit, i) => {
                   const isLeftCol = i % 2 === 0;
                   const isTopRow = i < 2;
@@ -165,9 +165,9 @@ export function BenefitsSection() {
                       // buttons - a hover response would train people to
                       // expect a click to do something, and nothing does
                       // (same reasoning as `values-section.tsx`'s cards).
-                      className={`flex min-h-[180px] flex-col justify-between gap-10 border-dashed border-white/30 p-6 sm:h-full ${
+                      className={`flex min-h-[180px] flex-col justify-between gap-10 border-dashed border-white/30 p-6 min-[900px]:h-full ${
                         isLastMobile ? "border-b-0" : "border-b"
-                      } ${isTopRow ? "sm:border-b" : "sm:border-b-0"} ${isLeftCol ? "sm:border-r" : ""} ${cardEnter.className}`}
+                      } ${isTopRow ? "min-[900px]:border-b" : "min-[900px]:border-b-0"} ${isLeftCol ? "min-[900px]:border-r" : ""} ${cardEnter.className}`}
                     >
                       <div className="flex items-center justify-between gap-3">
                         <p className="font-serif text-xl text-white">{benefit.label}</p>

@@ -52,7 +52,7 @@ export function WhyReplaySection() {
             </p>
           </div>
 
-          <div ref={ref} className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-5">
+          <div ref={ref} className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-5">
             {WHY_REPLAY_STATEMENTS.map((statement, index) => (
               <div
                 key={statement.title}
