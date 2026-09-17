@@ -24,7 +24,7 @@ export type RolesFetchStatus = "loading" | "success" | "error";
  * same layout while that request is in flight or fails.
  */
 export function useOpenRoles() {
-  const [teams, setTeams] = useState<Team[]>([]);
+  const [fetchedTeams, setFetchedTeams] = useState<Team[]>([]);
   const [status, setStatus] = useState<RolesFetchStatus>("loading");
   const [activeTeamIndex, setActiveTeamIndex] = useState(0);
   const [isSwitchingTeam, setIsSwitchingTeam] = useState(false);
@@ -37,7 +37,7 @@ export function useOpenRoles() {
     fetchAshbyTeams()
       .then((fetchedTeams) => {
         if (cancelled) return;
-        setTeams(fetchedTeams);
+        setFetchedTeams(fetchedTeams);
         setStatus("success");
       })
       .catch(() => {
@@ -48,6 +48,15 @@ export function useOpenRoles() {
       cancelled = true;
     };
   }, []);
+
+  /** An "All" tab, every fetched team's roles combined, pinned first so it's
+   * the default-selected tab (`activeTeamIndex` starts at 0) - unfiltered
+   * by team, only by the search query like any other tab. */
+  const teams = useMemo<Team[]>(() => {
+    if (fetchedTeams.length === 0) return fetchedTeams;
+    const allRoles = fetchedTeams.flatMap((team) => team.roles);
+    return [{ name: "All", roles: allRoles }, ...fetchedTeams];
+  }, [fetchedTeams]);
 
   useEffect(() => {
     return () => {

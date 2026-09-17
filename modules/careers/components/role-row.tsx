@@ -91,12 +91,7 @@ export function RoleRow({ role, index, isLast }: RoleRowProps) {
     >
       <span className="mt-1 font-mono text-xs text-[#898989]">{num}</span>
       <span className="flex flex-1 flex-col gap-1">
-        {/* 2px shift, not an underline: a second, separately-timed
-            decoration felt busier alongside the trailing group's own
-            shift - this keeps the row's hover reading as one cohesive
-            nudge toward the chevron rather than several unrelated
-            effects. */}
-        <span className="w-fit font-serif text-lg tracking-[-0.3px] text-black transition-transform duration-200 ease-snap [@media(hover:hover)]:group-hover:translate-x-[2px]">
+        <span className="w-fit font-serif text-lg tracking-[-0.3px] text-black">
           {role.title}
         </span>
         <span className="flex flex-wrap gap-x-3 font-mono text-xs tracking-wide text-[#919191] uppercase">
@@ -109,7 +104,7 @@ export function RoleRow({ role, index, isLast }: RoleRowProps) {
         <span className="hidden -translate-x-1 font-mono text-xs tracking-wide text-[#898989] uppercase opacity-0 transition-[opacity,transform] duration-200 ease-snap [@media(hover:hover)]:inline-block [@media(hover:hover)]:group-hover:translate-x-0 [@media(hover:hover)]:group-hover:opacity-100">
           Apply Now
         </span>
-        <ChevronRightIcon className="size-4 text-[#898989] transition-[transform,color] duration-200 ease-snap [@media(hover:hover)]:group-hover:translate-x-[5px] [@media(hover:hover)]:group-hover:text-black" />
+        <ChevronRightIcon className="size-4 text-[#898989] transition-colors duration-200 ease-snap [@media(hover:hover)]:group-hover:text-black" />
       </span>
     </Link>
   );
