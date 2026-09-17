@@ -6,28 +6,20 @@ import { ReplayWordmark } from "./replay-wordmark";
 export function Footer() {
   return (
     <footer
-      className="relative isolate overflow-hidden bg-[#080808] px-6 pt-16 pb-6 sm:px-18 sm:py-14 lg:h-[627px] lg:px-[72px] lg:py-[54px] min-[1500px]:h-[740px]!"
+      className="relative isolate overflow-hidden bg-[#080808] px-6 pt-16 pb-6 sm:px-18 sm:py-14 lg:px-[72px] lg:pt-[54px] lg:pb-0"
     >
-      {/* `min-[1500px]:h-[740px]!`: the wordmark block's `aspect-[1297/337]`
-          height grows with its own width (measured, not just derived from
-          the `max-w-[1560px]` cap - the nav row's own height turned out not
-          to be quite as width-independent as that math assumed), and nav +
-          the `sm:gap-20` (80px) + that wordmark height + this padding
-          (108px) start exceeding the base 627px right around a 1500px
-          viewport, then keep growing until the wordmark's width hits its
-          1560px cap past ~1704px, where the total plateaus at ~737.5px.
-          Since this whole block relies on `h-full` + `justify-between` to
-          spread nav and the wordmark block across the footer's own exact
-          height (with the wordmark's bottom always flush against the
-          footer's own bottom edge), that requires an explicit, definite
-          height on the footer itself - `min-height` alone breaks `h-full`
-          against an auto-sized parent, which silently stopped that spread
-          and left the bottom of the wordmark block (including the social
-          icons and copyright line) clipped by this section's own
-          `overflow-hidden`, past the end of the page. 740px covers the
-          worst case with a couple of px to spare; the breakpoint starts a
-          little before 1500px so the switch itself never dips negative. */}
-      <div className="relative mx-auto flex h-full w-full max-w-[1560px] flex-col justify-between gap-16 sm:gap-20">
+      {/* No bottom padding at `lg:` - the design (node 6684:31964) lets the
+          wordmark's own artwork run past where that padding would sit and
+          bleed slightly off the footer's bottom edge (see the wordmark
+          block's own `lg:-mb-[10px]` below), so reserving space for it here
+          would just show up as dead air beneath the letters. The height
+          itself is intrinsic now (no more fixed `lg:h-[627px]` /
+          `min-[1500px]:h-[740px]!`) - `lg:gap-[176px]` below reproduces the
+          design's own nav-to-wordmark spacing directly instead of relying on
+          `justify-between` to guess it from a hand-measured container
+          height, so the layout tracks the design at 1440/1560/1800px+
+          without needing a new magic number at each width. */}
+      <div className="relative mx-auto flex w-full max-w-[1560px] flex-col gap-16 sm:gap-20 lg:gap-[176px]">
         {/* Hovering one link recedes the rest of the list rather than
             highlighting the one under the cursor. */}
         <nav
@@ -82,7 +74,36 @@ export function Footer() {
           ))}
         </nav>
 
-        <div className="relative w-full">
+        <div className="relative w-full lg:-mb-[10px]">
+          {/* `lg:-mb-[10px]`: in the design the wordmark artwork itself runs
+              about 10px past this block's own bottom edge before the
+              footer's `overflow-hidden` crops it - reproduced here as a
+              negative margin so it bleeds into (and slightly past) where
+              the footer's now-removed bottom padding used to sit, instead
+              of stopping flush at this block's edge. The copyright row's
+              `lg:bottom-[34px]` below accounts for the extra 10px so it
+              keeps the design's own ~24px clearance from the footer's true
+              bottom edge, not this now-longer block's edge. */}
+
+          {/* The decorative code/data-snippet texture behind the wordmark
+              (node 6684:32370) - full-bleed past this block's own `lg:`
+              padding via matching negative insets (`-72px`, the same value
+              as the footer's `lg:px-[72px]`), and overhanging top/bottom the
+              same way it does in the design. Sits before the wordmark box
+              below so it paints underneath it; not present below `lg:`
+              since the source design is a desktop-only (1440px) frame. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 hidden lg:top-[-24px] lg:right-[-72px] lg:bottom-[-64px] lg:left-[-72px] lg:block"
+          >
+            <Image
+              src="/images/footer/pattern.png"
+              alt=""
+              fill
+              className="object-cover"
+            />
+          </div>
+
           {/* The wordmark's own dedicated aspect box - kept separate from
               the copyright/social row below now, so that row's absolute
               positioning at `sm:` and up still anchors to this same box
@@ -103,7 +124,7 @@ export function Footer() {
               the outer `relative` wrapper above, which is equivalent to
               anchoring to the wordmark box itself once this row is out of
               flow there). */}
-          <div className="mt-4 flex items-end justify-between gap-6 sm:absolute sm:inset-x-0 sm:bottom-6 sm:mt-0">
+          <div className="mt-4 flex items-end justify-between gap-6 sm:absolute sm:inset-x-0 sm:bottom-6 sm:mt-0 lg:bottom-[34px]">
             <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase sm:text-white/60">
               © 2026 Replay. All rights reserved
               <br />
