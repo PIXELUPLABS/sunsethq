@@ -1,6 +1,6 @@
 import dynamic from "next/dynamic";
 import { Navbar } from "./navbar";
-import { HeroSection } from "./hero-section";
+import { HomeHero } from "./home-hero";
 import { StatsSection } from "./stats-section";
 import { Footer } from "./footer";
 
@@ -33,7 +33,7 @@ export function LandingPage() {
     <div className="flex flex-col">
       <Navbar />
       <main className="flex flex-col">
-        <HeroSection />
+        <HomeHero />
         <StatsSection />
         <RevenueStreamSection />
         <PricingSection />

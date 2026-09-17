@@ -14,6 +14,15 @@ export const HERO_CARD_4 = "/images/hero/card-4.webp";
 export const HERO_PATTERN = "/images/hero/hero-pattern.webp";
 
 /**
+ * The static home hero's illustration - a spreadsheet of operating records
+ * in perspective. Exported unclipped at its full 1690.971px-wide Figma box
+ * (5073x940 at 3x), so it bleeds past both edges of the 1440px frame rather
+ * than being cropped to it - see the `left`/`w` bleed classes on its
+ * `<Image>` in `home-hero.tsx`.
+ */
+export const HERO_HOME_ILLUSTRATION = "/images/hero/home-hero-illustration-2.webp";
+
+/**
  * Shared by HeroSidePatternLeft/Right and HeroSection: the point (in the
  * side patterns' own local box coordinates, box top offset by
  * HERO_PATTERN_TOP_OFFSET within the row) that every collage piece

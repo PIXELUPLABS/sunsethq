@@ -1,28 +1,5 @@
 /** Illustration assets specific to the Data & Trust page. */
 /**
- * The whole perspective sheet, exported flat from Figma (node 6672:20290) at
- * 3x (3891x1266, up from an earlier 2x export) per review, for extra
- * sharpness at this asset's own large rendered size. The gradient mask and
- * the coloured top sheet are baked into the export, so it drops straight
- * into the 1297x422 box the design gives it.
- */
-export const DATA_TRUST_HERO_PLANE = "/images/data-trust/hero-plane.webp";
-
-/** Portrait replacement for the hero illustration on mobile, swapped in
- *  for `DATA_TRUST_HERO_PLANE` below `lg` only. */
-export const DATA_TRUST_HERO_PLANE_MOBILE =
-  "/images/data-trust/data-trust-hero-mobile.png";
-
-/**
- * Replacement hero illustration (5073x940 native) - unlike
- * `DATA_TRUST_HERO_PLANE`'s edge-to-edge stretch, this one is placed at
- * Figma's own exact box (node 6672:20290: left 72px / width 1297px within
- * the 1440px desktop frame, i.e. `left-[5%] w-[90.0694%]`) rather than
- * filling the full band width, per review.
- */
-export const DATA_TRUST_HERO_PLANE_2 = "/images/data-trust/hero-plane-2.webp";
-
-/**
  * Tiling textures. Each one is exported at the size the design paints it at,
  * so they are tiled with `background-size` rather than stretched to fit.
  */
