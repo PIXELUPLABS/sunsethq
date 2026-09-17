@@ -92,7 +92,7 @@ export function DeidentificationSection() {
                 />
               </div>
 
-              <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-4 lg:gap-[100px]">
+              <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-5 lg:justify-start lg:self-start lg:pt-16">
                 <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black lg:text-[40px] lg:tracking-[-0.4px]">
                   Your data leaves cleaner than a medical record.
                 </h3>

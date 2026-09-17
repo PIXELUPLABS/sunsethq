@@ -50,20 +50,22 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
           <AssuranceProgress activeIndex={index} total={total} />
         </div>
 
-        {/* Heading sits a fixed 20px below the jurisdiction row above it
-            on desktop (`lg:mt-5`); the mobile gap here is unchanged from
-            before (`mt-6`, matching this column's old mobile `gap-6`).
-            The body paragraph keeps its own old mobile gap to the heading
-            (`mt-4`, matching the old `gap-4`), but on desktop stays
-            pinned to the column's bottom edge (`lg:mt-auto`) at its
-            original position instead of following the heading up too. */}
+        {/* On desktop, the heading is pushed down to sit a fixed 20px
+            (`lg:mt-5`) above the body paragraph, rather than sitting right
+            below the jurisdiction row - `lg:mt-auto` on the heading eats
+            all the column's leftover height, so the heading+body pair
+            together land flush against the column's bottom edge. The
+            mobile gap here is unchanged from before (`mt-6`, matching this
+            column's old mobile `gap-6`), and the body paragraph keeps its
+            own old mobile gap to the heading (`mt-4`, matching the old
+            `gap-4`). */}
         <h3
-          className={`mt-6 font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-5 lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
+          className={`mt-6 font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-auto lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
         >
           {row.title}
         </h3>
         <div
-          className={`mt-4 flex flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black lg:mt-auto ${BODY_SIZE[row.bodySize]}`}
+          className={`mt-4 flex flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black lg:mt-5 ${BODY_SIZE[row.bodySize]}`}
         >
           {row.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
