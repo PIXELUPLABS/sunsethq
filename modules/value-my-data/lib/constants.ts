@@ -28,21 +28,20 @@ export const BENEFITS: Benefit[] = [
   },
 ];
 
-export const DATA_TYPE_OPTIONS = [
-  "Customer conversations",
-  "Support data",
-  "Sales data",
-  "Internal communications",
-  "Code & technical data",
-  "Documents & files",
-  "Other",
+export const YEARS_OF_OPERATION_OPTIONS = [
+  "Under 2 Years",
+  "2-3 years",
+  "3 to 5 years",
+  "5 to 10 years",
+  "10+",
 ];
 
-export const COMPANY_SIZE_OPTIONS = [
-  "1–50",
-  "51–200",
-  "201–500",
-  "501–1,000",
-  "1,001–5,000",
-  "5,000+",
+export const BUSINESS_SIZE_OPTIONS = [
+  "1 to 9 people",
+  "10 - 19",
+  "20 - 49",
+  "50 - 199",
+  "200 or more",
 ];
+
+export const ENGLISH_SHARE_OPTIONS = ["100%", "80% - 90%", "Less than 80%"];

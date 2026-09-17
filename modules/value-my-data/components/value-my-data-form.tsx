@@ -3,7 +3,11 @@
 import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import { ChevronDownIcon } from "@/components/ui/icons";
-import { COMPANY_SIZE_OPTIONS, DATA_TYPE_OPTIONS } from "../lib/constants";
+import {
+  BUSINESS_SIZE_OPTIONS,
+  ENGLISH_SHARE_OPTIONS,
+  YEARS_OF_OPERATION_OPTIONS,
+} from "../lib/constants";
 import { FormDecorativeRail } from "./form-decorative-rail";
 
 /** Bigger than the Figma comp's own 39px inputs - per review, that literal
@@ -101,33 +105,19 @@ export function ValueMyDataForm() {
       <FormDecorativeRail className="absolute top-3.5 bottom-2.5 left-3 hidden sm:flex" />
 
       <div className="relative flex flex-col gap-6">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div className="flex flex-col gap-2">
-            <label htmlFor="firstName" className={LABEL_CLASS}>
-              First name
-            </label>
-            <input
-              id="firstName"
-              name="firstName"
-              type="text"
-              autoComplete="given-name"
-              required
-              className={INPUT_CLASS}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="lastName" className={LABEL_CLASS}>
-              Last name
-            </label>
-            <input
-              id="lastName"
-              name="lastName"
-              type="text"
-              autoComplete="family-name"
-              required
-              className={INPUT_CLASS}
-            />
-          </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="companyName" className={LABEL_CLASS}>
+            Company name
+          </label>
+          <input
+            id="companyName"
+            name="companyName"
+            type="text"
+            autoComplete="organization"
+            placeholder="Acme Inc."
+            required
+            className={INPUT_CLASS}
+          />
         </div>
 
         <div className="flex flex-col gap-2">
@@ -139,27 +129,28 @@ export function ValueMyDataForm() {
             name="workEmail"
             type="email"
             autoComplete="email"
+            placeholder="you@company.com"
             required
             className={INPUT_CLASS}
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="dataType" className={LABEL_CLASS}>
-            What kind of data does your company have?
+          <label htmlFor="yearsOfOperation" className={LABEL_CLASS}>
+            Years of Operation
           </label>
           <div className="relative">
             <select
-              id="dataType"
-              name="dataType"
+              id="yearsOfOperation"
+              name="yearsOfOperation"
               required
               defaultValue=""
               className={SELECT_CLASS}
             >
               <option value="" disabled>
-                Select a data type
+                Select years of operation
               </option>
-              {DATA_TYPE_OPTIONS.map((option) => (
+              {YEARS_OF_OPERATION_OPTIONS.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
@@ -170,35 +161,46 @@ export function ValueMyDataForm() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="companyName" className={LABEL_CLASS}>
-            Company name
-          </label>
-          <input
-            id="companyName"
-            name="companyName"
-            type="text"
-            autoComplete="organization"
-            required
-            className={INPUT_CLASS}
-          />
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <label htmlFor="companySize" className={LABEL_CLASS}>
-            Company size
+          <label htmlFor="businessSize" className={LABEL_CLASS}>
+            Number of people who work in the business
           </label>
           <div className="relative">
             <select
-              id="companySize"
-              name="companySize"
+              id="businessSize"
+              name="businessSize"
               required
               defaultValue=""
               className={SELECT_CLASS}
             >
               <option value="" disabled>
-                Select company size
+                Select number of people
               </option>
-              {COMPANY_SIZE_OPTIONS.map((option) => (
+              {BUSINESS_SIZE_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+            <ChevronDownIcon className="pointer-events-none absolute top-1/2 right-4 size-4 -translate-y-1/2 text-[#a8a8a8]" />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="englishShare" className={LABEL_CLASS}>
+            Share of internal communications in english
+          </label>
+          <div className="relative">
+            <select
+              id="englishShare"
+              name="englishShare"
+              required
+              defaultValue=""
+              className={SELECT_CLASS}
+            >
+              <option value="" disabled>
+                Select share of english communications
+              </option>
+              {ENGLISH_SHARE_OPTIONS.map((option) => (
                 <option key={option} value={option}>
                   {option}
                 </option>
