@@ -304,7 +304,7 @@ export function DeidentificationPanel() {
                   <br />
                   De-identified.
                 </p>
-                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px]">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px] min-[1440px]:max-w-[360px] min-[1440px]:shrink-0 min-[1440px]:break-words">
                   {DEIDENTIFICATION_BODY}
                 </p>
               </div>
@@ -353,7 +353,7 @@ export function DeidentificationPanel() {
                   <br />
                   gets cleaned
                 </p>
-                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px]">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px] min-[1440px]:max-w-[360px] min-[1440px]:shrink-0 min-[1440px]:break-words">
                   {DETECTION_BODY}
                 </p>
               </div>
@@ -395,7 +395,7 @@ export function DeidentificationPanel() {
               }`}
             >
               <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 lg:pb-8 min-[1440px]:flex-row min-[1440px]:items-start">
-                <div className="flex flex-row items-center justify-between gap-5 lg:flex-1">
+                <div className="flex flex-row items-center justify-between gap-5 lg:flex-1 min-[1440px]:flex-col min-[1440px]:items-start">
                   <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                     We&rsquo;re setting
                     <br />
@@ -408,7 +408,7 @@ export function DeidentificationPanel() {
                     Value my data
                   </Link>
                 </div>
-                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px]">
+                <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px] min-[1440px]:max-w-[360px] min-[1440px]:shrink-0 min-[1440px]:break-words">
                   {STANDARD_BODY}
                 </p>
               </div>
