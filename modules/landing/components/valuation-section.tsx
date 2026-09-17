@@ -1,7 +1,6 @@
 "use client";
 
 import type { CSSProperties } from "react";
-import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
 import { ValuationMedia } from "./valuation-media";
@@ -24,15 +23,10 @@ export function ValuationSection() {
           <div className="mb-16 flex flex-col items-start gap-6 lg:mb-0">
             <SectionTag
               label="How it works"
-              textClassName="text-[#b2b2b2]"
-              icon={
-                <Image
-                  src="/images/valuation/how-it-works/how-it-works-icon.svg"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
+              textClassName="text-white/60"
+              borderClassName="border-dashed border-white/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
             <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-white sm:text-[44px] sm:tracking-tight">
               Four steps.

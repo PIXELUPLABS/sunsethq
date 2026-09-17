@@ -8,7 +8,6 @@ import { BottomStripes } from "./bottom-stripes";
 import { useInView } from "../hooks/use-in-view";
 
 const GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
-const WHO_ITS_FOR_MARK = "/images/pricing/who-its-for-mark.png";
 const TEXTURE_PANEL = "/images/pricing/Union.svg";
 
 const TONE_COLOR: Record<(typeof PRICING_TIERS)[number]["tone"], string> = {
@@ -41,14 +40,9 @@ export function PricingSection() {
               <SectionTag
                 label="Who it's for"
                 tone="dark"
-                icon={
-                  <Image
-                    src={WHO_ITS_FOR_MARK}
-                    alt=""
-                    width={18}
-                    height={18}
-                  />
-                }
+                borderClassName="border-dashed border-white/40"
+                paddingClassName="px-2 py-1"
+                heightClassName="h-auto"
               />
               <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-[#f1f1f1] sm:text-[44px] sm:tracking-[-1.76px]">
                 What companies

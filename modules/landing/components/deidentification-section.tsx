@@ -47,14 +47,10 @@ export function DeidentificationSection() {
         <div className="flex flex-col items-start gap-6 px-3 sm:px-0">
           <SectionTag
             label="The Process"
-            icon={
-              <Image
-                src="/images/the-process-icon.svg"
-                alt=""
-                width={18}
-                height={18}
-              />
-            }
+            textClassName="text-black/60"
+            borderClassName="border-dashed border-black/25"
+            paddingClassName="px-2 py-1"
+            heightClassName="h-auto"
           />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-[-1.76px]">
             De-Identification

@@ -19,14 +19,10 @@ export function IndustriesSection() {
         <div className="flex max-w-[507px] flex-col items-start gap-5 lg:gap-6">
           <SectionTag
             label="Who it's for"
-            icon={
-              <Image
-                src="/images/illustration-section-icon.png"
-                alt=""
-                width={18}
-                height={18}
-              />
-            }
+            textClassName="text-black/60"
+            borderClassName="border-dashed border-black/25"
+            paddingClassName="px-2 py-1"
+            heightClassName="h-auto"
           />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
             Any industry.

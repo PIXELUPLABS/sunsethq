@@ -25,14 +25,10 @@ export function BuyersSection() {
           <div className="flex flex-col items-start gap-6">
             <SectionTag
               label="Who buys it"
-              icon={
-                <Image
-                  src="/images/who-buys-it-icon.png"
-                  alt=""
-                  width={22}
-                  height={22}
-                />
-              }
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
             <h2 className="max-w-[522px] font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
               You&apos;ll know exactly who ends up with it.

@@ -6,6 +6,8 @@ type SectionTagProps = {
   tone?: "light" | "dark";
   textClassName?: string;
   borderClassName?: string;
+  paddingClassName?: string;
+  heightClassName?: string;
 };
 
 export function SectionTag({
@@ -14,6 +16,8 @@ export function SectionTag({
   tone = "light",
   textClassName,
   borderClassName,
+  paddingClassName = "px-2.5 py-2",
+  heightClassName = "h-8",
 }: SectionTagProps) {
   const border =
     borderClassName ??
@@ -23,7 +27,7 @@ export function SectionTag({
   return (
     <div className="flex items-start">
       <div
-        className={`flex h-8 items-center justify-center border ${border} px-2.5 py-2 -mr-px`}
+        className={`flex ${heightClassName} items-center justify-center border ${border} ${paddingClassName} -mr-px`}
       >
         <p className={`font-mono text-[10px] uppercase tracking-[0.08em] ${text}`}>
           {label}
