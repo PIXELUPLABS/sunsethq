@@ -38,7 +38,7 @@ export const PRICING_TIERS = [
   { value: "$1M+", people: "100+ People", segments: 11, tone: "blue" as const },
 ];
 
-export const HOW_IT_WORKS_STEP_INTERVAL_MS = 5000;
+export const HOW_IT_WORKS_STEP_INTERVAL_MS = 7000;
 
 /**
  * How long one revenue-stream tile takes to settle back into its slot.
