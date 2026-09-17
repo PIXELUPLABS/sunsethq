@@ -96,8 +96,8 @@ export function ReplayWordmark({ className }: { className?: string }) {
             0 0 ${REPLAY_WORDMARK_GLOW_BLUR_PX}px ${REPLAY_WORDMARK_GLOW_RGBA}
           );
           transition:
-            opacity 600ms cubic-bezier(0.23, 1, 0.32, 1) 120ms,
-            filter 600ms cubic-bezier(0.23, 1, 0.32, 1) 120ms;
+            opacity 900ms cubic-bezier(0.23, 1, 0.32, 1),
+            filter 900ms cubic-bezier(0.23, 1, 0.32, 1);
         }
         @media (prefers-reduced-motion: reduce) {
           .shimmer-path {
