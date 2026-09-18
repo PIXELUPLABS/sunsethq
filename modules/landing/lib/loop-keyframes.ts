@@ -1,12 +1,3 @@
-// Generates standalone @keyframes rules for a looping illustration, where each
-// element must hold at its "before" state, animate during its own beat window,
-// then hold at its "after" state for the rest of the cycle. A shared
-// delay+duration+iteration-count:infinite approach doesn't work here: with
-// `infinite`, the browser repeats the short beat duration itself (not the
-// full cycle), so the element blinks every `durationMs` instead of once per
-// loop. Baking the delay as a leading hold inside a full-cycle keyframe (this
-// file) is what actually reproduces a single reveal per loop.
-
 export type Beat = { delayMs: number; durationMs: number };
 
 function pct(ms: number, cycleMs: number) {

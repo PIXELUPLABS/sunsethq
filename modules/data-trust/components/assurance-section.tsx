@@ -10,14 +10,6 @@ import { AssuranceRow } from "./assurance-row";
 export function AssuranceSection() {
   return (
     <section className="relative flex justify-center overflow-hidden bg-[#eaebf1] px-3 sm:px-18">
-      {/* Same bg colour + texture as the "Find out what your data is
-          worth..." card in cta-section.tsx, tiled at that same card's own
-          860x378 box scale (860/4320 of the asset's native 4320x2439, i.e.
-          860x486) rather than the full native size - the native size is so
-          much bigger than this section that a single tile would barely
-          repeat at all, reading as one huge stretched image instead of a
-          small tile. Repeats by default since no `background-repeat`
-          override is set. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 mix-blend-multiply"
@@ -28,7 +20,6 @@ export function AssuranceSection() {
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#a8a8a8]">
-        {/* the grain band and rule the design opens the section with */}
         <div
           aria-hidden
           className="pointer-events-none h-[46px] opacity-48 mix-blend-multiply sm:mx-10"
@@ -39,8 +30,6 @@ export function AssuranceSection() {
         />
         <div className="border-t border-dashed border-[#a8a8a8]" />
 
-        {/* The inner rules only frame the heading - below it the rows draw
-            their own borders on the same lines. */}
         <div className="border-dashed border-[#a8a8a8] sm:mx-10 sm:border-x">
           <div className="px-3 pt-16 pb-10 sm:pt-[107px] sm:pb-[94px]">
             <div className="mx-auto flex max-w-[511px] flex-col items-center gap-3 text-center">

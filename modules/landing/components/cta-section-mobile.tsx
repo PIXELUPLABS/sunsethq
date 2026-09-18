@@ -9,17 +9,6 @@ import {
   CTA_GRAIN_WHITE,
 } from "../lib/cta-assets";
 
-/**
- * Portrait recomposition of the desktop CTA (see `CtaSection`) for the
- * `aspect-[390/572]` mobile box - a real, tappable version of the same
- * heading/button/footer, built from Figma node 6300:21121 (the mobile CTA
- * frame) rather than scaled off the desktop's fixed 860x378 card. Every
- * Figma px value converts to `cqw` as `px/390*100` against that same
- * 390px-wide reference (set as the container on the root below) so it
- * tracks the section's actual rendered width 1:1; everything positional
- * (image placement, the card, its footer row) uses plain percentages
- * against its own positioned ancestor, matching the frame's own layout.
- */
 type CtaSectionMobileProps = {
   headline: string;
   buttonLabel: string;
@@ -53,10 +42,6 @@ export function CtaSectionMobile({
         </div>
       </div>
 
-      {/* The 4 corners below are direct pixel crops of the reference mobile
-          design (see cta-assets.ts) placed at the exact boxes Figma node
-          6300:21121 uses for them - all 4 are a fixed 195x234 (50% x
-          40.9091% of the 390x572 frame), only the top/left offsets differ. */}
       <div className="pointer-events-none absolute top-[14.2045%] left-0 h-[40.9091%] w-[50%]">
         <Image src={CTA_MOBILE_TOP_LEFT} alt="" fill className="pointer-events-none object-cover" />
       </div>

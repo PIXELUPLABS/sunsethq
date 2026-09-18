@@ -1,12 +1,6 @@
 import { NAV_STRIP_SEGMENTS } from "../lib/constants";
 import { HERO_BAR_NOISE } from "../lib/hero-assets";
 
-/**
- * The colour bar pinned to the bottom of the open mobile menu. The design
- * draws it at the site's full 1440px width and lets the phone crop it, so the
- * segments keep their pixel widths here rather than becoming percentages -
- * that's what makes a 390px screen show blue, green and the start of grey.
- */
 export function NavColorStrip() {
   return (
     <div className="flex h-2 w-full shrink-0 overflow-hidden border-b border-[#b8b8b8]">

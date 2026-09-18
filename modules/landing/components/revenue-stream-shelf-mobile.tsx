@@ -7,13 +7,6 @@ import {
   REVENUE_STREAM_MOBILE_WALL_RIGHT,
 } from "../lib/revenue-stream-assets";
 
-/**
- * Portrait version of the shelf for mobile. The desktop composition is laid
- * out for a 1296x674 landscape box with a two-column card; the mobile design
- * is a 366x460 box with the rows stacked into one column, so the geometry is
- * re-derived rather than scaled. Every length is in cqw against a 366px-wide
- * container, matching the design's own coordinates 1:1 at 390px.
- */
 export function RevenueStreamShelfMobile() {
   return (
     <div className="mx-auto w-full">
@@ -24,7 +17,6 @@ export function RevenueStreamShelfMobile() {
         className="relative aspect-[366/416] w-full"
         style={{ containerType: "inline-size" }}
       >
-        {/* room: top cap, two side walls, bottom cap */}
         <Image
           src={REVENUE_STREAM_MOBILE_BAND}
           alt=""
@@ -59,8 +51,6 @@ export function RevenueStreamShelfMobile() {
           style={{ top: "-20px", height: "calc(103.2787cqw + 20px)" }}
         />
 
-        {/* dashed lines connecting each corner of the outer room border to
-            the matching corner of the inner tiles card */}
         <div
           aria-hidden
           className="pointer-events-none absolute h-0 w-[13.9959cqw] border-t border-dashed border-[#a8a8a8]"
@@ -82,7 +72,6 @@ export function RevenueStreamShelfMobile() {
           style={{ top: "103.2787cqw", left: "97.2677cqw", transformOrigin: "0 0", transform: "rotate(-141.3402deg)" }}
         />
 
-        {/* blue floor, bleeding past the room like it does on desktop */}
         <Image
           src={REVENUE_STREAM_FLOOR_BAND}
           alt=""
@@ -91,7 +80,6 @@ export function RevenueStreamShelfMobile() {
           className="absolute top-[97.5355cqw] left-1/2 z-10 h-[16cqw] w-auto max-w-none -translate-x-1/2 scale-x-90"
         />
 
-        {/* the stacked data rows */}
         <div className="absolute top-[8.7432cqw] left-[13.6612cqw] h-[85.7923cqw] w-[72.6776cqw] bg-white">
           <Image
             src="/images/texture-grain-white.png"

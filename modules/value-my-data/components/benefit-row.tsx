@@ -1,11 +1,6 @@
 import Image from "next/image";
 import type { Benefit, BenefitIcon } from "../types";
 
-/** Real icon set supplied for this page (public/images/value/), one per
- * benefit - referenced by file path via next/image rather than inlined as
- * components in components/ui/icons.tsx, matching how values-section.tsx
- * (careers module) handles its own per-item SVG set: these are page-scoped
- * glyphs, not generic shared UI. */
 const ICON_SRC: Record<BenefitIcon, string> = {
   search: "/images/value/icon-1.svg",
   briefcase: "/images/value/icon-2.svg",

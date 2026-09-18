@@ -24,15 +24,6 @@ function remap(value: number, start: number, end: number) {
 }
 
 export function HeroSection() {
-  // The wrapper is 4.75x viewport-tall (desktop only) so the section can sit
-  // `sticky` inside it for back-to-back scroll-driven beats - the side
-  // collages converging, then card-2, then card-3 next to card-2, then
-  // card-4 next to card-3, then the funnel pattern fading in behind the
-  // converged stack and all three cards - plus a trailing hold (the last
-  // 1/15th of the extra scroll) where everything just sits fully revealed
-  // for a beat before the page releases to the next section. The
-  // connector-line pattern runs alongside cards 2-4, spanning their whole
-  // combined beat rather than getting a beat of its own.
   const { ref: pinRef, progress: masterProgress } = useScrollProgress<HTMLDivElement>({
     startAt: 0,
     endAt: -3.75,
@@ -43,9 +34,6 @@ export function HeroSection() {
   const card4Progress = remap(masterProgress, 8 / 15, 10 / 15);
   const patternProgress = remap(masterProgress, 10 / 15, 12 / 15);
   const linePatternProgress = remap(masterProgress, 4 / 15, 10 / 15);
-  // The heading/button should be gone almost as soon as scrolling starts,
-  // not fade gradually across the whole convergence beat - so it races to 1
-  // over just the first slice of that scroll range.
   const textFadeProgress = Math.min(1, convergeProgress / 0.15);
 
   return (
@@ -61,21 +49,7 @@ export function HeroSection() {
           className="pointer-events-none object-cover"
         />
 
-        {/* --hero-lift also vertically centers the combined stack + cards +
-            patterns group in the row at 1800px+: HERO_PATTERN_BOX (the
-            group's own bounding box) sits at top=136, height=518, so its
-            center is 395px down from the row's top - `50vh - 395px` would
-            put that same center at the row's own vertical middle; the extra
-            -15px nudges it a little higher than dead-center.
-            --hero-stack-extra-lift is added on top of that, but only inside
-            the converging collage stack (see HeroSidePatternLeft/Right) -
-            not cards 2-4 or the funnel/line patterns - shifting just the
-            stack images further up still. */}
         <div className="relative flex items-stretch min-[1350px]:flex-1 min-[1800px]:[--hero-lift:calc(50vh_-_410px)] min-[1800px]:[--hero-stack-extra-lift:-30px]">
-          {/* Funnel pattern behind the converged stack and cards 2-4 - sized
-              to their combined bounding box, fades/scales in only once
-              card-4 has fully arrived. z-0 keeps it under the z-10 stack
-              columns and the z-18/19/20 cards below. */}
           <div
             className="pointer-events-none absolute z-0 hidden min-[1350px]:block"
             style={{
@@ -90,11 +64,6 @@ export function HeroSection() {
             <Image src={HERO_PATTERN} alt="" fill className="object-cover" />
           </div>
 
-          {/* Connector-line pattern aligned with the converged stack, fading
-              in and wiping left-to-right (via clip-path) across the same
-              scroll span as cards 2-4 (starts with card-2, finishes with
-              card-4). z-30 puts it above everything else in the hero - the
-              stack (z-10) and cards 2-4 (z-18/19/20) included. */}
           <div
             className="pointer-events-none absolute z-30 hidden min-[1350px]:block"
             style={{
@@ -114,7 +83,6 @@ export function HeroSection() {
             <HeroSidePatternLeft progress={convergeProgress} />
           </div>
 
-        {/* pt on mobile clears the 64px fixed header plus the design's own 44px. */}
         <div className="flex w-full flex-col items-center gap-7 border-dashed border-black/8 px-6 pt-[108px] pb-6 min-[1350px]:w-[898px] min-[1350px]:shrink-0 min-[1350px]:justify-center min-[1350px]:gap-10 min-[1350px]:px-0 min-[1350px]:pt-[220px] min-[1350px]:pb-[160px]">
           <div
             className="flex flex-col items-center gap-7 min-[1350px]:gap-10 min-[1350px]:opacity-[calc(1-var(--converge))] min-[1350px]:transform-[translateY(calc(var(--converge)*-40px))]"
@@ -150,8 +118,6 @@ export function HeroSection() {
           <HeroSidePatternRight progress={convergeProgress} />
         </div>
 
-        {/* Arrives just to the bottom-right of the converged stack, once
-            that convergence beat has finished. */}
         <div
           className="pointer-events-none absolute z-18 hidden min-[1350px]:block"
           style={{
@@ -167,8 +133,6 @@ export function HeroSection() {
           <Image src={HERO_CARD_2} alt="" fill className="relative object-contain" />
         </div>
 
-        {/* Peeks out from the bottom-right of card-2, arriving in its own
-            beat only once card-2 has finished. */}
         <div
           className="pointer-events-none absolute z-19 hidden min-[1350px]:block"
           style={{
@@ -183,8 +147,6 @@ export function HeroSection() {
           <Image src={HERO_CARD_3} alt="" fill className="object-contain" />
         </div>
 
-        {/* Peeks out from the bottom-right of card-3, arriving in its own
-            beat only once card-3 has finished. */}
         <div
           className="pointer-events-none absolute z-20 hidden min-[1350px]:block"
           style={{

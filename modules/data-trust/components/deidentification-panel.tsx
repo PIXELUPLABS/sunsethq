@@ -25,15 +25,8 @@ import {
   STANDARD_BODY,
 } from "../lib/constants";
 
-/** Top-to-bottom, the design's panel gradient runs bright blue into navy. */
 const PANEL_GRADIENT = "linear-gradient(180deg, #147dba 25.84%, #133264 98.35%)";
 
-/** Fills left-to-right over `DEIDENTIFICATION_STEP_INTERVAL_MS` while its
- *  row is active, then calls `onComplete` to advance to the next step -
- *  identical to `StepProgressBar` on the home page's "How it works"
- *  section: same loader asset, same clip-path reveal, same full-row
- *  width, just positioned at this row's own bottom edge instead of
- *  in-flow under an open accordion panel. */
 function DeidentificationProgressStrip({
   active,
   onComplete,
@@ -85,7 +78,6 @@ function DeidentificationProgressStrip({
   );
 }
 
-/** No #de-identification anchor here - that one belongs to the home page. */
 export function DeidentificationPanel() {
   const { activeIndex, setActiveIndex, advance } = useStepCycle(DEIDENTIFICATION_STEPS.length);
   const { ref, inView } = useInView<HTMLElement>({ threshold: 0.3 });
@@ -103,13 +95,7 @@ export function DeidentificationPanel() {
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-black/8">
-        {/* Figma's mobile frame (node 6672:23319) opens straight into the
-            bordered black box below with a plain 24px top/bottom margin -
-            no grain band/rule divider - so that divider is desktop-only
-            here, and the panel box below picks up the 24px margin plus its
-            own `border-[#272727]` box outline for mobile instead. */}
         <div className="hidden pt-10 sm:pt-[65px] lg:block">
-          {/* the grain band and rule the design opens the section with */}
           <div
             aria-hidden
             className="pointer-events-none h-[46px] opacity-48 mix-blend-multiply sm:mx-10"
@@ -134,23 +120,6 @@ export function DeidentificationPanel() {
             }}
           />
 
-          {/* Left column: a 40px sliver of the panel's own gradient down
-              the left edge, then a solid black box for the rest of the
-              column - 495px at the design's own reference width, but
-              `lg:w-[35%]` (not a flat 495px) so this black box actually
-              shrinks with the panel between 1024-1440px instead of staying
-              rigidly full-width and forcing the right column's fixed-size
-              image to overflow/clip. `lg:min-w-[320px]` keeps the copy from
-              getting uncomfortably narrow at the low end.
-              `lg:justify-between` (not a fixed `gap-[225px]`) pins the step
-              index to the bottom of this fixed 600px-tall column while the
-              copy stays pinned to the top - a fixed gap was tuned against
-              the copy's rendered height at one width only, so narrowing
-              this column at 1024-1250px wrapped the copy onto extra lines
-              and pushed the step list past the column's bottom edge,
-              clipping tab 3 under `overflow-hidden`. `justify-between`
-              adapts to however tall the copy actually renders at any
-              width, so the list never overflows. */}
           <div className="relative flex flex-col bg-black pt-3 pb-3 lg:ml-10 lg:h-full lg:w-[35%] lg:min-w-[320px] lg:shrink-0 lg:justify-between lg:px-10 lg:py-10">
             <div className="flex flex-col gap-[18px] px-3 lg:gap-6 lg:px-0">
               <div className="flex flex-col gap-3.5 lg:gap-3">
@@ -170,11 +139,6 @@ export function DeidentificationPanel() {
               </p>
             </div>
 
-            {/* Desktop-only vertical step list (Figma's own left-column
-                layout for the wide `lg:` panel) - mobile swaps in the
-                horizontal 3-up tab strip below instead, matching this
-                page's mobile Figma frame (node 6672:23336) exactly rather
-                than squeezing this tall list into a narrow phone width. */}
             <ol className="hidden lg:flex lg:flex-col lg:gap-3">
               {DEIDENTIFICATION_STEPS.map((step, index) => {
                 const active = index === activeIndex;
@@ -207,15 +171,6 @@ export function DeidentificationPanel() {
               })}
             </ol>
 
-            {/* Mobile-only horizontal tab strip (Figma node 6672:23336): 3
-                equal columns, each a `[0N]` index over an uppercase label,
-                separated by `border-[#272727]` rules, with the active
-                column lifted to `#080808` and a white underline beneath its
-                label (Figma's own static export only draws this under tab
-                1, but it's clearly the active-tab indicator, so it tracks
-                `activeIndex` here) plus the same color progress-fill strip
-                the desktop list uses, narrowed to one column's width and
-                slid under whichever tab is active. */}
             <div className="pt-6 lg:hidden">
               <div className="relative h-[60px] overflow-hidden border-y border-[#272727]">
                 <div className="grid h-full grid-cols-3">
@@ -257,14 +212,6 @@ export function DeidentificationPanel() {
                     className="h-full w-1/3 transition-transform duration-500 ease-out"
                     style={{ transform: `translateX(${activeIndex * 100}%)` }}
                   >
-                    {/* `onComplete` is a no-op here, not `advance`: the
-                        desktop `<ol>` above is only `hidden` via CSS, not
-                        unmounted, so its own progress strip for this same
-                        active index is already running and already calls
-                        `advance()` on completion. Wiring this one to
-                        `advance` too fired it twice per cycle, jumping the
-                        index by 2 instead of 1 (the reported 1→3→2 order) -
-                        this strip only needs to mirror the fill visually. */}
                     <DeidentificationProgressStrip
                       key={`mobile-${activeIndex}`}
                       active={inView}
@@ -276,23 +223,11 @@ export function DeidentificationPanel() {
             </div>
           </div>
 
-          {/* Right column. The dashed line inset 40px (`right-10`) from
-              its own right edge - matching this section's own dashed line
-              color (`#a8a8a8`, full opacity) rather than sitting flush at
-              the true edge like a plain divider. Only shown at
-              `min-[1440px]:` - below that the right column has already
-              shrunk enough (per the fluid `lg:max-w-[696px]` content sizing
-              above) that this line sat awkwardly close to/over the image
-              and copy instead of reading as a clean margin rule. */}
           <div className="relative min-h-[400px] overflow-hidden lg:h-full lg:min-h-0 lg:flex-1">
             <div
               aria-hidden
               className="pointer-events-none absolute inset-y-0 right-10 hidden border-r border-dashed border-[#a8a8a8] min-[1440px]:block"
             />
-            {/* Tab 1 ([01] De-Identification): headline + body side by
-                side, then the card area below - matching Figma node
-                6672:20338 exactly, rather than the single full-bleed image
-                tab 3 still uses below. */}
             <div
               className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
                 activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
@@ -309,25 +244,6 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              {/* The card area: the illustration, exported from Figma node
-                  6672:20349 (the glass card, woven-texture surround, email
-                  copy, and redaction bars are all one live composition in
-                  Figma, not an exportable image) as a flattened screenshot
-                  at 2x for retina sharpness. Caps out at its real 696x372
-                  native export size (`lg:max-w-[696px]`, matching tabs 2
-                  and 3 exactly) but stays fluid below that (`w-full`) so it
-                  shrinks with the right column between 1024-1440px instead
-                  of clipping past it.
-                  `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
-                  image within this wrapper instead of top-margining it
-                  down by a per-tab fixed amount (the old approach): since
-                  this wrapper is `flex-1` inside a `pb-0` row, its own
-                  bottom always lands exactly on the panel's bottom edge
-                  regardless of how tall this tab's own header row is, so
-                  bottom-aligning the image here both touches the panel's
-                  bottom edge (no leftover gap below it) *and* keeps the
-                  image at the same height across tabs 1-3 automatically -
-                  no more per-tab offset math needed. */}
               <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION}
@@ -339,9 +255,6 @@ export function DeidentificationPanel() {
               </div>
             </div>
 
-            {/* Tab 2 ([02] Detection): same headline + body + card-area
-                pattern as tab 1 above, matching Figma node 6672:22994
-                exactly. */}
             <div
               className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
                 activeIndex === 1 ? "opacity-100" : "pointer-events-none opacity-0"
@@ -358,20 +271,6 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              {/* The card area: the illustration, exported from Figma node
-                  6672:23005 (the grain backdrop, glass card, coverage-type
-                  grid, and benchmark bars are all one live composition in
-                  Figma, not an exportable image) as a flattened screenshot
-                  at 3x - see `DATA_TRUST_DETECTION_ILLUSTRATION`'s own
-                  comment for why this one needed a higher scale than tab
-                  1's. Caps out at its real 696x372 native export size
-                  (`lg:max-w-[696px]`, matching tabs 1 and 3 exactly) but
-                  stays fluid (`w-full`) below that.
-                  `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
-                  image within this wrapper - see tab 1's own image for the
-                  full explanation of why that both closes the gap below
-                  it and keeps it level with tabs 1 and 3 automatically,
-                  in place of the old per-tab `mt-*` offset. */}
               <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DETECTION_ILLUSTRATION}
@@ -383,12 +282,6 @@ export function DeidentificationPanel() {
               </div>
             </div>
 
-            {/* Tab 3 ([03] The Standard): same headline + body + card-area
-                pattern as tabs 1 and 2 above, matching Figma node
-                6672:23203 exactly. Adds one thing those two don't: a
-                "Value my data" outline link under the headline, per the
-                design - routes to the real page like every other "Value
-                my data" CTA on the site. */}
             <div
               className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
                 activeIndex === 2 ? "opacity-100" : "pointer-events-none opacity-0"
@@ -413,19 +306,6 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              {/* The card area: the illustration, exported from Figma node
-                  6672:23214 (the grain backdrop, glass card, hexagon lock
-                  mark, spec table, and feature-check chips are all one
-                  live composition in Figma, not an exportable image) as a
-                  flattened screenshot at 3x - see
-                  `DATA_TRUST_STANDARD_ILLUSTRATION`'s own comment for why.
-                  Caps out at its real 696x372 native export size
-                  (`lg:max-w-[696px]`, matching tabs 1 and 2 exactly) but
-                  stays fluid (`w-full`) below that.
-                  `lg:flex lg:flex-col lg:justify-end` bottom-aligns the
-                  image within this wrapper - see tab 1's own image for the
-                  full explanation of why that both closes the gap below
-                  it and keeps it level with tabs 1 and 2 automatically. */}
               <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_STANDARD_ILLUSTRATION}

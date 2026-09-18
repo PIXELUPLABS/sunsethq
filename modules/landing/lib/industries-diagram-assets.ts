@@ -1,9 +1,5 @@
 export const INDUSTRIES_GRID_LINES = "/images/industries/grid-lines.svg";
 
-// offsetLeft/offsetTop are each card's starting position, expressed as a
-// delta from its resting spot — sized and positioned to sit exactly over
-// that card's connector bar (the #c0c0c8 panel behind it), so the card
-// appears to slide out from under the bar into place on reveal.
 export const INDUSTRY_DIAGRAM_CARDS = [
   { label: "Healthcare", icon: "/images/industries/icon-healthcare.svg", left: 255, top: 0, offsetLeft: 0, offsetTop: 13.25 },
   { label: "Media", icon: "/images/industries/icon-media.svg", left: 510.08, top: 248, offsetLeft: -13.08, offsetTop: 0.25 },

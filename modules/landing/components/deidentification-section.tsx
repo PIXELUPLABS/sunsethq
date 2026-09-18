@@ -58,11 +58,6 @@ export function DeidentificationSection() {
         </div>
 
         <div className="flex flex-col">
-          {/*
-            The panel ground is the design's flat #eaebf1 plus an 11% grain
-            multiply. It used to come from a 1.1MB SVG that bundled both, but
-            next/image refuses to serve SVG here, so the panel rendered bare.
-          */}
           <div className="relative flex flex-col overflow-hidden bg-[#eaebf1] min-[1150px]:aspect-[1236/522] min-[1150px]:flex-row min-[1150px]:items-stretch">
             <Image
               src={GRAIN_TEXTURE}
@@ -71,14 +66,6 @@ export function DeidentificationSection() {
               className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
             />
 
-            {/* The side-by-side split (and everything inside it) switches at
-                a custom `min-[1150px]:` instead of `lg:` (1024px) - below
-                1150px this column stays in its mobile/stacked layout rather
-                than being forced into the half-width split, which at the
-                low end of `lg:` left barely 200px for the 40px heading to
-                wrap in and overflowed past the panel's fixed aspect-ratio
-                height. `xl:` (1280px) still restores the original full
-                spacing once the column is wide enough to carry it. */}
             <div className="relative flex min-w-0 flex-1 items-center px-5 pt-10 pb-5 min-[1150px]:h-full min-[1150px]:w-1/2 min-[1150px]:flex-none min-[1150px]:gap-6 min-[1150px]:py-0 min-[1150px]:pr-10 min-[1150px]:pl-0 xl:gap-10 xl:pr-[108px]">
               <Image
                 src="/images/medium-grey-texture-bg.svg"
@@ -100,8 +87,6 @@ export function DeidentificationSection() {
                 <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black min-[1150px]:text-[32px] min-[1150px]:tracking-[-0.32px] xl:text-[40px] xl:tracking-[-0.4px]">
                   Your data leaves cleaner than a medical record.
                 </h3>
-                {/* The design's 294px measure inside a 326px panel, kept as a
-                    proportion so it widens with the panel. */}
                 <div className="flex max-w-[90%] flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 opacity-80 min-[1150px]:max-w-none min-[1150px]:gap-2 min-[1150px]:text-base min-[1150px]:tracking-[-0.48px] min-[1150px]:text-[#727272] min-[1150px]:opacity-100">
                   <p>
                     The federal standard for de-identifying medical records
@@ -118,10 +103,6 @@ export function DeidentificationSection() {
               </div>
             </div>
 
-            {/* The design paints this strip's grain at a fixed 384x288
-                anchored top-left, so it has to tile rather than stretch —
-                object-cover was squeezing a whole 288px-tall weave into 20px.
-                The asset is the 20px band that is actually visible. */}
             <div
               aria-hidden
               className="pointer-events-none h-5 w-full shrink-0 opacity-48 mix-blend-multiply min-[1150px]:hidden"
@@ -133,9 +114,6 @@ export function DeidentificationSection() {
               }}
             />
 
-            {/* The design's 364x292 panel as a ratio rather than a fixed
-                height, so the card inside keeps even margins as the column
-                widens instead of being cropped top and bottom. */}
             <div className="relative aspect-[364/292] w-full min-w-0 overflow-hidden min-[1150px]:aspect-auto min-[1150px]:h-full min-[1150px]:w-1/2 min-[1150px]:flex-none">
               {mediaLayerKeys.map((index, layerPosition) => {
                 const tab = DEIDENTIFICATION_TABS[index];

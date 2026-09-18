@@ -1,13 +1,6 @@
-/**
- * Geometry for the de-identification demo card. The design draws it as a fixed
- * 572x480 composition, so every length here is a px value from the file and
- * `cq` turns it into a container-query length - the whole card, text included,
- * then scales with whatever width it is given.
- */
 export const EMAIL_CARD_WIDTH = 572;
 export const EMAIL_CARD_HEIGHT = 480.118;
 
-/** The measure the copy is laid out in, inside the card. */
 export const EMAIL_BODY_WIDTH = 491.871;
 
 export function cq(value: number) {
@@ -50,11 +43,6 @@ export const EMAIL_PARAGRAPHS: EmailSegment[][] = [
   ],
 ];
 
-/**
- * The bars painted over the cleaned half of the message. Positions are against
- * the top-left of the body measure above, which is why the first one sits
- * slightly negative.
- */
 export const REDACTION_BARS = [
   { x: 92.51, y: -1.65, width: 83.035, height: 18.746 },
   { x: 92.51, y: 24.22, width: 123.367, height: 18.746 },
@@ -71,9 +59,5 @@ export const REDACTION_BARS = [
   { x: 0, y: 373.48, width: 125.739, height: 16.208 },
 ];
 
-/**
- * The glow trailing the scan line: solid at the divider, gone 71.5px later.
- * The design draws it as a white gradient masking a #499df8 block.
- */
 export const SCAN_GLOW =
   "linear-gradient(to right, #499df8 0%, rgba(73,157,248,0.2933) 54.81%, rgba(73,157,248,0) 100%)";

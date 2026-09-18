@@ -1,15 +1,8 @@
 type ProcessMarkIconProps = {
-  /** `dark` is the variant the design uses on the blue panel. */
   tone?: "light" | "dark";
   className?: string;
 };
 
-/**
- * The stacked-bars mark that sits beside a section tag. Three bars, each with
- * an offset shadow bar behind it. Inline rather than another copy of the
- * exported asset - /images/the-process-icon.svg is 2.5MB because Figma bakes
- * the grain in as a base64 pattern, and the grain is invisible at 18px.
- */
 const BARS = [
   { x: 1.42606, w: 9.60544, shadowY: 2.45605, y: 1.45605 },
   { x: 1.19324, w: 8.60547, shadowY: 15.2974, y: 14.4561 },

@@ -6,30 +6,11 @@ import { useInView } from "@/modules/landing/hooks/use-in-view";
 import { WHY_REPLAY_STATEMENTS } from "../lib/constants";
 import { WhyReplayRow } from "./why-replay-row";
 
-/**
- * Bordered-frame/heading/grid skeleton adapted from `buyers-section.tsx`,
- * whose hover cards (unchanged here) were designed for this light shell.
- *
- * The 3 cards stagger in on scroll via the same `useInView` hook
- * `valuation-section.tsx`/`stats-grid.tsx` already use - this page
- * previously had zero scroll-entrance motion despite that pattern
- * existing elsewhere in the codebase.
- *
- * Frame border: full `border` (all sides) at `#d4d4d4`, matching the main
- * page's own dashed grid lines (buyers-section.tsx, stats-section.tsx,
- * etc.) - was `#a8a8a8` (matching careers-hero.tsx/benefits-section.tsx/
- * open-roles-section.tsx's own local deviation from that), but per review
- * this page's grid frame should use the same line color as the main page
- * throughout rather than its own value.
- */
 export function WhyReplaySection() {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.2 });
 
   return (
     <section className="relative flex justify-center overflow-hidden bg-[#fcfcfc] px-3 sm:px-18">
-      {/* Same grain texture as the hero above (`careers-hero.tsx`), both on
-          the same flat `#fcfcfc` - without it the hero/section boundary
-          reads as a visible seam between textured and flat fills. */}
       <Image
         src="/images/grain-light-texture.svg"
         alt=""

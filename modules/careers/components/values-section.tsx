@@ -5,23 +5,7 @@ import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useInView } from "@/modules/landing/hooks/use-in-view";
 import { VALUES } from "../lib/constants";
 
-/**
- * Values copy (see lib/constants.ts) sourced from Figma - node 6712:63.
- * Dark palette per review feedback, matching `valuation-section.tsx`'s
- * existing dark-section precedent (`bg-[#0c0c0b]`). Grid dividers are
- * `border-dashed border-[#353535]`, not the earlier solid `border-[#444]`,
- * to match the dashed-line convention used everywhere else on this page
- * (`why-replay-section.tsx`, `benefits-section.tsx`) at the exact stroke
- * color specified in review feedback.
- *
- * The 6 cards stagger in on scroll, same `useInView` pattern as
- * `why-replay-section.tsx`.
- */
 export function ValuesSection() {
-  // Higher than why-replay-section.tsx's 0.2: at that threshold the grid
-  // started animating while barely peeking into view, so most of the
-  // stagger played out before the user had actually scrolled to it. 0.4
-  // waits until the grid is meaningfully on-screen first.
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.4 });
 
   return (
@@ -59,12 +43,6 @@ export function ValuesSection() {
             return (
               <div
                 key={value.title}
-                // No hover state: these cards are plain content, not links
-                // or buttons - a hover response would train people to
-                // expect a click to do something, and nothing does. Only
-                // `opacity`/`transform` need to transition now (the
-                // scroll-in stagger), so they're the only properties listed
-                // rather than also carrying a now-unused `background-color`.
                 className={`flex min-h-[220px] flex-col justify-between border-dashed border-[#353535] bg-[#0c0c0b] p-6 transition-[opacity,transform] duration-700 ease-snap sm:min-h-[240px] ${
                   isLastMobile ? "border-b-0" : "border-b"
                 } ${isLastRowSm ? "sm:border-b-0" : "sm:border-b"} ${
@@ -72,11 +50,6 @@ export function ValuesSection() {
                 } ${isLastRowLg ? "lg:border-b-0" : "lg:border-b"} ${
                   needsRightBorderLg ? "lg:border-r" : "lg:border-r-0"
                 } ${inView ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}
-                // 700ms + 80ms/card: this fires once per visit (`useInView`
-                // disconnects after triggering, see the hook), not a
-                // frequent interactive response, so it can afford to be
-                // slower/more deliberate than the ~150-250ms this project
-                // uses for repeatable hover/press feedback elsewhere.
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <div className="flex items-center justify-between">

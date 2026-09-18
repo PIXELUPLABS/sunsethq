@@ -1,11 +1,3 @@
-// Card-1 "document" rows: each row is a Figma auto-layout frame of fixed-width
-// bar segments (the growing outer box clips them like a typing reveal).
-// left/top are Figma-canvas-absolute (from get_metadata — the DOM's own
-// arbitrary-value classes for these nested auto-layout rows do not match
-// Figma's real geometry, so metadata is the source of truth here).
-// width/height are the row's own pre-transform flex-box size (from
-// get_design_context), and bars are each segment's pre-transform width.
-
 export type TermsRow = {
   left: number;
   top: number;

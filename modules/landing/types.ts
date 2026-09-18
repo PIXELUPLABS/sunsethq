@@ -1,7 +1,6 @@
 export type NavLink = {
   label: string;
   href: string;
-  /** A route rather than a section anchor, so it skips the `linkBase` prefix. */
   isRoute?: boolean;
 };
 

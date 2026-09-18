@@ -4,25 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { fetchAshbyTeams } from "../lib/ashby";
 import type { Team } from "../types";
 
-/** How long the panel fades out before its content swaps to the newly
- * selected team (it then fades back in over the same duration) - see
- * `selectTeam` below. */
 const TEAM_SWITCH_MS = 150;
 
 export type RolesFetchStatus = "loading" | "success" | "error";
 
-/**
- * Team-rail state: one active team at a time (its roles shown on the
- * right), and a search that filters within it. Each role itself now links
- * out to its own page (`RoleRow` → `/careers/roles/[id]`) rather than
- * expanding inline, so there's no open/expanded-role state to own here
- * any more.
- *
- * Teams themselves are fetched from Ashby's public job board API on mount
- * (see `lib/ashby.ts`) rather than imported as a static constant - `status`
- * lets the section render a subtle loading/error state around the exact
- * same layout while that request is in flight or fails.
- */
 export function useOpenRoles() {
   const [fetchedTeams, setFetchedTeams] = useState<Team[]>([]);
   const [status, setStatus] = useState<RolesFetchStatus>("loading");
@@ -49,9 +34,6 @@ export function useOpenRoles() {
     };
   }, []);
 
-  /** An "All" tab, every fetched team's roles combined, pinned first so it's
-   * the default-selected tab (`activeTeamIndex` starts at 0) - unfiltered
-   * by team, only by the search query like any other tab. */
   const teams = useMemo<Team[]>(() => {
     if (fetchedTeams.length === 0) return fetchedTeams;
     const allRoles = fetchedTeams.flatMap((team) => team.roles);
@@ -64,9 +46,6 @@ export function useOpenRoles() {
     };
   }, []);
 
-  /** Fades the panel out, swaps the active team once invisible, then lets
-   * it fade back in - an instant content swap otherwise reads as a jarring
-   * pop rather than a transition. */
   const selectTeam = useCallback(
     (index: number) => {
       if (index === activeTeamIndex) return;

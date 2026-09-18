@@ -19,11 +19,8 @@ type CtaSectionProps = {
   headline?: string;
   buttonLabel?: string;
   href?: string;
-  /** Override the section's top-band color to match whatever precedes it on the page (defaults to `bg-[#eaebf1]`, matching the section that precedes this on the home and data-trust pages). */
   topBandClassName?: string;
-  /** Override the dashed stroke color of the two vertical lines that run the full height of this section, to match the frame color the preceding section closes with (defaults to `border-[#d4d4d4]`, matching `industries-section.tsx`/`assurance-section.tsx` on the home and data-trust pages) - e.g. Careers passes `border-[#a8a8a8]` to match `open-roles-section.tsx`'s own frame color, chosen there because `#d4d4d4` read as invisible against that page's grain-textured backgrounds. */
   sideBorderClassName?: string;
-  /** Override the bottom band's image (defaults to `cta-bg-text.png`) - e.g. Careers passes the same striped asset used in `benefits-section.tsx` so the page's two dark sections share one motif. */
   bottomBandImageSrc?: string;
 };
 
@@ -69,17 +66,6 @@ export function CtaSection({
         />
       </div>
 
-      {/* Left/right continuation of the frame the section above
-          (`open-roles-section.tsx` on careers, `industries-section.tsx`/
-          `assurance-section.tsx` elsewhere) draws around its own
-          `max-w-[1560px]` column - same `px-3 sm:px-18` outer padding +
-          `mx-auto max-w-[1560px]` inner column those frames use, so these
-          two lines land exactly under that frame's own left/right edges
-          and read as one continuous line running down into this section,
-          not a second, offset pair starting fresh. Full section height
-          (not just the top band) so the line carries all the way through
-          to the CTA content below. `sideBorderClassName` matches the
-          stroke color to whichever of those frames precedes this section. */}
       <div className="pointer-events-none absolute inset-0 hidden px-3 sm:px-18 lg:block">
         <div className={`mx-auto h-full w-full max-w-[1560px] border-x border-dashed ${sideBorderClassName}`} />
       </div>
@@ -147,13 +133,6 @@ export function CtaSection({
         />
       </div>
       <div className="absolute top-1/2 left-1/2 hidden h-[378px] w-[860px] -translate-x-1/2 -translate-y-1/2 overflow-hidden bg-[#eaebf1] lg:block">
-        {/* `mix-blend-multiply`, unlike this same texture's plain
-            `object-cover` use in `careers-hero.tsx`/`why-replay-section.tsx`
-            - those sit on `#fcfcfc`, close enough to the texture's own
-            near-white fill that it reads fine unblended. This card's
-            `#eaebf1` is visibly darker, so without multiplying, the
-            texture's own near-white background painted over it washed the
-            card back out to white instead of showing the tint through. */}
         <Image
           src="/images/texture-grain-white.png"
           alt=""

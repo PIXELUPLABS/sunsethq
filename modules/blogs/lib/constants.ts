@@ -21,9 +21,6 @@ export const BLOGS_INDEX_HEADLINE = "Every note, on the record.";
 export const BLOGS_INDEX_BODY =
   "Valuation, cleaning, protection, and placement, documented for operators who want the full account.";
 
-/** The filter row (Figma node 6672:16952) - counts across all categories
- *  sum to "All"'s own count (10), matching the design, even though only
- *  the first 5 posts (`BLOG_POSTS` below) exist as real entries yet. */
 export const BLOG_CATEGORIES = [
   { label: "All", count: 10 },
   { label: "Value", count: 2 },
@@ -34,8 +31,6 @@ export const BLOG_CATEGORIES = [
   { label: "Operators", count: 1 },
 ];
 
-/** The ledger's own rows (Figma node 6672:16981), in display order.
- *  `progress` is how many of the 5 track segments render filled. */
 export const BLOG_POSTS = [
   {
     index: "001",

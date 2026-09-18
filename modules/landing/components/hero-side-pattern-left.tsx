@@ -8,16 +8,8 @@ import {
   HERO_LEFT_COLLAGE_IMAGES,
 } from "../lib/hero-assets";
 
-// Nudges just the converging collage stack (not the funnel/line patterns or
-// cards 2-4) slightly left of its default convergence point.
 const STACK_X_NUDGE = 32;
 
-// Must match the box's own `min-[1800px]:scale-y-[...]` class below - each
-// piece's translateY renders inside that scaled box, so its own Y offset
-// (including --hero-lift) gets visually multiplied by this factor too.
-// Dividing --hero-lift by it here cancels that out, so the piece's actual
-// on-screen shift matches --hero-lift exactly, same as cards 2-4 (which sit
-// outside the scaled box and get it unscaled).
 const LARGE_SCREEN_STACK_SCALE_Y = 1.35;
 
 export function HeroSidePatternLeft({ progress = 0 }: { progress?: number }) {
@@ -28,14 +20,7 @@ export function HeroSidePatternLeft({ progress = 0 }: { progress?: number }) {
           const centerX = image.x + image.w / 2;
           const centerY = image.y + image.h / 2;
           const stackY = HERO_CONVERGE_STACK_CENTER_Y + index * HERO_CONVERGE_STACK_STEP_Y;
-          // Matches HERO_CONVERGE_X_CSS (progress-scaled): a vw term plus a
-          // fixed px offset, so the convergence anchor stays centered in the
-          // section at any viewport width rather than drifting off-center.
           const translateX = `calc(${(progress * HERO_CONVERGE_X_VW).toFixed(3)}vw - ${(progress * (HERO_CONVERGE_X_PX_OFFSET + STACK_X_NUDGE + centerX + 37)).toFixed(2)}px)`;
-          // The 1800px+ vertical-centering lift (see HeroSection) is scaled
-          // by progress too, so it's fully off at rest (matching this
-          // piece's untouched starting position) and fully applied only
-          // once converged (matching cards 2-4, which get the full lift).
           const translateY = `calc(${(progress * (stackY - centerY)).toFixed(2)}px + ${(progress / LARGE_SCREEN_STACK_SCALE_Y).toFixed(4)} * (var(--hero-lift, 0px) + var(--hero-stack-extra-lift, 0px)))`;
           const scale = (1 - progress * 0.08).toFixed(3);
 

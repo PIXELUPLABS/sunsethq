@@ -7,31 +7,10 @@ import {
 } from "../lib/assets";
 
 type AssuranceMediaProps = {
-  /** Artwork isn't in the design yet; without it this renders the empty plate. */
   src?: string;
   alt?: string;
 };
 
-/**
- * The plate beside each row, unchanged at its exact 703x490 design size
- * from `min-[1440px]:` up (fixed `w-[703px] h-[490px]`, matching the
- * original design pixel-for-pixel). Only between 1024-1439px does it go
- * fluid (`lg:max-[1439px]:w-[45%]`, `aspect-[703/490]` instead of a fixed
- * height) so it shrinks with the row instead of staying rigidly 703px wide
- * and squeezing the text column next to it - the box's height shrinks in
- * lockstep with its width in that range, so the full image stays visible
- * via `object-cover` rather than a fixed-height box cropping more of it off
- * as the width narrows. With real artwork, it's just that image - the flat
- * ground, soft-light weave, and grain band below are the
- * empty-placeholder's own look, not something layered on top of real art.
- * `lg:max-[1439px]:self-start`: the row now uses `items-stretch` (see
- * `AssuranceRow`) so the text column can grow to match this plate's height
- * in that same 1024-1439px range - without `self-start` here, that same
- * stretch would also apply to this plate, forcing its height to whatever
- * the row (now driven by the taller side) computes to and breaking its
- * `aspect-[703/490]`. Not needed at `min-[1440px]:`, where the plate's own
- * explicit height already overrides stretch on its own.
- */
 export function AssuranceMedia({ src, alt = "" }: AssuranceMediaProps) {
   if (src) {
     return (
@@ -59,7 +38,6 @@ export function AssuranceMedia({ src, alt = "" }: AssuranceMediaProps) {
           backgroundSize: DATA_TRUST_GRAIN_STRIP_SIZE,
         }}
       />
-      {/* the denser band the design lays across the bottom edge */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 bottom-0 h-6 opacity-48 mix-blend-multiply"

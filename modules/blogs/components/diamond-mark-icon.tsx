@@ -2,14 +2,6 @@ type DiamondMarkIconProps = {
   className?: string;
 };
 
-/**
- * The interlocking-diamonds mark beside the hero's "Legal" tag - two
- * 9.362px squares rotated 45° (so each reads as a diamond), overlapping by
- * about half a diamond's width. Inline rather than an exported asset,
- * matching `ProcessMarkIcon`'s own reasoning: at this ~20px size any baked-in
- * grain texture (as Figma exports it) is invisible, so a flat two-tone fill
- * reproduces the design without the file weight.
- */
 export function DiamondMarkIcon({ className }: DiamondMarkIconProps) {
   return (
     <svg

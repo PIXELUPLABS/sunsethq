@@ -24,8 +24,6 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
         aria-controls="mobile-nav-panel"
         className="flex size-9 items-center justify-center px-1.5 py-px"
       >
-        {/* Both icons stay mounted and crossfade, so the button reads as one
-            control changing state rather than two icons. */}
         <span className="relative block size-5">
           <Image
             src={MENU_ICON}
@@ -48,11 +46,6 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
         </span>
       </button>
 
-      {/* The panel fills the viewport below the 64px header bar: links at the
-          top, the CTA pushed to the bottom, the colour bar under both.
-          It stays mounted so it can fade, and rides on visibility rather than
-          `hidden` - visibility is transitionable, and still keeps the closed
-          panel out of the tab order and off the a11y tree. */}
       <div
         id="mobile-nav-panel"
         className={`fixed inset-x-0 top-16 bottom-0 z-10 flex flex-col overflow-hidden border-t border-dashed border-black/8 bg-[#fcfcfc] transition-[opacity,visibility] motion-reduce:transition-none ${
@@ -61,10 +54,6 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
             : "invisible opacity-0 duration-200 ease-in"
         }`}
       >
-        {/* The design's grain is a 259px tile, not a stretched sheet, so it
-            keeps its own scale however tall the panel gets. The tile's own
-            alpha already carries the design's 11% - dialling the layer down as
-            well would double it away to nothing. */}
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 mix-blend-multiply"
@@ -75,17 +64,11 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
           }}
         />
 
-        {/* overscroll-contain keeps a flick at the end of the panel from
-            handing the scroll back to the page underneath. The content settles
-            down into place while the panel fades, leaving the ground and the
-            colour bar still. */}
         <div
           className={`relative flex min-h-0 flex-1 flex-col justify-between gap-10 overflow-y-auto overscroll-contain p-6 transition-transform duration-300 ease-out motion-reduce:transition-none ${
             isOpen ? "translate-y-0" : "-translate-y-2"
           }`}
         >
-          {/* A dashed rule sits between links, taking the 20px gap on either
-              side of it the way the design's zero-height divider does. */}
           <nav aria-label="Main" className="flex flex-col gap-5">
             {NAV_LINKS.map((link, index) => (
               <Fragment key={link.label}>

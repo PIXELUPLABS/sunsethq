@@ -16,8 +16,6 @@ type AssuranceRowProps = {
   total: number;
 };
 
-/** "Counsel" keeps the original jurisdiction icon; the other three rows
- *  each get their own eyebrow icon. */
 const TAG_ICONS: Record<string, string> = {
   Structure: DATA_TRUST_STRUCTURE_ICON,
   Liability: DATA_TRUST_LIABILITY_ICON,
@@ -34,10 +32,6 @@ const BODY_SIZE = {
   base: "lg:text-base lg:tracking-[-0.48px]",
 } as const;
 
-/**
- * One claim: a tag, a heading, the copy, and a plate. The design alternates
- * which side the plate sits on; on mobile every row reads copy-then-plate.
- */
 export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
   const mediaFirst = index % 2 === 1;
 
@@ -47,14 +41,6 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
         mediaFirst ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}
     >
-      {/* `min-[1440px]:h-[490px]` only (no height between 1024-1439px) - in
-          that bounded range the plate's own height shrinks with the row
-          (see `AssuranceMedia`), so this column is left at `h-auto` and
-          `lg:items-stretch` above grows it to match the plate's now-shorter
-          height instead of staying rigidly 490px and leaving the plate
-          looking short/misaligned next to it. At `min-[1440px]:` the plate
-          is back to a fixed 490px itself, so this reproduces the exact
-          original fixed-height pairing there, unchanged. */}
       <div className="flex min-w-0 flex-1 flex-col min-[1440px]:h-[490px]">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-2.5 lg:gap-3">
@@ -72,15 +58,6 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
           <AssuranceProgress activeIndex={index} total={total} />
         </div>
 
-        {/* On desktop, the heading is pushed down to sit a fixed 20px
-            (`lg:mt-5`) above the body paragraph, rather than sitting right
-            below the jurisdiction row - `lg:mt-auto` on the heading eats
-            all the column's leftover height, so the heading+body pair
-            together land flush against the column's bottom edge. The
-            mobile gap here is unchanged from before (`mt-6`, matching this
-            column's old mobile `gap-6`), and the body paragraph keeps its
-            own old mobile gap to the heading (`mt-4`, matching the old
-            `gap-4`). */}
         <h3
           className={`mt-6 font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-auto lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
         >

@@ -8,7 +8,6 @@ type AssuranceProgressProps = {
   total: number;
 };
 
-/** Which of the rows you are on, as a row of ticks with the current one long. */
 export function AssuranceProgress({
   activeIndex,
   total,

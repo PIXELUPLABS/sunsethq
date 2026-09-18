@@ -12,11 +12,6 @@ export const TEAM_COLLAGE_TITLE = "The people behind the work.";
 export const TEAM_COLLAGE_BODY =
   "We're a small team building ambitious things together — with plenty happening beyond the screen too.";
 
-/**
- * The 3x/60+ categories figures and "isolated tenancy" language are
- * already-published product claims (see the de-identification section on
- * the homepage) - not invented for this page.
- */
 export const WHY_REPLAY_STATEMENTS: WhyReplayStatement[] = [
   {
     title: "The bar is real.",
@@ -68,5 +63,4 @@ export const VALUES: Value[] = [
 export const DONT_SEE_A_FIT_BODY =
   "We're always interested in people who think they should be working on Replay. Tell us why.";
 
-/** Confirm the real inbox/domain before shipping. */
 export const CAREERS_EMAIL = "careers@replay.xyz";

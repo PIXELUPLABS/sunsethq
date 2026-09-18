@@ -1,8 +1,3 @@
-// Timing extracted from Figma (node 6131:57, "htw-1") via get_motion_context.
-// All values are milliseconds into the 4.2s build-up timeline; each entry maps
-// 1:1 to one animated Figma layer so the choreography can be audited against
-// the source file instead of being buried as magic numbers in JSX.
-
 export const VALUE_ILLUSTRATION_DURATION_MS = 4200;
 
 type Beat = { delayMs: number; durationMs: number };

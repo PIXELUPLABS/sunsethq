@@ -13,70 +13,19 @@ export const HERO_CARD_4 = "/images/hero/card-4.webp";
 
 export const HERO_PATTERN = "/images/hero/hero-pattern.webp";
 
-/**
- * The static home hero's illustration - a spreadsheet of operating records
- * in perspective. Exported unclipped at its full 1690.971px-wide Figma box
- * (5073x940 at 3x), so it bleeds past both edges of the 1440px frame rather
- * than being cropped to it - see the `left`/`w` bleed classes on its
- * `<Image>` in `home-hero.tsx`.
- */
 export const HERO_HOME_ILLUSTRATION = "/images/hero/home-hero-illustration-2.webp";
 
-/**
- * Portrait counterpart to `HERO_HOME_ILLUSTRATION`, swapped in below `lg`
- * (Figma node 6672:23318, file AYzBKhVneW9mct6tUchEo7's mobile hero frame) -
- * its own crop/fade of the same illustration, not the landscape desktop
- * asset scaled down, matching how the data-trust hero this page's hero
- * shell was adapted from always carried a dedicated mobile plane
- * (`DATA_TRUST_HERO_PLANE_MOBILE`) rather than reflowing its desktop one.
- * Unclipped (528px wide against the 390px mobile frame, like
- * `HERO_HOME_ILLUSTRATION`'s own unclipped desktop export), so it bleeds
- * past both edges - see the `left`/`w` bleed classes on its `<Image>` in
- * `home-hero.tsx`.
- */
 export const HERO_HOME_ILLUSTRATION_MOBILE = "/images/hero/home-hero-illustration-mobile.png";
 
-/**
- * Shared by HeroSidePatternLeft/Right and HeroSection: the point (in the
- * side patterns' own local box coordinates, box top offset by
- * HERO_PATTERN_TOP_OFFSET within the row) that every collage piece
- * converges on while scrolling through the hero, and where later
- * scroll-triggered elements (e.g. HERO_CARD_2) anchor themselves relative
- * to that same stack.
- */
-export const HERO_PATTERN_TOP_OFFSET = 48; // px - matches the `top-12` on both boxes
-// HERO_PATTERN_BOX (the combined stack + cards 2-4 bounding box) sits at
-// `HERO_CONVERGE_X_CSS - 200px`, 956px wide - so its own center is
-// HERO_CONVERGE_X_CSS + 278px. HERO_CONVERGE_X_VW/PX_OFFSET below are picked
-// so that resolves to exactly 50vw, keeping the whole group centered in the
-// section at any viewport width instead of anchored to a flat vw fraction
-// from the left edge (which only looked centered in a narrow width range).
+export const HERO_PATTERN_TOP_OFFSET = 48;
 export const HERO_CONVERGE_X_VW = 50;
 export const HERO_CONVERGE_X_PX_OFFSET = 278;
 export const HERO_CONVERGE_STACK_CENTER_Y = 170;
 export const HERO_CONVERGE_STACK_STEP_Y = 10;
 
-/**
- * The point (in row-relative coordinates) every collage piece converges on,
- * as a CSS length: half the viewport width minus the funnel pattern's own
- * half-width offset, so the combined stack + cards 2-4 + funnel pattern
- * (everything anchored off this one point) center on the section at any
- * viewport width - no viewport-width cap needed, unlike a flat vw fraction.
- */
 export const HERO_CONVERGE_X_CSS = `calc(${HERO_CONVERGE_X_VW}vw - ${HERO_CONVERGE_X_PX_OFFSET}px)`;
 
-/**
- * Bounding box the converged collage stack plus cards 2-4 occupy once
- * card-4 has fully arrived, in the same row-relative coordinate space as
- * HERO_CONVERGE_X_VW/HERO_PATTERN_TOP_OFFSET (derived from that same
- * geometry - the stack's pieces all converge on one point, and the cards
- * cascade from it by fixed offsets). HERO_PATTERN sits behind all of them,
- * sized to exactly this box.
- */
 export const HERO_PATTERN_BOX = {
-  // Widened symmetrically (+30px each side) from the original 956px so the
-  // box - and HERO_CONVERGE_X_PX_OFFSET, tuned against its old half-width -
-  // stays centered on the same anchor point.
   left: `calc(${HERO_CONVERGE_X_CSS} - 230px)`,
   top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 82,
   width: 1016,
@@ -85,13 +34,6 @@ export const HERO_PATTERN_BOX = {
 
 export const HERO_LINE_PATTERN = "/images/hero/hero-line-pattern.png";
 
-/**
- * Bounding box the converged collage stack alone occupies (unlike
- * HERO_PATTERN_BOX, this excludes cards 2-4), centered on the same
- * convergence anchor point the stack itself converges on. HERO_LINE_PATTERN
- * sits behind the stack, aligned to this box, so the stack renders on top
- * of it.
- */
 export const HERO_LINE_PATTERN_BOX = {
   left: `calc(${HERO_CONVERGE_X_CSS} - 258px)`,
   top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 85,
@@ -99,14 +41,6 @@ export const HERO_LINE_PATTERN_BOX = {
   height: 494,
 } as const;
 
-/**
- * Individual torn-paper pieces making up the left-side hero collage, laid
- * out inside a 270x666 box (matching HERO_SIDE_COLLAGE_LEFT's rendered
- * size). Coordinates are pixel offsets within that box, several pieces
- * bleeding past its edges by design - positions were measured against the
- * flattened HERO_SIDE_COLLAGE_LEFT composite so the two stay visually in
- * sync. Order is back-to-front (later entries paint on top).
- */
 export const HERO_LEFT_COLLAGE_IMAGES = [
   { src: "/images/hero/hero-img-1.png", x: -170, y: 30, w: 420, h: 165 },
   { src: "/images/hero/hero-img-2.png", x: 155, y: 35, w: 80, h: 23 },
@@ -117,14 +51,6 @@ export const HERO_LEFT_COLLAGE_IMAGES = [
   { src: "/images/hero/hero-img-6.png", x: -189, y: 352, w: 341, h: 280 },
 ] as const;
 
-/**
- * Same idea as HERO_LEFT_COLLAGE_IMAGES, mirrored for the right-side hero
- * collage - laid out inside a 272x666 box (matching
- * HERO_SIDE_COLLAGE_RIGHT's rendered size), measured against the flattened
- * HERO_SIDE_COLLAGE_RIGHT composite. hero-img-10 (the small code-chip) is
- * reused twice, matching the two chip accents in the reference. Order is
- * back-to-front (later entries paint on top).
- */
 export const HERO_RIGHT_COLLAGE_IMAGES = [
   { src: "/images/hero/hero-img-10.png", x: 28, y: 7, w: 95, h: 26 },
   { src: "/images/hero/hero-img-9.png", x: 0, y: 118, w: 315, h: 181 },

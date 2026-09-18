@@ -3,16 +3,6 @@ import { ArrowRightIcon } from "@/components/ui/icons";
 import { ProcessBar } from "./process-bar";
 import { HERO_PROCESS_DASH } from "../lib/hero-assets";
 
-/**
- * The process/version/classification strip along the bottom of every hero
- * variant, plus the coloured ProcessBar beneath it - shared so it stays
- * pixel-identical wherever a hero renders it.
- *
- * Mobile stacks this into a 2x2 grid (the version box used to be pushed
- * off-screen by the fixed-width desktop columns); lg restores the row.
- * lg stretches the cells so each divider runs the full height of the row -
- * centred, they'd only be as tall as their own text.
- */
 export function HeroFooterBar() {
   return (
     <div className="relative flex flex-col">

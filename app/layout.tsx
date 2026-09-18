@@ -38,8 +38,6 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
-  // The dark mark reads on a light browser UI and vice versa. app/favicon.ico
-  // stays as the fallback for browsers that don't take SVG icons.
   icons: {
     icon: [
       {
@@ -54,8 +52,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  // The og:image/twitter:image tags come from app/opengraph-image.jpg via the
-  // file convention, with its alt text from app/opengraph-image.alt.txt.
   openGraph: {
     type: "website",
     url: "/",
@@ -75,8 +71,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      // motion-safe keeps the anchor scroll animated for everyone except
-      // readers who've asked for reduced motion, who get an instant jump.
       className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${hedvigLettersSerif.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">

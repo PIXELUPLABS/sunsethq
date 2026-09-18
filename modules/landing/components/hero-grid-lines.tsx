@@ -1,9 +1,3 @@
-/**
- * The faint blueprint rules behind the static home hero: the page gutter at
- * 72px on each side (full height), plus a pair of inner rules marking the
- * 898px content column used elsewhere in the hero (partial height, matching
- * the design).
- */
 export function HeroGridLines() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 hidden lg:block">

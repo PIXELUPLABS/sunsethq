@@ -40,11 +40,6 @@ export const PRICING_TIERS = [
 
 export const HOW_IT_WORKS_STEP_INTERVAL_MS = 7000;
 
-/**
- * How long one revenue-stream tile takes to settle back into its slot.
- * The tiles are also sequenced a full transition apart, so this sets the
- * pace of the whole shelf animation: ten tiles run in 10x this.
- */
 export const REVENUE_STREAM_TILE_MS = 200;
 
 export const VALUATION_STEPS = [
@@ -146,11 +141,6 @@ export const PROCESS_BAR_COLORS = [
   "#54702f",
 ] as const;
 
-/**
- * The bar along the bottom of the open mobile menu. Widths are the design's
- * own pixel values against a 1440px canvas, kept as pixels because the menu
- * shows only the left-hand slice of the bar - see NavColorStrip.
- */
 export const NAV_STRIP_SEGMENTS = [
   { color: "#499df8", width: "237.182px" },
   { color: "#54702f", width: "93px" },

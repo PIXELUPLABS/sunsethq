@@ -4,16 +4,6 @@ import { useLayoutEffect, useRef, useState } from "react";
 import { HERO_BAR_NOISE } from "@/modules/landing/lib/hero-assets";
 import { BLOG_CATEGORIES, BLOG_POSTS, BLOGS_INDEX_BODY, BLOGS_INDEX_HEADLINE, BLOGS_INDEX_TAG } from "../lib/constants";
 
-/** The small multi-colour accent strip down the left edge of the active
- *  filter tab (Figma node 6672:16956, drawn there under "All" only since
- *  Figma's own mockup is static) - the same colored-segment + soft-light
- *  noise technique `ProcessBar` uses elsewhere on the site, just vertical
- *  and with its own one-off palette, so it's hand-built here rather than
- *  bent into that horizontal, fixed-palette component. Segment heights are
- *  Figma's own raw pixel values, kept only as relative `flex-grow` weights
- *  (their instance's absolute height doesn't carry over to this tab's own,
- *  shorter height). Now that the tabs are clickable, it tracks whichever
- *  one is active rather than staying pinned to the first. */
 const ACTIVE_TAB_ACCENT = [
   { color: "#499df8", weight: 268.357 },
   { color: "#54702f", weight: 157.346 },
@@ -25,31 +15,14 @@ const ACTIVE_TAB_ACCENT = [
 
 const PROGRESS_SEGMENTS = 5;
 
-// Matches `DeidentificationTabs`' own slide (home page, de-identification
-// tab switch) exactly - same easing, same duration - since this is that
-// same "active tab" black-bar-slide pattern, just measured in pixels
-// (`offsetLeft`/`offsetWidth`) rather than assumed as an even percentage
-// split: that component always has exactly 3 equal-width tabs, but this
-// row's 7 tabs render at their own natural content widths on narrow
-// screens (`overflow-x-auto`, no `shrink-0`), so a fixed `100 / count`%
-// wouldn't track the real tab boundaries there.
 const SLIDE_EASE_IN_OUT = "cubic-bezier(0.77, 0, 0.175, 1)";
 const SLIDE_DURATION_MS = 220;
 
-/**
- * The Blogs page's post index (Figma node 6672:16944) - a filter row over
- * a dashed-rule ledger of entries, pixel-matched at `lg:` since Figma gives
- * no mobile spec; mobile falls back to a single-column stack of the same
- * rows with this site's own established smaller type scale.
- */
 export function BlogsJournalIndex() {
   const [activeIndex, setActiveIndex] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
-  // Measures the active button's own box rather than assuming an even
-  // `100 / BLOG_CATEGORIES.length`% split - see this file's own note above
-  // `SLIDE_EASE_IN_OUT` for why that assumption doesn't hold here.
   useLayoutEffect(() => {
     const measure = () => {
       const el = tabRefs.current[activeIndex];
@@ -62,11 +35,6 @@ export function BlogsJournalIndex() {
 
   return (
     <section className="relative flex flex-col items-center overflow-hidden bg-[#eaebf1] px-3 sm:px-18 lg:px-18">
-      {/* Same grain-texture-over-`#eaebf1` treatment as the careers page's
-          "Every role, in full, right here" section (open-roles-section.tsx)
-          - a tiled background-image (not `next/image` `fill`) with
-          `mix-blend-multiply`, per that file's own comment, rather than a
-          flat fill. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
@@ -86,20 +54,6 @@ export function BlogsJournalIndex() {
         </div>
 
         <div className="flex flex-col items-start gap-5 lg:gap-5">
-          {/* Filter row - clickable, with the same black-bar slide the home
-              page's de-identification tab switch uses (`deidentification-tabs.tsx`).
-              Horizontally scrollable below `lg:`, since 7 tabs can't fit a
-              phone width without wrapping oddly - filtering `BLOG_POSTS` by
-              category isn't wired up yet (only 5 of the 10 posts Figma
-              counts exist as real entries), so this only swaps the active
-              visual state for now. */}
-          {/* `overflow-x-auto` keeps the row scrollable on narrow screens
-              (7 tabs don't fit a phone width) - `no-scrollbar` (styled-jsx
-              below, since the equivalent Tailwind arbitrary-property
-              classes silently failed to compile here) only hides the
-              scrollbar chrome itself, cross-browser, since this row's own
-              dashed/solid tab borders already communicate "more content"
-              without needing a visible scrollbar too. */}
           <div className="no-scrollbar relative flex w-full items-start overflow-x-auto">
             <div
               aria-hidden
@@ -161,7 +115,6 @@ export function BlogsJournalIndex() {
             })}
           </div>
 
-          {/* Ledger. */}
           <div className="flex w-full flex-col items-start">
             {BLOG_POSTS.map((post) => (
               <div

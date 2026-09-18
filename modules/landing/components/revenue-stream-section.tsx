@@ -25,9 +25,6 @@ export function RevenueStreamSection() {
         />
         <div className="pointer-events-none absolute inset-x-3 inset-y-0 bg-[#EAEBF1] sm:hidden" />
 
-        {/* The rules ride on the max-w-[1560px] container itself, as they do
-            in every other section. Insetting them inside the container instead
-            pushed them 72px further in once the cap started centring it. */}
         <div className="relative mx-auto w-full max-w-[1560px]">
           <div className="pointer-events-none absolute inset-0 hidden sm:block">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
@@ -35,10 +32,6 @@ export function RevenueStreamSection() {
           <div className="pointer-events-none absolute inset-x-0 top-[28px] hidden sm:block">
             <div className="border-t border-dashed border-[#d4d4d4]" />
           </div>
-          {/* The second pair sits on the illustration's room walls, which are
-              placed in cqw, so this has to be a percentage too - a fixed inset
-              only lines up at one container width. 5.8256% is the wall's outer
-              edge in RevenueStreamShelf. */}
           <div className="pointer-events-none absolute inset-x-0 top-0 hidden h-full sm:block lg:inset-x-[5.8256%]">
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>

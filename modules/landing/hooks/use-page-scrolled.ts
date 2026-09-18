@@ -2,13 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-/**
- * Whether the page has been scrolled down past `threshold` px, plus the raw
- * scroll position - the boolean drives discrete fades/swaps, the raw value
- * lets scroll-linked motion (e.g. a shift that tracks the scroll itself
- * rather than snapping in via a CSS transition) stay perfectly in sync with
- * the user's actual scroll gesture.
- */
 export function usePageScrolled(threshold = 10) {
   const [state, setState] = useState({ scrolled: false, scrollY: 0 });
 

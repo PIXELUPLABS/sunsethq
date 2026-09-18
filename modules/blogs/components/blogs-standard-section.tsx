@@ -9,19 +9,8 @@ import {
   BLOGS_STANDARD_TAG,
 } from "../lib/constants";
 
-/** Figma's own gradient (node 6672:16863) - navy at the top fading into
- *  blue, the reverse direction of the de-identification panel's
- *  `PANEL_GRADIENT` (blue-to-navy top-to-bottom). */
 const SECTION_GRADIENT = "linear-gradient(180deg, #133264 26.96%, #147dba 143.8%)";
 
-/**
- * "Featured" tease for the de-identification standard write-up, matching
- * Figma node 6672:16863 pixel-for-pixel at `lg:`. No Figma spec exists for
- * mobile, so it falls back to this site's own established mobile/desktop
- * pairings for the same type sizes used elsewhere (the de-identification
- * panel's own `h2`, this page's own hero paragraph, and the site's shared
- * "Value my data" outline-button style).
- */
 export function BlogsStandardSection() {
   return (
     <section
@@ -37,23 +26,12 @@ export function BlogsStandardSection() {
         }}
       />
 
-      {/* Same grain-texture treatment as the Journal index section below
-          (blogs-journal-index.tsx) and the careers page's open-roles
-          section it was copied from - laid over this whole section (not
-          just the area right behind the stripes) so the blue background
-          and the white one past the stripes read as one continuous
-          textured surface instead of two different fills meeting at a
-          seam. Sits behind `BottomStripes` (DOM order, both `absolute`) so
-          the stripes themselves stay crisp on top of it. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
       />
 
       <div className="relative flex w-full max-w-[1296px] flex-col gap-8 bg-black/10 p-5 sm:p-8 lg:flex-row lg:items-start lg:p-10">
-        {/* The whole chart card, flattened - see `BLOGS_STANDARD_CARD`'s
-            own comment for why. Rendered at its real 664x438 native export
-            size at `lg:` and scaled fluidly below that. */}
         <Image
           src={BLOGS_STANDARD_CARD}
           alt="A benchmark chart comparing identifier coverage: Nvidia at 30% versus Replay at 86%"

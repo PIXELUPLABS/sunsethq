@@ -2,11 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-/**
- * Keeps the previous key mounted underneath the new one for `durationMs` so a
- * consumer can crossfade between them instead of hard-swapping (which causes
- * a flicker when the incoming layer needs a frame to load, e.g. video).
- */
 export function useCrossfadeLayers<T>(activeKey: T, durationMs: number) {
   const [layerKeys, setLayerKeys] = useState<T[]>([activeKey]);
   const [trackedKey, setTrackedKey] = useState(activeKey);
