@@ -28,20 +28,8 @@ export const BENEFITS: Benefit[] = [
   },
 ];
 
-export const YEARS_OF_OPERATION_OPTIONS = [
-  "Under 2 Years",
-  "2-3 years",
-  "3 to 5 years",
-  "5 to 10 years",
-  "10+",
-];
-
-export const BUSINESS_SIZE_OPTIONS = [
-  "1 to 9 people",
-  "10 - 19",
-  "20 - 49",
-  "50 - 199",
-  "200 or more",
-];
-
-export const ENGLISH_SHARE_OPTIONS = ["100%", "80% - 90%", "Less than 80%"];
+export {
+  YEARS_OF_OPERATION_OPTIONS,
+  BUSINESS_SIZE_OPTIONS,
+  ENGLISH_SHARE_OPTIONS,
+} from "@/modules/lead-capture/lib/lead-schema";

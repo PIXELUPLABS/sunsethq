@@ -6,8 +6,9 @@ import { WhyReplaySection } from "./why-replay-section";
 import { BenefitsSection } from "./benefits-section";
 import { ValuesSection } from "./values-section";
 import { OpenRolesSection } from "./open-roles-section";
+import type { Team } from "../types";
 
-export function CareersPage() {
+export function CareersPage({ teams }: { teams: Team[] }) {
   return (
     <div className="flex flex-col">
       <Navbar linkBase="/" />
@@ -16,7 +17,7 @@ export function CareersPage() {
         <WhyReplaySection />
         <BenefitsSection />
         <ValuesSection />
-        <OpenRolesSection />
+        <OpenRolesSection initialTeams={teams} />
         <CtaSection />
       </main>
       <Footer />

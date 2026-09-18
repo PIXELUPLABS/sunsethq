@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
 import Image from "next/image";
 import { ChevronDownIcon } from "@/components/ui/icons";
+import { useValueMyDataForm } from "../hooks/use-value-my-data-form";
+import { FormVerification } from "./form-verification";
 import {
   BUSINESS_SIZE_OPTIONS,
   ENGLISH_SHARE_OPTIONS,
@@ -39,24 +40,14 @@ function FormGrainTexture() {
 }
 
 export function ValueMyDataForm() {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-    const payload = Object.fromEntries(formData.entries());
-    console.log(payload);
-
-    setIsSubmitted(true);
-  }
+  const { isSubmitted, isSubmitting, handleSubmit, formRef, verification, error } = useValueMyDataForm();
 
   if (isSubmitted) {
     return (
-      <div className="relative flex min-h-[420px] flex-col items-center justify-center gap-3 overflow-hidden bg-white p-10 text-center shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)]">
+      <div role="status" className="relative flex min-h-[420px] flex-col items-center justify-center gap-3 overflow-hidden bg-white p-10 text-center shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)]">
         <FormGrainTexture />
         <FormGuideLine />
-        <p className="relative font-serif text-2xl text-black">Thanks — we&rsquo;ll be in touch.</p>
+        <p className="relative font-serif text-2xl text-black">Request received — we&rsquo;ll be in touch.</p>
         <p className="relative max-w-[360px] text-sm leading-[1.5] text-[#727272]">
           Someone from our team will follow up with an initial view of what your data could be
           worth.
@@ -66,11 +57,11 @@ export function ValueMyDataForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={CARD_CLASS}>
+    <form ref={formRef} onSubmit={handleSubmit} className={CARD_CLASS} aria-busy={isSubmitting}>
       <FormGrainTexture />
       <FormGuideLine />
 
-      <div className="relative flex flex-col gap-6">
+      <fieldset disabled={isSubmitting} className="relative flex min-w-0 flex-col gap-6">
         <div className="flex flex-col gap-2">
           <label htmlFor="companyName" className={LABEL_CLASS}>
             Company name
@@ -82,6 +73,7 @@ export function ValueMyDataForm() {
             autoComplete="organization"
             placeholder="Acme Inc."
             required
+            maxLength={200}
             className={INPUT_CLASS}
           />
         </div>
@@ -97,6 +89,7 @@ export function ValueMyDataForm() {
             autoComplete="email"
             placeholder="you@company.com"
             required
+            maxLength={254}
             className={INPUT_CLASS}
           />
         </div>
@@ -176,9 +169,14 @@ export function ValueMyDataForm() {
           </div>
         </div>
 
+        <FormVerification containerRef={verification.containerRef} onReady={verification.onReady} onError={verification.onError} />
+        {verification.verificationError && <p role="status" className="text-sm leading-relaxed text-[#727272]">{verification.verificationError}</p>}
+        {error && <p role="alert" className="text-sm leading-relaxed text-red-700">{error}</p>}
+
         <button
           type="submit"
-          className="group relative mt-2 flex h-13 w-full items-center justify-center overflow-hidden bg-[#141518] font-serif text-sm tracking-wide text-white uppercase transition-transform duration-150 ease-snap active:scale-[0.98]"
+          disabled={isSubmitting || !verification.canSubmit}
+          className="group relative mt-2 flex h-13 w-full items-center justify-center overflow-hidden bg-[#141518] font-serif text-sm tracking-wide text-white uppercase transition-transform duration-150 ease-snap active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
         >
           <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-30" />
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
@@ -187,9 +185,9 @@ export function ValueMyDataForm() {
           <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
             <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
           </div>
-          <span className="relative">Value my data</span>
+          <span className="relative">{isSubmitting ? "Sending…" : verification.fallbackReason ? "Send for review" : "Value my data"}</span>
         </button>
-      </div>
+      </fieldset>
     </form>
   );
 }

@@ -1,21 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useLayoutEffect, useRef } from "react";
 import { SearchIcon } from "@/components/ui/icons";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useOpenRoles } from "../hooks/use-open-roles";
 import { CAREERS_EMAIL, DONT_SEE_A_FIT_BODY } from "../lib/constants";
 import { RoleRow } from "./role-row";
-
-const PANEL_HEIGHT_EASE = "cubic-bezier(0.77, 0, 0.175, 1)";
-const PANEL_HEIGHT_EASE_MS = 220;
+import type { Team } from "../types";
 
 const RAIL_ROW_HEIGHT_PX = 56;
 
-export function OpenRolesSection() {
+export function OpenRolesSection({ initialTeams }: { initialTeams: Team[] }) {
   const {
-    status,
+    panelRef,
     teams,
     activeTeamIndex,
     selectTeam,
@@ -25,27 +22,7 @@ export function OpenRolesSection() {
     query,
     setQuery,
     hasAnyRoles,
-  } = useOpenRoles();
-
-  const panelRef = useRef<HTMLDivElement>(null);
-  const previousPanelHeightRef = useRef<number | null>(null);
-
-  useLayoutEffect(() => {
-    const panel = panelRef.current;
-    if (!panel) return;
-
-    const nextHeight = panel.getBoundingClientRect().height;
-    const previousHeight = previousPanelHeightRef.current;
-
-    if (previousHeight !== null && previousHeight !== nextHeight) {
-      panel.animate(
-        [{ height: `${previousHeight}px` }, { height: `${nextHeight}px` }],
-        { duration: PANEL_HEIGHT_EASE_MS, easing: PANEL_HEIGHT_EASE },
-      );
-    }
-
-    previousPanelHeightRef.current = nextHeight;
-  }, [activeTeamIndex, status]);
+  } = useOpenRoles(initialTeams);
 
   return (
     <section
@@ -76,14 +53,7 @@ export function OpenRolesSection() {
             </h2>
           </div>
 
-          {status === "error" ? (
-            <p className="text-sm text-[#727272]">
-              We couldn&rsquo;t load open roles right now. Refresh to try again, or reach us
-              directly below.
-            </p>
-          ) : status === "loading" ? (
-            <p className="text-sm text-[#727272]">Loading open roles&hellip;</p>
-          ) : hasAnyRoles && activeTeam ? (
+          {hasAnyRoles && activeTeam ? (
             <div className="w-full">
               <div className="relative mb-6">
                 <SearchIcon className="pointer-events-none absolute top-1/2 left-4 size-4 -translate-y-1/2 text-[#a8a8a8]" />

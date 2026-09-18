@@ -1,0 +1,183 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "replay-leads-delivery-local",
+  "account_id": "c4f47127b63c426c98541372fa9b8b67",
+  "main": "index.ts",
+  "compatibility_date": "2026-09-18",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "invocation_logs": false
+    }
+  },
+  "vars": {
+    "APP_ENV": "local",
+    "LEAD_ALERT_FROM": "leads@notifications.replay.ai",
+    "LEAD_ALERT_TO": "jono@sunsethq.com"
+  },
+  "queues": {
+    "consumers": [
+      {
+        "queue": "replay-leads-local",
+        "max_batch_size": 1,
+        "max_batch_timeout": 1,
+        "max_retries": 12,
+        "max_concurrency": 2,
+        "dead_letter_queue": "replay-leads-local-failed"
+      }
+    ],
+    "producers": [
+      {
+        "binding": "LEADS",
+        "queue": "replay-leads-local"
+      },
+      {
+        "binding": "FAILED_LEADS",
+        "queue": "replay-leads-local-failed"
+      }
+    ]
+  },
+  "env": {
+    "development": {
+      "name": "replay-leads-delivery-dev",
+      "vars": {
+        "APP_ENV": "development",
+        "ATTIO_WORKSPACE_ID": "cdf46a48-e03e-4b32-84f1-f90d4791539b",
+        "ATTIO_LIST_ID": "9527649b-a76d-415f-a89f-1fa9b1f6c4ae",
+        "LEAD_ALERT_FROM": "leads@notifications.replay.ai",
+        "LEAD_ALERT_TO": "jono@sunsethq.com"
+      },
+      "queues": {
+        "consumers": [
+          {
+            "queue": "replay-leads-dev",
+            "max_batch_size": 1,
+            "max_batch_timeout": 1,
+            "max_retries": 12,
+            "max_concurrency": 2,
+            "dead_letter_queue": "replay-leads-dev-failed"
+          }
+        ],
+        "producers": [
+          {
+            "binding": "LEADS",
+            "queue": "replay-leads-dev"
+          },
+          {
+            "binding": "FAILED_LEADS",
+            "queue": "replay-leads-dev-failed"
+          }
+        ]
+      },
+      "d1_databases": [
+        {
+          "binding": "LEAD_DB",
+          "database_name": "replay-leads-dev-ledger",
+          "database_id": "ac3c1faa-c94f-4269-9a0a-ff69b5ac5a41",
+          "migrations_dir": "../migrations"
+        }
+      ],
+      "triggers": {
+        "crons": [
+          "* * * * *"
+        ]
+      },
+      "send_email": [
+        {
+          "name": "LEAD_ALERT_EMAIL",
+          "allowed_destination_addresses": [
+            "jono@sunsethq.com"
+          ],
+          "allowed_sender_addresses": [
+            "leads@notifications.replay.ai"
+          ]
+        }
+      ]
+    },
+    "production": {
+      "name": "replay-leads-delivery",
+      "vars": {
+        "APP_ENV": "production",
+        "ATTIO_WORKSPACE_ID": "8f055b0e-1a94-4844-bba0-94600f169f3c",
+        "ATTIO_LIST_ID": "349bc21b-299c-46ec-a436-b5c1239ee5ee",
+        "LEAD_ALERT_FROM": "leads@notifications.replay.ai",
+        "LEAD_ALERT_TO": "jono@sunsethq.com"
+      },
+      "queues": {
+        "consumers": [
+          {
+            "queue": "replay-leads-prod",
+            "max_batch_size": 1,
+            "max_batch_timeout": 1,
+            "max_retries": 12,
+            "max_concurrency": 2,
+            "dead_letter_queue": "replay-leads-prod-failed"
+          }
+        ],
+        "producers": [
+          {
+            "binding": "LEADS",
+            "queue": "replay-leads-prod"
+          },
+          {
+            "binding": "FAILED_LEADS",
+            "queue": "replay-leads-prod-failed"
+          }
+        ]
+      },
+      "triggers": {
+        "crons": [
+          "* * * * *"
+        ]
+      },
+      "d1_databases": [
+        {
+          "binding": "LEAD_DB",
+          "database_name": "replay-leads-prod-ledger",
+          "database_id": "98211ded-10c5-4e4c-944d-b51d5fdf0763",
+          "migrations_dir": "../migrations"
+        }
+      ],
+      "limits": {
+        "cpu_ms": 1000
+      },
+      "send_email": [
+        {
+          "name": "LEAD_ALERT_EMAIL",
+          "allowed_destination_addresses": [
+            "jono@sunsethq.com"
+          ],
+          "allowed_sender_addresses": [
+            "leads@notifications.replay.ai"
+          ]
+        }
+      ]
+    }
+  },
+  "d1_databases": [
+    {
+      "binding": "LEAD_DB",
+      "database_name": "replay-leads-local-ledger",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "../migrations"
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "* * * * *"
+    ]
+  },
+  "send_email": [
+    {
+      "name": "LEAD_ALERT_EMAIL",
+      "allowed_destination_addresses": [
+        "jono@sunsethq.com"
+      ],
+      "allowed_sender_addresses": [
+        "leads@notifications.replay.ai"
+      ]
+    }
+  ]
+}

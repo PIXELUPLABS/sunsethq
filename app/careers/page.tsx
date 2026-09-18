@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { CareersPage } from "@/modules/careers/components/careers-page";
 import { SITE_NAME } from "@/lib/site-config";
+import { publishedTeams } from "@/modules/careers/lib/published-jobs";
 
 const TITLE = "Careers — Build the infrastructure for licensing data";
 const DESCRIPTION =
@@ -22,5 +23,5 @@ export const metadata: Metadata = {
 };
 
 export default function Careers() {
-  return <CareersPage />;
+  return <CareersPage teams={publishedTeams} />;
 }

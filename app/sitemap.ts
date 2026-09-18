@@ -1,8 +1,12 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site-config";
+import { jobsUpdatedAt, publishedRoles } from "@/modules/careers/lib/published-jobs";
+
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
+    ...publishedRoles.map((role) => ({ url: `${SITE_URL}/careers/roles/${role.id}`, lastModified: jobsUpdatedAt || undefined })),
     {
       url: `${SITE_URL}/`,
       lastModified: new Date("2026-09-11"),
