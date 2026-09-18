@@ -20,9 +20,6 @@ const pctY = (px: number) => `${((px / STAGE_HEIGHT) * 100).toFixed(4)}%`;
 /** A design pixel inside the card, as a fraction of the card's width. */
 export const cq = (px: number) => `${((px / CTA_CARD_WIDTH) * 100).toFixed(4)}cqw`;
 
-/** The text strip spans the full 1440 design width, 72px past each stage edge. */
-export const CTA_BAND_STRIP = { left: pctX(-GUTTER), width: pctX(STAGE_WIDTH + 2 * GUTTER) };
-
 export const CTA_STAGE_ASPECT = `${STAGE_WIDTH}/${STAGE_HEIGHT}`;
 export const CTA_CARD_SIZE = { width: pctX(CTA_CARD_WIDTH), height: pctY(CTA_CARD_HEIGHT) };
 
