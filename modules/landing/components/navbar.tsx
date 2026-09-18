@@ -53,7 +53,23 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
             scrolled ? "lg:translate-x-3" : "lg:translate-x-0"
           }`}
         >
-          <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
+          {/* The mark occupies the first ~20px of the 111px logo; clipping the
+              wrapper to 22px on scroll hides the wordmark and keeps the mark
+              exactly where it was. */}
+          <span
+            className={`block overflow-hidden transition-[width] duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] ${
+              scrolled ? "w-[111px] lg:w-[22px]" : "w-[111px]"
+            }`}
+          >
+            <Image
+              src="/images/sunset-logo.svg"
+              alt="Replay"
+              width={111}
+              height={36}
+              priority
+              className="max-w-none"
+            />
+          </span>
         </Link>
 
         <MobileNav linkBase={linkBase} />
