@@ -37,7 +37,7 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
 
   return (
     <article
-      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-6 lg:items-stretch lg:gap-6 ${
+      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#bcbcbc] p-6 lg:items-stretch lg:gap-6 ${
         mediaFirst ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}
     >

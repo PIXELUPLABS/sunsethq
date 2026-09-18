@@ -14,7 +14,7 @@ export function DataTrustPage() {
         <HeroSection />
         <DeidentificationPanel />
         <AssuranceSection />
-        <CtaSection sideBorderClassName="border-[#a8a8a8]" />
+        <CtaSection sideBorderClassName="border-[#bcbcbc]" />
       </main>
       <Footer />
     </div>
