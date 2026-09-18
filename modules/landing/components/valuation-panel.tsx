@@ -34,11 +34,10 @@ export function ValuationPanel({
           hide the rulers when the stage is nearly as wide as the panel. */}
       <ValuationPanelRulers />
 
-      {/* Texture overlay per the design spec: soft light, contrast 200%,
-          saturation 0%. The filter runs before the blend. */}
+      {/* Texture overlay per the design spec: soft light at 60% opacity. */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[length:222px_222px] bg-repeat mix-blend-soft-light contrast-200 saturate-0"
+        className="pointer-events-none absolute inset-0 bg-[length:222px_222px] bg-repeat opacity-60 mix-blend-soft-light"
         style={{ backgroundImage: `url(${GRAIN_SRC})` }}
       />
     </div>
