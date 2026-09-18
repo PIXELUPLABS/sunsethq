@@ -46,7 +46,7 @@ let verificationKeyPresent = false;
 for (const file of await files(directory)) {
   const bytes = await readFile(file);
   if (file.endsWith('.js') && process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && bytes.includes(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY)) verificationKeyPresent = true;
-  for (const key of ['ATTIO_API_KEY', 'TURNSTILE_SECRET_KEY', 'TURNSTILE_DEV_SECRET_KEY', 'TURNSTILE_STAGING_SECRET_KEY']) {
+  for (const key of ['CLOUDFLARE_API_TOKEN', 'ATTIO_API_KEY', 'TURNSTILE_SECRET_KEY', 'TURNSTILE_DEV_SECRET_KEY', 'TURNSTILE_STAGING_SECRET_KEY']) {
     if (process.env[key]) assert.ok(!bytes.includes(process.env[key]), `Secret ${key} found in ${file}`);
   }
 }

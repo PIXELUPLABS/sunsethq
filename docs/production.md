@@ -33,6 +33,20 @@ The deployment uploads `ATTIO_API_KEY` only as an encrypted secret on `replay-le
 
 ## Repeatable deployment
 
+### Automatic deployment
+
+The GitHub Actions `CI` workflow checks pull requests and pushes to `main`. On `main`, its **Deploy production** job runs only after **Tests, types, and lint** and **Production export** succeed. The GitHub `production` environment permits only the `main` branch. Production runs are serialized and are not cancelled by a newer push; a queued release refuses to deploy if its commit is no longer the latest `main` commit.
+
+The environment contains secret `CLOUDFLARE_API_TOKEN` and public variable `NEXT_PUBLIC_TURNSTILE_SITE_KEY`. The account and production resource IDs are pinned in Wrangler configuration. The account token uses Workers Editor, D1 Write, and Queues Write in the deployment account, plus Workers Routes Write and Zone Read limited to `replay.ai`. Cloudflare's custom-domain deployment currently requires account-level Workers access; these account permissions cover the account's other Workers, databases, and queues too. The release script separately validates the production resource IDs. The token has no billing, token-administration, or unrelated-zone permissions.
+
+The deployment token is configured to expire September 18, 2027. Before expiry, rotate it in Cloudflare and replace the GitHub environment secret. Expiry blocks new deployments; it does not stop the already deployed site or lead delivery.
+
+`npm run production:deploy:ci` verifies the environment/resource boundary and the names of existing runtime secrets, then builds with the real widget, applies migrations, deploys the consumer, waits for a fresh healthy dependency/recovery heartbeat, deploys the website, and checks public pages/redirects/health. Both Worker versions are tagged with the Git commit; the job verifies those tags and records version IDs in its summary. The automated path preserves the existing Cloudflare secrets and never uploads replacements. A failed step stops the release; it does not automatically undo migrations or already completed Worker updates.
+
+Use **Actions → CI → Run workflow → main** to retry a release after fixing its failure. Schema changes in Attio still require `attio:setup:prod` with a locally held schema-management token before code depending on the new fields is deployed. A full browser signup remains part of validation after form/verification changes.
+
+### Local provisioning and manual deployment
+
 ```sh
 npm ci
 npm run production:setup

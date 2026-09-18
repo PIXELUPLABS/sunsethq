@@ -2,7 +2,8 @@ import { spawnSync } from "node:child_process";
 import { cp, readFile, rm } from "node:fs/promises";
 import { loadEnvFile } from "node:process";
 
-loadEnvFile(".env.production.local");
+try { loadEnvFile(".env.production.local"); }
+catch (error) { if (error.code !== "ENOENT") throw error; }
 const config = JSON.parse(await readFile("workers/site/wrangler.production.json", "utf8"));
 const sitekey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 if (!sitekey || /^[123]x0+/.test(sitekey)) throw new Error("Run production:setup to create a real production Turnstile widget.");

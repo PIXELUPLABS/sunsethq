@@ -27,6 +27,7 @@
     "production:setup": "node scripts/setup-production.mjs",
     "production:build": "node scripts/build-production.mjs",
     "production:deploy": "node scripts/deploy-production.mjs",
+    "production:deploy:ci": "node scripts/deploy-production-ci.mjs",
     "production:verify": "node scripts/verify-production.mjs",
     "jobs:sync": "tsx scripts/sync-jobs.mts",
     "start": "next start",
