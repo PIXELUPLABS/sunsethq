@@ -1,38 +1,30 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { fetchAshbyTeams } from "../lib/ashby";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { Team } from "../types";
 
 const TEAM_SWITCH_MS = 150;
 
-export type RolesFetchStatus = "loading" | "success" | "error";
-
-export function useOpenRoles() {
-  const [fetchedTeams, setFetchedTeams] = useState<Team[]>([]);
-  const [status, setStatus] = useState<RolesFetchStatus>("loading");
+export function useOpenRoles(fetchedTeams: Team[]) {
   const [activeTeamIndex, setActiveTeamIndex] = useState(0);
   const [isSwitchingTeam, setIsSwitchingTeam] = useState(false);
   const [query, setQuery] = useState("");
   const switchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const previousPanelHeightRef = useRef<number | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
-
-    fetchAshbyTeams()
-      .then((fetchedTeams) => {
-        if (cancelled) return;
-        setFetchedTeams(fetchedTeams);
-        setStatus("success");
-      })
-      .catch(() => {
-        if (!cancelled) setStatus("error");
+  useLayoutEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+    const nextHeight = panel.getBoundingClientRect().height;
+    const previousHeight = previousPanelHeightRef.current;
+    if (previousHeight !== null && previousHeight !== nextHeight) {
+      panel.animate([{ height: `${previousHeight}px` }, { height: `${nextHeight}px` }], {
+        duration: 220, easing: "cubic-bezier(0.77, 0, 0.175, 1)",
       });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+    }
+    previousPanelHeightRef.current = nextHeight;
+  }, [activeTeamIndex]);
 
   const teams = useMemo<Team[]>(() => {
     if (fetchedTeams.length === 0) return fetchedTeams;
@@ -74,7 +66,7 @@ export function useOpenRoles() {
   }, [activeTeam, normalizedQuery]);
 
   return {
-    status,
+    panelRef,
     teams,
     activeTeamIndex,
     selectTeam,

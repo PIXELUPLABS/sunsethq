@@ -1,0 +1,62 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "replay-marketing-staging",
+  "account_id": "c4f47127b63c426c98541372fa9b8b67",
+  "main": "index.ts",
+  "compatibility_date": "2026-09-18",
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "../../out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "invocation_logs": false
+    }
+  },
+  "vars": {
+    "APP_ENV": "development",
+    "SITE_ORIGIN": "https://replay-marketing-staging.replay-marketing-dev.workers.dev",
+    "ALLOWED_ORIGINS": "https://replay-marketing-staging.replay-marketing-dev.workers.dev",
+    "UNVERIFIED_LEADS_ENABLED": "true"
+  },
+  "ratelimits": [
+    {
+      "name": "LEAD_RATE_LIMITER",
+      "namespace_id": "91826004",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    },
+    {
+      "name": "UNVERIFIED_RATE_LIMITER",
+      "namespace_id": "91826014",
+      "simple": {
+        "limit": 2,
+        "period": 60
+      }
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "LEADS",
+        "queue": "replay-leads-dev"
+      }
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "LEAD_DB",
+      "database_name": "replay-leads-dev-ledger",
+      "database_id": "ac3c1faa-c94f-4269-9a0a-ff69b5ac5a41",
+      "migrations_dir": "../migrations"
+    }
+  ]
+}

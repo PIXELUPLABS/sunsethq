@@ -1,0 +1,2 @@
+ALTER TABLE lead_monitor ADD COLUMN dependency_ok INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE lead_monitor ADD COLUMN failed_queue_count INTEGER NOT NULL DEFAULT 0;

@@ -1,0 +1,128 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "replay-leads-intake-local",
+  "account_id": "c4f47127b63c426c98541372fa9b8b67",
+  "main": "index.ts",
+  "compatibility_date": "2026-09-18",
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "invocation_logs": false
+    }
+  },
+  "vars": {
+    "APP_ENV": "local",
+    "ALLOWED_ORIGINS": "http://localhost:3000,http://127.0.0.1:3000",
+    "SITE_ORIGIN": "http://localhost:3000",
+    "UNVERIFIED_LEADS_ENABLED": "true"
+  },
+  "ratelimits": [
+    {
+      "name": "LEAD_RATE_LIMITER",
+      "namespace_id": "91826001",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    },
+    {
+      "name": "UNVERIFIED_RATE_LIMITER",
+      "namespace_id": "91826011",
+      "simple": {
+        "limit": 2,
+        "period": 60
+      }
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "LEADS",
+        "queue": "replay-leads-local"
+      }
+    ]
+  },
+  "env": {
+    "development": {
+      "name": "replay-leads-intake-dev",
+      "workers_dev": true,
+      "vars": {
+        "APP_ENV": "development",
+        "ALLOWED_ORIGINS": "http://localhost:3000,http://127.0.0.1:3000",
+        "SITE_ORIGIN": "http://localhost:3000",
+        "UNVERIFIED_LEADS_ENABLED": "true"
+      },
+      "ratelimits": [
+        {
+          "name": "LEAD_RATE_LIMITER",
+          "namespace_id": "91826002",
+          "simple": {
+            "limit": 10,
+            "period": 60
+          }
+        },
+        {
+          "name": "UNVERIFIED_RATE_LIMITER",
+          "namespace_id": "91826012",
+          "simple": {
+            "limit": 2,
+            "period": 60
+          }
+        }
+      ],
+      "queues": {
+        "producers": [
+          {
+            "binding": "LEADS",
+            "queue": "replay-leads-dev"
+          }
+        ]
+      },
+      "d1_databases": [
+        {
+          "binding": "LEAD_DB",
+          "database_name": "replay-leads-dev-ledger",
+          "database_id": "ac3c1faa-c94f-4269-9a0a-ff69b5ac5a41",
+          "migrations_dir": "../migrations"
+        }
+      ]
+    },
+    "production": {
+      "name": "replay-leads-intake",
+      "workers_dev": false,
+      "vars": {
+        "APP_ENV": "production",
+        "ALLOWED_ORIGINS": "",
+        "SITE_ORIGIN": ""
+      },
+      "ratelimits": [
+        {
+          "name": "LEAD_RATE_LIMITER",
+          "namespace_id": "91826003",
+          "simple": {
+            "limit": 10,
+            "period": 60
+          }
+        }
+      ],
+      "queues": {
+        "producers": [
+          {
+            "binding": "LEADS",
+            "queue": "replay-leads-prod"
+          }
+        ]
+      }
+    }
+  },
+  "d1_databases": [
+    {
+      "binding": "LEAD_DB",
+      "database_name": "replay-leads-local-ledger",
+      "database_id": "00000000-0000-0000-0000-000000000001",
+      "migrations_dir": "../migrations"
+    }
+  ]
+}
