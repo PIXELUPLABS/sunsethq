@@ -26,7 +26,7 @@ export function IndustriesSection() {
           />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
             Any industry.
-            <br className="lg:hidden" />{" "}
+            <br />
             One requirement.
           </h2>
           <div className="flex flex-col gap-4 text-base leading-[1.4] tracking-[-0.48px] text-[#727272] lg:gap-2 lg:leading-relaxed lg:tracking-tight">
