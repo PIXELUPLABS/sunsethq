@@ -3,7 +3,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 
 const production = process.env.SITE_ENV === 'production';
-const directory = production ? 'out-production' : 'out';
+const directory = process.env.STATIC_EXPORT_DIRECTORY || (production ? 'out-production' : 'out');
 const config = JSON.parse(await readFile(production ? 'workers/site/wrangler.production.json' : 'workers/site/wrangler.json', 'utf8'));
 const snapshot = JSON.parse(await readFile('modules/careers/data/jobs.json', 'utf8'));
 const origin = config.vars.SITE_ORIGIN;

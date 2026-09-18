@@ -17,7 +17,9 @@ The sandbox workspace/list is already configured in the committed Worker configu
 
 `npm run dev` starts Next and local lead Workers. `npm run dev:remote` uses the deployed Cloudflare dev pipeline after the setup steps in the runbook. `npm run dev:web` runs the website alone without CRM credentials; form delivery requires a lead backend.
 
-Run `node scripts/check-release.mjs` for all automated tests and TypeScript checks.
+Run `npm test` for all automated tests, `npm run check` for tests plus TypeScript, and `npm run lint` for the full-repository lint check. Tests use in-memory SQLite with the actual D1 migrations and simulated external services; they do not require credentials or write to Attio or Cloudflare.
+
+[GitHub Actions CI](.github/workflows/ci.yml) runs on every pull request update and push to `main`, with a manual run option. It runs tests, TypeScript, lint, and `npm run ci:build`. The build uses the committed jobs snapshot and a public Turnstile test key, generates responsive images, and checks the production export's form fields, canonical URLs, robots directives, sitemap, assets, and secret exclusion. It needs no repository secrets and does not deploy. CI build output uses a test widget and must not be published; use the deployment commands below for a real release.
 
 The full [Cloudflare staging site](https://replay-marketing-staging.replay-marketing-dev.workers.dev) is gated to `@sunsethq.com` and uses the Attio sandbox. See [staging deployment and monitoring](docs/staging.md).
 

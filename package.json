@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "test": "node scripts/run-tests.mjs",
+    "check": "node scripts/check-release.mjs",
+    "ci:build": "node scripts/build-ci.mjs",
     "dev": "node scripts/dev.mjs",
     "dev:web": "next dev",
     "dev:leads": "node scripts/dev.mjs --workers-only",
