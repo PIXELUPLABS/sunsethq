@@ -53,22 +53,35 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
             scrolled ? "lg:translate-x-3" : "lg:translate-x-0"
           }`}
         >
-          {/* The mark occupies the first ~20px of the 111px logo; clipping the
-              wrapper to 22px on scroll hides the wordmark and keeps the mark
-              exactly where it was. */}
-          <span
-            className={`block overflow-hidden transition-[width] duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] ${
-              scrolled ? "w-[111px] lg:w-[22px]" : "w-[111px]"
-            }`}
-          >
-            <Image
-              src="/images/sunset-logo.svg"
-              alt="Replay"
-              width={111}
-              height={36}
-              priority
-              className="max-w-none"
-            />
+          {/* The logo is one 111x36 image whose mark occupies the first ~20px.
+              Two clipped copies let the mark stay put while only the wordmark
+              fades on scroll. */}
+          <span className="relative block h-9 w-[111px]">
+            <span className="absolute inset-y-0 left-0 w-[22px] overflow-hidden">
+              <Image
+                src="/images/sunset-logo.svg"
+                alt="Replay"
+                width={111}
+                height={36}
+                priority
+                className="max-w-none"
+              />
+            </span>
+            <span
+              aria-hidden
+              className={`absolute inset-y-0 left-[22px] right-0 overflow-hidden transition-opacity duration-500 ease-[cubic-bezier(0.65,0,0.35,1)] ${
+                scrolled ? "lg:opacity-0" : "opacity-100"
+              }`}
+            >
+              <Image
+                src="/images/sunset-logo.svg"
+                alt=""
+                width={111}
+                height={36}
+                priority
+                className="-ml-[22px] max-w-none"
+              />
+            </span>
           </span>
         </Link>
 
