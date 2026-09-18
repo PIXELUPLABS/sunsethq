@@ -65,7 +65,7 @@ export function BenefitsSection() {
               </div>
 
               <div className="flex min-h-[100px] items-center border border-t-0 border-dashed border-white/30 px-6 min-[900px]:min-h-[114px]">
-                <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/70">
+                <p className="text-base leading-[1.4] tracking-[-0.48px] text-white/70">
                   More modular, but still restrained. A tiny system visual sits under the intro
                   while benefits occupy a structured 2×2 board.
                 </p>
@@ -84,19 +84,19 @@ export function BenefitsSection() {
                     <div
                       key={benefit.label}
                       style={cardEnter.style}
-                      className={`flex min-h-[180px] flex-col justify-between gap-10 border-dashed border-white/30 p-6 min-[900px]:h-full ${
+                      className={`flex min-h-[180px] flex-col justify-between gap-10 border-dashed border-white/30 bg-black/[0.18] p-6 min-[900px]:h-full ${
                         isLastMobile ? "border-b-0" : "border-b"
                       } ${isTopRow ? "min-[900px]:border-b" : "min-[900px]:border-b-0"} ${isLeftCol ? "min-[900px]:border-r" : ""} ${cardEnter.className}`}
                     >
-                      <div className="flex items-center justify-between gap-3">
-                        <p className="font-serif text-xl text-white">{benefit.label}</p>
-                        <span className="flex size-8 shrink-0 items-center justify-center bg-white/10 font-mono text-[10px] text-white/50">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
+                      <span className="flex size-8 shrink-0 items-center justify-center bg-white/10 font-mono text-[10px] leading-[15px] text-white/50">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div className="flex flex-col gap-3">
+                        <p className="font-serif text-xl leading-7 text-white">{benefit.label}</p>
+                        <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/70">
+                          {benefit.copy}
+                        </p>
                       </div>
-                      <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/70">
-                        {benefit.copy}
-                      </p>
                     </div>
                   );
                 })}
