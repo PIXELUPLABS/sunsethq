@@ -7,6 +7,13 @@ const nextConfig: NextConfig = {
     // atomic output stays small, so this doesn't bloat the HTML.
     inlineCss: true,
   },
+  async redirects() {
+    return [
+      // The page launched at /data-and-trust; keep old links and any indexed
+      // URLs working.
+      { source: "/data-and-trust", destination: "/data-and-privacy", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

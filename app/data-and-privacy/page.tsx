@@ -9,10 +9,10 @@ const DESCRIPTION =
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: { canonical: "/data-and-trust" },
+  alternates: { canonical: "/data-and-privacy" },
   openGraph: {
     type: "website",
-    url: "/data-and-trust",
+    url: "/data-and-privacy",
     siteName: SITE_NAME,
     title: TITLE,
     description: DESCRIPTION,
