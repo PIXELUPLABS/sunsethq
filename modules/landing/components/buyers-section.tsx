@@ -21,7 +21,7 @@ export function BuyersSection() {
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-t border-dashed border-[#d4d4d4]">
-        <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20">
+        <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20 lg:gap-20">
           <div className="flex flex-col items-start gap-6">
             <SectionTag
               label="Who buys it"
