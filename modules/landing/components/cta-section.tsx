@@ -7,6 +7,7 @@ import { ArrowRightIcon } from "@/components/ui/icons";
 import { useElementParallax } from "../hooks/use-element-parallax";
 import { CtaSectionMobile } from "./cta-section-mobile";
 import {
+  CTA_BAND_STRIP,
   CTA_CARD_SIZE,
   CTA_COLLAGE_IMAGES,
   CTA_COLLAGE_IMAGE_SIZES,
@@ -63,13 +64,12 @@ export function CtaSection({
       ref={containerRef}
       className="relative w-full overflow-hidden bg-[#080808] md:bg-transparent"
     >
-      <div className="relative aspect-[390/572] w-full md:hidden">
+      <div className="relative aspect-[390/490] w-full md:hidden">
         <CtaSectionMobile
           headline={headline}
           buttonLabel={buttonLabel}
           href={href}
           topBandClassName={topBandClassName}
-          bottomBandImageSrc={bottomBandImageSrc}
         />
       </div>
 
@@ -85,16 +85,7 @@ export function CtaSection({
             className="pointer-events-none object-cover mix-blend-multiply"
           />
         </div>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[57%] overflow-hidden bg-[#080808]">
-          <div className="absolute inset-x-0 top-0 aspect-[4320/321] w-full">
-            <Image
-              src={bottomBandImageSrc}
-              alt=""
-              fill
-              className="pointer-events-none object-cover"
-            />
-          </div>
-        </div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[57%] bg-[#080808]" />
         {/* The dashed column borders stop with the grey band; they must not
             run on through the black band below. */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-[43%] px-18">
@@ -108,6 +99,23 @@ export function CtaSection({
             className="relative mx-auto w-full max-w-[1560px]"
             style={{ aspectRatio: CTA_STAGE_ASPECT }}
           >
+            {/* The text strip along the top of the black band. In the 1440
+                design it bleeds 72px past the stage on each side; keeping it
+                on the stage means it scales with the collage instead of the
+                viewport, so its proportions hold on wide screens. */}
+            <div
+              className="pointer-events-none absolute top-[43%] aspect-[4320/321]"
+              style={CTA_BAND_STRIP}
+            >
+              <Image
+                src={bottomBandImageSrc}
+                alt=""
+                fill
+                sizes="100vw"
+                className="pointer-events-none object-cover"
+              />
+            </div>
+
             {CTA_COLLAGE_IMAGES.map((image) => (
               <div
                 key={image.src}

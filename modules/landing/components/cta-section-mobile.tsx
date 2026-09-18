@@ -1,68 +1,50 @@
 import Image from "next/image";
 import { PrimaryButtonHover } from "@/components/ui/primary-button-hover";
 import Link from "next/link";
-import {
-  CTA_BG_TEXT,
-  CTA_MOBILE_BOTTOM_LEFT,
-  CTA_MOBILE_BOTTOM_RIGHT,
-  CTA_MOBILE_TOP_LEFT,
-  CTA_MOBILE_TOP_RIGHT,
-  CTA_GRAIN_WHITE,
-} from "../lib/cta-assets";
-
-const MOBILE_IMAGE_SIZES = "50vw";
+import { CTA_GRAIN_WHITE, CTA_MOBILE_BAND_TOP, CTA_MOBILE_COLLAGE } from "../lib/cta-assets";
 
 type CtaSectionMobileProps = {
   headline: string;
   buttonLabel: string;
   href: string;
   topBandClassName?: string;
-  bottomBandImageSrc?: string;
 };
 
+/**
+ * The phone CTA, laid out from the 390 x 490 Figma frame. Everything is in
+ * percentages of the section or container units of its width, so it scales
+ * with the phone. Sizes in cqw are the design's px over 390.
+ */
 export function CtaSectionMobile({
   headline,
   buttonLabel,
   href,
   topBandClassName = "bg-[#eaebf1]",
-  bottomBandImageSrc = CTA_BG_TEXT,
 }: CtaSectionMobileProps) {
   return (
     <div className="absolute inset-0" style={{ containerType: "inline-size" }}>
       <div
-        className={`pointer-events-none absolute inset-x-0 top-0 h-[72%] overflow-hidden ${topBandClassName}`}
+        className={`pointer-events-none absolute inset-x-0 top-0 overflow-hidden ${topBandClassName}`}
+        style={{ height: CTA_MOBILE_BAND_TOP }}
       >
-        <Image
-          src={CTA_GRAIN_WHITE}
-          alt=""
-          fill
-          className="pointer-events-none object-cover mix-blend-multiply"
-        />
+        <Image src={CTA_GRAIN_WHITE} alt="" fill className="pointer-events-none object-cover mix-blend-multiply" />
       </div>
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[28%] overflow-hidden bg-[#080808]">
-        <div className="absolute inset-x-0 top-0 aspect-[4320/321] w-full">
-          <Image src={bottomBandImageSrc} alt="" fill className="pointer-events-none object-cover" />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 bg-[#080808]"
+        style={{ top: CTA_MOBILE_BAND_TOP }}
+      />
+
+      {CTA_MOBILE_COLLAGE.map((tile) => (
+        <div key={tile.src} className="pointer-events-none absolute" style={tile.style}>
+          <Image src={tile.src} alt="" fill sizes="60vw" className="pointer-events-none object-contain" />
         </div>
-      </div>
+      ))}
 
-      <div className="pointer-events-none absolute top-[14.2045%] left-0 h-[40.9091%] w-[50%]">
-        <Image src={CTA_MOBILE_TOP_LEFT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-left" />
-      </div>
-      <div className="pointer-events-none absolute top-[11.4528%] left-[50%] h-[40.9091%] w-[50%]">
-        <Image src={CTA_MOBILE_TOP_RIGHT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-center" />
-      </div>
-      <div className="pointer-events-none absolute top-[52.3618%] left-0 h-[40.9091%] w-[50%]">
-        <Image src={CTA_MOBILE_BOTTOM_LEFT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-right" />
-      </div>
-      <div className="pointer-events-none absolute top-[43.75%] left-[50.2564%] h-[40.9091%] w-[49.7436%]">
-        <Image src={CTA_MOBILE_BOTTOM_RIGHT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-center" />
-      </div>
-
-      <div className="absolute top-[29.43%] right-[6.1538%] bottom-[24.77%] left-[6.1538%] border border-[#d4d4d4] bg-[#eaebf1]">
+      <div className="absolute top-1/2 left-1/2 w-[78.4615%] -translate-x-1/2 -translate-y-1/2 border border-[#d4d4d4] bg-[#f4f4f4]">
         <Image src={CTA_GRAIN_WHITE} alt="" fill className="pointer-events-none object-cover mix-blend-multiply" />
 
-        <div className="relative flex h-full w-full flex-col items-center gap-[6.1538cqw] px-[6.1538cqw] pt-[10.2564cqw] pb-[16.4103cqw]">
-          <p className="relative w-full text-center font-serif text-[8.2051cqw] leading-none tracking-[-0.04em] text-black">
+        <div className="relative flex w-full flex-col items-center gap-[6.1538cqw] px-[6.1538cqw] pt-[8.2051cqw] pb-[13.3333cqw]">
+          <p className="relative w-full text-center font-serif text-[7.1795cqw] leading-none tracking-[-0.04em] text-black">
             {headline}
           </p>
           <Link
@@ -75,7 +57,7 @@ export function CtaSectionMobile({
             </span>
           </Link>
 
-          <div className="pointer-events-none absolute bottom-[5.18%] left-[2.63%] flex items-center justify-between right-[3.22%]">
+          <div className="pointer-events-none absolute bottom-[5.45%] left-[2.94%] flex items-center justify-between right-[4.25%]">
             <div className="flex items-center gap-[0.85cqw]">
               <div className="flex flex-col gap-[0.15cqw]">
                 <p className="font-mono text-[0.72cqw] text-[#898989] uppercase">process</p>
@@ -96,26 +78,21 @@ export function CtaSectionMobile({
             </div>
 
             <div className="flex items-center">
-              <div className="relative flex items-center gap-[0.55cqw] border-[0.3px] border-[#898989] p-[0.55cqw]">
-                <p className="font-mono text-[0.59cqw] leading-[1.1] tracking-[0.09em] text-[#898989] uppercase">
-                  def load_dataset(source):
-                  <br />
-                  records = source.read()
-                  <br />
-                  return normalize(records)
-                </p>
-                <span className="absolute bottom-[0.4cqw] left-[0.1cqw] size-[0.33cqw] rounded-full bg-[#898989]" />
-              </div>
-              <div className="relative flex items-center gap-[0.55cqw] border-[0.3px] border-[#898989] p-[0.55cqw]">
-                <p className="font-mono text-[0.59cqw] leading-[1.1] tracking-[0.09em] text-[#898989] uppercase">
-                  def load_dataset(source):
-                  <br />
-                  records = source.read()
-                  <br />
-                  return normalize(records)
-                </p>
-                <span className="absolute bottom-[0.4cqw] left-[0.1cqw] size-[0.33cqw] rounded-full bg-[#898989]" />
-              </div>
+              {[0, 1].map((i) => (
+                <div
+                  key={i}
+                  className="relative flex items-center gap-[0.55cqw] border-[0.3px] border-[#898989] p-[0.55cqw]"
+                >
+                  <p className="font-mono text-[0.59cqw] leading-[1.1] tracking-[0.09em] text-[#898989] uppercase">
+                    def load_dataset(source):
+                    <br />
+                    records = source.read()
+                    <br />
+                    return normalize(records)
+                  </p>
+                  <span className="absolute bottom-[0.4cqw] left-[0.1cqw] size-[0.33cqw] rounded-full bg-[#898989]" />
+                </div>
+              ))}
             </div>
           </div>
 
