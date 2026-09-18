@@ -37,7 +37,7 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
 
   return (
     <article
-      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#a8a8a8] p-6 lg:items-stretch lg:gap-6 ${
+      className={`flex flex-col gap-6 border-[0.84px] border-dashed border-[#bcbcbc] p-6 lg:items-stretch lg:gap-6 ${
         mediaFirst ? "lg:flex-row-reverse" : "lg:flex-row"
       }`}
     >
@@ -47,11 +47,11 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
             <Image
               src={TAG_ICONS[row.tagLabel] ?? JURISDICTION_ICON}
               alt=""
-              width={18}
-              height={18}
-              className="size-4 lg:size-[18px]"
+              width={12}
+              height={12}
+              className="size-3"
             />
-            <p className="text-sm leading-none font-medium text-black uppercase">
+            <p className="text-xs leading-none font-medium text-black uppercase">
               {row.tagLabel}
             </p>
           </div>
@@ -59,12 +59,12 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
         </div>
 
         <h3
-          className={`mt-6 font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-auto lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
+          className={`mt-6 font-serif-regular text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-auto lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
         >
           {row.title}
         </h3>
         <div
-          className={`mt-4 flex flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black lg:mt-5 ${BODY_SIZE[row.bodySize]}`}
+          className={`mt-4 flex max-w-[560px] flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black lg:mt-5 ${BODY_SIZE[row.bodySize]}`}
         >
           {row.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>

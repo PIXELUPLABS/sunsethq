@@ -48,6 +48,23 @@ test("production is indexable only on its canonical host and never exposes detai
   assert.match(health.headers.get("X-Robots-Tag")!, /noindex/);
 });
 
+test("legacy privacy URLs permanently redirect before asset lookup and preserve queries", async () => {
+  for (const production of [false, true]) {
+    const origin = production ? "https://www.replay.ai" : "https://stage.example";
+    const env = {
+      APP_ENV: production ? "production" : "staging", SITE_ORIGIN: origin,
+      ASSETS: { fetch: async () => { throw new Error("Legacy route reached assets"); } },
+    } as unknown as SiteEnv;
+    for (const path of ["/data-and-trust", "/data-and-privacy", "/data-and-trust/", "/data-and-privacy/"]) {
+      const response = await handleSite(new Request(`${origin}${path}?utm_source=legacy`), env);
+      assert.equal(response.status, 308);
+      assert.equal(response.headers.get("Location"), `${origin}/data-privacy?utm_source=legacy`);
+      assert.equal(response.headers.get("X-Frame-Options"), "DENY");
+      assert.equal(response.headers.get("X-Robots-Tag"), production ? null : "noindex, nofollow, noarchive");
+    }
+  }
+});
+
 test("API routes never fall through to the website and retain intake origin/configuration checks", async () => {
   let assets = 0;
   const env = { ALLOWED_ORIGINS: "https://stage.example", ASSETS: { fetch: async () => { assets++; return new Response("wrong"); } } } as unknown as SiteEnv;

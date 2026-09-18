@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ProcessMarkIcon } from "@/components/ui/process-mark-icon";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useStepCycle } from "@/modules/landing/hooks/use-step-cycle";
 import { useInView } from "@/modules/landing/hooks/use-in-view";
@@ -36,7 +35,7 @@ function DeidentificationProgressStrip({
   const progress = useDeidentificationProgress(active, onComplete);
 
   return (
-    <div className="absolute -bottom-px left-0 h-1 w-full overflow-hidden">
+    <div className="absolute -bottom-px left-0 h-0.5 w-full overflow-hidden">
       <Image
         src="/images/valuation/how-it-works/progress-loader.svg"
         alt=""
@@ -64,21 +63,24 @@ export function DeidentificationPanel() {
         className="pointer-events-none hidden object-cover lg:block"
       />
 
-      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-black/8">
-        <div className="hidden pt-10 sm:pt-[65px] lg:block">
-          <div
-            aria-hidden
-            className="pointer-events-none h-[46px] opacity-48 mix-blend-multiply sm:mx-10"
-            style={{
-              backgroundImage: `url("${DATA_TRUST_GRAIN_STRIP}")`,
-              backgroundSize: DATA_TRUST_GRAIN_STRIP_SIZE,
-            }}
-          />
-          <div className="border-t border-dashed border-black/8" />
+      <div className="relative mx-auto w-full max-w-[1560px] lg:border-x lg:border-dashed lg:border-[#d4d4d4]">
+        {/* The grain strip above the panel, framed by dashed guides 40px in
+            from the container edges. */}
+        <div className="hidden lg:block lg:px-10">
+          <div className="border-x border-dashed border-[#d4d4d4] pt-16">
+            <div
+              aria-hidden
+              className="pointer-events-none h-11 opacity-48 mix-blend-multiply"
+              style={{
+                backgroundImage: `url("${DATA_TRUST_GRAIN_STRIP}")`,
+                backgroundSize: DATA_TRUST_GRAIN_STRIP_SIZE,
+              }}
+            />
+          </div>
         </div>
 
         <div
-          className="relative mt-6 mb-6 overflow-hidden border border-[#272727] lg:mt-0 lg:mb-0 lg:flex lg:h-[600px] lg:border-none"
+          className="relative mt-6 mb-6 overflow-hidden border border-[#272727] lg:mt-0 lg:mb-0 lg:flex lg:h-[540px] lg:border-none"
           style={{ background: PANEL_GRADIENT }}
         >
           <div
@@ -91,14 +93,15 @@ export function DeidentificationPanel() {
           />
 
           <div className="relative flex flex-col bg-black pt-3 pb-3 lg:ml-10 lg:h-full lg:w-[35%] lg:min-w-[320px] lg:shrink-0 lg:justify-between lg:px-10 lg:py-10">
-            <div className="flex flex-col gap-[18px] px-3 lg:gap-6 lg:px-0">
-              <div className="flex flex-col gap-3.5 lg:gap-3">
+            <div className="flex flex-col gap-6 px-3 lg:px-0">
+              <div className="flex flex-col gap-3">
                 <SectionTag
                   label="The Process"
                   tone="dark"
-                  borderClassName="border-[#a3a3a3]"
-                  textClassName="text-[#ebebeb]"
-                  icon={<ProcessMarkIcon tone="dark" className="size-[18px]" />}
+                  textClassName="text-white/60"
+                  borderClassName="border-dashed border-white/25"
+                  paddingClassName="px-2 py-1"
+                  heightClassName="h-auto"
                 />
                 <h2 className="font-serif text-[43px] leading-[40.42px] tracking-[-1.65px] text-white lg:text-[44px] lg:leading-none lg:tracking-[-1.76px]">
                   De-Identification
@@ -107,21 +110,27 @@ export function DeidentificationPanel() {
               <p className="text-sm leading-[19.88px] tracking-[-0.32px] text-[#f2f2f2] lg:leading-[1.4] lg:tracking-[-0.42px]">
                 {DEIDENTIFICATION_BODY}
               </p>
+              <Link
+                href="/value-my-data"
+                className="w-fit border border-white/25 px-4 py-2.5 font-serif text-xs leading-[0.8] text-white transition-colors duration-150 ease-snap hover:bg-white hover:text-black"
+              >
+                Value my data
+              </Link>
             </div>
 
-            <ol className="hidden lg:flex lg:flex-col lg:gap-3">
+            <ol className="hidden lg:flex lg:flex-col">
               {DEIDENTIFICATION_STEPS.map((step, index) => {
                 const active = index === activeIndex;
                 return (
                   <li
                     key={step}
-                    className="relative flex h-[33px] items-center border-b border-[#353535]"
+                    className="relative flex items-center border-b border-[#353535]"
                   >
                     <button
                       type="button"
                       onClick={() => setActiveIndex(index)}
                       aria-current={active}
-                      className="flex w-full cursor-pointer items-center py-1.5 text-left"
+                      className="flex w-full cursor-pointer items-center py-2 text-left"
                     >
                       <span
                         className={`text-sm leading-[1.4] tracking-[-0.42px] uppercase transition-colors duration-300 ${
@@ -142,8 +151,8 @@ export function DeidentificationPanel() {
             </ol>
 
             <div className="pt-6 lg:hidden">
-              <div className="relative h-[60px] overflow-hidden border-y border-[#272727]">
-                <div className="grid h-full grid-cols-3">
+              <div className="relative overflow-hidden border-y border-[#272727]">
+                <div className="grid grid-cols-3">
                   {DEIDENTIFICATION_STEPS.map((step, index) => {
                     const active = index === activeIndex;
                     const match = step.match(/^(\[\d+\])\s*(.+)$/);
@@ -154,20 +163,20 @@ export function DeidentificationPanel() {
                         type="button"
                         onClick={() => setActiveIndex(index)}
                         aria-current={active}
-                        className={`flex h-[58px] cursor-pointer flex-col items-start justify-center gap-[7px] self-start border-r border-[#272727] px-2.5 pt-2 pb-[9px] last:border-r-0 ${
+                        className={`flex cursor-pointer flex-col items-start justify-center border-r border-[#272727] px-2 pt-2 pb-3 last:border-r-0 ${
                           active ? "bg-[#080808]" : "bg-black"
                         }`}
                       >
                         <span
-                          className={`font-mono text-[9px] leading-[9px] whitespace-nowrap ${
-                            active ? "text-white" : "text-white/56"
+                          className={`text-xs leading-[1.4] tracking-[-0.24px] whitespace-nowrap ${
+                            active ? "text-white" : "text-white/50"
                           }`}
                         >
                           {stepIndex}
                         </span>
                         <span
-                          className={`border-b pb-px text-[9px] leading-[9.36px] font-medium tracking-[-0.1px] whitespace-nowrap uppercase ${
-                            active ? "border-white text-white" : "border-transparent text-white/56"
+                          className={`text-xs leading-[1.4] tracking-[-0.24px] whitespace-nowrap uppercase ${
+                            active ? "text-white" : "text-white/50"
                           }`}
                         >
                           {stepLabel}
@@ -193,17 +202,13 @@ export function DeidentificationPanel() {
             </div>
           </div>
 
-          <div className="relative min-h-[400px] overflow-hidden lg:h-full lg:min-h-0 lg:flex-1">
+          <div className="relative h-[450px] overflow-hidden lg:h-full lg:flex-1">
             <div
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 right-10 hidden border-r border-dashed border-[#a8a8a8] min-[1440px]:block"
-            />
-            <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out motion-reduce:transition-none lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 lg:pb-8 min-[1440px]:flex-row min-[1440px]:items-start">
+              <div className="flex flex-col gap-3.5 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
                 <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   Your data.
                   <br />
@@ -214,7 +219,7 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
+              <div className="relative shrink-0 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION}
                   alt="A customer email with names, contact details, and an API key struck out by redaction bars"
@@ -226,11 +231,11 @@ export function DeidentificationPanel() {
             </div>
 
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out motion-reduce:transition-none lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 1 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 lg:pb-8 min-[1440px]:flex-row min-[1440px]:items-start">
+              <div className="flex flex-col gap-3.5 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
                 <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   How your data
                   <br />
@@ -241,7 +246,7 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
+              <div className="relative shrink-0 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DETECTION_ILLUSTRATION}
                   alt="A benchmark card showing PII coverage across Slack, PDFs, tickets, commits, images, and email, with Replay finding 3x more identifiers than the leading frontier model"
@@ -253,30 +258,22 @@ export function DeidentificationPanel() {
             </div>
 
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:pt-8 lg:pr-10 lg:pl-10 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out motion-reduce:transition-none lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 2 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 lg:pb-8 min-[1440px]:flex-row min-[1440px]:items-start">
-                <div className="flex flex-row items-center justify-between gap-5 lg:flex-1 min-[1440px]:flex-col min-[1440px]:items-start">
-                  <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
-                    We&rsquo;re setting
-                    <br />
-                    the standard
-                  </p>
-                  <Link
-                    href="/value-my-data"
-                    className="border border-white px-5 py-3 font-serif text-xs tracking-wide text-white uppercase transition-colors duration-150 ease-snap hover:bg-white hover:text-black"
-                  >
-                    Value my data
-                  </Link>
-                </div>
+              <div className="flex flex-col gap-3.5 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
+                <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
+                  We&rsquo;re setting
+                  <br />
+                  the standard
+                </p>
                 <p className="text-sm leading-[20.02px] tracking-[-0.35px] text-white lg:w-full lg:leading-[1.4] lg:tracking-[-0.42px] min-[1440px]:w-[360px] min-[1440px]:max-w-[360px] min-[1440px]:shrink-0 min-[1440px]:break-words">
                   {STANDARD_BODY}
                 </p>
               </div>
 
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-col lg:justify-end">
+              <div className="relative shrink-0 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_STANDARD_ILLUSTRATION}
                   alt="The Replay Standard for Real-World Data De-identification: 60+ categories, per-class thresholds, a 4-stage process, and benchmark-held verification, with isolated tenants, raw data in, no shared storage, no cross-client access, and clean data out"

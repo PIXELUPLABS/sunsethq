@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { BUYER_CARDS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
-import { ProcessBar } from "./process-bar";
 import type { BuyerCard } from "../types";
 
 const ICONS: Record<BuyerCard["icon"], string> = {
@@ -21,7 +20,7 @@ export function BuyersSection() {
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-t border-dashed border-[#d4d4d4]">
-        <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20">
+        <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20 min-[1200px]:gap-20">
           <div className="flex flex-col items-start gap-6">
             <SectionTag
               label="Who buys it"
@@ -35,11 +34,11 @@ export function BuyersSection() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 lg:grid-cols-3 lg:gap-5">
+          <div className="grid grid-cols-1 gap-3 min-[1200px]:grid-cols-3 min-[1200px]:gap-5">
             {BUYER_CARDS.map((card) => (
               <div
                 key={card.tagLabel}
-                className="relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 p-5 text-black lg:h-[430px]"
+                className="relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 px-5 pt-5 pb-6 text-black min-[1200px]:h-[430px] min-[1200px]:pb-5"
               >
                 {/* Wrapped 1px past the card's own edges so object-cover
                     rounding never leaves a hairline gap along any side. */}
@@ -60,33 +59,34 @@ export function BuyersSection() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-black opacity-0" />
 
-                <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] lg:text-[32px] lg:tracking-[-0.32px]">
+                <p className="relative font-serif text-[24px] leading-[1.1] tracking-[-0.24px] min-[1200px]:text-[32px] min-[1200px]:tracking-[-0.32px]">
                   {card.headline}
                 </p>
-                <div className="relative mb-3 flex items-center gap-[9px] opacity-60 lg:gap-3 lg:mb-[42px]">
+                <div className="relative flex items-center gap-[9px] opacity-60 min-[1200px]:gap-3 min-[1200px]:mb-[42px]">
                   <Image
                     src={ICONS[card.icon]}
                     alt=""
                     width={18}
                     height={18}
-                    className={`size-4 lg:size-[18px] ${card.icon === "entity" ? "invert" : ""}`}
+                    className={`size-4 min-[1200px]:size-[18px] ${card.icon === "entity" ? "invert" : ""}`}
                   />
-                  <span className="text-sm leading-none font-medium uppercase lg:text-base">
+                  <span className="text-sm leading-none font-medium uppercase min-[1200px]:text-base">
                     {card.tagLabel}
                   </span>
                 </div>
 
                 <div
-                  className="absolute -top-[2px] right-0 size-4 bg-black"
+                  className="absolute -top-[2px] right-0 size-3.5 bg-black min-[1200px]:size-4"
                   style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
                 />
 
                 {/* Bottom-edge texture: half-height window showing just the
                     image's top half by default, growing to full height on
                     hover - the fixed, top-anchored image behind it appears
-                    to slide its bottom half into view as the window grows. */}
+                    to slide its bottom half into view as the window grows.
+                    Phones get the same strip at the design's 18px. */}
                 <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[22px] overflow-hidden lg:block"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[18px] overflow-hidden min-[1200px]:h-[22px]"
                   aria-hidden
                 >
                   <div
@@ -97,8 +97,6 @@ export function BuyersSection() {
                     }}
                   />
                 </div>
-
-                <ProcessBar className="absolute inset-x-0 bottom-0 h-3 lg:h-[16px] lg:opacity-0" />
               </div>
             ))}
           </div>

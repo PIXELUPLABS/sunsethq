@@ -2,10 +2,11 @@
 
 import type { StatItem } from "../types";
 import { useInView } from "../hooks/use-in-view";
+import { SCROLL_PLAY_THRESHOLD } from "../lib/constants";
 import { AnimatedStatValue } from "./animated-stat-value";
 
 export function StatsGrid({ stats }: { stats: StatItem[] }) {
-  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.4 });
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: SCROLL_PLAY_THRESHOLD, once: false });
 
   return (
     <div ref={ref} className="grid grid-cols-2 lg:grid-cols-4">

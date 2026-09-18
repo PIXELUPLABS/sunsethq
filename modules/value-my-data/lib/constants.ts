@@ -1,7 +1,10 @@
 import type { Benefit } from "../types";
 
 export const VALUE_MY_DATA_EYEBROW = "Data Valuation";
-export const VALUE_MY_DATA_HEADLINE = "See what your data could be worth.";
+// Split so the hero can keep "could be worth." on one line: "could" should
+// never end the first line, whatever the viewport.
+export const VALUE_MY_DATA_HEADLINE_LEAD = "See what your data";
+export const VALUE_MY_DATA_HEADLINE_TAIL = "could be worth.";
 export const VALUE_MY_DATA_BODY =
   "Replay helps companies turn the data they already generate into a new source of revenue — without licensing raw customer or employee data.";
 

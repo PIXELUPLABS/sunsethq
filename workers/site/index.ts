@@ -31,6 +31,10 @@ export async function handleSite(request: Request, env: SiteEnv) {
     response = await handleIntake(request, env);
   } else if (url.pathname.startsWith("/api/")) {
     response = new Response("Not found", { status: 404 });
+  } else if (/^\/data-and-(trust|privacy)\/?$/.test(url.pathname)) {
+    // Next.js redirects are not emitted by the static export.
+    url.pathname = "/data-privacy";
+    response = new Response(null, { status: 308, headers: { Location: url.href } });
   } else {
     response = await env.ASSETS.fetch(request);
   }

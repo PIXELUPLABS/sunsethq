@@ -8,7 +8,7 @@ import type {
 } from "../types";
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Data privacy", href: "/data-and-trust", isRoute: true },
+  { label: "Data privacy", href: "/data-privacy", isRoute: true },
   { label: "Careers", href: "/careers", isRoute: true },
 ];
 
@@ -38,9 +38,23 @@ export const PRICING_TIERS = [
   { value: "$1M+", people: "100+ People", segments: 11, tone: "blue" as const },
 ];
 
-export const HOW_IT_WORKS_STEP_INTERVAL_MS = 7000;
+export const HOW_IT_WORKS_STEP_INTERVAL_MS = 10000;
 
 export const REVENUE_STREAM_TILE_MS = 200;
+
+/**
+ * How long the How it works media is hidden for while it moves to sit under
+ * the newly opened step on phones. Half of it fades out, half fades back in,
+ * so the whole swap fits inside the accordion's own 500ms transition.
+ */
+export const VALUATION_MEDIA_SWAP_MS = 200;
+
+/**
+ * Universal scroll-play rule for on-page animations and videos: they start
+ * once this much of the element is visible, pause once it has fully left
+ * the viewport, and restart from the beginning the next time it comes in.
+ */
+export const SCROLL_PLAY_THRESHOLD = 0.3;
 
 export const VALUATION_STEPS = [
   {
@@ -80,6 +94,35 @@ export const VALUATION_STEPS = [
 export const DEIDENTIFICATION_TABS = ["Coverage", "The pipeline", "Policy"] as const;
 
 export type DeidentificationTab = (typeof DEIDENTIFICATION_TABS)[number];
+
+export type DeidentificationCopy = {
+  heading: string;
+  paragraphs: string[];
+};
+
+export const DEIDENTIFICATION_COPY: Record<DeidentificationTab, DeidentificationCopy> = {
+  Coverage: {
+    heading: "Your data leaves cleaner than a medical record.",
+    paragraphs: [
+      "The federal standard for de-identifying medical records (HIPAA) lists eighteen categories that have to be stripped out. We cover all eighteen, and many more.",
+      "Names, emails, API keys, access tokens, customer records. Our de-identification covers 60+ categories, across every file type and application your business works in.",
+    ],
+  },
+  "The pipeline": {
+    heading: "We built the pipeline and trained the model.",
+    paragraphs: [
+      "General-purpose models aren't trained to find personal information in Slack threads, support tickets or commit messages. So we trained one that is. On the same benchmark, ours finds [86%] of identifiers where NVIDIA's finds [30%].",
+      "The model is only the first layer. An ensemble of additional models and processing stages runs behind it, so nothing depends on a single pass.",
+    ],
+  },
+  Policy: {
+    heading: "Set the scope and only license what you grant access to.",
+    paragraphs: [
+      "Tenant isolation. Every engagement runs in its own isolated environment. No shared storage, no shared processing, no path between one client's data and another's.",
+      "Only de-identified data is ever licensed. Raw data is never sold, never shared, and never leaves the pipeline. The cleaned version is the only version a buyer ever sees.",
+    ],
+  },
+};
 
 export const BUYER_CARDS: BuyerCard[] = [
   {
@@ -126,7 +169,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Company",
     links: [
-      { label: "Data privacy", href: "/data-and-trust" },
+      { label: "Data privacy", href: "/data-privacy" },
       { label: "Careers", href: "/careers" },
     ],
   },

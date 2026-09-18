@@ -15,14 +15,10 @@ export function ValuesSection() {
           <SectionTag
             label="Values"
             tone="dark"
-            icon={
-              <Image
-                src="/images/careers/values-icons/values_pillars.webp"
-                alt=""
-                width={18}
-                height={18}
-              />
-            }
+            textClassName="text-white/60"
+            borderClassName="border-dashed border-white/25"
+            paddingClassName="px-2 py-1"
+            heightClassName="h-auto"
           />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-white sm:text-[44px] sm:tracking-tight">
             What we believe.
@@ -43,7 +39,7 @@ export function ValuesSection() {
             return (
               <div
                 key={value.title}
-                className={`flex min-h-[220px] flex-col justify-between border-dashed border-[#353535] bg-[#0c0c0b] p-6 transition-[opacity,transform] duration-700 ease-snap sm:min-h-[240px] ${
+                className={`flex min-h-[220px] flex-col justify-between border-dashed border-[#353535] bg-[#0c0c0b] p-5 transition-[opacity,transform] sm:p-6 duration-700 ease-snap sm:min-h-[240px] ${
                   isLastMobile ? "border-b-0" : "border-b"
                 } ${isLastRowSm ? "sm:border-b-0" : "sm:border-b"} ${
                   needsRightBorderSm ? "sm:border-r" : "sm:border-r-0"
@@ -53,7 +49,7 @@ export function ValuesSection() {
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <div className="flex items-center justify-between">
-                  <Image src={value.icon} alt="" width={40} height={40} />
+                  <Image src={value.icon} alt="" width={24} height={24} className="size-6" />
                   <p className="font-mono text-xs text-white/40">
                     {String(i + 1).padStart(2, "0")}
                   </p>

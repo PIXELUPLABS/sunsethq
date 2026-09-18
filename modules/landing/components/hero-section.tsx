@@ -5,10 +5,12 @@ import Image from "next/image";
 import { HeroFooterBar } from "./hero-footer-bar";
 import { HeroSidePatternLeft } from "./hero-side-pattern-left";
 import { HeroSidePatternRight } from "./hero-side-pattern-right";
+import { SectionTag } from "./section-tag";
 import {
   HERO_CARD_2,
   HERO_CARD_3,
   HERO_CARD_4,
+  HERO_CONVERGE_FADE_OUT,
   HERO_CONVERGE_STACK_CENTER_Y,
   HERO_CONVERGE_X_CSS,
   HERO_LINE_PATTERN,
@@ -34,12 +36,12 @@ export function HeroSection() {
   const card4Progress = remap(masterProgress, 8 / 15, 10 / 15);
   const patternProgress = remap(masterProgress, 10 / 15, 12 / 15);
   const linePatternProgress = remap(masterProgress, 4 / 15, 10 / 15);
-  const textFadeProgress = Math.min(1, convergeProgress / 0.15);
+  const textFadeProgress = Math.min(1, convergeProgress / HERO_CONVERGE_FADE_OUT);
 
   return (
-    <div ref={pinRef} className="relative min-[1350px]:h-[475vh]">
+    <div ref={pinRef} className="relative min-[1350px]:h-[475vh] motion-reduce:h-auto!">
       <section
-        className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] min-[1350px]:sticky min-[1350px]:top-0 min-[1350px]:flex min-[1350px]:min-h-[100vh] min-[1350px]:flex-col"
+        className="relative overflow-hidden border-b border-dashed border-[#d4d4d4] bg-[#fcfcfc] motion-reduce:static! min-[1350px]:sticky min-[1350px]:top-0 min-[1350px]:flex min-[1350px]:min-h-[100vh] min-[1350px]:flex-col"
       >
         <Image
           src="/images/grain-light-texture.svg"
@@ -49,9 +51,11 @@ export function HeroSection() {
           className="pointer-events-none object-cover"
         />
 
-        <div className="relative flex items-stretch min-[1350px]:flex-1 min-[1800px]:[--hero-lift:calc(50vh_-_410px)] min-[1800px]:[--hero-stack-extra-lift:-30px]">
+        {/* Clipped so the side collages and stacked cards stop at the footer
+            bar instead of painting over its labels and lines. */}
+        <div className="relative flex items-stretch overflow-hidden min-[1350px]:flex-1 min-[1800px]:[--hero-lift:calc(50vh_-_410px)] min-[1800px]:[--hero-stack-extra-lift:-30px]">
           <div
-            className="pointer-events-none absolute z-0 hidden min-[1350px]:block"
+            className="pointer-events-none absolute z-0 hidden min-[1350px]:block motion-reduce:hidden!"
             style={{
               left: HERO_PATTERN_BOX.left,
               top: HERO_PATTERN_BOX.top,
@@ -65,7 +69,7 @@ export function HeroSection() {
           </div>
 
           <div
-            className="pointer-events-none absolute z-30 hidden min-[1350px]:block"
+            className="pointer-events-none absolute z-30 hidden min-[1350px]:block motion-reduce:hidden!"
             style={{
               left: HERO_LINE_PATTERN_BOX.left,
               top: HERO_LINE_PATTERN_BOX.top,
@@ -83,21 +87,28 @@ export function HeroSection() {
             <HeroSidePatternLeft progress={convergeProgress} />
           </div>
 
-        <div className="flex w-full flex-col items-center gap-7 border-dashed border-black/8 px-6 pt-[108px] pb-6 min-[1350px]:w-[898px] min-[1350px]:shrink-0 min-[1350px]:justify-center min-[1350px]:gap-10 min-[1350px]:px-0 min-[1350px]:pt-[220px] min-[1350px]:pb-[160px]">
+        <div className="flex w-full flex-col items-center gap-7 border-dashed border-[#d4d4d4] px-6 pt-[108px] pb-6 min-[1350px]:w-[898px] min-[1350px]:shrink-0 min-[1350px]:justify-center min-[1350px]:gap-10 min-[1350px]:px-0 min-[1350px]:pt-[220px] min-[1350px]:pb-[160px]">
           <div
-            className="flex flex-col items-center gap-7 min-[1350px]:gap-10 min-[1350px]:opacity-[calc(1-var(--converge))] min-[1350px]:transform-[translateY(calc(var(--converge)*-40px))]"
+            className="flex flex-col items-center gap-7 min-[1350px]:gap-10 motion-reduce:opacity-100! motion-reduce:transform-none! min-[1350px]:opacity-[calc(1-var(--converge))] min-[1350px]:transform-[translateY(calc(var(--converge)*-40px))]"
             style={{ "--converge": textFadeProgress } as CSSProperties}
           >
             <div className="flex max-w-[840px] flex-col items-center gap-3 text-center min-[1350px]:gap-6">
-              <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-[#181a1b] sm:text-[56px] sm:leading-none sm:tracking-tight min-[1350px]:text-[72px] min-[1350px]:tracking-[-2.88px]">
+              <SectionTag
+                label="Data & privacy"
+                textClassName="text-black/60"
+                borderClassName="border-dashed border-black/25"
+                paddingClassName="px-2 py-1"
+                heightClassName="h-auto"
+              />
+              <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-black sm:text-[56px] sm:leading-none sm:tracking-tight lg:text-[72px] lg:tracking-[-2.88px]">
                 Securely license your data.
-                <br />
+                <br className="hidden lg:block" />{" "}
                 Stay in compliance.
               </h1>
               <p className="max-w-[669px] text-[14.5px] leading-[1.45] tracking-[-0.37px] text-[#727272] sm:text-base sm:leading-relaxed sm:tracking-tight">
                 Replay removes PII, confirms your right to license, and
                 identifies any risk.
-                <br />
+                <br className="hidden lg:block" />{" "}
                 All before your data moves.
               </p>
             </div>
@@ -119,7 +130,7 @@ export function HeroSection() {
         </div>
 
         <div
-          className="pointer-events-none absolute z-18 hidden min-[1350px]:block"
+          className="pointer-events-none absolute z-18 hidden min-[1350px]:block motion-reduce:hidden!"
           style={{
             left: `calc(${HERO_CONVERGE_X_CSS} + 5px)`,
             top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y - 12,
@@ -134,7 +145,7 @@ export function HeroSection() {
         </div>
 
         <div
-          className="pointer-events-none absolute z-19 hidden min-[1350px]:block"
+          className="pointer-events-none absolute z-19 hidden min-[1350px]:block motion-reduce:hidden!"
           style={{
             left: `calc(${HERO_CONVERGE_X_CSS} + 40px + 210px - 5px)`,
             top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y + 55,
@@ -148,7 +159,7 @@ export function HeroSection() {
         </div>
 
         <div
-          className="pointer-events-none absolute z-20 hidden min-[1350px]:block"
+          className="pointer-events-none absolute z-20 hidden min-[1350px]:block motion-reduce:hidden!"
           style={{
             left: `calc(${HERO_CONVERGE_X_CSS} + 470px)`,
             top: HERO_PATTERN_TOP_OFFSET + HERO_CONVERGE_STACK_CENTER_Y + 119,

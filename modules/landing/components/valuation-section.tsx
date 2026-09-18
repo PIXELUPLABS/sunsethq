@@ -1,16 +1,37 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
 import { ValuationMedia } from "./valuation-media";
-import { VALUATION_STEPS } from "../lib/constants";
+import { ValuationPanel } from "./valuation-panel";
+import {
+  SCROLL_PLAY_THRESHOLD,
+  VALUATION_MEDIA_SWAP_MS,
+  VALUATION_STEPS,
+} from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 import { useInView } from "../hooks/use-in-view";
+import { useDeferredSwap } from "../hooks/use-deferred-swap";
 
 export function ValuationSection() {
-  const { activeIndex, setActiveIndex, advance } = useStepCycle(VALUATION_STEPS.length);
-  const { ref, inView } = useInView<HTMLElement>({ threshold: 0.3 });
+  const { activeIndex, setActiveIndex, advance, reset } = useStepCycle(VALUATION_STEPS.length);
+  const { ref, inView } = useInView<HTMLElement>({ threshold: SCROLL_PLAY_THRESHOLD, once: false });
+
+  // On phones the media sits under whichever step is open, which it reaches by
+  // changing its order in the column. That move is instant and can't be eased,
+  // so it happens while the panel is faded out.
+  const { settled: mediaIndex, swapping } = useDeferredSwap(
+    activeIndex,
+    VALUATION_MEDIA_SWAP_MS
+  );
+
+  // Every scroll-in starts the walkthrough over from the first step. Out of
+  // view, the accordion stops its timer and the videos unmount, so nothing
+  // runs on while the section is off screen.
+  useEffect(() => {
+    if (inView) reset();
+  }, [inView, reset]);
 
   return (
     <section
@@ -43,12 +64,19 @@ export function ValuationSection() {
           />
         </div>
 
-        <div
-          className="relative order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full overflow-hidden bg-[#0c0c0b] md:max-h-[650px] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px]"
-          style={{ "--media-order": activeIndex * 2 + 3 } as CSSProperties}
+        <ValuationPanel
+          className={`order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full transition-opacity ease-out md:max-h-[650px] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px] ${
+            swapping ? "max-lg:opacity-0" : "opacity-100"
+          }`}
+          style={
+            {
+              "--media-order": mediaIndex * 2 + 3,
+              transitionDuration: `${VALUATION_MEDIA_SWAP_MS}ms`,
+            } as CSSProperties
+          }
         >
           <ValuationMedia activeIndex={activeIndex} hasEnteredViewport={inView} />
-        </div>
+        </ValuationPanel>
       </div>
     </section>
   );

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Hedvig_Letters_Serif } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { Agentation } from "agentation";
 import { VisitAttribution } from "@/modules/attribution/components/visit-attribution";
@@ -31,9 +31,15 @@ const stkBureauSerif = localFont({
   display: "swap",
 });
 
-const hedvigLettersSerif = Hedvig_Letters_Serif({
-  variable: "--font-serif-accent",
-  subsets: ["latin"],
+// The Regular cut, used for h3s. Its trial file carries only 71 glyphs, so
+// `--font-serif-regular` in globals.css lists the Book cut behind it to cover
+// punctuation it lacks (hyphen, colon, ampersand, apostrophe and the like).
+const stkBureauSerifRegular = localFont({
+  src: "../public/fonts/stk-bureau-serif-regular.woff2",
+  variable: "--font-serif-regular-only",
+  weight: "400",
+  style: "normal",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -75,7 +81,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${hedvigLettersSerif.variable} h-full antialiased motion-safe:scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${stkBureauSerifRegular.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">
         <VisitAttribution />

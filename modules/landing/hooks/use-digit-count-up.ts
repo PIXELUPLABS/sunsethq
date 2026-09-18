@@ -4,9 +4,20 @@ import { useEffect, useState } from "react";
 
 const COUNT_UP_DURATION_MS = 500;
 const DIGIT_STAGGER_MS = 120;
+/** Beat before the first digit moves, so the row is read as still, then counts. */
+const COUNT_UP_START_DELAY_MS = 250;
 
 export function useDigitCountUp(target: number, start: boolean, digitIndex: number) {
   const [display, setDisplay] = useState(0);
+  const [trackedStart, setTrackedStart] = useState(start);
+
+  // Leaving the viewport rewinds the digit so the next entry counts up from
+  // zero again. Done during render, not in an effect, so the reset lands in
+  // the same paint as the change that caused it.
+  if (start !== trackedStart) {
+    setTrackedStart(start);
+    if (!start) setDisplay(0);
+  }
 
   useEffect(() => {
     if (!start || target === 0) return;
@@ -23,7 +34,7 @@ export function useDigitCountUp(target: number, start: boolean, digitIndex: numb
         if (progress < 1) frame = requestAnimationFrame(tick);
       };
       frame = requestAnimationFrame(tick);
-    }, digitIndex * DIGIT_STAGGER_MS);
+    }, COUNT_UP_START_DELAY_MS + digitIndex * DIGIT_STAGGER_MS);
 
     return () => {
       clearTimeout(timeout);

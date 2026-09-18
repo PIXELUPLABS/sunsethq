@@ -4,6 +4,8 @@ import { CookieSettingsButton } from "@/modules/consent/components/cookie-settin
 import { FOOTER_COLUMNS } from "../lib/constants";
 import { ReplayWordmark } from "./replay-wordmark";
 
+const FOOTER_BOTTOM_STRIP = "/images/footer/bottom-strip.png";
+
 export function Footer() {
   return (
     <footer
@@ -30,7 +32,7 @@ export function Footer() {
                   index % 2 === 0 ? "-right-5" : "right-0"
                 }`}
               />
-              <p className="font-serif-accent text-[16px] leading-[1.1] tracking-[-0.16px] text-white lg:text-[18px] lg:tracking-[-0.18px]">
+              <p className="font-serif text-[16px] leading-[1.1] tracking-[-0.16px] text-white lg:text-[18px] lg:tracking-[-0.18px]">
                 {column.title}
               </p>
               <div className="flex flex-col gap-2 lg:flex-row lg:gap-10">
@@ -49,7 +51,23 @@ export function Footer() {
         </nav>
 
         <div className="relative w-full lg:-mb-[10px]">
-          <div className="relative aspect-[1297/337] w-full bg-[#080808]">
+          {/* Text-strip artwork behind the wordmark: a 1737 x 350 export sized
+              against the 1296 x 337 wordmark of the 1440 design and centered,
+              so it bleeds evenly past the content column and scales with it. */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute bottom-0 left-1/2 aspect-[1737/350] w-[134.0278%] -translate-x-1/2 opacity-40"
+          >
+            <Image
+              src={FOOTER_BOTTOM_STRIP}
+              alt=""
+              fill
+              sizes="(min-width: 1704px) 2091px, 134vw"
+              className="pointer-events-none object-cover"
+            />
+          </div>
+
+          <div className="relative aspect-[1297/337] w-full">
             <ReplayWordmark className="absolute inset-0 h-full w-full" />
           </div>
 

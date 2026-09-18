@@ -6,7 +6,8 @@ import {
   BENEFITS,
   VALUE_MY_DATA_BODY,
   VALUE_MY_DATA_EYEBROW,
-  VALUE_MY_DATA_HEADLINE,
+  VALUE_MY_DATA_HEADLINE_LEAD,
+  VALUE_MY_DATA_HEADLINE_TAIL,
 } from "../lib/constants";
 
 const GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
@@ -27,17 +28,14 @@ export function ValueMyDataHero() {
           <div className="flex flex-col items-start gap-5">
             <SectionTag
               label={VALUE_MY_DATA_EYEBROW}
-              icon={
-                <Image
-                  src="/images/value/data-valuation.webp"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
             <h1 className="font-serif text-[36px] leading-[1.08] tracking-[-1.3px] text-black sm:text-[44px] sm:tracking-[-1.76px] lg:text-[52px] lg:tracking-[-2.08px]">
-              {VALUE_MY_DATA_HEADLINE}
+              {VALUE_MY_DATA_HEADLINE_LEAD}{" "}
+              <span className="whitespace-nowrap">{VALUE_MY_DATA_HEADLINE_TAIL}</span>
             </h1>
             <p className="max-w-[440px] text-[14.5px] leading-[1.5] tracking-[-0.2px] text-[#727272] sm:text-base sm:leading-[1.5]">
               {VALUE_MY_DATA_BODY}

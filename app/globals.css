@@ -15,7 +15,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-serif);
-  --font-serif-accent: var(--font-serif-accent);
+  --font-serif-regular: var(--font-serif-regular-only), var(--font-serif);
   --color-ink: var(--color-ink);
   --color-blue-deep: var(--color-blue-deep);
   --color-blue-bright: var(--color-blue-bright);

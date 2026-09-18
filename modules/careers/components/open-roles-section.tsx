@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { SearchIcon } from "@/components/ui/icons";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useOpenRoles } from "../hooks/use-open-roles";
@@ -39,14 +38,10 @@ export function OpenRolesSection({ initialTeams }: { initialTeams: Team[] }) {
           <div className="flex max-w-[560px] flex-col items-start gap-6">
             <SectionTag
               label="Open Roles"
-              icon={
-                <Image
-                  src="/images/careers/values-icons/our_team_interlocking_modules_4x.webp"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
             <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
               Every role, in full, right here.
@@ -67,7 +62,7 @@ export function OpenRolesSection({ initialTeams }: { initialTeams: Team[] }) {
                 />
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-[220px_1fr] lg:border lg:border-[#a8a8a8]">
+              <div className="-mx-3 grid grid-cols-1 sm:mx-0 lg:grid-cols-[220px_1fr] lg:border lg:border-[#a8a8a8]">
                 <div className="relative flex flex-col border-b border-[#a8a8a8] lg:border-r lg:border-b-0 lg:p-6">
                   <div
                     aria-hidden
@@ -101,7 +96,7 @@ export function OpenRolesSection({ initialTeams }: { initialTeams: Team[] }) {
 
                 <div
                   ref={panelRef}
-                  className={`flex flex-col overflow-hidden px-6 py-4 transition-opacity duration-150 ease-snap lg:p-6 ${
+                  className={`flex flex-col overflow-hidden p-6 transition-opacity duration-150 ease-snap ${
                     isSwitchingTeam ? "opacity-0" : "opacity-100"
                   }`}
                 >
@@ -129,7 +124,7 @@ export function OpenRolesSection({ initialTeams }: { initialTeams: Team[] }) {
           ) : null}
 
           <div className="flex w-full flex-col gap-2 text-left">
-            <h3 className="max-w-[480px] font-serif text-[20px] tracking-[-0.4px] text-black">
+            <h3 className="max-w-[480px] font-serif-regular text-[20px] tracking-[-0.4px] text-black">
               Don&rsquo;t see a fit?
             </h3>
             <p className="max-w-[480px] text-sm leading-[1.5] text-[#727272]">

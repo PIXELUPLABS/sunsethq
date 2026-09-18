@@ -7,7 +7,7 @@ const directory = process.env.STATIC_EXPORT_DIRECTORY || (production ? 'out-prod
 const config = JSON.parse(await readFile(production ? 'workers/site/wrangler.production.json' : 'workers/site/wrangler.json', 'utf8'));
 const snapshot = JSON.parse(await readFile('modules/careers/data/jobs.json', 'utf8'));
 const origin = config.vars.SITE_ORIGIN;
-const routes = ['/', '/blogs', '/careers', '/data-and-trust', '/value-my-data', ...snapshot.teams.flatMap(team => team.roles.map(role => `/careers/roles/${role.id}`))];
+const routes = ['/', '/blogs', '/careers', '/data-privacy', '/value-my-data', ...snapshot.teams.flatMap(team => team.roles.map(role => `/careers/roles/${role.id}`))];
 for (const route of routes) {
   const html = await readFile(route === '/' ? `${directory}/index.html` : `${directory}${route}.html`, 'utf8');
   assert.match(html, /<title>[^<]+<\/title>/, `${route}: missing title`);
@@ -17,7 +17,7 @@ for (const route of routes) {
     assert.ok(!html.includes('replay-marketing-staging.replay-marketing-dev.workers.dev'), `${route}: staging origin in production`);
   } else assert.match(html, /name="robots" content="[^"]*noindex/, `${route}: missing noindex`);
   assert.ok(!html.includes('/_next/image?'), `${route}: runtime image optimizer in static export`);
-  for (const [, source] of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
+  for (const [, source] of html.matchAll(/\s(?:src|href)="([^"#]+)"/g)) {
     if (!source.startsWith('/') || source.startsWith('//')) continue;
     const clean = decodeURIComponent(source.split('?')[0]);
     if (clean === '/' || routes.includes(clean) || clean.startsWith('/api/')) continue;

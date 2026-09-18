@@ -14,7 +14,7 @@ export function RoleRow({ role, index, isLast }: RoleRowProps) {
   return (
     <Link
       href={`/careers/roles/${role.id}`}
-      className={`group relative mx-6 my-1.5 flex items-start gap-4 border-b p-5 text-left transition-colors duration-200 ease-snap active:!bg-black/[0.05] [@media(hover:hover)]:hover:bg-black/[0.03] ${
+      className={`group relative my-1.5 flex items-start gap-4 border-b py-5 text-left transition-colors duration-200 ease-snap active:!bg-black/[0.05] [@media(hover:hover)]:hover:bg-black/[0.03] lg:mx-6 lg:my-0 lg:p-5 ${
         isLast ? "border-transparent" : "border-black/10"
       }`}
     >

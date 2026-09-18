@@ -21,7 +21,13 @@ export function WhyReplaySection() {
       <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">
         <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20">
           <div className="flex max-w-[560px] flex-col items-start gap-6">
-            <SectionTag label="Why Replay" />
+            <SectionTag
+              label="Why Replay"
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
+            />
             <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
               A serious place to build.
             </h2>

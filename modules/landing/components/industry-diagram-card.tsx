@@ -27,7 +27,9 @@ export function IndustryDiagramCard({
         top: `${(top / 665) * 100}cqw`,
         width: "19.0977cqw",
         height: "19.0977cqw",
-        transitionDelay: `${delayMs}ms`,
+        // Out of view the card snaps back to its start so the reveal replays.
+        transitionDelay: start ? `${delayMs}ms` : "0ms",
+        transitionDuration: start ? undefined : "0ms",
         transform: start
           ? "translate(0, 0)"
           : `translate(${(offsetLeft / 665) * 100}cqw, ${(offsetTop / 665) * 100}cqw)`,
@@ -48,7 +50,7 @@ export function IndustryDiagramCard({
         height={16}
         className="relative z-10 size-[2.406cqw]"
       />
-      <p className="relative z-10 whitespace-nowrap font-serif-accent text-[2.1053cqw] tracking-tight text-[#090909]">
+      <p className="relative z-10 whitespace-nowrap font-serif text-[2.1053cqw] tracking-tight text-[#090909]">
         {label}
       </p>
     </div>

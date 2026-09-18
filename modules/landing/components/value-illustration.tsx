@@ -456,7 +456,7 @@ export function ValueIllustration({ active }: { active: boolean }) {
                 backgroundPosition: "top left",
               }}
             />
-            <p className="relative font-serif-accent leading-none text-white" style={{ fontSize: s.x(32.875) }}>
+            <p className="relative font-serif leading-none text-white" style={{ fontSize: s.x(32.875) }}>
               8M
             </p>
             <p

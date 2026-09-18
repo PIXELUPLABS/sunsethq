@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { PrimaryButtonHover } from "@/components/ui/primary-button-hover";
 import Link from "next/link";
 import { Footer } from "@/modules/landing/components/footer";
 import { Navbar } from "@/modules/landing/components/navbar";
@@ -46,7 +46,7 @@ export function RoleDetailPage({ role }: RoleDetailPageProps) {
               </div>
 
               <div
-                className="flex w-full flex-col text-sm leading-[1.6] text-[#727272] [&_a]:text-black [&_a]:underline [&_a]:decoration-[#d4d4d4] [&_a]:underline-offset-4 [&_a:hover]:decoration-black [&_h2]:mt-6 [&_h2]:font-serif [&_h2]:text-[20px] [&_h2]:text-black [&_h2]:first:mt-0 [&_h3]:mt-6 [&_h3]:font-serif [&_h3]:text-lg [&_h3]:text-black [&_h3]:first:mt-0 [&_li]:mt-1 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mb-3 [&_p:last-child]:mb-0 [&_p:empty]:hidden [&>p:has(>strong:only-child)]:mt-6 [&>p:has(>strong:only-child)]:first:mt-0 [&_strong]:font-medium [&_strong]:text-[#4a4a4a] [&>p:has(>strong:only-child)>strong]:font-serif [&>p:has(>strong:only-child)>strong]:text-[20px] [&>p:has(>strong:only-child)>strong]:font-normal [&>p:has(>strong:only-child)>strong]:text-black [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5"
+                className="flex w-full flex-col text-sm leading-[1.6] text-[#727272] [&_a]:text-black [&_a]:underline [&_a]:decoration-[#d4d4d4] [&_a]:underline-offset-4 [&_a:hover]:decoration-black [&_h2]:mt-6 [&_h2]:font-serif [&_h2]:text-[20px] [&_h2]:text-black [&_h2]:first:mt-0 [&_h3]:mt-6 [&_h3]:font-serif-regular [&_h3]:text-lg [&_h3]:text-black [&_h3]:first:mt-0 [&_li]:mt-1 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mb-3 [&_p:last-child]:mb-0 [&_p:empty]:hidden [&>p:has(>strong:only-child)]:mt-6 [&>p:has(>strong:only-child)]:first:mt-0 [&_strong]:font-medium [&_strong]:text-[#4a4a4a] [&>p:has(>strong:only-child)>strong]:font-serif [&>p:has(>strong:only-child)>strong]:text-[20px] [&>p:has(>strong:only-child)>strong]:font-normal [&>p:has(>strong:only-child)>strong]:text-black [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5"
                 dangerouslySetInnerHTML={{ __html: role.description }}
               />
 
@@ -56,13 +56,7 @@ export function RoleDetailPage({ role }: RoleDetailPageProps) {
                 rel="noopener noreferrer"
                 className="group relative flex h-13 w-[300px] max-w-full items-center justify-center overflow-hidden bg-[#141518] transition-transform duration-150 ease-snap active:scale-[0.97] lg:h-auto lg:w-auto lg:px-10 lg:py-6"
               >
-                <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-30" />
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
-                  <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
-                </div>
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 [@media(hover:hover)]:group-hover:opacity-100">
-                  <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
-                </div>
+                <PrimaryButtonHover />
                 <span className="relative font-serif text-xs leading-[0.8] tracking-wide text-white uppercase lg:text-base">
                   Apply
                 </span>

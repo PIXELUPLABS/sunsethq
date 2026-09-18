@@ -25,14 +25,10 @@ export function TeamCollageSection() {
           <div className="flex max-w-[560px] flex-col items-start gap-6">
             <SectionTag
               label={TEAM_COLLAGE_EYEBROW}
-              icon={
-                <Image
-                  src="/images/careers/values-icons/open_doorway_4x.webp"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
             <div className="flex flex-col gap-4">
               <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">

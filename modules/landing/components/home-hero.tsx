@@ -1,8 +1,21 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import { HeroBottomFade } from "./hero-bottom-fade";
 import { HeroCtaButton } from "./hero-cta-button";
 import { HeroFooterBar } from "./hero-footer-bar";
 import { HeroGridLines } from "./hero-grid-lines";
-import { HERO_HOME_ILLUSTRATION, HERO_HOME_ILLUSTRATION_MOBILE } from "../lib/hero-assets";
+import { HERO_HOME_ILLUSTRATION_MOBILE } from "../lib/hero-assets";
+
+// Desktop-only animated scene. The engine is ~37KB of imperative DOM code
+// that never renders on the server, so it's split out of the initial bundle.
+// The fallback reserves the scene's 1440x520 footprint so nothing shifts.
+const DeidentificationPass = dynamic(
+  () =>
+    import("./deid-pass/deidentification-pass").then(
+      (m) => m.DeidentificationPass
+    ),
+  { loading: () => <div aria-hidden className="aspect-[1440/520] w-full" /> }
+);
 
 export function HomeHero() {
   return (
@@ -46,41 +59,12 @@ export function HomeHero() {
           className="h-auto w-full"
         />
 
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
-          style={{
-            backgroundColor: "#fcfcfc",
-            backgroundImage: "url(/images/grain-light-texture.svg)",
-            backgroundSize: "cover",
-            maskImage: "linear-gradient(to bottom, transparent, black)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent, black)",
-          }}
-        />
+        <HeroBottomFade heightClass="h-[30%]" />
       </div>
 
-      <div className="relative hidden lg:block lg:mt-[571px] lg:left-[-10.93%] lg:w-[117.43%]">
-        <Image
-          src={HERO_HOME_ILLUSTRATION}
-          alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
-          width={1691}
-          height={313}
-          priority
-          sizes="117vw"
-          className="h-auto w-full"
-        />
-
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
-          style={{
-            backgroundColor: "#fcfcfc",
-            backgroundImage: "url(/images/grain-light-texture.svg)",
-            backgroundSize: "cover",
-            maskImage: "linear-gradient(to bottom, transparent, black)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent, black)",
-          }}
-        />
+      <div className="relative hidden lg:block lg:mt-[571px]">
+        <DeidentificationPass />
+        <HeroBottomFade heightClass="h-[45%]" />
       </div>
 
       <HeroFooterBar />

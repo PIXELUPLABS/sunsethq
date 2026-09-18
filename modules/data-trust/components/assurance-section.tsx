@@ -1,4 +1,3 @@
-import { ProcessMarkIcon } from "@/components/ui/process-mark-icon";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import {
   DATA_TRUST_GRAIN_STRIP,
@@ -19,7 +18,7 @@ export function AssuranceSection() {
         }}
       />
 
-      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#a8a8a8]">
+      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#bcbcbc]">
         <div
           aria-hidden
           className="pointer-events-none h-[46px] opacity-48 mix-blend-multiply sm:mx-10"
@@ -28,15 +27,18 @@ export function AssuranceSection() {
             backgroundSize: DATA_TRUST_GRAIN_STRIP_SIZE,
           }}
         />
-        <div className="border-t border-dashed border-[#a8a8a8]" />
+        <div className="border-t border-dashed border-[#bcbcbc]" />
 
-        <div className="border-dashed border-[#a8a8a8] sm:mx-10 sm:border-x">
+        <div className="border-dashed border-[#bcbcbc] sm:mx-10 sm:border-x">
           <div className="px-3 pt-16 pb-10 sm:pt-[107px] sm:pb-[94px]">
             <div className="mx-auto flex max-w-[511px] flex-col items-center gap-3 text-center">
               <div className="flex flex-col items-center gap-6">
                 <SectionTag
                   label="Legal"
-                  icon={<ProcessMarkIcon className="size-[18px]" />}
+                  textClassName="text-black/60"
+                  borderClassName="border-dashed border-black/25"
+                  paddingClassName="px-2 py-1"
+                  heightClassName="h-auto"
                 />
                 <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-[-1.76px]">
                   Your data stays yours.

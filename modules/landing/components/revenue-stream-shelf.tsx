@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { RevenueStreamShelfItem } from "./revenue-stream-shelf-item";
 import { useInView } from "../hooks/use-in-view";
-import { REVENUE_STREAM_TILE_MS } from "../lib/constants";
+import { REVENUE_STREAM_TILE_MS, SCROLL_PLAY_THRESHOLD } from "../lib/constants";
 import {
   REVENUE_STREAM_DASH_TICK_LEFT,
   REVENUE_STREAM_DASH_TICK_RIGHT,
@@ -42,7 +42,7 @@ const ANIMATED_ITEM_OFFSETS: Record<
 };
 
 export function RevenueStreamShelf() {
-  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: SCROLL_PLAY_THRESHOLD, once: false });
 
   return (
     <div

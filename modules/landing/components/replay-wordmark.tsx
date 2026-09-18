@@ -55,6 +55,18 @@ export function ReplayWordmark({ className }: { className?: string }) {
           </pattern>
         </defs>
 
+        {/* Solid backing under the translucent grain fill, so the letters
+            hide whatever sits behind the wordmark instead of showing it
+            through. It matches the footer's background. */}
+        {REPLAY_WORDMARK_PATHS.map((path, i) => (
+          <path
+            key={`backing-${i}`}
+            fillRule={path.evenOdd ? "evenodd" : undefined}
+            clipRule={path.evenOdd ? "evenodd" : undefined}
+            d={path.d}
+            fill="#080808"
+          />
+        ))}
         {REPLAY_WORDMARK_PATHS.map((path, i) => (
           <path
             key={`base-${i}`}

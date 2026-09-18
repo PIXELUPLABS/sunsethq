@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import {
+  HERO_CONVERGE_FADE_OUT,
   HERO_CONVERGE_STACK_CENTER_Y,
   HERO_CONVERGE_STACK_STEP_Y,
   HERO_CONVERGE_X_PX_OFFSET,
@@ -12,7 +13,10 @@ const BOX_WIDTH = 272;
 
 const STACK_X_NUDGE = 32;
 
-const LARGE_SCREEN_STACK_SCALE_Y = 1.35;
+// On wide screens the hero is taller, so the stack spreads out vertically.
+// The spread scales each piece's position, never the piece itself, so the
+// images keep their proportions. `--stack-spread` is 1 below 1800px.
+const STACK_SPREAD_CLASS = "[--stack-spread:1] min-[1800px]:[--stack-spread:1.35]";
 
 const RIGHT_STAGGER = [
   { delay: 0, power: 1 },
@@ -27,26 +31,29 @@ const RIGHT_STAGGER = [
 export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
   return (
     <div className="relative h-full w-full">
-      <div className="pointer-events-none absolute top-12 right-0 h-[666px] w-[272px] min-[1800px]:origin-top min-[1800px]:scale-y-[1.35]">
+      <div className={`pointer-events-none absolute top-12 right-0 w-[272px] ${STACK_SPREAD_CLASS}`}
+        style={{ height: "calc(666px * var(--stack-spread))" }}
+      >
         {HERO_RIGHT_COLLAGE_IMAGES.map((image, index) => {
           const centerX = image.x + image.w / 2;
-          const centerY = image.y + image.h / 2;
           const stackY = HERO_CONVERGE_STACK_CENTER_Y - 7 + index * HERO_CONVERGE_STACK_STEP_Y;
           const { delay, power } = RIGHT_STAGGER[index] ?? { delay: 0, power: 1 };
           const t = Math.min(1, Math.max(0, (progress - delay) / (1 - delay)));
           const pieceProgress = Math.pow(t, power);
           const translateX = `calc(${(pieceProgress * (HERO_CONVERGE_X_VW - 100)).toFixed(3)}vw - ${(pieceProgress * (HERO_CONVERGE_X_PX_OFFSET + STACK_X_NUDGE)).toFixed(2)}px + ${(pieceProgress * (BOX_WIDTH - centerX - 37)).toFixed(2)}px)`;
-          const translateY = `calc(${(pieceProgress * (stackY - centerY)).toFixed(2)}px + ${(pieceProgress / LARGE_SCREEN_STACK_SCALE_Y).toFixed(4)} * (var(--hero-lift, 0px) + var(--hero-stack-extra-lift, 0px)))`;
+          // Rendered centre = image.y * spread + h/2; the piece converges on
+          // stackY * spread plus the wide-screen lift.
+          const translateY = `calc(${(pieceProgress * (stackY - image.y)).toFixed(2)}px * var(--stack-spread) - ${(pieceProgress * (image.h / 2)).toFixed(2)}px + ${pieceProgress.toFixed(4)} * (var(--hero-lift, 0px) + var(--hero-stack-extra-lift, 0px)))`;
           const scale = (1 - pieceProgress * 0.08).toFixed(3);
 
           return (
             <div
               key={`${image.src}-${index}`}
-              className="absolute"
+              className="absolute motion-reduce:animate-none! motion-reduce:transform-none! motion-reduce:opacity-100!"
               style={
                 {
                   left: image.x,
-                  top: image.y,
+                  top: `calc(${image.y}px * var(--stack-spread))`,
                   width: image.w,
                   height: image.h,
                   transform: `translate(${translateX}, ${translateY}) scale(${scale})`,
@@ -64,7 +71,10 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           );
         })}
       </div>
-      <div className="pointer-events-none absolute top-0 right-[272px] h-full border-l border-dashed border-black/8" />
+      {/* The guide clears out with the headline as the converge begins. */}
+      <div className="pointer-events-none absolute top-0 right-[272px] h-full motion-reduce:opacity-100! border-l border-dashed border-[#d4d4d4]"
+        style={{ opacity: 1 - Math.min(1, progress / HERO_CONVERGE_FADE_OUT) }}
+      />
     </div>
   );
 }
