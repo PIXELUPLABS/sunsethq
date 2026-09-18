@@ -38,7 +38,7 @@ export const PRICING_TIERS = [
   { value: "$1M+", people: "100+ People", segments: 11, tone: "blue" as const },
 ];
 
-export const HOW_IT_WORKS_STEP_INTERVAL_MS = 7000;
+export const HOW_IT_WORKS_STEP_INTERVAL_MS = 10000;
 
 export const REVENUE_STREAM_TILE_MS = 200;
 
