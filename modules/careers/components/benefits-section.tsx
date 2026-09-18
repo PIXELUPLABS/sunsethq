@@ -47,7 +47,7 @@ export function BenefitsSection() {
               style={leftColumnEnter.style}
               className={`flex flex-col bg-black/[0.18] min-[900px]:flex-1 ${leftColumnEnter.className}`}
             >
-              <div className="flex min-h-[100px] items-center border border-b-0 border-dashed border-white/30 px-6 min-[900px]:min-h-[114px]">
+              <div className="flex min-h-[100px] items-center border border-b-0 border-dashed border-white/30 px-6 py-6 min-[900px]:min-h-[114px]">
                 <h2 className="font-serif text-[32px] leading-[1.1] tracking-[-0.32px] text-white min-[900px]:text-[36px]">
                   The practical stuff.
                 </h2>
@@ -64,7 +64,7 @@ export function BenefitsSection() {
                 />
               </div>
 
-              <div className="flex min-h-[100px] items-center border border-t-0 border-dashed border-white/30 px-6 min-[900px]:min-h-[114px]">
+              <div className="flex min-h-[100px] items-center border border-t-0 border-dashed border-white/30 px-6 py-6 min-[900px]:min-h-[114px]">
                 <p className="text-base leading-[1.4] tracking-[-0.48px] text-white/70">
                   More modular, but still restrained. A tiny system visual sits under the intro
                   while benefits occupy a structured 2×2 board.
