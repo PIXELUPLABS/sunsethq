@@ -102,13 +102,13 @@ export function HeroSection() {
               />
               <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-black sm:text-[56px] sm:leading-none sm:tracking-tight lg:text-[72px] lg:tracking-[-2.88px]">
                 Securely license your data.
-                <br className="hidden lg:block" />
+                <br className="hidden lg:block" />{" "}
                 Stay in compliance.
               </h1>
               <p className="max-w-[669px] text-[14.5px] leading-[1.45] tracking-[-0.37px] text-[#727272] sm:text-base sm:leading-relaxed sm:tracking-tight">
                 Replay removes PII, confirms your right to license, and
                 identifies any risk.
-                <br className="hidden lg:block" />
+                <br className="hidden lg:block" />{" "}
                 All before your data moves.
               </p>
             </div>
