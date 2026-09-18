@@ -14,7 +14,13 @@
   /* ---------- outer frame: scales, and crops rather than shrinking on narrow screens ---------- */
   /* No background of its own: the host section supplies the paper (and its
      grain / grid lines), so the scene sits on it instead of covering it. */
-  .rdp{position:relative;width:100%;overflow:hidden;background:transparent;}
+  /* The footprint is reserved here, not just by the dynamic import's
+     fallback: between the component mounting and the engine's first resize()
+     this element has no height, so the hero would collapse and then jump.
+     These mirror resize()'s own maths, height = 520 * max(w/1440, 0.5), and
+     the explicit inline height the engine sets afterwards wins over them. */
+  .rdp{position:relative;width:100%;overflow:hidden;background:transparent;
+       aspect-ratio:1440/520;min-height:260px;}
   .rdp .scene{position:absolute;top:0;left:0;width:1440px;height:520px;transform-origin:0 0;will-change:transform;}
 
   .rdp .layers{
