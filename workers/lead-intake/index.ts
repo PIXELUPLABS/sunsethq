@@ -77,6 +77,7 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
         const verification = await fetcher("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
           method: "POST", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ secret: env.TURNSTILE_SECRET_KEY, response: submission.turnstileToken, ...(isLocal ? {} : { remoteip: ip }) }),
+          redirect: "manual",
           signal: AbortSignal.timeout(10_000),
         });
         if (verification.ok) result = await verification.json();

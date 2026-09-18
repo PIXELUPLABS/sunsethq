@@ -49,22 +49,29 @@ export async function handleDelivery(batch: MessageBatch<LeadMessage>, env: Deli
   }
 }
 
-export async function handleScheduled(env: DeliveryEnv) {
-  await reconcileLeads(env);
-  await reconcileFailedLeads(env);
+export async function handleScheduled(env: DeliveryEnv, fetcher: typeof fetch = fetch) {
+  let reconciliationOk = true;
+  for (const [phase, reconcile] of [["pending", reconcileLeads], ["failed", reconcileFailedLeads]] as const) {
+    try { await reconcile(env); }
+    catch {
+      reconciliationOk = false;
+      console.error(JSON.stringify({ event: "lead_reconciliation_failed", phase }));
+    }
+  }
   let dependencyOk = false;
   let failedCount = 0;
   try {
-    const attio = attioClient(env.ATTIO_API_KEY);
+    const attio = attioClient(env.ATTIO_API_KEY, fetcher);
     const identity = await attio<{ workspace_id: string }>("self");
     if (identity.workspace_id !== env.ATTIO_WORKSPACE_ID) throw new Error("Workspace mismatch");
     await attio(`lists/${env.ATTIO_LIST_ID}`);
     const metrics = await env.FAILED_LEADS.metrics();
     failedCount = metrics.backlogCount;
-    dependencyOk = true;
+    dependencyOk = reconciliationOk;
   } catch { console.error(JSON.stringify({ event: "lead_dependency_check_failed" })); }
-  await env.LEAD_DB.prepare("UPDATE lead_monitor SET dependency_ok = ?, failed_queue_count = ? WHERE environment = ?")
-    .bind(dependencyOk ? 1 : 0, failedCount, env.APP_ENV).run();
+  await env.LEAD_DB.prepare(`INSERT INTO lead_monitor (environment, dependency_ok, failed_queue_count) VALUES (?, ?, ?)
+    ON CONFLICT(environment) DO UPDATE SET dependency_ok = excluded.dependency_ok, failed_queue_count = excluded.failed_queue_count`)
+    .bind(env.APP_ENV, dependencyOk ? 1 : 0, failedCount).run();
   console.info(JSON.stringify({ event: "lead_reconciled", dependencyOk, failedQueueCount: failedCount }));
 }
 

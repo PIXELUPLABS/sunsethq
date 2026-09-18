@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
+import { createServer } from "node:http";
+import type { AddressInfo } from "node:net";
 import type { MessageBatch } from "@cloudflare/workers-types";
 import { handleIntake, type IntakeEnv } from "../workers/lead-intake";
 import { handleDelivery, type DeliveryEnv } from "../workers/lead-delivery";
@@ -155,6 +157,37 @@ test("production refuses dummy secrets and invalid verification including hostna
   s.env.APP_ENV = undefined as unknown as IntakeEnv["APP_ENV"];
   assert.equal((await handleIntake(s.request(), s.env, s.verify)).status, 503);
   assert.equal(s.queued.length, 0);
+});
+
+test("Turnstile redirects never forward the verification secret and use the unavailable-verification policy", async t => {
+  let redirectStatus = 307;
+  let forwarded = 0;
+  const server = createServer((request, response) => {
+    request.resume();
+    if (request.url === "/siteverify") response.writeHead(redirectStatus, { Location: "/redirect-target", Connection: "close" });
+    else { forwarded++; response.writeHead(200, { "Content-Type": "application/json", Connection: "close" }); }
+    response.end();
+  });
+  await new Promise<void>(resolve => server.listen(0, "127.0.0.1", resolve));
+  t.after(() => new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())));
+  const address = server.address() as AddressInfo;
+  const fetcher = (async (url: string | URL | Request, init?: RequestInit) => {
+    assert.equal(String(url), "https://challenges.cloudflare.com/turnstile/v0/siteverify");
+    return fetch(`http://127.0.0.1:${address.port}/siteverify`, init);
+  }) as typeof fetch;
+  for (const status of [307, 308]) {
+    redirectStatus = status;
+    for (const allowFallback of [false, true]) {
+      const s = intakeSetup();
+      s.env.UNVERIFIED_LEADS_ENABLED = String(allowFallback);
+      s.env.UNVERIFIED_RATE_LIMITER = { limit: async () => ({ success: true }) };
+      const response = await handleIntake(s.request(), s.env, fetcher);
+      assert.equal(response.status, allowFallback ? 202 : 503);
+      assert.equal(s.queued.length, allowFallback ? 1 : 0);
+      if (allowFallback) assert.deepEqual(s.queued[0].verification, { status: "unverified", reason: "service_unavailable" });
+    }
+  }
+  assert.equal(forwarded, 0, "a redirected POST must never reach another destination");
 });
 test("a queue outage retains an accepted submission and reconciliation re-enqueues it", async () => {
   const s = intakeSetup();

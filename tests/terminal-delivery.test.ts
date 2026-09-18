@@ -6,7 +6,7 @@ import { AttioError } from "../modules/lead-capture/lib/attio-client";
 import { enqueueFailedLead, reconcileFailedLeads, recordTerminalFailure } from "../modules/lead-capture/lib/failed-leads";
 import { leadHealth, persistLead, reconcileLeads } from "../modules/lead-capture/lib/lead-ledger";
 import type { LeadMessage } from "../modules/lead-capture/lib/lead-schema";
-import { handleDelivery, type DeliveryEnv } from "../workers/lead-delivery";
+import { handleDelivery, handleScheduled, type DeliveryEnv } from "../workers/lead-delivery";
 import { testDatabase } from "./sqlite-d1";
 
 const message: LeadMessage = {
@@ -156,4 +156,40 @@ test("operator recovery reopens the original failed receipt without changing its
     return { entryId: "recovered-entry", duplicate: false };
   });
   assert.equal((await persistLead(s.env, message)).delivered, true);
+});
+
+test("scheduled reconciliation failures still refresh dependency checks and force unhealthy monitor state", async t => {
+  for (const phase of ["pending", "failed"] as const) {
+    const s = setup();
+    t.after(() => s.sqlite.close());
+    s.env.ATTIO_WORKSPACE_ID = "sandbox";
+    s.env.ATTIO_LIST_ID = "leads";
+    s.env.ATTIO_API_KEY = "test-token";
+    const calls: string[] = [];
+    const fetcher = (async (url: string | URL | Request) => {
+      calls.push(String(url));
+      return Response.json(String(url).endsWith("/self") ? { workspace_id: "sandbox" } : { data: {} });
+    }) as typeof fetch;
+    let metricReads = 0;
+    s.env.FAILED_LEADS.metrics = async () => { metricReads++; return { backlogCount: 4, backlogBytes: 100 }; };
+    await persistLead(s.env, message);
+    if (phase === "failed") {
+      await recordTerminalFailure(s.env, message.submissionId, "attio_422");
+      await s.db.prepare("INSERT INTO lead_monitor (environment, dependency_ok) VALUES (?, 1)").bind(s.env.APP_ENV).run();
+    }
+    const queue = phase === "pending" ? s.env.LEADS : s.env.FAILED_LEADS;
+    const send = queue.send;
+    queue.send = async () => { throw new Error("queue unavailable"); };
+    await handleScheduled(s.env, fetcher);
+    assert.deepEqual(calls, ["https://api.attio.com/v2/self", "https://api.attio.com/v2/lists/leads"]);
+    assert.equal(metricReads, 1);
+    const row = await s.db.prepare("SELECT dependency_ok, failed_queue_count FROM lead_monitor WHERE environment = ?")
+      .bind(s.env.APP_ENV).first<{ dependency_ok: number; failed_queue_count: number }>();
+    assert.equal(row?.dependency_ok, 0);
+    assert.equal(row?.failed_queue_count, 4);
+    assert.equal((await leadHealth(s.env)).dependenciesHealthy, false);
+    queue.send = send;
+    await handleScheduled(s.env, fetcher);
+    assert.equal((await leadHealth(s.env)).dependenciesHealthy, true);
+  }
 });
