@@ -36,20 +36,20 @@ export function RevenueStreamSection() {
             <div className="h-full border-x border-dashed border-[#d4d4d4]" />
           </div>
           <div className="relative w-full pt-16 sm:pt-20">
-            <div className="relative mb-16 flex w-full flex-col items-start gap-5 px-3 min-[1200px]:flex-row min-[1200px]:gap-10 min-[1200px]:px-[6.6358%]">
+            <div className="relative mb-16 flex w-full flex-col items-start gap-5 px-3 lg:flex-row lg:gap-10 lg:px-[6.6358%]">
               <h2 className="flex-1 font-serif text-[36px] leading-none tracking-[-1.44px] text-[#181a1b] sm:text-[44px] sm:tracking-tight">
-                <span className="min-[1200px]:hidden">
+                <span className="lg:hidden">
                   You already
                   <br />
                   own your next revenue stream.
                 </span>
-                <span className="hidden min-[1200px]:inline">
+                <span className="hidden lg:inline">
                   You already own your
                   <br />
                   next revenue stream.
                 </span>
               </h2>
-              <div className="w-full text-base leading-[1.4] tracking-[-0.48px] text-[#727272] min-[1200px]:w-[552px] min-[1200px]:shrink-0">
+              <div className="w-full text-base leading-[1.4] tracking-[-0.48px] text-[#727272] lg:w-[552px] lg:shrink-0">
                 <p className="mb-4">
                   Raising a round costs a piece of your company. Debt has to be
                   paid back no matter what. New customers take quarters you may
