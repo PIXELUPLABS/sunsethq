@@ -16,7 +16,12 @@ let script: HTMLScriptElement | undefined;
 function installTransportGuards() {
   if (installed) return;
   installed = true;
-  const blocked = (url: string | URL) => isAnalyticsEndpoint(url, location.origin) && (withdrawn || !hasPerformanceConsent());
+  const blocked = (url: string | URL) => {
+    if (!isAnalyticsEndpoint(url, location.origin)) return false;
+    const consent = hasPerformanceConsent();
+    if (script && !consent) withdrawn = true;
+    return withdrawn || !consent;
+  };
   const sendBeacon = navigator.sendBeacon.bind(navigator);
   navigator.sendBeacon = (url, data) => blocked(url) ? false : sendBeacon(url, data);
   const fetch = window.fetch.bind(window);

@@ -1,7 +1,7 @@
 {
   "date": "2026-09-18",
   "baselineRevision": "10e81c6e43b5d22727b208b70213575455e99096",
-  "finalRevision": "Second-pass implementation committed with this evidence",
+  "finalRevision": "6f0d13f7c492b089257f123887aa13af391040ad",
   "environment": {
     "lighthouse": "13.5.0",
     "chrome": "153",

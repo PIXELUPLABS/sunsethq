@@ -3,7 +3,7 @@
 ## Controlled follow-up
 
 The primary comparison is **first PR revision `10e81c6` → final second-pass implementation**,
-not original main. Three fresh-browser navigations per route and revision ran
+not original main. The measured implementation is `6f0d13f`; a subsequent consent-expiry guard and portable lab entrypoint fix do not change the asset strategy. Three fresh-browser navigations per route and revision ran
 sequentially, without overlapping workstream builds, audits, or browser checks.
 The host was not a dedicated performance runner. Production-mode Next.js 16.3.4
 static export; Lighthouse 13.5.0; Chrome 153; Node 22.22.0; Apple M4 Pro / Darwin

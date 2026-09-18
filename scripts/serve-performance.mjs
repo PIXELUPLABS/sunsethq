@@ -3,6 +3,7 @@ import { createSecureServer } from 'node:http2';
 import { execFileSync } from 'node:child_process';
 import { readFile, mkdir } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { gzipSync } from 'node:zlib';
 
 // Local lab server: compressed static export, clean URLs, no production services.
@@ -40,7 +41,7 @@ export async function serveExport(directory = 'out', port = 4173, { http2 = fals
   } else server = createServer(handler);
   return new Promise(resolve => server.listen(port, '127.0.0.1', () => resolve(server)));
 }
-if (process.argv[1]?.endsWith('/serve-performance.mjs')) {
+if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
   await serveExport(process.argv[2], Number(process.env.PORT || 4173));
   console.log('Static performance server ready');
 }

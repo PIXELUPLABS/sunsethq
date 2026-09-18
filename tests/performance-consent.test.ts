@@ -58,6 +58,11 @@ test("analytics requires new explicit consent and blocks every transport after w
     storage.set(CONSENT_KEY, JSON.stringify({ version: 1, marketing: false, performance: true, savedAt: 1 }));
     navigator.sendBeacon(endpoint);
     assert.equal(sends, 3, "expired consent blocks sends even before the subscription timer runs");
+    saveConsent(false, true);
+    navigator.sendBeacon(endpoint);
+    await window.fetch(endpoint);
+    xhr.send();
+    assert.equal(sends, 3, "observed expiry latches off even if consent is renewed before the timer runs");
     saveConsent(false);
     assert.equal(navigator.sendBeacon(endpoint), false);
     await window.fetch(endpoint);
