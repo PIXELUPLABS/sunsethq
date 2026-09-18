@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { BUYER_CARDS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
-import { ProcessBar } from "./process-bar";
 import type { BuyerCard } from "../types";
 
 const ICONS: Record<BuyerCard["icon"], string> = {
@@ -39,7 +38,7 @@ export function BuyersSection() {
             {BUYER_CARDS.map((card) => (
               <div
                 key={card.tagLabel}
-                className="relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 p-5 text-black min-[1200px]:h-[430px]"
+                className="relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 px-5 pt-5 pb-6 text-black min-[1200px]:h-[430px] min-[1200px]:pb-5"
               >
                 {/* Wrapped 1px past the card's own edges so object-cover
                     rounding never leaves a hairline gap along any side. */}
@@ -63,7 +62,7 @@ export function BuyersSection() {
                 <p className="relative font-serif text-[24px] leading-[1.1] tracking-[-0.24px] min-[1200px]:text-[32px] min-[1200px]:tracking-[-0.32px]">
                   {card.headline}
                 </p>
-                <div className="relative mb-3 flex items-center gap-[9px] opacity-60 min-[1200px]:gap-3 min-[1200px]:mb-[42px]">
+                <div className="relative flex items-center gap-[9px] opacity-60 min-[1200px]:gap-3 min-[1200px]:mb-[42px]">
                   <Image
                     src={ICONS[card.icon]}
                     alt=""
@@ -77,16 +76,17 @@ export function BuyersSection() {
                 </div>
 
                 <div
-                  className="absolute -top-[2px] right-0 size-4 bg-black"
+                  className="absolute -top-[2px] right-0 size-3.5 bg-black min-[1200px]:size-4"
                   style={{ clipPath: "polygon(100% 0, 0 0, 100% 100%)" }}
                 />
 
                 {/* Bottom-edge texture: half-height window showing just the
                     image's top half by default, growing to full height on
                     hover - the fixed, top-anchored image behind it appears
-                    to slide its bottom half into view as the window grows. */}
+                    to slide its bottom half into view as the window grows.
+                    Phones get the same strip at the design's 18px. */}
                 <div
-                  className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-[22px] overflow-hidden min-[1200px]:block"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-[18px] overflow-hidden min-[1200px]:h-[22px]"
                   aria-hidden
                 >
                   <div
@@ -97,8 +97,6 @@ export function BuyersSection() {
                     }}
                   />
                 </div>
-
-                <ProcessBar className="absolute inset-x-0 bottom-0 h-3 min-[1200px]:h-[16px] min-[1200px]:opacity-0" />
               </div>
             ))}
           </div>
