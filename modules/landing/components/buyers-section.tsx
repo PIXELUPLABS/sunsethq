@@ -60,7 +60,7 @@ export function BuyersSection() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-black opacity-0" />
 
-                <p className="relative font-serif text-[26px] leading-[1.1] tracking-[-0.26px] min-[1200px]:text-[32px] min-[1200px]:tracking-[-0.32px]">
+                <p className="relative font-serif text-[24px] leading-[1.1] tracking-[-0.24px] min-[1200px]:text-[32px] min-[1200px]:tracking-[-0.32px]">
                   {card.headline}
                 </p>
                 <div className="relative mb-3 flex items-center gap-[9px] opacity-60 min-[1200px]:gap-3 min-[1200px]:mb-[42px]">

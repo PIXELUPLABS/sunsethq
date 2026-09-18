@@ -10,6 +10,8 @@ import {
   CTA_GRAIN_WHITE,
 } from "../lib/cta-assets";
 
+const MOBILE_IMAGE_SIZES = "50vw";
+
 type CtaSectionMobileProps = {
   headline: string;
   buttonLabel: string;
@@ -44,16 +46,16 @@ export function CtaSectionMobile({
       </div>
 
       <div className="pointer-events-none absolute top-[14.2045%] left-0 h-[40.9091%] w-[50%]">
-        <Image src={CTA_MOBILE_TOP_LEFT} alt="" fill className="pointer-events-none object-cover" />
+        <Image src={CTA_MOBILE_TOP_LEFT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-left" />
       </div>
       <div className="pointer-events-none absolute top-[11.4528%] left-[50%] h-[40.9091%] w-[50%]">
-        <Image src={CTA_MOBILE_TOP_RIGHT} alt="" fill className="pointer-events-none object-cover" />
+        <Image src={CTA_MOBILE_TOP_RIGHT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-center" />
       </div>
       <div className="pointer-events-none absolute top-[52.3618%] left-0 h-[40.9091%] w-[50%]">
-        <Image src={CTA_MOBILE_BOTTOM_LEFT} alt="" fill className="pointer-events-none object-cover" />
+        <Image src={CTA_MOBILE_BOTTOM_LEFT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-right" />
       </div>
       <div className="pointer-events-none absolute top-[43.75%] left-[50.2564%] h-[40.9091%] w-[49.7436%]">
-        <Image src={CTA_MOBILE_BOTTOM_RIGHT} alt="" fill className="pointer-events-none object-cover" />
+        <Image src={CTA_MOBILE_BOTTOM_RIGHT} alt="" fill sizes={MOBILE_IMAGE_SIZES} className="pointer-events-none object-cover object-center" />
       </div>
 
       <div className="absolute top-[29.43%] right-[6.1538%] bottom-[24.77%] left-[6.1538%] border border-[#d4d4d4] bg-[#eaebf1]">
