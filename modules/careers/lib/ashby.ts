@@ -68,12 +68,18 @@ function groupRolesByTeam(roles: Role[]): Team[] {
 }
 
 export async function fetchAshbyTeams(): Promise<Team[]> {
-  const response = await fetch(ASHBY_JOB_BOARD_URL, { cache: "no-store" });
+  const response = await fetch(ASHBY_JOB_BOARD_URL, { cache: "no-store", signal: AbortSignal.timeout(15_000) });
   if (!response.ok) {
     throw new Error(`Ashby job board request failed with status ${response.status}`);
   }
 
   const data: AshbyJobBoardResponse = await response.json();
+  if (!Array.isArray(data.jobs) || data.jobs.some((job) =>
+    typeof job.id !== "string" || !/^[a-zA-Z0-9-]+$/.test(job.id) ||
+    typeof job.title !== "string" || typeof job.descriptionHtml !== "string" ||
+    typeof job.applyUrl !== "string" || !job.applyUrl.startsWith("https://"))) {
+    throw new Error("Ashby returned an invalid job snapshot.");
+  }
   const listedRoles = data.jobs.filter((job) => job.isListed).map(mapAshbyJobToRole);
   return groupRolesByTeam(listedRoles);
 }

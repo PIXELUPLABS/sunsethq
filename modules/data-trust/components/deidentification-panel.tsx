@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useStepCycle } from "@/modules/landing/hooks/use-step-cycle";
 import { useInView } from "@/modules/landing/hooks/use-in-view";
+import { useDeidentificationProgress } from "../hooks/use-deidentification-progress";
 import {
   DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION,
   DATA_TRUST_DETECTION_ILLUSTRATION,
@@ -19,7 +19,6 @@ import {
 import {
   DEIDENTIFICATION_BODY,
   DEIDENTIFICATION_STEPS,
-  DEIDENTIFICATION_STEP_INTERVAL_MS,
   DETECTION_BODY,
   STANDARD_BODY,
 } from "../lib/constants";
@@ -33,36 +32,7 @@ function DeidentificationProgressStrip({
   active: boolean;
   onComplete: () => void;
 }) {
-  const [progress, setProgress] = useState(0);
-  const onCompleteRef = useRef(onComplete);
-
-  useEffect(() => {
-    onCompleteRef.current = onComplete;
-  }, [onComplete]);
-
-  useEffect(() => {
-    if (!active) {
-      setProgress(0);
-      return;
-    }
-
-    let frameId: number;
-    const start = performance.now();
-
-    const tick = (now: number) => {
-      const ratio = Math.min((now - start) / DEIDENTIFICATION_STEP_INTERVAL_MS, 1);
-      setProgress(ratio);
-
-      if (ratio < 1) {
-        frameId = requestAnimationFrame(tick);
-      } else {
-        onCompleteRef.current();
-      }
-    };
-
-    frameId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frameId);
-  }, [active]);
+  const progress = useDeidentificationProgress(active, onComplete);
 
   return (
     <div className="absolute -bottom-px left-0 h-0.5 w-full overflow-hidden">
@@ -234,7 +204,7 @@ export function DeidentificationPanel() {
 
           <div className="relative h-[450px] overflow-hidden lg:h-full lg:flex-1">
             <div
-              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out motion-reduce:transition-none lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
@@ -261,7 +231,7 @@ export function DeidentificationPanel() {
             </div>
 
             <div
-              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out motion-reduce:transition-none lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 1 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
@@ -288,7 +258,7 @@ export function DeidentificationPanel() {
             </div>
 
             <div
-              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out motion-reduce:transition-none lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 2 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >

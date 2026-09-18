@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { CookieSettingsButton } from "@/modules/consent/components/cookie-settings-button";
 import { FOOTER_COLUMNS } from "../lib/constants";
 import { ReplayWordmark } from "./replay-wordmark";
 
@@ -71,11 +72,14 @@ export function Footer() {
           </div>
 
           <div className="mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
-            <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase lg:text-white/60">
-              © 2026 Replay. All rights reserved
-              <br />
-              Sunset HQ Corp.
-            </p>
+            <div className="flex flex-col items-start">
+              <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase lg:text-white/60">
+                © 2026 Replay. All rights reserved
+                <br />
+                Sunset HQ Corp.
+              </p>
+              <CookieSettingsButton />
+            </div>
             <div className="flex shrink-0 items-center gap-2 opacity-[0.68] lg:gap-2.5">
               <a
                 href="#"

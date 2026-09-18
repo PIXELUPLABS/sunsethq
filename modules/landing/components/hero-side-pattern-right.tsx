@@ -49,7 +49,7 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           return (
             <div
               key={`${image.src}-${index}`}
-              className="absolute"
+              className="absolute motion-reduce:animate-none! motion-reduce:transform-none! motion-reduce:opacity-100!"
               style={
                 {
                   left: image.x,
@@ -72,7 +72,7 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
         })}
       </div>
       {/* The guide clears out with the headline as the converge begins. */}
-      <div className="pointer-events-none absolute top-0 right-[272px] h-full border-l border-dashed border-[#d4d4d4]"
+      <div className="pointer-events-none absolute top-0 right-[272px] h-full motion-reduce:opacity-100! border-l border-dashed border-[#d4d4d4]"
         style={{ opacity: 1 - Math.min(1, progress / HERO_CONVERGE_FADE_OUT) }}
       />
     </div>
