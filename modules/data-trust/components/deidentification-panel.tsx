@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ProcessMarkIcon } from "@/components/ui/process-mark-icon";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { useStepCycle } from "@/modules/landing/hooks/use-step-cycle";
 import { useInView } from "@/modules/landing/hooks/use-in-view";
@@ -126,9 +125,10 @@ export function DeidentificationPanel() {
                 <SectionTag
                   label="The Process"
                   tone="dark"
-                  borderClassName="border-[#a3a3a3]"
-                  textClassName="text-[#ebebeb]"
-                  icon={<ProcessMarkIcon tone="dark" className="size-[18px]" />}
+                  textClassName="text-white/60"
+                  borderClassName="border-dashed border-white/25"
+                  paddingClassName="px-2 py-1"
+                  heightClassName="h-auto"
                 />
                 <h2 className="font-serif text-[43px] leading-[40.42px] tracking-[-1.65px] text-white lg:text-[44px] lg:leading-none lg:tracking-[-1.76px]">
                   De-Identification

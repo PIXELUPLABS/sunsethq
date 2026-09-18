@@ -1,4 +1,3 @@
-import { ProcessMarkIcon } from "@/components/ui/process-mark-icon";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import {
   DATA_TRUST_GRAIN_STRIP,
@@ -36,7 +35,10 @@ export function AssuranceSection() {
               <div className="flex flex-col items-center gap-6">
                 <SectionTag
                   label="Legal"
-                  icon={<ProcessMarkIcon className="size-[22px]" />}
+                  textClassName="text-black/60"
+                  borderClassName="border-dashed border-black/25"
+                  paddingClassName="px-2 py-1"
+                  heightClassName="h-auto"
                 />
                 <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-[-1.76px]">
                   Your data stays yours.

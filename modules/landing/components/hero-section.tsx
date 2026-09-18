@@ -5,6 +5,7 @@ import Image from "next/image";
 import { HeroFooterBar } from "./hero-footer-bar";
 import { HeroSidePatternLeft } from "./hero-side-pattern-left";
 import { HeroSidePatternRight } from "./hero-side-pattern-right";
+import { SectionTag } from "./section-tag";
 import {
   HERO_CARD_2,
   HERO_CARD_3,
@@ -89,6 +90,13 @@ export function HeroSection() {
             style={{ "--converge": textFadeProgress } as CSSProperties}
           >
             <div className="flex max-w-[840px] flex-col items-center gap-3 text-center min-[1350px]:gap-6">
+              <SectionTag
+                label="Data & privacy"
+                textClassName="text-black/60"
+                borderClassName="border-dashed border-black/25"
+                paddingClassName="px-2 py-1"
+                heightClassName="h-auto"
+              />
               <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-[#181a1b] sm:text-[56px] sm:leading-none sm:tracking-tight min-[1350px]:text-[72px] min-[1350px]:tracking-[-2.88px]">
                 Securely license your data.
                 <br />
