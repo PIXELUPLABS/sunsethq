@@ -1,0 +1,145 @@
+/* Replay — de-identification pass.
+   Every selector is scoped under .rdp, so this can be imported as a plain
+   stylesheet without leaking. The engine sets these class names directly. */
+
+.rdp *{box-sizing:border-box}
+.rdp{
+    /* entrances ease out hard and settle; exits are quicker and plainer */
+    --ease-out:cubic-bezier(.32,.72,0,1);
+    --ease-in:cubic-bezier(.4,0,.9,1);
+      --paper:#fcfcfc; --ink:#2f2f2f; --sub:#a2a2a2; --lead:#c2c2c2;
+    --mono:var(--font-geist-mono,"Geist Mono"),ui-monospace,SFMono-Regular,Menlo,monospace;
+    --hatch:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA+gAAAAqCAYAAAAga3HGAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAAjBJREFUeAHt19tt4zAQBVBiG3E6STrJdqJSVIpKUSlcL6AggmDTpJ3HTXDOVxDPCCQ1lnxL7TeVzfnvvwN9p3Jw/t/cqF9Kw/nz9VD/Wjqc6562+rUM+L/v/d4H+t7W+dxZ/3I8iBv1S+MM5wv1T7Xf627vXS7s+5Jpq2nNz7q7Vq/fMpu1DKi5szk3zvAnz+b+Wo+u8e45r3fs/XDeS6NlvnFvj0ZnaOj5u/XOdXDOd+s7ddYf7/t6o35pnOF0of6l9nve9U29TbueXvOj6+tc562zXA/1X/HcnMug+n7Pv+O5uVzp6dX1fDs4bT3ro9e9d73XzrHBbPbVJ87mNNDzGbO5Nso++50+/L189P401voV7/Spjr/T12v7v1L/ke/0D/ndutt7lz8FAAAA+HYCOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAACOgAAAAQQ0AEAACCAgA4AAAABBHQAAAAIIKADAABAAAEdAAAAAgjoAAAAEEBABwAAgAD/AApstAnw3yEYAAAAAElFTkSuQmCC); }
+
+  /* ---------- outer frame: scales, and crops rather than shrinking on narrow screens ---------- */
+  /* No background of its own: the host section supplies the paper (and its
+     grain / grid lines), so the scene sits on it instead of covering it. */
+  .rdp{position:relative;width:100%;overflow:hidden;background:transparent;}
+  .rdp .scene{position:absolute;top:0;left:0;width:1440px;height:520px;transform-origin:0 0;will-change:transform;}
+
+  .rdp .layers{
+    position:absolute;inset:0;
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent 0, #000 9%, #000 90%, transparent 100%),
+      linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+    mask-image:
+      linear-gradient(to bottom, transparent 0, #000 9%, #000 90%, transparent 100%),
+      linear-gradient(to right, transparent 0, #000 4%, #000 96%, transparent 100%);
+    -webkit-mask-composite:source-in; mask-composite:intersect;
+  }
+  /* one camera, three coplanar layers, painted in a fixed order:
+     fragments already absorbed -> the sheet -> fragments still riding on top */
+  .rdp .layer{position:absolute;inset:0;}
+  .rdp .plane{position:absolute;width:0;height:0;}
+  /* Each fragment is drawn twice: sharp above the sheet's far edge, frosted
+     below it, split by clip-path on the edge itself. backdrop-filter cannot do
+     this job - Chromium will not sample a 3D-transformed subtree as a backdrop,
+     so a glass pane over this plane leaves most of it sharp. */
+
+  /* loose material in the stream: pattern swatches, stray redactions, marks */
+  .rdp .mote{position:absolute;left:0;top:0;will-change:transform,opacity;}
+  .rdp .mote-weave{background-repeat:repeat;background-size:420px 315px;}
+  .rdp .mote-dot{border-radius:999px;background:rgba(0,0,0,.15);}
+  .rdp .mote-pill{position:absolute;left:0;border-radius:var(--r,3px);background:rgba(0,0,0,.13);}
+  .rdp .mote-strip{position:absolute;left:0;}
+  .rdp .mote-strip::after{
+    content:"";position:absolute;inset:0;
+    background-image:var(--hatch);background-repeat:repeat;background-size:500px 21px;
+    mix-blend-mode:soft-light;
+  }
+  /* Figma spec: Geist Mono 400, 9.72px / 130% / -0.111px, uppercase, #BCBCBC.
+     Sized up to 19px here because the plane halves it again at this depth, so it
+     lands on the spec on screen; the proportions are the spec's. */
+  .rdp .mote-mono{
+    font-family:var(--mono);font-weight:400;
+    font-size:19px;line-height:1.3;letter-spacing:-.0114em;
+    text-transform:uppercase;color:#BCBCBC;white-space:pre;
+  }
+
+  .rdp .card{
+    position:absolute;left:0;top:0;
+    background-repeat:no-repeat;background-size:100% 100%;
+    box-shadow:0 10px 26px rgba(19,50,100,.05);
+    will-change:transform,opacity,filter;
+  }
+
+  /* ---------- de-identification sheet ---------- */
+  /* No backdrop-filter here: it re-rasterises this whole area every frame and,
+     inside a 3D-transformed subtree, Chromium will not sample the backdrop at
+     all - see the fragment split above, which does the frosting instead. */
+  .rdp .sheet{position:absolute;overflow:hidden;}
+  .rdp .sheet .glass{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(to bottom, rgba(255,255,255,.42), rgba(255,255,255,.22) 62%, rgba(255,255,255,.06)),
+      linear-gradient(to bottom, rgba(0,0,0,.075), rgba(0,0,0,.035) 58%, rgba(0,0,0,0));
+  }
+  /* the register dissolves as it comes forward, so the near edge doesn't read as a cut */
+  /* the near-white stroke from the Figma frame (#F1F1F1), with a hairline of true
+     white just inside it. Drawn as its own layer so it can fade out toward the
+     near edge along with the register, instead of ending in a hard line. */
+  .rdp .sheet .stroke{
+    position:absolute;inset:0;pointer-events:none;
+    box-shadow:
+      inset 0 0 0 var(--sheet-border,3px) #f1f1f1,
+      inset 0 0 0 calc(var(--sheet-border,3px) + 1px) rgba(255,255,255,.8);
+    -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 66%, transparent 96%);
+    mask-image:linear-gradient(to bottom, #000 0, #000 66%, transparent 96%);
+  }
+  .rdp .sheet .veil{
+    position:absolute;left:0;right:0;bottom:0;
+    background:linear-gradient(to bottom, rgba(252,252,252,0), rgba(252,252,252,.62) 55%, rgba(252,252,252,.95));
+    pointer-events:none;
+  }
+  .rdp .row{position:absolute;left:0;}
+  .rdp .slot{position:absolute;top:0;height:100%;}
+  .rdp .bar, .rdp .strip{position:absolute;left:0;top:0;width:100%;transform-origin:0 50%;}
+  .rdp .bar{height:100%;border-radius:var(--r,3px);}
+  .rdp .strip{
+    height:122%;top:-11%;width:100%;opacity:.95;
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path .34s cubic-bezier(.22,.9,.28,1);
+  }
+  /* supplied strip lining, tiled at 50% and blended soft light, as in the Figma file */
+  .rdp .strip::after{
+    content:"";position:absolute;inset:0;
+    background-image:var(--hatch);
+    background-repeat:repeat;
+    background-size:500px 21px;
+    background-position:var(--hx,0) center;
+    mix-blend-mode:soft-light;
+  }
+  .rdp .strip.on{clip-path:inset(0 0 0 0);transition:clip-path var(--d,.42s) var(--ease-out);}
+  .rdp .hdr{position:absolute;border-radius:999px;}
+  .rdp .scan{position:absolute;left:0;width:100%;height:3px;opacity:0;
+    background:linear-gradient(90deg,transparent,rgba(19,50,100,.14) 14%,rgba(255,255,255,.8) 50%,rgba(19,50,100,.14) 86%,transparent);}
+
+  /* ---------- callouts: flat, outside the artboard ---------- */
+  .rdp .callouts{position:absolute;inset:0;pointer-events:none;}
+  .rdp .leaders{position:absolute;inset:0;width:100%;height:100%;overflow:visible;}
+  .rdp .leaders path{
+    fill:none;stroke:var(--lead);stroke-width:var(--lw,1);
+    stroke-dasharray:1;stroke-dashoffset:1;
+    transition:stroke-dashoffset var(--dl,.55s) var(--ease-out);
+  }
+  .rdp .leaders path.in{stroke-dashoffset:0;}
+  .rdp .tag{position:absolute;left:0;top:0;white-space:nowrap;transform-origin:0 0;}
+  .rdp .tag .src{
+    display:flex;align-items:center;gap:7px;
+    font-size:14px;font-weight:500;letter-spacing:.01em;color:var(--ink);
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path .42s var(--ease-out);
+  }
+  .rdp .tag .kind{
+    display:block;margin-top:13px;
+    font-family:var(--mono);
+    font-size:13px;font-weight:400;letter-spacing:.02em;color:var(--sub);
+    clip-path:inset(0 100% 0 0);
+    transition:clip-path .42s var(--ease-out) 90ms;
+  }
+  .rdp .tag.in .src, .rdp .tag.in .kind{clip-path:inset(0 0 0 0);}
+  .rdp .tag svg{position:static;width:14px;height:14px;flex:none;display:block;overflow:hidden;}
+
+  @media (prefers-reduced-motion: reduce){
+  .rdp .strip, .rdp .tag .src, .rdp .tag .kind, .rdp .leaders path{transition:none !important;}
+  }

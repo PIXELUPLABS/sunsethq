@@ -13,8 +13,6 @@ export const HERO_CARD_4 = "/images/hero/card-4.webp";
 
 export const HERO_PATTERN = "/images/hero/hero-pattern.webp";
 
-export const HERO_HOME_ILLUSTRATION = "/images/hero/home-hero-illustration-2.webp";
-
 export const HERO_HOME_ILLUSTRATION_MOBILE = "/images/hero/home-hero-illustration-mobile.png";
 
 export const HERO_PATTERN_TOP_OFFSET = 48;
