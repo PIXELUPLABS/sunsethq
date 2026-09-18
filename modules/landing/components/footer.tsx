@@ -55,7 +55,7 @@ export function Footer() {
               so it bleeds evenly past the content column and scales with it. */}
           <div
             aria-hidden
-            className="pointer-events-none absolute bottom-0 left-1/2 aspect-[1737/350] w-[134.0278%] -translate-x-1/2"
+            className="pointer-events-none absolute bottom-0 left-1/2 aspect-[1737/350] w-[134.0278%] -translate-x-1/2 opacity-[0.08]"
           >
             <Image
               src={FOOTER_BOTTOM_STRIP}
