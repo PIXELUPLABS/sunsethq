@@ -39,7 +39,7 @@ export function ValuesSection() {
             return (
               <div
                 key={value.title}
-                className={`flex min-h-[220px] flex-col justify-between border-dashed border-[#353535] bg-[#0c0c0b] p-6 transition-[opacity,transform] duration-700 ease-snap sm:min-h-[240px] ${
+                className={`flex min-h-[220px] flex-col justify-between border-dashed border-[#353535] bg-[#0c0c0b] p-5 transition-[opacity,transform] sm:p-6 duration-700 ease-snap sm:min-h-[240px] ${
                   isLastMobile ? "border-b-0" : "border-b"
                 } ${isLastRowSm ? "sm:border-b-0" : "sm:border-b"} ${
                   needsRightBorderSm ? "sm:border-r" : "sm:border-r-0"
@@ -49,7 +49,7 @@ export function ValuesSection() {
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <div className="flex items-center justify-between">
-                  <Image src={value.icon} alt="" width={40} height={40} />
+                  <Image src={value.icon} alt="" width={24} height={24} className="size-6" />
                   <p className="font-mono text-xs text-white/40">
                     {String(i + 1).padStart(2, "0")}
                   </p>
