@@ -50,7 +50,9 @@ export function HeroSection() {
           className="pointer-events-none object-cover"
         />
 
-        <div className="relative flex items-stretch min-[1350px]:flex-1 min-[1800px]:[--hero-lift:calc(50vh_-_410px)] min-[1800px]:[--hero-stack-extra-lift:-30px]">
+        {/* Clipped so the side collages and stacked cards stop at the footer
+            bar instead of painting over its labels and lines. */}
+        <div className="relative flex items-stretch overflow-hidden min-[1350px]:flex-1 min-[1800px]:[--hero-lift:calc(50vh_-_410px)] min-[1800px]:[--hero-stack-extra-lift:-30px]">
           <div
             className="pointer-events-none absolute z-0 hidden min-[1350px]:block"
             style={{
