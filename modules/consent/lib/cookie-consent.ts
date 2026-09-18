@@ -1,5 +1,10 @@
 export const CONSENT_KEY = "replay.cookie-consent.v1";
 export const CONSENT_EVENT = "replay:consent-changed";
+export const COOKIE_SETTINGS_EVENT = "replay:cookie-settings-open";
+
+export function openCookieSettings() {
+  window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT));
+}
 export const CONSENT_MAX_AGE_MS = 180 * 24 * 60 * 60 * 1000;
 export type ConsentStatus = "unknown" | "accepted" | "rejected";
 type ConsentRecord = { version: 1; marketing: boolean; savedAt: number };
