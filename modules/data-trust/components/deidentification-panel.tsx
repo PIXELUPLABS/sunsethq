@@ -123,8 +123,8 @@ export function DeidentificationPanel() {
           />
 
           <div className="relative flex flex-col bg-black pt-3 pb-3 lg:ml-10 lg:h-full lg:w-[35%] lg:min-w-[320px] lg:shrink-0 lg:justify-between lg:px-10 lg:py-10">
-            <div className="flex flex-col gap-[18px] px-3 lg:gap-6 lg:px-0">
-              <div className="flex flex-col gap-3.5 lg:gap-3">
+            <div className="flex flex-col gap-6 px-3 lg:px-0">
+              <div className="flex flex-col gap-3">
                 <SectionTag
                   label="The Process"
                   tone="dark"
@@ -142,7 +142,7 @@ export function DeidentificationPanel() {
               </p>
               <Link
                 href="/value-my-data"
-                className="hidden w-fit border border-white/25 px-4 py-2.5 font-serif text-xs leading-[0.8] text-white transition-colors duration-150 ease-snap hover:bg-white hover:text-black lg:block"
+                className="w-fit border border-white/25 px-4 py-2.5 font-serif text-xs leading-[0.8] text-white transition-colors duration-150 ease-snap hover:bg-white hover:text-black"
               >
                 Value my data
               </Link>
@@ -181,8 +181,8 @@ export function DeidentificationPanel() {
             </ol>
 
             <div className="pt-6 lg:hidden">
-              <div className="relative h-[60px] overflow-hidden border-y border-[#272727]">
-                <div className="grid h-full grid-cols-3">
+              <div className="relative overflow-hidden border-y border-[#272727]">
+                <div className="grid grid-cols-3">
                   {DEIDENTIFICATION_STEPS.map((step, index) => {
                     const active = index === activeIndex;
                     const match = step.match(/^(\[\d+\])\s*(.+)$/);
@@ -193,20 +193,20 @@ export function DeidentificationPanel() {
                         type="button"
                         onClick={() => setActiveIndex(index)}
                         aria-current={active}
-                        className={`flex h-[58px] cursor-pointer flex-col items-start justify-center gap-[7px] self-start border-r border-[#272727] px-2.5 pt-2 pb-[9px] last:border-r-0 ${
+                        className={`flex cursor-pointer flex-col items-start justify-center border-r border-[#272727] px-2 pt-2 pb-3 last:border-r-0 ${
                           active ? "bg-[#080808]" : "bg-black"
                         }`}
                       >
                         <span
-                          className={`font-mono text-[9px] leading-[9px] whitespace-nowrap ${
-                            active ? "text-white" : "text-white/56"
+                          className={`text-xs leading-[1.4] tracking-[-0.24px] whitespace-nowrap ${
+                            active ? "text-white" : "text-white/50"
                           }`}
                         >
                           {stepIndex}
                         </span>
                         <span
-                          className={`text-[9px] leading-[9.36px] font-medium tracking-[-0.1px] whitespace-nowrap uppercase ${
-                            active ? "text-white" : "text-white/56"
+                          className={`text-xs leading-[1.4] tracking-[-0.24px] whitespace-nowrap uppercase ${
+                            active ? "text-white" : "text-white/50"
                           }`}
                         >
                           {stepLabel}
@@ -232,13 +232,13 @@ export function DeidentificationPanel() {
             </div>
           </div>
 
-          <div className="relative min-h-[400px] overflow-hidden lg:h-full lg:min-h-0 lg:flex-1">
+          <div className="relative h-[450px] overflow-hidden lg:h-full lg:flex-1">
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:justify-between lg:gap-0 lg:px-8 lg:pt-14 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 0 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
+              <div className="flex flex-col gap-3.5 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
                 <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   Your data.
                   <br />
@@ -249,7 +249,7 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-none lg:flex-col lg:justify-end">
+              <div className="relative shrink-0 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DEIDENTIFICATION_ILLUSTRATION}
                   alt="A customer email with names, contact details, and an API key struck out by redaction bars"
@@ -261,11 +261,11 @@ export function DeidentificationPanel() {
             </div>
 
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:justify-between lg:gap-0 lg:px-8 lg:pt-14 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 1 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
+              <div className="flex flex-col gap-3.5 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
                 <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   How your data
                   <br />
@@ -276,7 +276,7 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-none lg:flex-col lg:justify-end">
+              <div className="relative shrink-0 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_DETECTION_ILLUSTRATION}
                   alt="A benchmark card showing PII coverage across Slack, PDFs, tickets, commits, images, and email, with Replay finding 3x more identifiers than the leading frontier model"
@@ -288,11 +288,11 @@ export function DeidentificationPanel() {
             </div>
 
             <div
-              className={`absolute inset-0 flex flex-col gap-4 px-3 pt-6 pb-6 transition-opacity duration-700 ease-in-out lg:items-center lg:justify-between lg:gap-0 lg:px-8 lg:pt-14 lg:pb-0 ${
+              className={`absolute inset-0 flex flex-col justify-between px-3 pt-6 transition-opacity duration-700 ease-in-out lg:items-center lg:gap-0 lg:px-8 lg:pt-14 ${
                 activeIndex === 2 ? "opacity-100" : "pointer-events-none opacity-0"
               }`}
             >
-              <div className="flex flex-col gap-6 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
+              <div className="flex flex-col gap-3.5 lg:w-full lg:max-w-[696px] lg:gap-6 min-[1440px]:flex-row min-[1440px]:items-start">
                 <p className="font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-white lg:flex-1 lg:text-[36px] lg:leading-none lg:tracking-[-1.44px]">
                   We&rsquo;re setting
                   <br />
@@ -303,7 +303,7 @@ export function DeidentificationPanel() {
                 </p>
               </div>
 
-              <div className="relative min-h-[280px] flex-1 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:min-h-0 lg:flex-none lg:flex-col lg:justify-end">
+              <div className="relative shrink-0 overflow-hidden lg:flex lg:w-full lg:max-w-[696px] lg:flex-col lg:justify-end">
                 <Image
                   src={DATA_TRUST_STANDARD_ILLUSTRATION}
                   alt="The Replay Standard for Real-World Data De-identification: 60+ categories, per-class thresholds, a 4-stage process, and benchmark-held verification, with isolated tenants, raw data in, no shared storage, no cross-client access, and clean data out"
