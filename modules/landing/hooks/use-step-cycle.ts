@@ -13,5 +13,9 @@ export function useStepCycle(length: number) {
     setActiveIndexState(index);
   }, []);
 
-  return { activeIndex, setActiveIndex, advance };
+  const reset = useCallback(() => {
+    setActiveIndexState(0);
+  }, []);
+
+  return { activeIndex, setActiveIndex, advance, reset };
 }

@@ -42,6 +42,13 @@ export const HOW_IT_WORKS_STEP_INTERVAL_MS = 7000;
 
 export const REVENUE_STREAM_TILE_MS = 200;
 
+/**
+ * Universal scroll-play rule for on-page animations and videos: they start
+ * once this much of the element is visible, pause once it has fully left
+ * the viewport, and restart from the beginning the next time it comes in.
+ */
+export const SCROLL_PLAY_THRESHOLD = 0.3;
+
 export const VALUATION_STEPS = [
   {
     label: "Value",

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { PRICING_TIERS } from "../lib/constants";
+import { PRICING_TIERS, SCROLL_PLAY_THRESHOLD } from "../lib/constants";
 import { SectionTag } from "./section-tag";
 import { BottomStripes } from "./bottom-stripes";
 import { useInView } from "../hooks/use-in-view";
@@ -16,7 +16,7 @@ const TONE_COLOR: Record<(typeof PRICING_TIERS)[number]["tone"], string> = {
 };
 
 export function PricingSection() {
-  const { ref: barsRef, inView: barsInView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+  const { ref: barsRef, inView: barsInView } = useInView<HTMLDivElement>({ threshold: SCROLL_PLAY_THRESHOLD, once: false });
 
   return (
     <section
@@ -73,7 +73,8 @@ export function PricingSection() {
                     <p
                       className="font-serif text-[22px] leading-[1.04] tracking-[-0.66px] text-[#fafafa] uppercase transition-[transform,opacity] duration-500 ease-out lg:text-[27px] lg:tracking-[-0.81px]"
                       style={{
-                        transitionDelay: `${tierIndex * 150}ms`,
+                        transitionDelay: barsInView ? `${tierIndex * 150}ms` : "0ms",
+                        transitionDuration: barsInView ? undefined : "0ms",
                         transform: barsInView ? "translateX(0)" : "translateX(-24px)",
                         opacity: barsInView ? 1 : 0,
                       }}
@@ -87,7 +88,8 @@ export function PricingSection() {
                           className="relative h-3.5 w-full overflow-hidden transition-[transform,opacity] duration-500 ease-out lg:h-5"
                           style={{
                             backgroundColor: TONE_COLOR[tier.tone],
-                            transitionDelay: `${(tier.segments - 1 - i) * 90}ms`,
+                            transitionDelay: barsInView ? `${(tier.segments - 1 - i) * 90}ms` : "0ms",
+                            transitionDuration: barsInView ? undefined : "0ms",
                             transform: barsInView ? "translateY(0)" : "translateY(16px)",
                             opacity: barsInView ? 1 : 0,
                           }}

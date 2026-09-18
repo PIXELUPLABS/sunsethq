@@ -1,17 +1,24 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useEffect, type CSSProperties } from "react";
 import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
 import { ValuationMedia } from "./valuation-media";
 import { ValuationPanel } from "./valuation-panel";
-import { VALUATION_STEPS } from "../lib/constants";
+import { SCROLL_PLAY_THRESHOLD, VALUATION_STEPS } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 import { useInView } from "../hooks/use-in-view";
 
 export function ValuationSection() {
-  const { activeIndex, setActiveIndex, advance } = useStepCycle(VALUATION_STEPS.length);
-  const { ref, inView } = useInView<HTMLElement>({ threshold: 0.3 });
+  const { activeIndex, setActiveIndex, advance, reset } = useStepCycle(VALUATION_STEPS.length);
+  const { ref, inView } = useInView<HTMLElement>({ threshold: SCROLL_PLAY_THRESHOLD, once: false });
+
+  // Every scroll-in starts the walkthrough over from the first step. Out of
+  // view, the accordion stops its timer and the videos unmount, so nothing
+  // runs on while the section is off screen.
+  useEffect(() => {
+    if (inView) reset();
+  }, [inView, reset]);
 
   return (
     <section

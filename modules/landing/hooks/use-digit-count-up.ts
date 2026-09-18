@@ -7,6 +7,15 @@ const DIGIT_STAGGER_MS = 120;
 
 export function useDigitCountUp(target: number, start: boolean, digitIndex: number) {
   const [display, setDisplay] = useState(0);
+  const [trackedStart, setTrackedStart] = useState(start);
+
+  // Leaving the viewport rewinds the digit so the next entry counts up from
+  // zero again. Done during render, not in an effect, so the reset lands in
+  // the same paint as the change that caused it.
+  if (start !== trackedStart) {
+    setTrackedStart(start);
+    if (!start) setDisplay(0);
+  }
 
   useEffect(() => {
     if (!start || target === 0) return;

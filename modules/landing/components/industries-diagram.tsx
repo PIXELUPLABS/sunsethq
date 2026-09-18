@@ -7,6 +7,7 @@ import {
   INDUSTRY_DIAGRAM_CARDS,
 } from "../lib/industries-diagram-assets";
 import { useInView } from "../hooks/use-in-view";
+import { SCROLL_PLAY_THRESHOLD } from "../lib/constants";
 
 // Uneven, hand-picked delays (not a simple index * N stagger) so the 8
 // cards read as an organic, one-after-another reveal rather than a uniform
@@ -29,7 +30,7 @@ function pct(value: number) {
 }
 
 export function IndustriesDiagram() {
-  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: SCROLL_PLAY_THRESHOLD, once: false });
 
   return (
     <div

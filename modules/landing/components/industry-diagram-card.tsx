@@ -27,7 +27,9 @@ export function IndustryDiagramCard({
         top: `${(top / 665) * 100}cqw`,
         width: "19.0977cqw",
         height: "19.0977cqw",
-        transitionDelay: `${delayMs}ms`,
+        // Out of view the card snaps back to its start so the reveal replays.
+        transitionDelay: start ? `${delayMs}ms` : "0ms",
+        transitionDuration: start ? undefined : "0ms",
         transform: start
           ? "translate(0, 0)"
           : `translate(${(offsetLeft / 665) * 100}cqw, ${(offsetTop / 665) * 100}cqw)`,

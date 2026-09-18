@@ -25,6 +25,12 @@ export function RevenueStreamShelfItem({
   // Tether lines from each bottom corner of the floating card back to that
   // same corner's original slot — pointing from the floating corner toward
   // the resting corner, so they connect the two as the card lifts off.
+  // Out of view, the tile snaps straight back to its floating start so the
+  // next scroll-in replays the whole sequence from the beginning.
+  const transitionStyle = start
+    ? { transitionDelay: `${delayMs}ms`, transitionDuration: `${REVENUE_STREAM_TILE_MS}ms` }
+    : { transitionDelay: "0ms", transitionDuration: "0ms" };
+
   const tetherLength = Math.hypot(offsetX, offsetY);
   const tetherAngleDeg = (Math.atan2(-offsetY, -offsetX) * 180) / Math.PI;
   const tetherClasses = `pointer-events-none absolute h-0 border-t border-dashed border-[#a8a8a8] transition-opacity ease-out ${
@@ -43,8 +49,7 @@ export function RevenueStreamShelfItem({
         style={{
           borderTop: "5px solid #A6A6A6",
           borderRight: "5px solid #A6A6A6",
-          transitionDelay: `${delayMs}ms`,
-          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
+          ...transitionStyle,
         }}
       />
 
@@ -57,8 +62,7 @@ export function RevenueStreamShelfItem({
           width: `${tetherLength}px`,
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
-          transitionDelay: `${delayMs}ms`,
-          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
+          ...transitionStyle,
         }}
       />
 
@@ -71,8 +75,7 @@ export function RevenueStreamShelfItem({
           width: `${tetherLength}px`,
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
-          transitionDelay: `${delayMs}ms`,
-          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
+          ...transitionStyle,
         }}
       />
 
@@ -85,8 +88,7 @@ export function RevenueStreamShelfItem({
           width: `${tetherLength}px`,
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
-          transitionDelay: `${delayMs}ms`,
-          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
+          ...transitionStyle,
         }}
       />
 
@@ -99,8 +101,7 @@ export function RevenueStreamShelfItem({
           width: `${tetherLength}px`,
           transformOrigin: "0 0",
           transform: `rotate(${tetherAngleDeg}deg)`,
-          transitionDelay: `${delayMs}ms`,
-          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
+          ...transitionStyle,
         }}
       />
 
@@ -112,8 +113,7 @@ export function RevenueStreamShelfItem({
           transform: start
             ? "translate(0px, 0px)"
             : `translate(${offsetX}px, ${offsetY}px)`,
-          transitionDelay: `${delayMs}ms`,
-          transitionDuration: `${REVENUE_STREAM_TILE_MS}ms`,
+          ...transitionStyle,
         }}
       >
         <Image
