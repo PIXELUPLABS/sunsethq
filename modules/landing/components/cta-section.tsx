@@ -95,7 +95,9 @@ export function CtaSection({
             />
           </div>
         </div>
-        <div className="pointer-events-none absolute inset-0 px-18">
+        {/* The dashed column borders stop with the grey band; they must not
+            run on through the black band below. */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-[43%] px-18">
           <div className={`mx-auto h-full w-full max-w-[1560px] border-x border-dashed ${sideBorderClassName}`} />
         </div>
 
