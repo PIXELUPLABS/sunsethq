@@ -97,7 +97,7 @@ export function HeroSection() {
                 paddingClassName="px-2 py-1"
                 heightClassName="h-auto"
               />
-              <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-[#181a1b] sm:text-[56px] sm:leading-none sm:tracking-tight min-[1350px]:text-[72px] min-[1350px]:tracking-[-2.88px]">
+              <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-black sm:text-[56px] sm:leading-none sm:tracking-tight lg:text-[72px] lg:tracking-[-2.88px]">
                 Securely license your data.
                 <br />
                 Stay in compliance.
