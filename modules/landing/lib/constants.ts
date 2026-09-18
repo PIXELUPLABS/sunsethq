@@ -8,7 +8,7 @@ import type {
 } from "../types";
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "Data privacy", href: "/data-and-privacy", isRoute: true },
+  { label: "Data privacy", href: "/data-privacy", isRoute: true },
   { label: "Careers", href: "/careers", isRoute: true },
 ];
 
@@ -169,7 +169,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   {
     title: "Company",
     links: [
-      { label: "Data privacy", href: "/data-and-privacy" },
+      { label: "Data privacy", href: "/data-privacy" },
       { label: "Careers", href: "/careers" },
     ],
   },

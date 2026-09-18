@@ -9,9 +9,10 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      // The page launched at /data-and-trust; keep old links and any indexed
-      // URLs working.
-      { source: "/data-and-trust", destination: "/data-and-privacy", permanent: true },
+      // The page launched at /data-and-trust and briefly sat at
+      // /data-and-privacy; keep old links and any indexed URLs working.
+      { source: "/data-and-trust", destination: "/data-privacy", permanent: true },
+      { source: "/data-and-privacy", destination: "/data-privacy", permanent: true },
     ];
   },
 };
