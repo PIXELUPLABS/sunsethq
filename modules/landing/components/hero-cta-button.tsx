@@ -10,7 +10,7 @@ export function HeroCtaButton() {
   return (
     <Link
       href="/value-my-data"
-      className="group relative flex h-auto w-auto max-w-full items-center justify-center overflow-hidden bg-[#141518] px-[77px] py-5 font-serif text-base tracking-[0.1px] text-white lg:tracking-wide"
+      className="group relative flex w-full max-w-full items-center justify-center overflow-hidden bg-[#141518] px-6 py-4 font-serif text-base tracking-[0.16px] text-white sm:w-auto"
     >
       <Image
         src="/images/hero/btn-pattern.svg"
@@ -19,7 +19,7 @@ export function HeroCtaButton() {
         className="pointer-events-none object-cover"
       />
       <PrimaryButtonHover />
-      <span className="relative">Value my data</span>
+      <span className="relative leading-[0.8]">Value my data</span>
     </Link>
   );
 }
