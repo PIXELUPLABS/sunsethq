@@ -16,6 +16,9 @@ export const HERO_PATTERN = "/images/hero/hero-pattern.webp";
 export const HERO_HOME_ILLUSTRATION_MOBILE = "/images/hero/home-hero-illustration-mobile.png";
 
 export const HERO_PATTERN_TOP_OFFSET = 48;
+/** Fraction of the converge over which the headline and side guides fade out. */
+export const HERO_CONVERGE_FADE_OUT = 0.15;
+
 export const HERO_CONVERGE_X_VW = 50;
 export const HERO_CONVERGE_X_PX_OFFSET = 278;
 export const HERO_CONVERGE_STACK_CENTER_Y = 170;

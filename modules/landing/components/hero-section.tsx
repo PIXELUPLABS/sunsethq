@@ -10,6 +10,7 @@ import {
   HERO_CARD_2,
   HERO_CARD_3,
   HERO_CARD_4,
+  HERO_CONVERGE_FADE_OUT,
   HERO_CONVERGE_STACK_CENTER_Y,
   HERO_CONVERGE_X_CSS,
   HERO_LINE_PATTERN,
@@ -35,7 +36,7 @@ export function HeroSection() {
   const card4Progress = remap(masterProgress, 8 / 15, 10 / 15);
   const patternProgress = remap(masterProgress, 10 / 15, 12 / 15);
   const linePatternProgress = remap(masterProgress, 4 / 15, 10 / 15);
-  const textFadeProgress = Math.min(1, convergeProgress / 0.15);
+  const textFadeProgress = Math.min(1, convergeProgress / HERO_CONVERGE_FADE_OUT);
 
   return (
     <div ref={pinRef} className="relative min-[1350px]:h-[475vh]">

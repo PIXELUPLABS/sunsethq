@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import {
+  HERO_CONVERGE_FADE_OUT,
   HERO_CONVERGE_STACK_CENTER_Y,
   HERO_CONVERGE_STACK_STEP_Y,
   HERO_CONVERGE_X_PX_OFFSET,
@@ -70,7 +71,10 @@ export function HeroSidePatternRight({ progress = 0 }: { progress?: number }) {
           );
         })}
       </div>
-      <div className="pointer-events-none absolute top-0 right-[272px] h-full border-l border-dashed border-[#d4d4d4]" />
+      {/* The guide clears out with the headline as the converge begins. */}
+      <div className="pointer-events-none absolute top-0 right-[272px] h-full border-l border-dashed border-[#d4d4d4]"
+        style={{ opacity: 1 - Math.min(1, progress / HERO_CONVERGE_FADE_OUT) }}
+      />
     </div>
   );
 }
