@@ -50,7 +50,9 @@ export async function handleSite(request: Request, env: SiteEnv) {
   if (result.headers.get("Content-Type")?.includes("text/html")) {
     // Next's exported bootstrap currently uses inline scripts/styles. Restrict
     // external origins while preserving those scripts and the Turnstile frame.
-    result.headers.set("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self'; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'");
+    const analyticsScript = env.APP_ENV === "production" ? " https://static.cloudflareinsights.com" : "";
+    const analyticsConnect = env.APP_ENV === "production" ? " https://cloudflareinsights.com" : "";
+    result.headers.set("Content-Security-Policy", `default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com${analyticsScript}; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self'; connect-src 'self' https://challenges.cloudflare.com${analyticsConnect}; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'`);
   }
   return result;
 }
