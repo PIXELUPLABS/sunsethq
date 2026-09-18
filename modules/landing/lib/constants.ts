@@ -43,6 +43,13 @@ export const HOW_IT_WORKS_STEP_INTERVAL_MS = 10000;
 export const REVENUE_STREAM_TILE_MS = 200;
 
 /**
+ * How long the How it works media is hidden for while it moves to sit under
+ * the newly opened step on phones. Half of it fades out, half fades back in,
+ * so the whole swap fits inside the accordion's own 500ms transition.
+ */
+export const VALUATION_MEDIA_SWAP_MS = 200;
+
+/**
  * Universal scroll-play rule for on-page animations and videos: they start
  * once this much of the element is visible, pause once it has fully left
  * the viewport, and restart from the beginning the next time it comes in.
