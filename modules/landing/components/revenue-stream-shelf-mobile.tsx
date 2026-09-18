@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DeferredDecorativeImage } from "./deferred-decorative-image";
 import {
   REVENUE_STREAM_FLOOR_BAND,
   REVENUE_STREAM_MOBILE_BAND,
@@ -72,10 +73,9 @@ export function RevenueStreamShelfMobile() {
           style={{ top: "103.2787cqw", left: "97.2677cqw", transformOrigin: "0 0", transform: "rotate(-141.3402deg)" }}
         />
 
-        <Image
+        <DeferredDecorativeImage
           src={REVENUE_STREAM_FLOOR_BAND}
-          alt=""
-          width={1874}
+            width={1874}
           height={205}
           className="absolute top-[97.5355cqw] left-1/2 z-10 h-[16cqw] w-auto max-w-none -translate-x-1/2 scale-x-90"
         />

@@ -4,42 +4,57 @@
       "htmlBytes": 285000,
       "htmlGzipBytes": 37000,
       "inlineCssBytes": 1024,
-      "initialJsGzipBytes": 350000,
+      "initialJsGzipBytes": 245000,
       "cssBytes": 100000,
       "fontPreloadBytes": 85000,
-      "eagerVideos": 0
+      "eagerVideos": 0,
+      "developmentToolChunks": 0,
+      "eagerFooterGrain": 0
     },
     "/value-my-data": {
       "htmlBytes": 90000,
       "htmlGzipBytes": 17000,
       "inlineCssBytes": 1024,
-      "initialJsGzipBytes": 350000,
+      "initialJsGzipBytes": 245000,
       "cssBytes": 100000,
       "fontPreloadBytes": 85000,
-      "eagerVideos": 0
+      "eagerVideos": 0,
+      "developmentToolChunks": 0,
+      "eagerFooterGrain": 0
     },
     "/data-privacy": {
       "htmlBytes": 175000,
       "htmlGzipBytes": 27000,
       "inlineCssBytes": 1024,
-      "initialJsGzipBytes": 350000,
+      "initialJsGzipBytes": 245000,
       "cssBytes": 100000,
       "fontPreloadBytes": 85000,
-      "eagerVideos": 0
+      "eagerVideos": 0,
+      "developmentToolChunks": 0,
+      "eagerFooterGrain": 0
     },
     "/careers": {
       "htmlBytes": 310000,
       "htmlGzipBytes": 56000,
       "inlineCssBytes": 1024,
-      "initialJsGzipBytes": 350000,
+      "initialJsGzipBytes": 245000,
       "cssBytes": 100000,
       "fontPreloadBytes": 85000,
-      "eagerVideos": 0
+      "eagerVideos": 0,
+      "developmentToolChunks": 0,
+      "eagerFooterGrain": 0
     }
   },
   "assets": {
     "/images/hero/btn-pattern-optimized.svg": 500000,
     "/images/grain-light-texture-optimized.svg": 740000,
     "/images/texture-grain-white.webp": 1100000
+  },
+  "responsiveImages": {
+    "/images/hero/home-hero-illustration-mobile.png": {
+      "width": 1080,
+      "maxBytes": 40000,
+      "format": "avif"
+    }
   }
 }

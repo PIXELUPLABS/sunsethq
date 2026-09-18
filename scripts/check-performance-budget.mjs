@@ -20,7 +20,9 @@ for (const [route, limits] of Object.entries(budgets.routes)) {
     inlineCssBytes: [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].reduce((n, m) => n + Buffer.byteLength(m[1]), 0),
     initialJsGzipBytes: await assetBytes(scriptPaths, true), cssBytes: await assetBytes(stylePaths),
     fontPreloadBytes: await assetBytes(fontPaths),
-    eagerVideos: [...html.matchAll(/<video[^>]*(?:preload="auto"|autoPlay="")/g)].length,
+    developmentToolChunks: (await Promise.all(scriptPaths.map(async p => (await readFile(resolve(root, `.${p}`), 'utf8')).includes('agentation')))).filter(Boolean).length,
+    eagerFooterGrain: [...html.matchAll(/<image[^>]+href="\/images\/footer\/grain\.webp"/g)].length,
+    eagerVideos: [...html.matchAll(/<video[^>]*(?:preload="auto"|autoPlay="")/gi)].length,
   };
   console.log(JSON.stringify({ route, ...values }));
   for (const [metric, maximum] of Object.entries(limits)) {
@@ -31,5 +33,18 @@ for (const [route, limits] of Object.entries(budgets.routes)) {
 for (const [file, maximum] of Object.entries(budgets.assets)) {
   const bytes = (await stat(resolve(root, `.${file}`))).size;
   if (bytes > maximum) { console.error(`FAIL ${file}: ${bytes} > ${maximum}`); failed = true; }
+}
+const manifest = JSON.parse(await readFile('lib/image-manifest.json', 'utf8'));
+for (const [source, limit] of Object.entries(budgets.responsiveImages ?? {})) {
+  const image = manifest[source];
+  if (!image) throw new Error(`Missing responsive image: ${source}`);
+  const width = image.widths.find(w => w >= limit.width) ?? image.widths.at(-1);
+  const format = image.format ?? 'webp';
+  const bytes = (await stat(resolve(root, `generated-images/${image.key}-${width}.${format}`))).size;
+  console.log(JSON.stringify({ source, width, format, bytes }));
+  if (bytes > limit.maxBytes || format !== limit.format) {
+    console.error(`FAIL ${source}: ${bytes} bytes (${format}); budget ${limit.maxBytes} bytes (${limit.format})`);
+    failed = true;
+  }
 }
 if (failed) process.exitCode = 1;

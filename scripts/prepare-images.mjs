@@ -18,15 +18,21 @@ for (const file of (await files("public")).filter((name) => /\.(png|jpe?g|webp|a
   const bytes = await readFile(file);
   const metadata = await sharp(bytes).metadata();
   if (!metadata.width || (metadata.pages ?? 1) > 1) continue;
-  const key = createHash("sha256").update(bytes).update("webp-q80-v1").digest("hex").slice(0, 16);
+  // The mobile LCP artwork is measurably smaller at AVIF q60 than WebP q80,
+  // with better PSNR against the source. Retain all responsive widths.
+  const format = file === "public/images/hero/home-hero-illustration-mobile.png" ? "avif" : "webp";
+  const quality = format === "avif" ? 60 : 80;
+  const key = createHash("sha256").update(bytes).update(`${format}-q${quality}-v1`).digest("hex").slice(0, 16);
   const sizes = [...new Set([...widths.filter((width) => width < metadata.width), Math.min(metadata.width, 2560)])];
   for (const width of sizes) {
-    const target = `${output}/${key}-${width}.webp`;
+    const target = `${output}/${key}-${width}.${format}`;
     try { await readFile(target); } catch {
-      await sharp(bytes).rotate().resize({ width, withoutEnlargement: true }).webp({ quality: 80 }).toFile(target);
+      const image = sharp(bytes).rotate().resize({ width, withoutEnlargement: true });
+      if (format === "avif") await image.avif({ quality, chromaSubsampling: "4:4:4", effort: 6 }).toFile(target);
+      else await image.webp({ quality }).toFile(target);
     }
   }
-  manifest[`/${file.slice("public/".length).split(path.sep).join("/")}`] = { key, widths: sizes };
+  manifest[`/${file.slice("public/".length).split(path.sep).join("/")}`] = { key, widths: sizes, ...(format === "avif" ? { format } : {}) };
 }
 await writeFile("lib/image-manifest.json", JSON.stringify(manifest) + "\n");
-console.log(`Prepared responsive WebP variants for ${Object.keys(manifest).length} images.`);
+console.log(`Prepared responsive WebP/AVIF variants for ${Object.keys(manifest).length} images.`);

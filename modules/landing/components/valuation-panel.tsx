@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { DeferredTexture } from "./deferred-texture";
 import { ValuationPanelRulers } from "./valuation-panel-rulers";
 
 const GRAIN_SRC = "/images/valuation/value/grain-overlay.webp";
@@ -35,10 +36,9 @@ export function ValuationPanel({
       <ValuationPanelRulers />
 
       {/* Texture overlay per the design spec: soft light at 60% opacity. */}
-      <div
-        aria-hidden
+      <DeferredTexture
+        src={GRAIN_SRC}
         className="pointer-events-none absolute inset-0 bg-[length:222px_222px] bg-repeat opacity-60 mix-blend-soft-light"
-        style={{ backgroundImage: `url(${GRAIN_SRC})` }}
       />
     </div>
   );

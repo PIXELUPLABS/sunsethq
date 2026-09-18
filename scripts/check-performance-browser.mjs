@@ -13,6 +13,9 @@ try {
   await page.goto('http://127.0.0.1:4175/', { waitUntil: 'networkidle0' });
   assert.equal(await page.$eval('.rdp .plane-cards', e => e.children.length), 0, 'mobile must not construct hidden desktop scene');
   assert.equal(await page.evaluate(() => performance.getEntriesByType('resource').filter(r => r.initiatorType === 'video').length), 0, 'no below-fold video downloads at startup');
+  assert.equal(await page.evaluate(() => performance.getEntriesByType('resource').some(r => /footer\/grain|texture-grain-light/.test(r.name))), false, 'offscreen footer and closed menu textures must not download');
+  assert.equal(await page.evaluate(() => performance.getEntriesByType('resource').some(r => /careers\/__next/.test(r.name))), false, 'closed menu must not prefetch careers');
+  assert.equal(await page.$eval('#overview img[fetchpriority=high]', e => Number(e.currentSrc.match(/-(\d+)\.avif$/)?.[1]) >= 1080), true, 'LCP uses the full responsive AVIF rendition');
   assert.equal(await page.$eval('h1', e => e.textContent.includes('Fund growth')), true);
   await page.screenshot({ path: 'artifacts/performance/mobile-home.png' });
   await page.setViewport({ width: 1440, height: 1000 });
@@ -25,6 +28,14 @@ try {
   await page.waitForFunction(() => [...document.querySelectorAll('video')].some(v => v.readyState >= 2 && !v.paused));
   await page.goto('http://127.0.0.1:4175/value-my-data', { waitUntil: 'networkidle0' });
   assert.equal(await page.$eval('form', e => !!e), true, 'signup form still hydrates');
+  assert.equal(await page.$eval('#footerGrainPattern image', e => e.getAttribute('href')), null, 'valuation footer grain stays deferred');
+  await page.$eval('footer', e => e.scrollIntoView({ block: 'end', behavior: 'instant' }));
+  await page.waitForFunction(() => document.querySelector('#footerGrainPattern image').getAttribute('href')?.includes('grain.webp'));
+  await page.waitForFunction(() => performance.getEntriesByType('resource').some(r => r.name.includes('/images/footer/grain.webp')));
+  await page.screenshot({ path: 'artifacts/performance/valuation-footer.png' });
+  await page.$eval('header', e => e.scrollIntoView({ block: 'start', behavior: 'instant' }));
+  await page.click('[aria-label="Open navigation"]');
+  await page.waitForFunction(() => performance.getEntriesByType('resource').some(r => r.name.includes('texture-grain-light.webp')));
   assert.deepEqual(errors, []);
-  console.log('PASS: mobile scene deferral, desktop resize, viewport video playback, signup form, no runtime errors.');
+  console.log('PASS: mobile scene deferral, desktop resize, viewport video playback, signup form, deferred footer/menu assets, no runtime errors.');
 } finally { await browser.close(); server.close(); }

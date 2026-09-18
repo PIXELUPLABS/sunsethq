@@ -1,13 +1,15 @@
 import { createServer } from 'node:http';
-import { readFile } from 'node:fs/promises';
+import { createSecureServer } from 'node:http2';
+import { execFileSync } from 'node:child_process';
+import { readFile, mkdir } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
 import { gzipSync } from 'node:zlib';
 
 // Local lab server: compressed static export, clean URLs, no production services.
-export function serveExport(directory = 'out', port = 4173) {
+export async function serveExport(directory = 'out', port = 4173, { http2 = false } = {}) {
   const root = resolve(directory);
-  const types = { '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css', '.txt': 'text/plain', '.json': 'application/json', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.png': 'image/png', '.woff2': 'font/woff2', '.mp4': 'video/mp4' };
-  const server = createServer(async (req, res) => {
+  const types = { '.html': 'text/html', '.js': 'application/javascript', '.css': 'text/css', '.txt': 'text/plain', '.json': 'application/json', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.avif': 'image/avif', '.png': 'image/png', '.woff2': 'font/woff2', '.mp4': 'video/mp4' };
+  const handler = async (req, res) => {
     try {
       const pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname);
       let file = resolve(root, `.${pathname}`);
@@ -23,7 +25,19 @@ export function serveExport(directory = 'out', port = 4173) {
       res.setHeader('Content-Length', body.length);
       res.end(body);
     } catch { res.writeHead(404); res.end('Not found'); }
-  });
+  };
+  let server;
+  if (http2) {
+    const tls = resolve('artifacts/performance/tls');
+    await mkdir(tls, { recursive: true });
+    const key = resolve(tls, 'localhost-key.pem'), cert = resolve(tls, 'localhost-cert.pem');
+    try { await readFile(cert); await readFile(key); }
+    catch {
+      execFileSync('openssl', ['req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-keyout', key, '-out', cert,
+        '-subj', '/CN=localhost', '-addext', 'subjectAltName=IP:127.0.0.1,DNS:localhost', '-days', '2'], { stdio: 'ignore' });
+    }
+    server = createSecureServer({ key: await readFile(key), cert: await readFile(cert), allowHTTP1: true }, handler);
+  } else server = createServer(handler);
   return new Promise(resolve => server.listen(port, '127.0.0.1', () => resolve(server)));
 }
 if (process.argv[1]?.endsWith('/serve-performance.mjs')) {

@@ -9,7 +9,7 @@ opt-in so normal installs and CI do not pay for lab tooling.
 ```
 npm run ci:build
 npm run perf:budget
-npm run perf:audit -- my-run
+PERF_THROTTLING=devtools npm run perf:audit -- my-run
 npm run perf:inspect -- my-run
 npm run perf:browser
 npm run perf:consent
@@ -19,15 +19,15 @@ node scripts/check-texture-rendering.mjs
 `ci:build` builds the **production-mode static export**, with the committed jobs
 snapshot and public test Turnstile widget. It does not contact Attio, provision,
 deploy, or read private production secrets. `perf:audit` starts a gzip-enabled
-local server over that export and runs three fresh-browser mobile Lighthouse
-navigations per route. JSON reports go to ignored `artifacts/performance/`.
+local HTTP/2 TLS server over that export and runs three fresh-browser mobile Lighthouse
+navigations per route. The harness creates an ephemeral, ignored localhost TLS certificate using OpenSSL; only its test browser ignores certificate errors. `PERF_HTTP2=false` reproduces the original HTTP/1.1 harness; `PERF_THROTTLING=devtools` applies throttling during loading, while the default `simulate` models it afterward. JSON reports and trace/devtools logs go to ignored `artifacts/performance/`.
 `perf:inspect` inventories four key pages and takes mobile screenshots.
 `perf:browser` checks viewport-only video loading, desktop scene activation and
 cleanup across resize, signup form hydration, and JavaScript errors.
 `perf:consent` uses the real public Cloudflare script and a fake local token;
 **all RUM submissions are intercepted locally**, never sent to Cloudflare.
 
-Baseline source: `0c81e3b9a28741e0c9e91cf9ca59293e0d5888b4`. To reproduce the
+Controlled follow-up baseline: `10e81c6e43b5d22727b208b70213575455e99096`; original historical baseline: `0c81e3b9a28741e0c9e91cf9ca59293e0d5888b4`. To reproduce a
 before run, export that revision in a separate temporary checkout and copy the
 lab scripts/package dev-tool versions from this PR. Do not use `next dev` or
 `next start` (this site uses static export). The baseline and final compact
@@ -45,7 +45,7 @@ screenshots were retained locally in `artifacts/performance/`.
   no longer travel over the network. `scripts/optimize-textures.mjs` reproduces
   these assets from retained originals. PNG background references use lossless
   WebP. Responsive `next/image` variants still use the existing quality-80
-  pipeline. No layouts, typography, content, or signup handlers were redesigned.
+  pipeline except the mobile hero AVIF described below. No layouts, typography, content, or signup handlers were redesigned.
 - The permanently transparent buyer mesh layer was removed. It downloaded a
   1.59 MB PNG despite never becoming visible (no hover rule or state).
 - Videos use `preload="none"`; the existing IntersectionObserver starts playback
@@ -58,6 +58,16 @@ screenshots were retained locally in `artifacts/performance/`.
   load when used instead of being globally preloaded. The primary text fonts
   remain preloaded and self-hosted.
 
+The controlled follow-up also removes the development-only Agentation package
+from production client references (about 95 KB gzip); defers footer grain,
+large offscreen SVGs, and decorative CSS textures until near the viewport;
+and prevents closed-menu textures and route prefetches. Only decorative paint
+is deferred, with dimensions reserved; section text and the form remain SSR.
+The existing responsive image generator emits AVIF q60 for the mobile hero,
+at every existing width, instead of WebP q80. The 1080px rendition is 32,474
+bytes versus 90,748 bytes, with PSNR 44.20dB versus 42.49dB against the resized
+source on the page background. This is a compression change, not new artwork.
+
 ## Budgets
 
 The existing Production export CI job runs `perf:budget` after the export.
@@ -68,9 +78,11 @@ sizes, not noisy Lighthouse scores. `scripts/performance-budgets.json` guards:
   15–20% headroom over the final build.
 - At most 1 KB of inline stylesheet content: prevents whole-stylesheet inlining
   from silently returning (inline style attributes are not counted).
-- Initial script-tag JavaScript <=350 KB gzip per route, CSS <=100 KB raw,
-  and font preloads <=85 KB. These reflect the current framework/illustration
+- Initial script-tag JavaScript <=245 KB gzip per route, CSS <=100 KB raw,
+  and font preloads <=85 KB. The JavaScript ceiling was lowered after removing the development-only annotation bundle. These reflect the current framework/illustration
   footprint; they are regression ceilings, not claims of ideal payload size.
+- The mobile hero 1080px rendition must be AVIF and <=40 KB.
+- No production development-tool chunks or eager footer-grain references; both were measured startup regressions.
 - No autoplay/automatic-preload videos in initial HTML, plus explicit ceilings
   for the measured heavyweight textures (button 500 KB, grain SVG 740 KB,
   white texture 1.1 MB).

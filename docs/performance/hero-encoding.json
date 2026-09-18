@@ -1,0 +1,37 @@
+{
+  "source": "public/images/hero/home-hero-illustration-mobile.png",
+  "sourceDimensions": [
+    1584,
+    1080
+  ],
+  "comparisonWidth": 1080,
+  "background": "#fcfcfc",
+  "method": "PSNR of decoded RGB composited on the page background, against the PNG resized to1080px with Sharp default kernel; same alpha handling for all variants.",
+  "variants": [
+    {
+      "format": "WebP",
+      "quality": 80,
+      "bytes": 90748,
+      "PSNRdB": 42.48901027503629
+    },
+    {
+      "format": "AVIF",
+      "quality": 50,
+      "bytes": 25963,
+      "PSNRdB": 42.4362808221464
+    },
+    {
+      "format": "AVIF",
+      "quality": 60,
+      "bytes": 32474,
+      "PSNRdB": 44.19890911593973,
+      "selected": true
+    },
+    {
+      "format": "AVIF",
+      "quality": 70,
+      "bytes": 39467,
+      "PSNRdB": 45.61259995791292
+    }
+  ]
+}

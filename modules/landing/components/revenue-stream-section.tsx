@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DeferredDecorativeImage } from "./deferred-decorative-image";
 import { RevenueStreamShelf } from "./revenue-stream-shelf";
 import { RevenueStreamShelfMobile } from "./revenue-stream-shelf-mobile";
 
@@ -83,9 +84,8 @@ export function RevenueStreamSection() {
       </div>
 
       <div className="relative -mt-0.5 h-[100px] w-full sm:mt-0">
-        <Image
+        <DeferredDecorativeImage
           src="/images/revenue-stream/revenue-bottom-panel.svg"
-          alt=""
           fill
           className="pointer-events-none object-cover"
         />

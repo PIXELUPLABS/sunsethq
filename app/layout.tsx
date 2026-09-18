@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import { Agentation } from "agentation";
+import { DevelopmentTools } from "@/modules/development/components/development-tools";
 import { VisitAttribution } from "@/modules/attribution/components/visit-attribution";
 import { CloudflareAnalytics } from "@/modules/performance/components/cloudflare-analytics";
 import { CookieConsent } from "@/modules/consent/components/cookie-consent";
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         {!IS_STAGING && process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN && (
           <CloudflareAnalytics token={process.env.NEXT_PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN} />
         )}
-        {process.env.NODE_ENV === "development" && <Agentation />}
+        <DevelopmentTools />
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DeferredTexture } from "@/modules/landing/components/deferred-texture";
 import { SectionTag } from "@/modules/landing/components/section-tag";
 import { BenefitRow } from "./benefit-row";
 import { ValueMyDataForm } from "./value-my-data-form";
@@ -56,12 +57,10 @@ export function ValueMyDataHero() {
             className="absolute top-[55px] right-0 bottom-0 -left-[57px] hidden overflow-hidden sm:block"
             style={{ backgroundImage: "linear-gradient(180deg, #133264 0%, #147dba 160%)" }}
           >
-            <div
+            <DeferredTexture
+              src={GRAIN_TEXTURE}
               className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-              style={{
-                backgroundImage: `url(${GRAIN_TEXTURE})`,
-                backgroundSize: "296px 296px",
-              }}
+              style={{ backgroundSize: "296px 296px" }}
             />
           </div>
           <div
