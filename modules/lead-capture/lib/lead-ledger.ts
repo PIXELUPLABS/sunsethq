@@ -31,7 +31,7 @@ export async function persistLead(env: LedgerEnv, message: LeadMessage, now = Da
       throw new SubmissionConflict("Submission ID is already in use for different answers.");
     }
   }
-  return { delivered: row.status === "delivered", message: row.payload ? JSON.parse(row.payload) as LeadMessage : message };
+  return { delivered: row.status === "delivered", failed: row.status === "failed", message: row.payload ? JSON.parse(row.payload) as LeadMessage : message };
 }
 
 export async function enqueueSavedLead(env: LedgerEnv & { LEADS: Queue<LeadMessage> }, message: LeadMessage, now = Date.now()) {
@@ -78,6 +78,8 @@ export async function reconcileLeads(env: LedgerEnv & { LEADS: Queue<LeadMessage
 }
 
 export async function leadHealth(env: LedgerEnv, now = Date.now()) {
+  const failed = await env.LEAD_DB.prepare("SELECT COUNT(*) AS count FROM lead_submissions WHERE environment = ? AND status = 'failed'")
+    .bind(env.APP_ENV).first<{ count: number }>();
   const pending = await env.LEAD_DB.prepare("SELECT COUNT(*) AS count, MIN(created_at) AS oldest FROM lead_submissions WHERE environment = ? AND status = 'pending'")
     .bind(env.APP_ENV).first<{ count: number; oldest: number | null }>();
   const monitor = await env.LEAD_DB.prepare("SELECT last_reconciled_at, last_alert_at, incident_open, dependency_ok, failed_queue_count FROM lead_monitor WHERE environment = ?")
@@ -85,7 +87,8 @@ export async function leadHealth(env: LedgerEnv, now = Date.now()) {
   const oldestPendingSeconds = pending?.oldest == null ? 0 : Math.floor((now - pending.oldest) / 1000);
   const reconcilerAgeSeconds = monitor ? Math.floor((now - monitor.last_reconciled_at) / 1000) : null;
   return {
-    healthy: oldestPendingSeconds < 300 && reconcilerAgeSeconds !== null && reconcilerAgeSeconds < 180 && monitor?.dependency_ok === 1 && monitor.failed_queue_count === 0,
+    healthy: failed?.count === 0 && oldestPendingSeconds < 300 && reconcilerAgeSeconds !== null && reconcilerAgeSeconds < 180 && monitor?.dependency_ok === 1 && monitor.failed_queue_count === 0,
+    failed: failed?.count ?? 0,
     pending: pending?.count ?? 0, oldestPendingSeconds, reconcilerAgeSeconds,
     lastAlertAt: monitor?.last_alert_at ?? 0, incidentOpen: !!monitor?.incident_open,
     dependenciesHealthy: monitor?.dependency_ok === 1, failedQueueCount: monitor?.failed_queue_count ?? 0,

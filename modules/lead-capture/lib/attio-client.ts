@@ -63,7 +63,7 @@ export async function deliverToAttio(message: LeadMessage, config: AttioConfig, 
     replay_source_url: message.sourceUrl,
     replay_campaign: JSON.stringify(message.campaign),
     replay_environment: message.environment,
-    replay_verification_status: message.verification?.status === "unverified" ? "Unverified" : "Verified",
+    replay_verification_status: message.verification?.status === "verified" ? "Verified" : message.verification?.status === "unverified" ? "Unverified" : "Unknown (legacy)",
     ...(message.verification?.status === "unverified" ? { replay_verification_reason: message.verification.reason } : {}),
   };
   try {

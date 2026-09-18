@@ -13,7 +13,10 @@ export async function handleSite(request: Request, env: SiteEnv) {
     if ((url.hostname === "replay.ai" || url.hostname === canonical.hostname) && url.origin !== canonical.origin) {
       url.protocol = canonical.protocol;
       url.host = canonical.host;
-      return Response.redirect(url.href, 308);
+      return new Response(null, { status: 308, headers: {
+        Location: url.href,
+        ...(new URL(request.url).protocol === "https:" ? { "Strict-Transport-Security": "max-age=31536000" } : {}),
+      } });
     }
   }
   if (env.APP_ENV === "production" && url.origin !== env.SITE_ORIGIN) {
@@ -39,6 +42,7 @@ export async function handleSite(request: Request, env: SiteEnv) {
   result.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
   result.headers.set("X-Frame-Options", "DENY");
   result.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  if (env.APP_ENV === "production" && url.protocol === "https:") result.headers.set("Strict-Transport-Security", "max-age=31536000");
   if (result.headers.get("Content-Type")?.includes("text/html")) {
     // Next's exported bootstrap currently uses inline scripts/styles. Restrict
     // external origins while preserving those scripts and the Turnstile frame.

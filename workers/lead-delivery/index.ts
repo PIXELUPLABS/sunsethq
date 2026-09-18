@@ -4,6 +4,7 @@ import type { LeadMessage } from "../../modules/lead-capture/lib/lead-schema";
 import { persistLead, recordAttempt, recordDelivered, recordFailure, reconcileLeads, type LedgerEnv } from "../../modules/lead-capture/lib/lead-ledger";
 import type { Queue } from "@cloudflare/workers-types";
 import { notifyUnverifiedLead, type NotificationEnv } from "../../modules/lead-capture/lib/unverified-notification";
+import { enqueueFailedLead, reconcileFailedLeads, recordTerminalFailure } from "../../modules/lead-capture/lib/failed-leads";
 
 export type DeliveryEnv = AttioConfig & LedgerEnv & NotificationEnv & { APP_ENV: "local" | "development" | "production"; LEADS: Queue<LeadMessage>; FAILED_LEADS: Queue<LeadMessage> };
 
@@ -13,6 +14,11 @@ export async function handleDelivery(batch: MessageBatch<LeadMessage>, env: Deli
       if (message.body.version !== 1 || message.body.environment !== env.APP_ENV) throw new Error("Queue environment mismatch");
       const saved = await persistLead(env, message.body);
       if (saved.delivered) { message.ack(); continue; }
+      if (saved.failed) {
+        await enqueueFailedLead(env, message.body.submissionId);
+        message.ack();
+        continue;
+      }
       await recordAttempt(env, message.body.submissionId);
       await notifyUnverifiedLead(saved.message, env);
       const result = await deliver(saved.message, env);
@@ -20,6 +26,18 @@ export async function handleDelivery(batch: MessageBatch<LeadMessage>, env: Deli
       console.info(JSON.stringify({ event: "lead_delivered", submissionId: message.body.submissionId, ...result }));
       message.ack();
     } catch (error) {
+      const permanent = error instanceof AttioError && error.status >= 400 && error.status < 500 && ![408, 429].includes(error.status);
+      if (permanent && message.body.environment === env.APP_ENV) {
+        try {
+          await recordTerminalFailure(env, message.body.submissionId, `attio_${error.status}`);
+          await enqueueFailedLead(env, message.body.submissionId);
+          console.error(JSON.stringify({ event: "lead_delivery_terminal", submissionId: message.body.submissionId, status: error.status }));
+          message.ack();
+          continue;
+        } catch {
+          console.error(JSON.stringify({ event: "lead_terminal_recovery_pending", submissionId: message.body.submissionId }));
+        }
+      }
       const delaySeconds = Math.min(3600, Math.max(error instanceof AttioError ? error.retryAfter : 0, 30 * 2 ** Math.min(message.attempts - 1, 7)));
       if (message.body.environment === env.APP_ENV) {
         try { await recordFailure(env, message.body.submissionId, error instanceof AttioError ? `attio_${error.status}` : "delivery_error", Date.now() + delaySeconds * 1000); }
@@ -33,6 +51,7 @@ export async function handleDelivery(batch: MessageBatch<LeadMessage>, env: Deli
 
 export async function handleScheduled(env: DeliveryEnv) {
   await reconcileLeads(env);
+  await reconcileFailedLeads(env);
   let dependencyOk = false;
   let failedCount = 0;
   try {

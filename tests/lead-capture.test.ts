@@ -262,6 +262,26 @@ test("duplicate deliveries do not create more people or entries", async () => {
   assert.deepEqual(await deliverToAttio(message, config, fetcher), { entryId: "existing", duplicate: true });
   assert.equal(calls.length, 2);
 });
+test("legacy receipts remain explicitly unknown while verified receipts carry evidence", async () => {
+  for (const verification of [undefined, { status: "verified" } as const]) {
+    let values: Record<string, string> | undefined;
+    const fetcher = (async (url: string | URL | Request, init?: RequestInit) => {
+      if (String(url).endsWith("/self")) return Response.json({ workspace_id: "sandbox" });
+      if (String(url).endsWith("/query")) return Response.json({ data: [] });
+      if (String(url).includes("/people/")) return Response.json({ data: { id: { record_id: "person" } } });
+      values = JSON.parse(String(init!.body)).data.entry_values;
+      return Response.json({ data: { id: { entry_id: "entry" } } });
+    }) as typeof fetch;
+    await deliverToAttio({ ...message, verification }, config, fetcher);
+    assert.equal(values?.replay_verification_status, verification ? "Verified" : "Unknown (legacy)");
+    assert.equal(values?.replay_verification_reason, undefined);
+  }
+  const s = intakeSetup();
+  await persistLead(s.env, message);
+  const response = await handleIntake(s.request(), s.env, s.verify);
+  assert.equal(response.status, 202);
+  assert.equal((await response.json() as { verification: string }).verification, "unknown");
+});
 test("an uncertain committed Attio response is reconciled using submission ID", async () => {
   let queries = 0;
   const fetcher = (async (url: string | URL | Request) => {

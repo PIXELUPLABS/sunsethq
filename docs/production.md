@@ -52,7 +52,7 @@ The success response means the signup is stored in D1. A failed queue send is re
 
 [D1 Time Travel](https://developers.cloudflare.com/d1/reference/time-travel/) retains recovery history for 30 days on Workers Paid. A database restore rewinds data: preserve the current bookmark and reconcile any submissions accepted after the restore point. Do not casually restore or purge a production ledger.
 
-The public `/api/health` endpoint exposes only `{ "healthy": true/false }`. Detailed `/api/lead-health` is unavailable in production. Health becomes unhealthy for a missing/stale recovery heartbeat, unreadable database, failed Attio identity/list checks, any failed-queue backlog, or a signup pending at least five minutes.
+The public `/api/health` endpoint exposes only `{ "healthy": true/false }`. Detailed `/api/lead-health` is unavailable in production. Health becomes unhealthy for a missing/stale recovery heartbeat, unreadable database, failed Attio identity/list checks, any failed-queue backlog, any terminal failed receipt, or a signup pending at least five minutes. Terminal Attio 4xx failures require explicit operator recovery after the cause is fixed; see [lead recovery](lead-capture.md#recovery).
 
 Cloudflare Health Checks use the existing `sunsethq.com` Business entitlement to probe production from Eastern North America and Western Europe every minute. Delivery health checks `/api/health`; page availability checks `/value-my-data` for HTTP 200 and the application's opening HTML. Cloudflare inspects only the first 10 KB, while inline styles place the form later in the response. The build check verifies all five form fields in the complete HTML and the Turnstile site key in the exported JavaScript. Production alerts go to `jono@sunsethq.com`. The monitors do not execute browser JavaScript or Turnstile, so validate one real browser submission after changes to the form or verification configuration.
 
@@ -61,3 +61,5 @@ Follow the [recovery procedure](staging.md#recovery), using the production resou
 ## Rollback
 
 Use the production website Worker's Deployments tab to restore a known-good version, preserving bindings and secrets. Roll back the private delivery Worker independently if necessary. A Worker rollback does not undo D1 migrations, CRM schema additions, or DNS/routes. Keep the recovery schedule active while diagnosing delivery problems. Never delete a queue or database as a rollback step.
+
+After migration `0004_terminal_failures.sql`, retain a delivery Worker version that understands terminal `failed` receipts. Older consumers do not honor that state and may resume CRM attempts. Website rollback does not require reverting the consumer or database.

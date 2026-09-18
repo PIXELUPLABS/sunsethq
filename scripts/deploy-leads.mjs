@@ -1,7 +1,8 @@
 import { spawnSync } from "node:child_process";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { loadEnvFile } from "node:process";
 import { checkLeadFallback } from "./check-lead-fallback.mjs";
+import { writeSecretFile } from "./secret-files.mjs";
 
 const target = process.argv[2];
 if (!["development", "production"].includes(target)) throw new Error("Choose development or production.");
@@ -71,7 +72,7 @@ if (target === "development") {
     let env = await readFile(".env", "utf8");
     const line = `LEADS_REMOTE_DEV_API_ORIGIN=${url}`;
     env = /^LEADS_REMOTE_DEV_API_ORIGIN=.*$/m.test(env) ? env.replace(/^LEADS_REMOTE_DEV_API_ORIGIN=.*$/m, line) : env.trimEnd() + "\n" + line + "\n";
-    await writeFile(".env", env, { mode: 0o600 });
+    await writeSecretFile(".env", env);
   }
 }
 if (target === "production") console.log("Private production delivery Worker deployed. Publish the website with production:deploy.");

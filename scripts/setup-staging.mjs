@@ -1,6 +1,7 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { loadEnvFile } from "node:process";
 import { cloudflareClient } from "./cloudflare-client.mjs";
+import { writeSecretFile } from "./secret-files.mjs";
 
 loadEnvFile(".env");
 const config = JSON.parse(await readFile("workers/site/wrangler.json", "utf8"));
@@ -18,5 +19,5 @@ for (const [key, value] of Object.entries({ TURNSTILE_STAGING_SITE_KEY: widget.s
   const line = `${key}=${value}`;
   env = new RegExp(`^${key}=.*$`, "m").test(env) ? env.replace(new RegExp(`^${key}=.*$`, "m"), line) : env.trimEnd() + "\n" + line + "\n";
 }
-await writeFile(".env", env, { mode: 0o600 });
+await writeSecretFile(".env", env);
 console.log("Staging Turnstile widget configured; secrets saved to ignored .env.");

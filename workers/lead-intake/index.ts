@@ -107,11 +107,11 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
       submittedAt: new Date().toISOString(), sourceUrl: new URL("/value-my-data", env.SITE_ORIGIN).href,
       lead: { companyName, workEmail, yearsOfOperation, businessSize, englishShare },
     });
-    if (!saved.delivered) {
+    if (!saved.delivered && !saved.failed) {
       try { await enqueueSavedLead(env, saved.message); }
       catch { console.error(JSON.stringify({ event: "lead_enqueue_deferred", submissionId })); }
     }
-    const verificationStatus = saved.message.verification?.status ?? "verified";
+    const verificationStatus = saved.message.verification?.status ?? "unknown";
     console.info(JSON.stringify({ event: "lead_accepted", submissionId, verification: verificationStatus }));
     return reply(202, { accepted: true, submissionId, verification: verificationStatus });
   } catch (error) {

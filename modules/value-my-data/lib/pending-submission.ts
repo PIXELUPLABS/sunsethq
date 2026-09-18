@@ -14,7 +14,7 @@ export function readPendingSubmission(): PendingSubmission | null {
     const allowed = hasMarketingConsent();
     return { answers: { companyName, workEmail, yearsOfOperation, businessSize, englishShare }, campaign: allowed ? parsed.campaign : {},
       ...(allowed && parsed.landingPath ? { landingPath: parsed.landingPath } : {}), id: parsed.submissionId, savedAt: value.savedAt };
-  } catch { return null; }
+  } catch { clearPendingSubmission(); return null; }
 }
 export function savePendingSubmission(value: PendingSubmission) {
   const safe = hasMarketingConsent() ? value : { ...value, campaign: {}, landingPath: undefined };

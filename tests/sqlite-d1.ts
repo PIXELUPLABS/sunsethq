@@ -1,11 +1,14 @@
 import { DatabaseSync } from "node:sqlite";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import type { D1Database } from "@cloudflare/workers-types";
 
 // Execute the actual migration and SQL against SQLite, rather than mocking SQL results.
-export function testDatabase() {
+export function testDatabase(lastMigration?: string) {
   const sqlite = new DatabaseSync(":memory:");
-  for (const file of ["0001_lead_ledger.sql", "0002_pipeline_health.sql", "0003_unverified_notifications.sql"]) sqlite.exec(readFileSync(`workers/migrations/${file}`, "utf8"));
+  for (const file of readdirSync("workers/migrations").filter(name => name.endsWith(".sql")).sort()) {
+    sqlite.exec(readFileSync(`workers/migrations/${file}`, "utf8"));
+    if (file === lastMigration) break;
+  }
   const db = {
     prepare(sql: string) {
       let values: (string | number | null)[] = [];

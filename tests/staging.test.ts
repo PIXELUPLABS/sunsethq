@@ -11,7 +11,8 @@ test("static pages, assets, and missing pages retain status and receive staging/
     assert.equal(response.status, status);
     assert.match(response.headers.get("X-Robots-Tag")!, /noindex/);
     assert.equal(response.headers.get("X-Frame-Options"), "DENY");
-    if (type === "text/html") assert.match(response.headers.get("Content-Security-Policy")!, /challenges.cloudflare.com/);
+    if (type === "text/html") assert.ok(response.headers.get("Content-Security-Policy")!.split(/[; ]+/).includes("https://challenges.cloudflare.com"));
+    assert.equal(response.headers.get("Strict-Transport-Security"), null);
   }
 });
 
@@ -23,10 +24,12 @@ test("production is indexable only on its canonical host and never exposes detai
   assert.equal(response.status, 200);
   assert.equal(response.headers.get("X-Robots-Tag"), null);
   assert.equal(response.headers.get("X-Frame-Options"), "DENY");
+  assert.equal(response.headers.get("Strict-Transport-Security"), "max-age=31536000");
   for (const origin of ["http://replay.ai", "https://replay.ai", "http://www.replay.ai"]) {
     const redirect = await handleSite(new Request(`${origin}/value-my-data?utm_source=test`), env);
     assert.equal(redirect.status, 308);
     assert.equal(redirect.headers.get("Location"), "https://www.replay.ai/value-my-data?utm_source=test");
+    assert.equal(redirect.headers.get("Strict-Transport-Security"), origin.startsWith("https:") ? "max-age=31536000" : null);
   }
   assert.equal((await handleSite(new Request("https://accidental.workers.dev/"), env)).status, 404);
   assert.equal((await handleSite(new Request("https://www.replay.ai/api/lead-health"), env)).status, 404);

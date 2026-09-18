@@ -84,7 +84,7 @@ Initial development verification on 2026-09-18 (before the fallback release; see
 - Form success means D1 durably saved the inquiry. Queue enqueue and Attio delivery are recoverable asynchronous steps. Errors preserve answers and reset verification for retry. Attempted submissions also retain their UUID and answers in tab-scoped session storage until confirmed (maximum 24 hours).
 - People are matched by email. Company name and answers are saved on the inquiry. Existing CRM names/company relationships are preserved; company identity is not guessed from an email domain.
 - Unique `replay_submission_id` prevents duplicate inquiries for the same submission, including concurrent delivery or a lost response after commit. New inquiries can create new entries for the same person. The browser retains the ID for unchanged answers and can restore an unconfirmed attempt after reloading the same tab.
-- Delivery retries up to 12 times with exponential delay, capped at one hour per retry, honoring Retry-After up to that cap. Exhausted messages move to the failed queue. Dev queues explicitly retain messages for 24 hours. Pending D1 records outlive queue retention and are redispatched automatically. Delivered payloads are cleared after 30 days; receipt metadata remains.
+- Transient delivery errors (408, 429, 5xx including 529, timeouts, and network failures) retry up to 12 times per queue message with exponential delay, capped at one hour and honoring Retry-After up to that cap. Exhausted messages move to the failed queue; pending D1 records remain recoverable. Other Attio 4xx responses become terminal `failed` receipts and are routed to the failed queue without automatic CRM retries. Dev queues retain messages for 24 hours. Delivered payloads are cleared after 30 days; receipt metadata remains.
 - Application logs contain event names, submission/entry IDs, attempts, and status codes, not lead bodies or tokens. Invocation logs are disabled.
 
 ## Production rollout
@@ -106,7 +106,22 @@ The website and API require a matching Turnstile site/secret pair. Public variab
 
 Inspect logs with `npx wrangler tail -c workers/lead-delivery/wrangler.json --env development`; use `production` only for production operations. Correlate by submission ID.
 
-Fix credentials/schema/throttling/upstream availability first. For exhausted deliveries, inspect the failed queue in Cloudflare, resend the original JSON to the matching main queue **without changing its submission ID or environment**, and acknowledge the failed copy only after the new enqueue succeeds. Confirm delivery in Attio. Do not put payloads in tickets/logs or purge queues to clear alerts.
+Fix credentials/schema/throttling/upstream availability first. Inspect the D1 status before replaying a dead letter. A `pending` receipt can be replayed to the matching main queue with its original JSON and ID. A terminal `failed` receipt must first be explicitly reopened using the procedure below; resending its message alone cannot bypass the terminal state. Acknowledge the failed-queue copy only after confirming delivery in Attio. Do not put payloads in tickets/logs or purge queues to clear alerts.
+
+Migration `0004_terminal_failures.sql` preserves existing receipts while adding `failed` status and durable failed-queue dispatch state. The source message is acknowledged only after failed-queue acceptance is recorded. The schedule recovers interrupted failed-queue sends without calling Attio. A crash between queue acceptance and the ledger update can produce a duplicate dead letter with the same ID. Terminal payloads remain in D1 and make health unhealthy even after the failed queue expires.
+
+After fixing the cause, reopen one terminal receipt with this SQL, replacing `SUBMISSION_UUID` with the inspected receipt ID and `production` with the matching environment when appropriate:
+
+```sql
+UPDATE lead_submissions
+SET status = 'pending', failed_at = NULL,
+    failed_queue_sent_at = NULL, failed_queue_lease_until = 0,
+    next_dispatch_at = 0, last_failure_code = NULL
+WHERE submission_id = 'SUBMISSION_UUID'
+  AND environment = 'production' AND status = 'failed';
+```
+
+Execute the SQL through the target D1 console or a local SQL file passed to `npx wrangler d1 execute replay-leads-prod-ledger --remote -c workers/lead-delivery/wrangler.json --env production --file <sql-file>`. For development, use `replay-leads-dev-ledger`, `--env development`, and `environment = 'development'`. The next scheduled scan sends the original inquiry back to the main queue. Keep its ID, payload, hash, and successful unverified-email timestamp unchanged; confirm `delivered` before acknowledging the old dead letter.
 
 Queue retention is finite; the D1 ledger preserves pending submissions beyond it. Monitoring and timely recovery remain necessary. Production uses a separate D1 database, migrations, a recovery schedule, and queue bindings. Deployment refuses to proceed without the ledger and recovery bindings.
 
@@ -118,7 +133,7 @@ The form captures campaign tags and the first landing pathname across navigation
 
 If Turnstile cannot load, errors, or remains unresolved for 15 seconds, the form offers **Send for review**. The server can also accept a verification-service outage for review. An explicit failed server verification or wrong hostname/action still rejects the request. All requests retain origin, body-size, field validation, and the configured 10-attempt/minute/IP/Cloudflare-location limit. Unverified attempts have an additional limit of 2/minute/IP/location. These counters are permissive and eventually consistent: rapid bursts can briefly exceed the configured limit before returning 429. They are local edge limits, not a global distributed-bot cap; a client-reported widget failure is not proof of human activity. See [Cloudflare rate-limit semantics](https://developers.cloudflare.com/workers/runtime-apis/bindings/rate-limit/).
 
-The server sets `verification` on the durable receipt. Attio exposes **Verification status** (`Verified` or `Unverified`) and **Verification detail**. Unverified inquiries are for manual review, not automatically qualified leads. The consumer sends an alert to `jono@sunsethq.com` from `leads@notifications.replay.ai` before CRM delivery; development alerts include `[TEST]`. Cloudflare Email Sending is configured on the dedicated `notifications.replay.ai` subdomain, with recipient and sender restrictions on the Worker binding. Existing inbound mail routing is unaffected.
+The server sets `verification` on the durable receipt. Attio exposes **Verification status** (`Verified`, `Unverified`, or `Unknown (legacy)`) and **Verification detail**. Older receipts lacking verification evidence remain unknown; the intake also reports `unknown` when replaying such a receipt. Unverified inquiries are for manual review, not automatically qualified leads. The consumer sends an alert to `jono@sunsethq.com` from `leads@notifications.replay.ai` before CRM delivery; development alerts include `[TEST]`. Cloudflare Email Sending is configured on the dedicated `notifications.replay.ai` subdomain, with recipient and sender restrictions on the Worker binding. Existing inbound mail routing is unaffected.
 
 Email notification leases and successful-send timestamps live in D1 migration `0003_unverified_notifications.sql`. Failed email sends retry through the existing queue and durable recovery path; they also keep delivery health unhealthy once pending exceeds five minutes. A successful send is skipped on subsequent attempts. Delivery is at least once: a crash between the provider accepting an email and the D1 receipt can produce a duplicate email with the same submission ID. No form answers, emails, or campaign values are written to application logs.
 

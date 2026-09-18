@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { readPendingSubmission, savePendingSubmission, clearPendingSubmission } from "../modules/value-my-data/lib/pending-submission";
+import { readPendingSubmission, savePendingSubmission, clearPendingSubmission, stripPendingAttribution } from "../modules/value-my-data/lib/pending-submission";
 import { CONSENT_KEY } from "../modules/consent/lib/cookie-consent";
 
 test("uncertain submissions survive a reload with the same ID, expire, and clear on confirmation", () => {
@@ -27,6 +27,13 @@ test("uncertain submissions survive a reload with the same ID, expire, and clear
   assert.equal(readPendingSubmission(), null);
   savePendingSubmission({ ...pending, id: "invalid" });
   assert.equal(readPendingSubmission(), null);
+  const key = "replay.pending-valuation.v1";
+  data.set(key, '{"campaign":{"utm_source":"private"},broken');
+  assert.equal(readPendingSubmission(), null);
+  assert.equal(data.has(key), false);
+  data.set(key, '{"campaign":{"utm_source":"private"},broken');
+  stripPendingAttribution();
+  assert.equal(data.has(key), false, "consent withdrawal erases malformed pending attribution too");
   Object.defineProperty(globalThis, "sessionStorage", { configurable: true, get() { throw new Error("storage blocked"); } });
   assert.doesNotThrow(() => savePendingSubmission(pending));
   assert.equal(readPendingSubmission(), null);

@@ -13,6 +13,9 @@ export function parseCampaign(value: unknown): Record<string, string> {
 // Accept pathnames only. The server supplies the origin; queries, fragments,
 // encoded identifiers, and arbitrary external URLs never become landing pages.
 export function parseLandingPath(value: unknown): string | undefined {
-  if (typeof value !== "string" || value.length > 512 || !/^\/(?:[a-zA-Z0-9_-]+\/?)*$/.test(value)) return undefined;
-  return value === "/" ? value : value.replace(/\/$/, "");
+  if (typeof value !== "string" || value.length > 512 || !value.startsWith("/")) return undefined;
+  if (value === "/") return value;
+  const path = value.endsWith("/") ? value.slice(0, -1) : value;
+  if (path.slice(1).split("/").some(segment => !segment || /[^a-zA-Z0-9_-]/.test(segment))) return undefined;
+  return path;
 }

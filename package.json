@@ -10,7 +10,7 @@
     "cloudflare:setup:dev": "node scripts/setup-cloudflare-dev.mjs",
     "attio:setup:dev": "tsx scripts/setup-attio.mts development",
     "attio:setup:prod": "tsx scripts/setup-attio.mts production",
-    "test:leads": "tsx --test tests/lead-capture.test.ts tests/pending-submission.test.ts tests/attribution.test.ts tests/unverified-notification.test.ts",
+    "test:leads": "tsx --test tests/lead-capture.test.ts tests/pending-submission.test.ts tests/attribution.test.ts tests/unverified-notification.test.ts tests/terminal-delivery.test.ts",
     "test:staging": "tsx --test tests/staging.test.ts",
     "leads:smoke:local": "tsx scripts/smoke-leads.mts",
     "leads:rehearse:dev": "tsx scripts/rehearse-outbox.mts",

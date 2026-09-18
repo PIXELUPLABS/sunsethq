@@ -61,3 +61,13 @@ test("landing pages cannot smuggle an external origin, query, fragment, or encod
   }
   assert.equal(parseLandingPath("/careers/roles/ab-123"), "/careers/roles/ab-123");
 });
+
+test("landing path validation handles maximum-length adversarial segments without backtracking", { timeout: 1000 }, () => {
+  for (const character of ["-", "_", "a"]) {
+    assert.equal(parseLandingPath("/" + character.repeat(510) + "!"), undefined);
+    assert.equal(parseLandingPath("/" + character.repeat(511)), "/" + character.repeat(511));
+  }
+  assert.equal(parseLandingPath("/careers/roles/"), "/careers/roles");
+  assert.equal(parseLandingPath("/"), "/");
+  assert.equal(parseLandingPath("//"), undefined);
+});

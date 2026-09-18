@@ -1,6 +1,8 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { cloudflareClient } from "./cloudflare-client.mjs";
+import { readOptionalEnvFile, writeSecretFile } from "./secret-files.mjs";
 
+let env = await readOptionalEnvFile(".env.production.local");
 const sitePath = "workers/site/wrangler.production.json";
 const deliveryPath = "workers/lead-delivery/wrangler.json";
 const site = JSON.parse(await readFile(sitePath, "utf8"));
@@ -32,10 +34,9 @@ delivery.env.production.queues.producers = [
 delivery.env.production.limits = { cpu_ms: 1000 };
 await writeFile(sitePath, JSON.stringify(site, null, 2) + "\n");
 await writeFile(deliveryPath, JSON.stringify(delivery, null, 2) + "\n");
-let env = await readFile(".env.production.local", "utf8");
 for (const [key, value] of Object.entries({ NEXT_PUBLIC_SITE_URL: site.vars.SITE_ORIGIN, NEXT_PUBLIC_TURNSTILE_SITE_KEY: widget.sitekey, TURNSTILE_SECRET_KEY: widget.secret })) {
   const line = `${key}=${value}`;
   env = new RegExp(`^${key}=.*$`, "m").test(env) ? env.replace(new RegExp(`^${key}=.*$`, "m"), line) : env.trimEnd() + "\n" + line + "\n";
 }
-await writeFile(".env.production.local", env, { mode: 0o600 });
+await writeSecretFile(".env.production.local", env);
 console.log(`Prepared isolated production ledger ${database.uuid}, queues, and Turnstile for www.replay.ai. No public deployment yet.`);

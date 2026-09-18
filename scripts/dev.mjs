@@ -1,6 +1,7 @@
 import { spawn, spawnSync } from "node:child_process";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { loadEnvFile } from "node:process";
+import { writeSecretFile } from "./secret-files.mjs";
 
 try { loadEnvFile(".env"); } catch (error) { if (error.code !== "ENOENT") throw error; }
 const workersOnly = process.argv.includes("--workers-only");
@@ -14,8 +15,8 @@ for (const key of ["ATTIO_WORKSPACE_ID", "ATTIO_LIST_ID"]) {
 }
 const secret = (name) => `${name}=${JSON.stringify(process.env[name] ?? "")}\n`;
 // Wrangler reads only the explicitly prepared secrets for each worker.
-await writeFile("workers/lead-delivery/.dev.vars", ["ATTIO_API_KEY", "ATTIO_LIST_ID", "ATTIO_WORKSPACE_ID"].map(secret).join(""), { mode: 0o600 });
-await writeFile("workers/lead-intake/.dev.vars", 'TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"\n', { mode: 0o600 });
+await writeSecretFile("workers/lead-delivery/.dev.vars", ["ATTIO_API_KEY", "ATTIO_LIST_ID", "ATTIO_WORKSPACE_ID"].map(secret).join(""));
+await writeSecretFile("workers/lead-intake/.dev.vars", 'TURNSTILE_SECRET_KEY="1x0000000000000000000000000000000AA"\n');
 const env = { ...process.env, CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV: "false", WRANGLER_SEND_METRICS: "false" };
 // Worker secrets are scoped through .dev.vars rather than process variables.
 delete env.ATTIO_API_KEY;

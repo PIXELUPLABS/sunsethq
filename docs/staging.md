@@ -38,7 +38,7 @@ The staging Worker handles same-origin `/api/leads`, validates Turnstile and all
 
 The private consumer checks the pinned Attio workspace, reconciles duplicate or ambiguous CRM writes, records the Attio entry ID in D1, then acknowledges the queue message. Pending payloads never expire automatically. Delivered payloads are cleared after 30 days; IDs, hashes, timestamps, and delivery receipts remain. D1 Time Travel is available for database recovery (30 days on the current Workers Paid plan).
 
-Delivery failures use exponential queue backoff, capped at one hour. The recovery lease extends past the next scheduled queue retry so a prolonged Attio outage does not produce another copy every five minutes. If the queued retry disappears, the ledger still recovers it after that lease expires.
+Transient delivery failures use exponential queue backoff, capped at one hour. The recovery lease extends past the next scheduled queue retry so a prolonged Attio outage does not produce another copy every five minutes. If the queued retry disappears, the ledger still recovers it after that lease expires. Other Attio 4xx responses become terminal `failed` receipts requiring operator recovery; see [the recovery procedure](lead-capture.md#recovery). Terminal receipts remain visible to health monitoring even after queue retention expires.
 
 The browser saves attempted submissions and their IDs in tab-scoped session storage, for up to 24 hours, to survive a reload after a failed or uncertain request. It removes the saved draft once receipt is confirmed. Browser storage restrictions do not block submission. Closing the tab or clearing browser storage can remove an unconfirmed draft.
 
@@ -63,7 +63,7 @@ Cloudflare's native checks continue running independently if the recovery Worker
 1. Check the email alert and authenticated `/api/lead-health`.
 2. Inspect the delivery Worker's logs and D1 rows by submission ID. Keep payloads out of tickets and logs.
 3. Repair the Attio token/list/schema or Cloudflare failure. Pending D1 rows remain eligible for automatic delivery.
-4. For a dead letter, first confirm its submission exists in D1 and whether Attio delivery has completed. Do not purge the failed queue blindly. Replay unchanged IDs only when needed, then acknowledge the failed copy after verifying delivery.
+4. For a dead letter, first confirm its submission exists in D1 and whether Attio delivery has completed. Do not purge the failed queue blindly. If D1 says `failed`, explicitly reopen the receipt using [lead recovery](lead-capture.md#recovery) after fixing the cause. Replay unchanged IDs only when needed, then acknowledge the failed copy after verifying delivery.
 5. Confirm D1 says `delivered`, Attio has the matching entry, and the health check recovers.
 
 ## Verified staging exercises — September 18, 2026

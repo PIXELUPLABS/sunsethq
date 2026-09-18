@@ -2,6 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { loadEnvFile } from "node:process";
 import { attioClient } from "../modules/lead-capture/lib/attio-client";
 import { ATTIO_FIELDS } from "../modules/lead-capture/lib/attio-schema";
+import { writeSecretFile } from "./secret-files.mjs";
 
 const target = process.argv[2] ?? "development";
 if (!["development", "production"].includes(target)) throw new Error("Choose development or production.");
@@ -53,5 +54,5 @@ for (const [key, value] of Object.entries({ ATTIO_WORKSPACE_ID: identity.workspa
   const line = `${key}=${value}`;
   env = new RegExp(`^${key}=.*$`, "m").test(env) ? env.replace(new RegExp(`^${key}=.*$`, "m"), line) : env.trimEnd() + "\n" + line + "\n";
 }
-await writeFile(envPath, env, { mode: 0o600 });
+await writeSecretFile(envPath, env);
 console.log(`Configured ${identity.workspace_name}: ${list.name}, list ${list.id.list_id}`);
