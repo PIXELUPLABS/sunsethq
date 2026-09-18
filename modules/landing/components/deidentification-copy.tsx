@@ -23,7 +23,9 @@ export function DeidentificationCopy({
             key={tab}
             inert={!isActive}
             style={{ transitionDuration: `${durationMs}ms` }}
-            className={`flex flex-col gap-5 transition-opacity ease-in-out [grid-area:1/1] ${
+            // Each tab centers its own copy in the shared cell, so shorter
+            // tabs sit centered rather than riding the tallest tab's top.
+            className={`flex flex-col justify-center gap-5 transition-opacity ease-in-out [grid-area:1/1] ${
               isActive ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
           >

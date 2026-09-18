@@ -84,7 +84,7 @@ export function DeidentificationSection() {
                 />
               </div>
 
-              <div className="relative flex min-w-0 flex-1 flex-col justify-center min-[1150px]:justify-start min-[1150px]:self-start min-[1150px]:pt-16">
+              <div className="relative flex min-w-0 flex-1 flex-col justify-center">
                 <DeidentificationCopy activeIndex={activeIndex} durationMs={MEDIA_CROSSFADE_MS} />
               </div>
             </div>
