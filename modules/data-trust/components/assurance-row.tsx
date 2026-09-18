@@ -47,11 +47,11 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
             <Image
               src={TAG_ICONS[row.tagLabel] ?? JURISDICTION_ICON}
               alt=""
-              width={18}
-              height={18}
-              className="size-4 lg:size-[18px]"
+              width={12}
+              height={12}
+              className="size-3"
             />
-            <p className="text-sm leading-none font-medium text-black uppercase">
+            <p className="text-xs leading-none font-medium text-black uppercase">
               {row.tagLabel}
             </p>
           </div>
