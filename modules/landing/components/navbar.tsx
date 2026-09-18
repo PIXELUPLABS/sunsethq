@@ -43,25 +43,14 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
             }`}
             style={{ backgroundImage: "url(/images/grain-light-texture.svg)" }}
           />
-
-          <Link
-            href="/"
-            aria-hidden={!scrolled}
-            tabIndex={scrolled ? undefined : -1}
-            className={`pointer-events-auto absolute top-1/2 left-3 z-10 flex -translate-y-1/2 items-center transition-opacity duration-500 ${
-              scrolled ? "opacity-100" : "pointer-events-none opacity-0"
-            }`}
-          >
-            <Image src="/favicon-light.svg" alt="Replay" width={28} height={28} />
-          </Link>
         </div>
       </div>
 
       <div className="relative mx-auto flex h-16 w-full max-w-[1560px] items-center justify-between px-6 sm:px-18 min-[1560px]:max-[1704px]:pr-[calc(852px_-_50vw)]! min-[1704px]:max-[1800px]:pr-0! min-[1800px]:px-0!">
         <Link
           href="/"
-          className={`flex items-center transition-opacity duration-500 ${
-            scrolled ? "opacity-100 lg:opacity-0" : "opacity-100"
+          className={`relative z-10 flex items-center transition-transform duration-500 ${
+            scrolled ? "lg:translate-x-3" : "lg:translate-x-0"
           }`}
         >
           <Image src="/images/sunset-logo.svg" alt="Replay" width={111} height={36} priority />
