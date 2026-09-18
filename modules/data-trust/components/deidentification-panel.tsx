@@ -93,7 +93,7 @@ export function DeidentificationPanel() {
         className="pointer-events-none hidden object-cover lg:block"
       />
 
-      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#272727] lg:border-[#d4d4d4]">
+      <div className="relative mx-auto w-full max-w-[1560px] lg:border-x lg:border-dashed lg:border-[#d4d4d4]">
         {/* The grain strip above the panel, framed by dashed guides 40px in
             from the container edges. */}
         <div className="hidden lg:block lg:px-10">
