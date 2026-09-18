@@ -15,14 +15,10 @@ export function ValuesSection() {
           <SectionTag
             label="Values"
             tone="dark"
-            icon={
-              <Image
-                src="/images/careers/values-icons/values_pillars.webp"
-                alt=""
-                width={18}
-                height={18}
-              />
-            }
+            textClassName="text-white/60"
+            borderClassName="border-dashed border-white/25"
+            paddingClassName="px-2 py-1"
+            heightClassName="h-auto"
           />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-white sm:text-[44px] sm:tracking-tight">
             What we believe.

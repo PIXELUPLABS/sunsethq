@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useLayoutEffect, useRef } from "react";
 import { SearchIcon } from "@/components/ui/icons";
 import { SectionTag } from "@/modules/landing/components/section-tag";
@@ -62,14 +61,10 @@ export function OpenRolesSection() {
           <div className="flex max-w-[560px] flex-col items-start gap-6">
             <SectionTag
               label="Open Roles"
-              icon={
-                <Image
-                  src="/images/careers/values-icons/our_team_interlocking_modules_4x.webp"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
             <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
               Every role, in full, right here.

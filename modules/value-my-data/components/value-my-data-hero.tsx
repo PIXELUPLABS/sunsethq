@@ -28,14 +28,10 @@ export function ValueMyDataHero() {
           <div className="flex flex-col items-start gap-5">
             <SectionTag
               label={VALUE_MY_DATA_EYEBROW}
-              icon={
-                <Image
-                  src="/images/value/data-valuation.webp"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
             <h1 className="font-serif text-[36px] leading-[1.08] tracking-[-1.3px] text-black sm:text-[44px] sm:tracking-[-1.76px] lg:text-[52px] lg:tracking-[-2.08px]">
               {VALUE_MY_DATA_HEADLINE_LEAD}{" "}

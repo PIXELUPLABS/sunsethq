@@ -32,14 +32,10 @@ export function CareersHero() {
           <div className="flex flex-col items-center gap-6">
             <SectionTag
               label={CAREERS_EYEBROW}
-              icon={
-                <Image
-                  src="/images/careers/careers-section-tag.webp"
-                  alt=""
-                  width={18}
-                  height={18}
-                />
-              }
+              textClassName="text-black/60"
+              borderClassName="border-dashed border-black/25"
+              paddingClassName="px-2 py-1"
+              heightClassName="h-auto"
             />
 
             <h1 className="font-serif text-[42px] leading-[1.035] tracking-[-1.75px] text-black sm:text-[56px] sm:leading-none sm:tracking-tight lg:text-[72px] lg:tracking-[-2.88px]">
