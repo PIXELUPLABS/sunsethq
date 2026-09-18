@@ -109,7 +109,7 @@ export function OpenRolesSection() {
                         type="button"
                         onClick={() => selectTeam(i)}
                         aria-pressed={isActive}
-                        className={`flex min-h-[56px] items-center justify-between gap-3 border-b border-dashed border-[#a8a8a8] px-6 py-4 text-left font-mono text-xs tracking-wide uppercase transition-[color,transform] duration-150 ease-snap last:border-b-0 active:scale-[0.98] lg:px-0 ${
+                        className={`flex min-h-[56px] items-center justify-between gap-3 border-b border-dashed border-[#a8a8a8] px-5 py-4 text-left font-mono text-xs tracking-wide uppercase transition-[color,transform] duration-150 ease-snap last:border-b-0 active:scale-[0.98] lg:px-0 ${
                           hasNoRoles
                             ? "text-[#a8a8a8] hover:text-[#727272]"
                             : isActive
@@ -126,7 +126,7 @@ export function OpenRolesSection() {
 
                 <div
                   ref={panelRef}
-                  className={`flex flex-col overflow-hidden px-6 py-4 transition-opacity duration-150 ease-snap lg:p-6 ${
+                  className={`flex flex-col overflow-hidden p-5 transition-opacity duration-150 ease-snap lg:p-6 ${
                     isSwitchingTeam ? "opacity-0" : "opacity-100"
                   }`}
                 >
