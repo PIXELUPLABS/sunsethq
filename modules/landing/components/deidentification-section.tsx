@@ -4,6 +4,7 @@ import Image from "next/image";
 import { SectionTag } from "./section-tag";
 import { DeidentificationTabs } from "./deidentification-tabs";
 import { DeidentificationMediaLayer } from "./deidentification-media-layer";
+import { DeidentificationCopy } from "./deidentification-copy";
 import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 import { useCrossfadeLayers } from "../hooks/use-crossfade-layers";
@@ -83,23 +84,8 @@ export function DeidentificationSection() {
                 />
               </div>
 
-              <div className="relative flex min-w-0 flex-1 flex-col justify-center gap-5 min-[1150px]:justify-start min-[1150px]:self-start min-[1150px]:pt-16">
-                <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black min-[1150px]:text-[32px] min-[1150px]:tracking-[-0.32px] xl:text-[40px] xl:tracking-[-0.4px]">
-                  Your data leaves cleaner than a medical record.
-                </h3>
-                <div className="flex max-w-[90%] flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 opacity-80 min-[1150px]:max-w-none min-[1150px]:gap-2 min-[1150px]:text-base min-[1150px]:tracking-[-0.48px] min-[1150px]:text-[#727272] min-[1150px]:opacity-100">
-                  <p>
-                    The federal standard for de-identifying medical records
-                    (HIPAA) lists eighteen categories that have to be
-                    stripped out. We cover all eighteen, and many more.
-                  </p>
-                  <p>
-                    Names, emails, API keys, access tokens, customer
-                    records. Our de-identification covers 60+ categories,
-                    across every file type and application your business
-                    works in.
-                  </p>
-                </div>
+              <div className="relative flex min-w-0 flex-1 flex-col justify-center min-[1150px]:justify-start min-[1150px]:self-start min-[1150px]:pt-16">
+                <DeidentificationCopy activeIndex={activeIndex} durationMs={MEDIA_CROSSFADE_MS} />
               </div>
             </div>
 

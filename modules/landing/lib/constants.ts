@@ -88,6 +88,35 @@ export const DEIDENTIFICATION_TABS = ["Coverage", "The pipeline", "Policy"] as c
 
 export type DeidentificationTab = (typeof DEIDENTIFICATION_TABS)[number];
 
+export type DeidentificationCopy = {
+  heading: string;
+  paragraphs: string[];
+};
+
+export const DEIDENTIFICATION_COPY: Record<DeidentificationTab, DeidentificationCopy> = {
+  Coverage: {
+    heading: "Your data leaves cleaner than a medical record.",
+    paragraphs: [
+      "The federal standard for de-identifying medical records (HIPAA) lists eighteen categories that have to be stripped out. We cover all eighteen, and many more.",
+      "Names, emails, API keys, access tokens, customer records. Our de-identification covers 60+ categories, across every file type and application your business works in.",
+    ],
+  },
+  "The pipeline": {
+    heading: "We built the pipeline and trained the model.",
+    paragraphs: [
+      "General-purpose models aren't trained to find personal information in Slack threads, support tickets or commit messages. So we trained one that is. On the same benchmark, ours finds [86%] of identifiers where NVIDIA's finds [30%].",
+      "The model is only the first layer. An ensemble of additional models and processing stages runs behind it, so nothing depends on a single pass.",
+    ],
+  },
+  Policy: {
+    heading: "Set the scope and only license what you grant access to.",
+    paragraphs: [
+      "Tenant isolation. Every engagement runs in its own isolated environment. No shared storage, no shared processing, no path between one client's data and another's.",
+      "Only de-identified data is ever licensed. Raw data is never sold, never shared, and never leaves the pipeline. The cleaned version is the only version a buyer ever sees.",
+    ],
+  },
+};
+
 export const BUYER_CARDS: BuyerCard[] = [
   {
     headline: "Frontier labs and data labs, not brokers reselling on.",
