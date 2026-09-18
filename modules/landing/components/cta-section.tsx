@@ -217,17 +217,19 @@ export function CtaSection({
                   </div>
                 </div>
 
+                {/* Guides: the horizontal runs edge to edge at y=330 of the 378
+                    design; the verticals drop from the top and stop on it. */}
                 <div
-                  className="pointer-events-none absolute w-px -translate-y-1/2 border-l border-dashed border-black/10"
-                  style={{ top: `calc(50% - ${cq(22)})`, left: cq(24), height: cq(334) }}
+                  className="pointer-events-none absolute top-0 w-px border-l border-dashed border-black/10"
+                  style={{ left: cq(24), height: cq(330) }}
                 />
                 <div
-                  className="pointer-events-none absolute w-px -translate-y-1/2 border-l border-dashed border-black/10"
-                  style={{ top: `calc(50% - ${cq(22)})`, right: cq(24), height: cq(334) }}
+                  className="pointer-events-none absolute top-0 w-px border-l border-dashed border-black/10"
+                  style={{ right: cq(24), height: cq(330) }}
                 />
                 <div
-                  className="pointer-events-none absolute border-t border-dashed border-black/10"
-                  style={{ top: `calc(50% + ${cq(141)})`, left: cq(61), right: cq(61) }}
+                  className="pointer-events-none absolute inset-x-0 border-t border-dashed border-black/10"
+                  style={{ top: cq(330) }}
                 />
               </div>
             </div>

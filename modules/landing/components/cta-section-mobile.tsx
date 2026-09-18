@@ -96,9 +96,10 @@ export function CtaSectionMobile({
             </div>
           </div>
 
-          <div className="pointer-events-none absolute top-0 left-[2.79%] h-[88.36%] w-px border-l border-dashed border-black/10" />
-          <div className="pointer-events-none absolute top-0 right-[2.79%] h-[88.36%] w-px border-l border-dashed border-black/10" />
-          <div className="pointer-events-none absolute inset-x-[7.09%] top-[93.4%] border-t border-dashed border-black/10" />
+          {/* Guides: the horizontal runs edge to edge; the verticals stop on it. */}
+          <div className="pointer-events-none absolute top-0 left-[2.79%] h-[93.4%] w-px border-l border-dashed border-black/10" />
+          <div className="pointer-events-none absolute top-0 right-[2.79%] h-[93.4%] w-px border-l border-dashed border-black/10" />
+          <div className="pointer-events-none absolute inset-x-0 top-[93.4%] border-t border-dashed border-black/10" />
         </div>
       </div>
     </div>
