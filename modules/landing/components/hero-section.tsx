@@ -40,7 +40,7 @@ export function HeroSection() {
   return (
     <div ref={pinRef} className="relative min-[1350px]:h-[475vh]">
       <section
-        className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc] min-[1350px]:sticky min-[1350px]:top-0 min-[1350px]:flex min-[1350px]:min-h-[100vh] min-[1350px]:flex-col"
+        className="relative overflow-hidden border-b border-dashed border-[#d4d4d4] bg-[#fcfcfc] min-[1350px]:sticky min-[1350px]:top-0 min-[1350px]:flex min-[1350px]:min-h-[100vh] min-[1350px]:flex-col"
       >
         <Image
           src="/images/grain-light-texture.svg"
@@ -86,7 +86,7 @@ export function HeroSection() {
             <HeroSidePatternLeft progress={convergeProgress} />
           </div>
 
-        <div className="flex w-full flex-col items-center gap-7 border-dashed border-black/8 px-6 pt-[108px] pb-6 min-[1350px]:w-[898px] min-[1350px]:shrink-0 min-[1350px]:justify-center min-[1350px]:gap-10 min-[1350px]:px-0 min-[1350px]:pt-[220px] min-[1350px]:pb-[160px]">
+        <div className="flex w-full flex-col items-center gap-7 border-dashed border-[#d4d4d4] px-6 pt-[108px] pb-6 min-[1350px]:w-[898px] min-[1350px]:shrink-0 min-[1350px]:justify-center min-[1350px]:gap-10 min-[1350px]:px-0 min-[1350px]:pt-[220px] min-[1350px]:pb-[160px]">
           <div
             className="flex flex-col items-center gap-7 min-[1350px]:gap-10 min-[1350px]:opacity-[calc(1-var(--converge))] min-[1350px]:transform-[translateY(calc(var(--converge)*-40px))]"
             style={{ "--converge": textFadeProgress } as CSSProperties}
