@@ -97,7 +97,7 @@ export function DeidentificationPanel() {
         {/* The grain strip above the panel, framed by dashed guides 40px in
             from the container edges. */}
         <div className="hidden lg:block lg:px-10">
-          <div className="border-x border-dashed border-[#a8a8a8] pt-16">
+          <div className="border-x border-dashed border-[#d4d4d4] pt-16">
             <div
               aria-hidden
               className="pointer-events-none h-11 opacity-48 mix-blend-multiply"

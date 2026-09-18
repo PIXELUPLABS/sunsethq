@@ -55,7 +55,7 @@ export function HeroSidePatternLeft({ progress = 0 }: { progress?: number }) {
           );
         })}
       </div>
-      <div className="pointer-events-none absolute top-0 left-[270px] h-full border-r border-dashed border-black/8" />
+      <div className="pointer-events-none absolute top-0 left-[270px] h-full border-r border-dashed border-[#d4d4d4]" />
     </div>
   );
 }
