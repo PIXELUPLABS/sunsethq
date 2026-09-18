@@ -50,7 +50,7 @@ export function IndustryDiagramCard({
         height={16}
         className="relative z-10 size-[2.406cqw]"
       />
-      <p className="relative z-10 whitespace-nowrap font-serif-accent text-[2.1053cqw] tracking-tight text-[#090909]">
+      <p className="relative z-10 whitespace-nowrap font-serif text-[2.1053cqw] tracking-tight text-[#090909]">
         {label}
       </p>
     </div>

@@ -31,7 +31,7 @@ export function Footer() {
                   index % 2 === 0 ? "-right-5" : "right-0"
                 }`}
               />
-              <p className="font-serif-accent text-[16px] leading-[1.1] tracking-[-0.16px] text-white lg:text-[18px] lg:tracking-[-0.18px]">
+              <p className="font-serif text-[16px] leading-[1.1] tracking-[-0.16px] text-white lg:text-[18px] lg:tracking-[-0.18px]">
                 {column.title}
               </p>
               <div className="flex flex-col gap-2 lg:flex-row lg:gap-10">
