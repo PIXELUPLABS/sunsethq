@@ -9,7 +9,7 @@ function Ruler({ side }: { side: "left" | "right" }) {
   return (
     <svg
       aria-hidden
-      className={`pointer-events-none absolute top-0 h-full overflow-visible ${
+      className={`pointer-events-none absolute top-0 h-full overflow-visible opacity-30 ${
         side === "left" ? "left-0" : "right-0 -scale-x-100"
       }`}
       width={RULER_WIDTH}
