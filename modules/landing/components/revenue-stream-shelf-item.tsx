@@ -117,7 +117,7 @@ export function RevenueStreamShelfItem({
         }}
       >
         <Image
-          src="/images/texture-grain-white.png"
+          src="/images/texture-grain-white.webp"
           alt=""
           fill
           className="pointer-events-none object-cover mix-blend-multiply"

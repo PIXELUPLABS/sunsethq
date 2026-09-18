@@ -11,7 +11,7 @@ import { useCrossfadeLayers } from "../hooks/use-crossfade-layers";
 
 const MEDIA_CROSSFADE_MS = 500;
 
-const GRAIN_TEXTURE = "/images/grain-light-texture.svg";
+const GRAIN_TEXTURE = "/images/grain-light-texture-optimized.svg";
 const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
 const STRIP_GRAIN = "/images/deidentification/grain-strip.webp";
 
@@ -37,7 +37,7 @@ export function DeidentificationSection() {
       className="relative flex scroll-mt-16 justify-center overflow-hidden px-3 sm:px-18"
     >
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"

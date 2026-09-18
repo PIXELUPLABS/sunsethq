@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import puppeteer from 'puppeteer';
+import { mkdir } from 'node:fs/promises';
+import { serveExport } from './serve-performance.mjs';
+await mkdir('artifacts/performance', { recursive: true });
+const server = await serveExport('out', 4175);
+const browser = await puppeteer.launch({ headless: true });
+try {
+  const page = await browser.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2, isMobile: true });
+  await page.goto('http://127.0.0.1:4175/', { waitUntil: 'networkidle0' });
+  assert.equal(await page.$eval('.rdp .plane-cards', e => e.children.length), 0, 'mobile must not construct hidden desktop scene');
+  assert.equal(await page.evaluate(() => performance.getEntriesByType('resource').filter(r => r.initiatorType === 'video').length), 0, 'no below-fold video downloads at startup');
+  assert.equal(await page.$eval('h1', e => e.textContent.includes('Fund growth')), true);
+  await page.screenshot({ path: 'artifacts/performance/mobile-home.png' });
+  await page.setViewport({ width: 1440, height: 1000 });
+  await page.waitForFunction(() => document.querySelector('.rdp .plane-cards').children.length > 0);
+  await page.screenshot({ path: 'artifacts/performance/desktop-home.png' });
+  await page.setViewport({ width: 390, height: 844, isMobile: true });
+  await page.waitForFunction(() => document.querySelector('.rdp .plane-cards').children.length === 0);
+  const video = await page.$('video');
+  await video.evaluate(v => v.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  await page.waitForFunction(() => [...document.querySelectorAll('video')].some(v => v.readyState >= 2 && !v.paused));
+  await page.goto('http://127.0.0.1:4175/value-my-data', { waitUntil: 'networkidle0' });
+  assert.equal(await page.$eval('form', e => !!e), true, 'signup form still hydrates');
+  assert.deepEqual(errors, []);
+  console.log('PASS: mobile scene deferral, desktop resize, viewport video playback, signup form, no runtime errors.');
+} finally { await browser.close(); server.close(); }

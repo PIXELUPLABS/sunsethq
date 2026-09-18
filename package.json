@@ -31,7 +31,12 @@
     "production:verify": "node scripts/verify-production.mjs",
     "jobs:sync": "tsx scripts/sync-jobs.mts",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "perf:audit": "node scripts/audit-performance.mjs",
+    "perf:budget": "node scripts/check-performance-budget.mjs",
+    "perf:inspect": "node scripts/inspect-performance.mjs",
+    "perf:browser": "node scripts/check-performance-browser.mjs",
+    "perf:consent": "node scripts/check-analytics-browser.mjs"
   },
   "dependencies": {
     "agentation": "^3.0.2",
@@ -46,8 +51,11 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/sanitize-html": "^2.16.1",
+    "esbuild": "0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
+    "lighthouse": "13.5.0",
+    "puppeteer": "25.11.0",
     "sanitize-html": "^2.17.7",
     "sharp": "^0.35.4",
     "tailwindcss": "^4",

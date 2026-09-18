@@ -78,7 +78,7 @@ export function RevenueStreamShelf() {
       {/* white card with the two-column data list */}
       <div className="absolute top-[7.3302cqw] left-[14.1975cqw] h-[23.9198cqw] w-[71.6049cqw] bg-white">
         <Image
-          src="/images/texture-grain-white.png"
+          src="/images/texture-grain-white.webp"
           alt=""
           fill
           className="pointer-events-none object-cover mix-blend-multiply"

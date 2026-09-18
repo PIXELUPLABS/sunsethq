@@ -9,7 +9,7 @@ export function IndustriesSection() {
       className="relative flex scroll-mt-16 justify-center overflow-hidden bg-[#eaebf1] px-3 sm:px-18"
     >
       <Image
-        src="/images/texture-grain-white.png"
+        src="/images/texture-grain-white.webp"
         alt=""
         fill
         className="pointer-events-none object-cover mix-blend-multiply"

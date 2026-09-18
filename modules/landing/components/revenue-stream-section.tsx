@@ -6,7 +6,7 @@ export function RevenueStreamSection() {
   return (
     <section className="relative flex flex-col items-center overflow-hidden">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"
@@ -18,7 +18,7 @@ export function RevenueStreamSection() {
 
       <div className="relative flex w-full flex-col items-center gap-16 bg-[#eaebf1] px-3 sm:px-18 lg:px-[72px]">
         <Image
-          src="/images/grain-light-texture.svg"
+          src="/images/grain-light-texture-optimized.svg"
           alt=""
           fill
           className="pointer-events-none object-cover"

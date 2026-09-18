@@ -82,7 +82,7 @@ export function RevenueStreamShelfMobile() {
 
         <div className="absolute top-[8.7432cqw] left-[13.6612cqw] h-[85.7923cqw] w-[72.6776cqw] bg-white">
           <Image
-            src="/images/texture-grain-white.png"
+            src="/images/texture-grain-white.webp"
             alt=""
             fill
             className="pointer-events-none object-cover mix-blend-multiply"

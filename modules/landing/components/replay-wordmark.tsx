@@ -45,7 +45,7 @@ export function ReplayWordmark({ className }: { className?: string }) {
             height={280}
           >
             <image
-              href="/images/footer/grain.png"
+              href="/images/footer/grain.webp"
               x={0}
               y={0}
               width={280}

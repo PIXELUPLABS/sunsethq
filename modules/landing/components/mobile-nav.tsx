@@ -9,7 +9,7 @@ import { NavColorStrip } from "./nav-color-strip";
 
 const MENU_ICON = "/images/menu-line.svg";
 const CLOSE_ICON = "/images/menu-close-line.svg";
-const GRAIN_TILE = "/images/texture-grain-light.png";
+const GRAIN_TILE = "/images/texture-grain-light.webp";
 
 export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
   const { isOpen, close, toggle } = useDisclosure();

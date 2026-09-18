@@ -32,6 +32,8 @@ test("production is indexable only on its canonical host and never exposes detai
   assert.equal(response.headers.get("X-Robots-Tag"), null);
   assert.equal(response.headers.get("X-Frame-Options"), "DENY");
   assert.equal(response.headers.get("Strict-Transport-Security"), "max-age=31536000");
+  assert.match(response.headers.get("Content-Security-Policy")!, /script-src[^;]+https:\/\/static\.cloudflareinsights\.com/);
+  assert.match(response.headers.get("Content-Security-Policy")!, /connect-src[^;]+https:\/\/cloudflareinsights\.com/);
   for (const origin of ["http://replay.ai", "https://replay.ai", "http://www.replay.ai"]) {
     const redirect = await handleSite(new Request(`${origin}/value-my-data?utm_source=test`), env);
     assert.equal(redirect.status, 308);

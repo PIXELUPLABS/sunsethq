@@ -5,7 +5,7 @@ import { useCookiePreferences } from "../hooks/use-cookie-preferences";
 const BUTTON_CLASS = "min-h-11 cursor-pointer border border-[#141518] px-4 py-3 text-sm transition-transform duration-150 ease-snap active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-4";
 
 export function CookiePreferences({ onClose }: { onClose: () => void }) {
-  const { dialogRef, marketing, globalPrivacyControl, changeMarketing, save, reject } = useCookiePreferences(onClose);
+  const { performance, changePerformance, dialogRef, marketing, globalPrivacyControl, changeMarketing, save, reject } = useCookiePreferences(onClose);
   return (
     <dialog ref={dialogRef} onCancel={onClose} aria-labelledby="cookie-settings-title" aria-describedby="cookie-settings-description"
       className="fixed inset-0 m-auto max-h-[calc(100dvh-32px)] w-[calc(100%-32px)] max-w-lg overflow-y-auto border border-black/15 bg-[#faf9f6] p-6 text-[#141518] shadow-xl backdrop:bg-black/40 sm:p-8">
@@ -22,7 +22,11 @@ export function CookiePreferences({ onClose }: { onClose: () => void }) {
         <span className="flex-1"><span className="font-medium">Campaign measurement</span><span className="mt-2 block text-sm leading-relaxed text-[#565656]">Remembers the campaign and page that brought you here and includes them with a valuation request. Off until you agree.</span></span>
         <input type="checkbox" checked={marketing} onChange={changeMarketing} disabled={globalPrivacyControl} className="mt-1 size-5 shrink-0 accent-[#141518]" />
       </label>
-      {globalPrivacyControl && <p className="mt-4 text-sm leading-relaxed">Global Privacy Control is enabled in your browser. Optional campaign measurement is off.</p>}
+      <label className="flex cursor-pointer items-start gap-4 border-b border-black/15 py-5">
+        <span className="flex-1"><span className="font-medium">Website performance</span><span className="mt-2 block text-sm leading-relaxed text-[#565656]">Allows Cloudflare Web Analytics to measure page loading, responsiveness, and layout stability. Off until you agree.</span></span>
+        <input type="checkbox" checked={performance} onChange={changePerformance} disabled={globalPrivacyControl} className="mt-1 size-5 shrink-0 accent-[#141518]" />
+      </label>
+      {globalPrivacyControl && <p className="mt-4 text-sm leading-relaxed">Global Privacy Control is enabled in your browser. Optional measurement is off.</p>}
       <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
         <button type="button" onClick={reject} className={BUTTON_CLASS}>Reject optional</button>
         <button type="button" onClick={save} className={`${BUTTON_CLASS} bg-[#141518] text-white`}>Save preferences</button>

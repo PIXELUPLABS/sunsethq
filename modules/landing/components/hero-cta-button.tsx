@@ -13,7 +13,7 @@ export function HeroCtaButton() {
       className="group relative flex w-full max-w-full items-center justify-center overflow-hidden bg-[#141518] px-6 py-4 font-serif text-base tracking-[0.16px] text-white sm:w-[260px]"
     >
       <Image
-        src="/images/hero/btn-pattern.svg"
+        src="/images/hero/btn-pattern-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"

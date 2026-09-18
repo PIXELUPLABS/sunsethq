@@ -16,10 +16,11 @@ export function ValueMyDataHero() {
   return (
     <section className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc]">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
-        priority
+        loading="eager"
+        fetchPriority="low"
         className="pointer-events-none object-cover"
       />
 

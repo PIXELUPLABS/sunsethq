@@ -39,7 +39,7 @@ export function IndustryDiagramCard({
       <div
         className="pointer-events-none absolute inset-0 mix-blend-multiply"
         style={{
-          backgroundImage: "url(/images/texture-grain-white.png)",
+          backgroundImage: "url(/images/texture-grain-white.webp)",
           backgroundSize: "160px 160px",
         }}
       />

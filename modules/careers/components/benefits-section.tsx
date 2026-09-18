@@ -56,7 +56,7 @@ export function BenefitsSection() {
               <div className="relative w-full border border-dashed border-white/30">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/images/careers/practical-stuff-cube-grid.svg"
+                  src="/images/careers/practical-stuff-cube-grid-optimized.svg"
                   alt=""
                   width={645}
                   height={270}

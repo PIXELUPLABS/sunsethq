@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { ValuationPanelRulers } from "./valuation-panel-rulers";
 
-const GRAIN_SRC = "/images/valuation/value/grain-overlay.png";
+const GRAIN_SRC = "/images/valuation/value/grain-overlay.webp";
 
 /**
  * The illustration panel of the "How it works" section, layered as in Figma:

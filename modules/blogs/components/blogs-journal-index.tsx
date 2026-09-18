@@ -37,7 +37,7 @@ export function BlogsJournalIndex() {
     <section className="relative flex flex-col items-center overflow-hidden bg-[#eaebf1] px-3 sm:px-18 lg:px-18">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture-optimized.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
       />
 
       <div className="relative flex w-full max-w-[1560px] flex-col gap-12 border-x border-dashed border-[#d4d4d4] px-4 py-14 lg:gap-20 lg:px-5 lg:py-20">

@@ -30,7 +30,7 @@ export function OpenRolesSection({ initialTeams }: { initialTeams: Team[] }) {
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture-optimized.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#a8a8a8]">

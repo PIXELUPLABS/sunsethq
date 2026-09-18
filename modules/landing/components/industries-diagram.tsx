@@ -76,7 +76,7 @@ export function IndustriesDiagram() {
           }}
         >
           <Image
-            src="/images/texture-grain-white.png"
+            src="/images/texture-grain-white.webp"
             alt=""
             fill
             className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
@@ -90,7 +90,7 @@ export function IndustriesDiagram() {
         style={{ left: pct(202.5), top: pct(194.25), width: pct(232), height: pct(232) }}
       >
         <Image
-          src="/images/texture-grain-white.png"
+          src="/images/texture-grain-white.webp"
           alt=""
           fill
           className="pointer-events-none object-cover opacity-[0.11] mix-blend-multiply"
