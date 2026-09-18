@@ -59,7 +59,7 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
         </div>
 
         <h3
-          className={`mt-6 font-serif text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-auto lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
+          className={`mt-6 font-serif-regular text-[28px] leading-[1.1] tracking-[-0.28px] text-black lg:mt-auto lg:text-[32px] ${HEADING_TRACKING[row.headingTracking]}`}
         >
           {row.title}
         </h3>

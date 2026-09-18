@@ -28,6 +28,17 @@ const stkBureauSerif = localFont({
   display: "swap",
 });
 
+// The Regular cut, used for h3s. Its trial file carries only 71 glyphs, so
+// `--font-serif-regular` in globals.css lists the Book cut behind it to cover
+// punctuation it lacks (hyphen, colon, ampersand, apostrophe and the like).
+const stkBureauSerifRegular = localFont({
+  src: "../public/fonts/stk-bureau-serif-regular.woff2",
+  variable: "--font-serif-regular-only",
+  weight: "400",
+  style: "normal",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: SITE_TITLE,
@@ -66,7 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} h-full antialiased motion-safe:scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${stkBureauSerifRegular.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">
         {children}

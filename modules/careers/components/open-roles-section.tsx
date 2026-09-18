@@ -154,7 +154,7 @@ export function OpenRolesSection() {
           ) : null}
 
           <div className="flex w-full flex-col gap-2 text-left">
-            <h3 className="max-w-[480px] font-serif text-[20px] tracking-[-0.4px] text-black">
+            <h3 className="max-w-[480px] font-serif-regular text-[20px] tracking-[-0.4px] text-black">
               Don&rsquo;t see a fit?
             </h3>
             <p className="max-w-[480px] text-sm leading-[1.5] text-[#727272]">

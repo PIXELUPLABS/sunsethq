@@ -29,7 +29,7 @@ export function DeidentificationCopy({
               isActive ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
           >
-            <h3 className="font-serif text-2xl leading-[1.1] tracking-[-0.24px] text-black min-[1150px]:text-[32px] min-[1150px]:tracking-[-0.32px] xl:text-[40px] xl:tracking-[-0.4px]">
+            <h3 className="font-serif-regular text-2xl leading-[1.1] tracking-[-0.24px] text-black min-[1150px]:text-[32px] min-[1150px]:tracking-[-0.32px] xl:text-[40px] xl:tracking-[-0.4px]">
               {copy.heading}
             </h3>
             <div className="flex max-w-[90%] flex-col gap-3.5 text-sm leading-[1.4] tracking-[-0.42px] text-black/60 opacity-80 min-[1150px]:max-w-none min-[1150px]:gap-2 min-[1150px]:text-base min-[1150px]:tracking-[-0.48px] min-[1150px]:text-[#727272] min-[1150px]:opacity-100">
