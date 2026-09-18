@@ -36,7 +36,7 @@ export function AssuranceSection() {
               <div className="flex flex-col items-center gap-6">
                 <SectionTag
                   label="Legal"
-                  icon={<ProcessMarkIcon className="size-[18px]" />}
+                  icon={<ProcessMarkIcon className="size-[22px]" />}
                 />
                 <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-[-1.76px]">
                   Your data stays yours.
