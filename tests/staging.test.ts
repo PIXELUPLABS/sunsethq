@@ -11,7 +11,14 @@ test("static pages, assets, and missing pages retain status and receive staging/
     assert.equal(response.status, status);
     assert.match(response.headers.get("X-Robots-Tag")!, /noindex/);
     assert.equal(response.headers.get("X-Frame-Options"), "DENY");
-    if (type === "text/html") assert.ok(response.headers.get("Content-Security-Policy")!.split(/[; ]+/).includes("https://challenges.cloudflare.com"));
+    if (type === "text/html") {
+      const directives = new Map(response.headers.get("Content-Security-Policy")!.split(";").map(directive => {
+        const [name, ...sources] = directive.trim().split(/\s+/);
+        return [name, sources] as const;
+      }));
+      assert.deepEqual(directives.get("frame-src"), ["https://challenges.cloudflare.com"]);
+      assert.deepEqual(directives.get("script-src"), ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com"]);
+    }
     assert.equal(response.headers.get("Strict-Transport-Security"), null);
   }
 });
