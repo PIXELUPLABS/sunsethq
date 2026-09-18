@@ -64,7 +64,7 @@ export function AssuranceRow({ row, index, total }: AssuranceRowProps) {
           {row.title}
         </h3>
         <div
-          className={`mt-4 flex flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black lg:mt-5 ${BODY_SIZE[row.bodySize]}`}
+          className={`mt-4 flex max-w-[560px] flex-col gap-4 text-sm leading-[1.4] tracking-[-0.42px] text-black lg:mt-5 ${BODY_SIZE[row.bodySize]}`}
         >
           {row.body.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
