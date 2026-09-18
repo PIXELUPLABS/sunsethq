@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { HeroBottomFade } from "./hero-bottom-fade";
 import { HeroCtaButton } from "./hero-cta-button";
 import { HeroFooterBar } from "./hero-footer-bar";
 import { HeroGridLines } from "./hero-grid-lines";
@@ -58,21 +59,12 @@ export function HomeHero() {
           className="h-auto w-full"
         />
 
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[30%]"
-          style={{
-            backgroundColor: "#fcfcfc",
-            backgroundImage: "url(/images/grain-light-texture.svg)",
-            backgroundSize: "cover",
-            maskImage: "linear-gradient(to bottom, transparent, black)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent, black)",
-          }}
-        />
+        <HeroBottomFade heightClass="h-[30%]" />
       </div>
 
       <div className="relative hidden lg:block lg:mt-[571px]">
         <DeidentificationPass />
+        <HeroBottomFade heightClass="h-[45%]" />
       </div>
 
       <HeroFooterBar />
