@@ -93,7 +93,7 @@ export function DeidentificationPanel() {
         className="pointer-events-none hidden object-cover lg:block"
       />
 
-      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#d4d4d4]">
+      <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#272727] lg:border-[#d4d4d4]">
         {/* The grain strip above the panel, framed by dashed guides 40px in
             from the container edges. */}
         <div className="hidden lg:block lg:px-10">
@@ -205,8 +205,8 @@ export function DeidentificationPanel() {
                           {stepIndex}
                         </span>
                         <span
-                          className={`border-b pb-px text-[9px] leading-[9.36px] font-medium tracking-[-0.1px] whitespace-nowrap uppercase ${
-                            active ? "border-white text-white" : "border-transparent text-white/56"
+                          className={`text-[9px] leading-[9.36px] font-medium tracking-[-0.1px] whitespace-nowrap uppercase ${
+                            active ? "text-white" : "text-white/56"
                           }`}
                         >
                           {stepLabel}
