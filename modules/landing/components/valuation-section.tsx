@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { SectionTag } from "./section-tag";
 import { ValuationAccordion } from "./valuation-accordion";
 import { ValuationMedia } from "./valuation-media";
+import { ValuationPanel } from "./valuation-panel";
 import { VALUATION_STEPS } from "../lib/constants";
 import { useStepCycle } from "../hooks/use-step-cycle";
 import { useInView } from "../hooks/use-in-view";
@@ -43,12 +44,12 @@ export function ValuationSection() {
           />
         </div>
 
-        <div
-          className="relative order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full overflow-hidden bg-[#0c0c0b] md:max-h-[650px] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px]"
+        <ValuationPanel
+          className="order-[var(--media-order)] mt-3 aspect-[342/374] max-h-[374px] w-full md:max-h-[650px] lg:order-none lg:mt-0 lg:aspect-auto lg:max-h-none lg:min-h-[420px]"
           style={{ "--media-order": activeIndex * 2 + 3 } as CSSProperties}
         >
           <ValuationMedia activeIndex={activeIndex} hasEnteredViewport={inView} />
-        </div>
+        </ValuationPanel>
       </div>
     </section>
   );

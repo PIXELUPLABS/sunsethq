@@ -40,7 +40,7 @@ export function ValuationMedia({
             src={step.image}
             alt={step.alt}
             fill
-            className={`object-cover ${fadeClassName}`}
+            className={`object-contain ${fadeClassName}`}
           />
         );
       })}
