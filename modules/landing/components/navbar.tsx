@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { PrimaryButtonHover } from "@/components/ui/primary-button-hover";
 import Link from "next/link";
 import { MobileNav } from "./mobile-nav";
 import { NavLinks } from "./nav-links";
@@ -101,13 +102,7 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
               scrolled ? "lg:-translate-x-3" : "lg:translate-x-0"
             }`}
           >
-            <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-30" />
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
-            </div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
-            </div>
+            <PrimaryButtonHover />
             <span className="relative">Value my data</span>
           </Link>
         </div>

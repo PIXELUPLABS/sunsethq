@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { PrimaryButtonHover } from "@/components/ui/primary-button-hover";
 import Link from "next/link";
 import {
   CTA_BG_TEXT,
@@ -66,13 +67,7 @@ export function CtaSectionMobile({
             href={href}
             className="group relative flex items-center overflow-hidden border border-[#141518] bg-[#141518] px-[5.1282cqw] py-[3.0769cqw] transition-transform duration-150 ease-snap active:scale-[0.97]"
           >
-            <div className="pointer-events-none absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-active:opacity-30" />
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-[0.3cqw] opacity-0 transition-opacity duration-300 group-active:opacity-100">
-              <Image src="/images/color-strip-left.svg" alt="" fill className="object-cover" />
-            </div>
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-[0.3cqw] opacity-0 transition-opacity duration-300 group-active:opacity-100">
-              <Image src="/images/color-strip-right.svg" alt="" fill className="object-cover" />
-            </div>
+            <PrimaryButtonHover on="active" />
             <span className="relative font-serif text-[3.0769cqw] leading-[0.8] tracking-wide text-white">
               {buttonLabel}
             </span>
