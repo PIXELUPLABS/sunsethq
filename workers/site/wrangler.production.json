@@ -1,0 +1,75 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "replay-marketing",
+  "account_id": "c4f47127b63c426c98541372fa9b8b67",
+  "main": "index.ts",
+  "compatibility_date": "2026-09-18",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    {
+      "pattern": "www.replay.ai",
+      "custom_domain": true
+    },
+    {
+      "pattern": "replay.ai/*",
+      "zone_id": "6ac82822b4ca9081b0cbb74acd5901d4"
+    }
+  ],
+  "assets": {
+    "directory": "../../out-production",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": true
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "invocation_logs": false
+    }
+  },
+  "limits": {
+    "cpu_ms": 50
+  },
+  "vars": {
+    "APP_ENV": "production",
+    "SITE_ORIGIN": "https://www.replay.ai",
+    "ALLOWED_ORIGINS": "https://www.replay.ai",
+    "UNVERIFIED_LEADS_ENABLED": "true"
+  },
+  "ratelimits": [
+    {
+      "name": "LEAD_RATE_LIMITER",
+      "namespace_id": "91826005",
+      "simple": {
+        "limit": 10,
+        "period": 60
+      }
+    },
+    {
+      "name": "UNVERIFIED_RATE_LIMITER",
+      "namespace_id": "91826015",
+      "simple": {
+        "limit": 2,
+        "period": 60
+      }
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "LEADS",
+        "queue": "replay-leads-prod"
+      }
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "LEAD_DB",
+      "database_name": "replay-leads-prod-ledger",
+      "database_id": "98211ded-10c5-4e4c-944d-b51d5fdf0763",
+      "migrations_dir": "../migrations"
+    }
+  ]
+}

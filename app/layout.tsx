@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { Agentation } from "agentation";
+import { VisitAttribution } from "@/modules/attribution/components/visit-attribution";
+import { CookieConsent } from "@/modules/consent/components/cookie-consent";
 import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TITLE,
   SITE_URL,
+  IS_STAGING,
 } from "@/lib/site-config";
 import "./globals.css";
 
@@ -40,6 +43,7 @@ const stkBureauSerifRegular = localFont({
 });
 
 export const metadata: Metadata = {
+  robots: IS_STAGING ? { index: false, follow: false, noarchive: true } : { index: true, follow: true },
   metadataBase: new URL(SITE_URL),
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
@@ -80,7 +84,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${stkBureauSerifRegular.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">
+        <VisitAttribution />
         {children}
+        <CookieConsent />
         {process.env.NODE_ENV === "development" && <Agentation />}
       </body>
     </html>
