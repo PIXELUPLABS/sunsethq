@@ -71,7 +71,7 @@ export function Footer() {
             <ReplayWordmark className="absolute inset-0 h-full w-full" />
           </div>
 
-          <div className="mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
+          <div className="relative z-20 mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
             <div className="flex flex-col items-start">
               <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase lg:text-white/60">
                 © 2026 Replay. All rights reserved
@@ -95,7 +95,7 @@ export function Footer() {
                 />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/replay-data"
                 aria-label="LinkedIn"
                 className="flex size-[30px] items-center justify-center transition-opacity duration-300 hover:opacity-70 lg:size-[24px]"
               >

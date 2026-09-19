@@ -3,7 +3,7 @@ import { CareersPage } from "@/modules/careers/components/careers-page";
 import { SITE_NAME } from "@/lib/site-config";
 import { publishedTeams } from "@/modules/careers/lib/published-jobs";
 
-const TITLE = "Careers — Build the infrastructure for licensing data";
+const TITLE = "Replay | Careers";
 const DESCRIPTION =
   "Join the small team building Replay's pipeline for licensing companies' operational data to frontier AI labs.";
 

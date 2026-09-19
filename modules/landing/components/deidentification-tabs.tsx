@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { DEIDENTIFICATION_TABS } from "../lib/constants";
+import { DEIDENTIFICATION_TABS, HOW_IT_WORKS_STEP_INTERVAL_MS } from "../lib/constants";
 
 const GRAIN_TEXTURE = "/images/deidentification/grain-texture.webp";
 const PATTERN_STRIP = "/images/deidentification/pattern-strip.png";
@@ -15,9 +15,13 @@ const SLIDE_DURATION_MS = 220;
 export function DeidentificationTabs({
   activeIndex,
   onSelect,
+  inView,
+  selectionVersion,
 }: {
   activeIndex: number;
   onSelect: (index: number) => void;
+  inView: boolean;
+  selectionVersion: number;
 }) {
   return (
     <div className="relative flex w-full overflow-hidden">
@@ -35,8 +39,15 @@ export function DeidentificationTabs({
         }}
       >
         <div className="pointer-events-none absolute inset-y-0 -left-px w-[5px] overflow-hidden lg:left-0 lg:w-2">
-          <div className="absolute inset-0 bg-[#7E7E7E]" />
-          <Image src={PATTERN_STRIP} alt="" fill className="relative object-cover object-left" />
+          {inView && (
+            <div
+              key={`${activeIndex}-${selectionVersion}`}
+              className="absolute inset-0 animate-[tab-cycle-progress_linear_both]"
+              style={{ animationDuration: `${HOW_IT_WORKS_STEP_INTERVAL_MS}ms` }}
+            >
+              <Image src={PATTERN_STRIP} alt="" fill className="object-cover object-left" />
+            </div>
+          )}
         </div>
       </div>
 
@@ -46,6 +57,7 @@ export function DeidentificationTabs({
           <button
             key={tab}
             type="button"
+            aria-pressed={isActive}
             onClick={() => onSelect(index)}
             className={`group relative flex h-10 flex-1 cursor-pointer items-center justify-center gap-6 overflow-hidden border border-[#ccc] font-serif text-base tracking-[-0.64px] lg:h-[72px] lg:text-lg lg:tracking-normal ${
               index === 0 ? "border-l" : "border-l-0"
