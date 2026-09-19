@@ -67,10 +67,10 @@ export function Footer() {
           </div>
 
           <div className="relative aspect-[1297/337] w-full">
-            <ReplayWordmark className="absolute inset-0 h-full w-full" />
+            <ReplayWordmark className="pointer-events-none absolute inset-0 h-full w-full" />
           </div>
 
-          <div className="mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
+          <div className="relative z-10 mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
             <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase lg:text-white/60">
               © 2026 Replay. All rights reserved
               <br />
