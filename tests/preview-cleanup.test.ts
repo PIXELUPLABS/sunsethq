@@ -46,8 +46,9 @@ test("cleanup selects every version for exactly one managed branch and rejects d
   assert.throws(() => previewVersionsToRemove(versions, [], "main"));
 });
 
-test("cleanup advances the newest-version pointer, removes branch history, preserves other branches, and is idempotent", async () => {
+test("cleanup retires the branch alias, removes branch history, preserves other branches, and is idempotent", async () => {
   let versions: Array<{ id: string; number: number; annotations: Record<string, string> }> = [version(3), version(2, "codex/other"), version(1)];
+  versions.push({ id: id(0), number: 0, annotations: { "workers/alias": previewAlias(branch), "workers/tag": "preview-removed", "workers/message": `Closed preview ${branch}` } });
   const deployments = [{ versions: [{ version_id: id(99) }] }];
   const mutations: string[] = [];
   const cf = async (path: string, method = "GET", body?: FormData) => {
@@ -55,7 +56,8 @@ test("cleanup advances the newest-version pointer, removes branch history, prese
     if (method === "POST") {
       assert.ok(body instanceof FormData);
       const metadata = JSON.parse(body.get("metadata") as string);
-      assert.equal(metadata.annotations["workers/alias"], undefined);
+      assert.equal(metadata.annotations["workers/alias"], previewAlias(branch));
+      assert.equal(metadata.annotations["workers/tag"], "preview-removed");
       assert.ok(metadata.keep_bindings.includes("secret_text"));
       const code = await (body.get("closed.js") as Blob).text();
       assert.ok(code.includes("status:410"));
@@ -71,13 +73,14 @@ test("cleanup advances the newest-version pointer, removes branch history, prese
       versions = versions.filter(item => item.id !== deleting);
       return undefined;
     }
+    if (path.endsWith(`/${id(4)}`)) return versions.find(item => item.id === id(4));
     return versions;
   };
   await removePreview(cf, site, branch);
-  assert.deepEqual(mutations, ["guard", id(3), id(1)]);
+  assert.deepEqual(mutations, ["guard", id(3), id(1), id(0)]);
   assert.ok(versions.some(item => item.id === id(2)));
   await removePreview(cf, site, branch);
-  assert.equal(mutations.length, 3);
+  assert.equal(mutations.length, 4);
   const production = JSON.parse(readFileSync("workers/site/wrangler.production.json", "utf8"));
   await assert.rejects(removePreview(cf, production, branch));
 });

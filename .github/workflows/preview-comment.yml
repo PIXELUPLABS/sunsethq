@@ -71,7 +71,7 @@ jobs:
               for (const pr of owned.filter(pr => pr.state === 'closed')) {
                 const comments = await github.paginate(github.rest.issues.listComments, { owner, repo, issue_number: pr.number, per_page: 100 });
                 const existing = comments.find(comment => comment.user?.login === 'github-actions[bot]' && comment.body?.startsWith(marker));
-                const body = `${marker}\n\n**Cloudflare preview removed.**\n\nThis pull request was ${pr.merged_at ? 'merged' : 'closed'}. Its branch and commit preview versions have been deleted.`;
+                const body = `${marker}\n\n**Cloudflare preview removed.**\n\nThis pull request was ${pr.merged_at ? 'merged' : 'closed'}. Its site builds were deleted and the branch link now shows “Preview removed.” Older commit URLs may take longer to stop responding while Cloudflare updates its routing.`;
                 if (existing) {
                   if (existing.body !== body) await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
                 } else {
