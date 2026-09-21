@@ -22,35 +22,35 @@ export const REVENUE_STREAM_FLOOR_BAND =
 
 export const REVENUE_STREAM_ITEMS = [
   {
-    icon: "/images/revenue-stream/icon-product-logs.svg",
-    label: "Product logs",
+    icon: "/images/revenue-stream/icon-code-commits.svg",
+    label: "Code and commits",
   },
   {
-    icon: "/images/revenue-stream/icon-support-history.svg",
-    label: "Support history",
+    icon: "/images/revenue-stream/icon-internal-docs.svg",
+    label: "Internal docs",
   },
   {
     icon: "/images/revenue-stream/icon-decision-threads.svg",
     label: "Decision threads",
   },
   {
-    icon: "/images/revenue-stream/icon-product-data.svg",
-    label: "Product data",
+    icon: "/images/revenue-stream/icon-crm.svg",
+    label: "CRM Data",
   },
-  { icon: "/images/revenue-stream/icon-billing.svg", label: "Billing" },
-  {
-    icon: "/images/revenue-stream/icon-internal-docs.svg",
-    label: "Internal docs",
-  },
-  { icon: "/images/revenue-stream/icon-support.svg", label: "Support" },
-  { icon: "/images/revenue-stream/icon-crm.svg", label: "CRM" },
-  {
-    icon: "/images/revenue-stream/icon-code-commits.svg",
-    label: "Code and commits",
-  },
+  { icon: "/images/revenue-stream/icon-billing.svg", label: "Financial Records" },
   {
     icon: "/images/revenue-stream/icon-sales-conversations.svg",
     label: "Sales conversations",
+  },
+  { icon: "/images/revenue-stream/icon-support.svg", label: "Support History" },
+  { icon: "/images/revenue-stream/icon-product-data.svg", label: "Presentations" },
+  {
+    icon: "/images/revenue-stream/icon-product-logs.svg",
+    label: "Product logs",
+  },
+  {
+    icon: "/images/revenue-stream/icon-support-history.svg",
+    label: "Analytics",
   },
 ] as const;
 
@@ -64,13 +64,13 @@ export const REVENUE_STREAM_MOBILE_WALL_RIGHT =
 // The mobile design stacks the shelf into a single column and shows eight of
 // the ten rows, in its own order.
 const MOBILE_LABELS = [
-  "Product logs",
-  "Decision threads",
-  "Billing",
-  "Support",
   "Code and commits",
-  "Product data",
-  "CRM",
+  "Decision threads",
+  "Financial Records",
+  "Support History",
+  "Product logs",
+  "Presentations",
+  "CRM Data",
   "Sales conversations",
 ];
 

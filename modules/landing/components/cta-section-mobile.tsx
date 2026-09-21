@@ -49,10 +49,10 @@ export function CtaSectionMobile({
           </p>
           <Link
             href={href}
-            className="group relative flex items-center overflow-hidden border border-[#141518] bg-[#141518] px-[5.1282cqw] py-[3.0769cqw] transition-transform duration-150 ease-snap active:scale-[0.97]"
+            className="cta-type group relative flex w-[260px] max-w-full items-center justify-center overflow-hidden bg-[#141518] px-6 py-5 text-base text-white transition-transform duration-150 ease-snap active:scale-[0.97]"
           >
             <PrimaryButtonHover on="active" />
-            <span className="relative font-serif text-[3.0769cqw] leading-[0.8] tracking-wide text-white">
+            <span className="relative leading-[0.8]">
               {buttonLabel}
             </span>
           </Link>

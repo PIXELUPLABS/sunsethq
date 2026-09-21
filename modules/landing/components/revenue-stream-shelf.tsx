@@ -30,16 +30,16 @@ const ANIMATED_ITEM_OFFSETS: Record<
   number,
   { x: number; y: number; step: number }
 > = {
-  0: { x: -12, y: -12, step: 1 }, // Product logs
-  1: { x: 12, y: -12, step: 4 }, // Support history
+  0: { x: -12, y: -12, step: 1 }, // Code and commits
+  1: { x: 12, y: -12, step: 4 }, // Internal docs
   2: { x: -12, y: -6, step: 6 }, // Decision threads
-  3: { x: 12, y: -6, step: 2 }, // Product data
-  4: { x: -12, y: 0, step: 8 }, // Billing
-  5: { x: 12, y: 0, step: 9 }, // Internal docs
-  6: { x: -12, y: 6, step: 5 }, // Support
-  7: { x: 12, y: 6, step: 0 }, // CRM
-  8: { x: -12, y: 12, step: 7 }, // Code and commits
-  9: { x: 12, y: 12, step: 3 }, // Sales conversations
+  3: { x: 12, y: -6, step: 2 }, // CRM Data
+  4: { x: -12, y: 0, step: 8 }, // Financial Records
+  5: { x: 12, y: 0, step: 9 }, // Sales conversations
+  6: { x: -12, y: 6, step: 5 }, // Support History
+  7: { x: 12, y: 6, step: 0 }, // Presentations
+  8: { x: -12, y: 12, step: 7 }, // Product logs
+  9: { x: 12, y: 12, step: 3 }, // Analytics
 };
 
 export function RevenueStreamShelf() {

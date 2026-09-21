@@ -13,32 +13,30 @@ export const NAV_LINKS: NavLink[] = [
 ];
 
 export const HERO_STATS: StatItem[] = [
-  { value: "90 min", label: "First call to wire" },
-  { value: "$50+", label: "Paid for a single dataset" },
-  { value: "25M+", label: "Names & identifiers stripped" },
-  { value: "4/5", label: "Frontier AI labs, working with" },
+  { value: "Millions", label: "Paid to businesses like yours" },
+  { value: "Billions", label: "Personal identifiers removed" },
 ];
 
 export const DATA_CATEGORIES: DataCategory[] = [
-  { label: "Product logs", icon: "product-logs" },
-  { label: "Support history", icon: "support-history" },
-  { label: "Decision threads", icon: "decision-threads" },
-  { label: "Product data", icon: "product-data" },
-  { label: "Billing", icon: "billing" },
-  { label: "Internal docs", icon: "internal-docs" },
-  { label: "Support", icon: "support" },
-  { label: "CRM", icon: "crm" },
   { label: "Code and commits", icon: "code" },
+  { label: "Internal docs", icon: "internal-docs" },
+  { label: "Decision threads", icon: "decision-threads" },
+  { label: "CRM Data", icon: "crm" },
+  { label: "Financial Records", icon: "billing" },
   { label: "Sales conversations", icon: "sales" },
+  { label: "Support History", icon: "support" },
+  { label: "Presentations", icon: "product-data" },
+  { label: "Product logs", icon: "product-logs" },
+  { label: "Analytics", icon: "support-history" },
 ];
 
 export const PRICING_TIERS = [
-  { value: "$10K+", people: "<25 People", segments: 2, tone: "muted" as const },
-  { value: "$100K+", people: "25-100 People", segments: 7, tone: "cyan" as const },
-  { value: "$1M+", people: "100+ People", segments: 11, tone: "blue" as const },
+  { value: "$10K - $100K", people: "20 - 50 Employees", segments: 2, tone: "muted" as const },
+  { value: "$100K - $1M", people: "50 - 250 Employees", segments: 7, tone: "cyan" as const },
+  { value: "$1,000,000+", people: "250+ Employees", segments: 11, tone: "blue" as const },
 ];
 
-export const HOW_IT_WORKS_STEP_INTERVAL_MS = 10000;
+export const HOW_IT_WORKS_STEP_INTERVAL_MS = 15000;
 
 export const REVENUE_STREAM_TILE_MS = 200;
 
@@ -69,7 +67,7 @@ export const VALUATION_STEPS = [
     label: "Terms",
     title: "Receive an offer",
     description:
-      "Based on the valuation, Replay presents an offer to license your data. These are typically structured as an upfront cash payment plus a perpetual revenue share.",
+      "Replay presents an offer to license your data. These are typically structured as an upfront cash payment plus a perpetual revenue share.",
     image: "/images/valuation/how-it-works/terms-illustration.png",
     alt: "Illustration of an offer to license card showing an $8M indicated total split between an upfront payment and a perpetual revenue share",
   },
@@ -91,7 +89,7 @@ export const VALUATION_STEPS = [
   },
 ];
 
-export const DEIDENTIFICATION_TABS = ["Coverage", "The pipeline", "Policy"] as const;
+export const DEIDENTIFICATION_TABS = ["PII Coverage", "Our Pipeline", "Data Policy"] as const;
 
 export type DeidentificationTab = (typeof DEIDENTIFICATION_TABS)[number];
 
@@ -101,57 +99,44 @@ export type DeidentificationCopy = {
 };
 
 export const DEIDENTIFICATION_COPY: Record<DeidentificationTab, DeidentificationCopy> = {
-  Coverage: {
+  "PII Coverage": {
     heading: "Your data leaves cleaner than a medical record.",
     paragraphs: [
-      "The federal standard for de-identifying medical records (HIPAA) lists eighteen categories that have to be stripped out. We cover all eighteen, and many more.",
-      "Names, emails, API keys, access tokens, customer records. Our de-identification covers 60+ categories, across every file type and application your business works in.",
+      "The federal standard for de-identifying medical records (HIPAA) lists eighteen categories that have to be stripped out. We cover all eighteen, and many more. Names, emails, API keys, access tokens, customer records. Our methods cover 60+ categories, across every file type and application your business works in.",
     ],
   },
-  "The pipeline": {
+  "Our Pipeline": {
     heading: "We built the pipeline and trained the model.",
     paragraphs: [
-      "General-purpose models aren't trained to find personal information in Slack threads, support tickets or commit messages. So we trained one that is. On the same benchmark, ours finds [86%] of identifiers where NVIDIA's finds [30%].",
-      "The model is only the first layer. An ensemble of additional models and processing stages runs behind it, so nothing depends on a single pass.",
+      "General-purpose models aren't trained to find PII in Slack threads, support tickets or commit messages. So we trained one that is. On the same benchmark, our model identifies 99% of PII where NVIDIA's GLINER model found 36%. The model is only the first layer. An ensemble of processing stages runs behind it, so nothing depends on a single pass.",
     ],
   },
-  Policy: {
+  "Data Policy": {
     heading: "Set the scope and only license what you grant access to.",
     paragraphs: [
-      "Tenant isolation. Every engagement runs in its own isolated environment. No shared storage, no shared processing, no path between one client's data and another's.",
-      "Only de-identified data is ever licensed. Raw data is never sold, never shared, and never leaves the pipeline. The cleaned version is the only version a buyer ever sees.",
+      "Every engagement runs in its own isolated environment. No shared storage, processing, or paths between one client's data and another's. And most importantly, only de-identified data is ever licensed. Raw data is never sold or shared, and never leaves the pipeline.",
     ],
   },
 };
 
 export const BUYER_CARDS: BuyerCard[] = [
   {
-    headline: "Frontier labs and data labs, not brokers reselling on.",
-    tagLabel: "Entity",
-    icon: "entity",
-    tone: "dark",
+    id: "entity",
+    headline: "Your data is only sold to frontier AI and data labs.",
   },
   {
-    headline: "US buyers only. No foreign adversaries, no exceptions.",
-    tagLabel: "Jurisdiction",
-    icon: "jurisdiction",
-    tone: "light",
-  },
-  {
-    headline: "Named buyers. You see who they are before anything moves.",
-    tagLabel: "Identity",
-    icon: "identity",
-    tone: "light",
+    id: "jurisdiction",
+    headline: "Your data is never sold to foreign adversaries or resold through brokers.",
   },
 ];
 
 export const INDUSTRY_CARDS: IndustryCard[] = [
   { label: "Legal", icon: "gavel", className: "left-0 top-[26%]" },
-  { label: "Healthcare", icon: "heart", className: "left-[31%] top-0" },
-  { label: "Service", icon: "user-box", className: "right-0 top-[22%]" },
-  { label: "Insurance", icon: "file", className: "left-[9%] top-[47%]" },
-  { label: "Media", icon: "film", className: "right-[3%] top-[47%]" },
-  { label: "Energy", icon: "zap", className: "left-0 bottom-0" },
+  { label: "Tech", icon: "heart", className: "left-[31%] top-0" },
+  { label: "Services", icon: "user-box", className: "right-0 top-[22%]" },
+  { label: "E-commerce", icon: "file", className: "left-[9%] top-[47%]" },
+  { label: "B2C", icon: "film", className: "right-[3%] top-[47%]" },
+  { label: "Hardware", icon: "zap", className: "left-0 bottom-0" },
   { label: "Finance", icon: "landmark", className: "left-[31%] bottom-0" },
   { label: "CPG", icon: "box", className: "right-0 bottom-[6%]" },
 ];
