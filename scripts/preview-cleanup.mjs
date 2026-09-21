@@ -24,17 +24,51 @@ export async function listPreviewVersions(cf, site) {
   }
 }
 
-export function previewVersionsToRemove(versions, deployments, branch) {
+function managedPreviewVersions(versions, deployments, branch) {
   const alias = previewAlias(branch);
   const protectedIds = new Set(deployments.flatMap(deployment => deployment.versions.map(version => version.version_id)));
-  const matching = versions.filter(version => version.annotations?.["workers/alias"] === alias && !isRemovedVersion(version, branch));
+  const matching = versions.filter(version => version.annotations?.["workers/alias"] === alias);
   for (const version of matching) {
     assert.match(version.id, /^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/);
-    assert.equal(version.annotations["workers/message"], `Preview ${branch}`, "Refusing to delete an unmanaged preview version.");
-    assert.match(version.annotations["workers/tag"] ?? "", /^[a-f0-9]{40}$/);
+    if (!isRemovedVersion(version, branch)) {
+      assert.equal(version.annotations["workers/message"], `Preview ${branch}`, "Refusing to delete an unmanaged preview version.");
+      assert.match(version.annotations["workers/tag"] ?? "", /^[a-f0-9]{40}$/);
+    }
     assert.ok(!protectedIds.has(version.id), "Refusing to delete a version referenced by staging deployments.");
   }
   return matching;
+}
+
+export function previewVersionsToRemove(versions, deployments, branch) {
+  return managedPreviewVersions(versions, deployments, branch).filter(version => !isRemovedVersion(version, branch));
+}
+
+// Run only after verifying the uploaded version and its Access gate. Keep that
+// exact version, not simply whichever version happens to be newest in the list.
+export async function prunePreviewHistory(cf, site, branch, versionId, sha) {
+  validatePreviewSite(site);
+  assert.match(sha ?? "", /^[a-f0-9]{40}$/);
+  const worker = `accounts/${site.account_id}/workers/scripts/${site.name}`;
+  const versionPath = `accounts/${site.account_id}/workers/workers/${site.name}/versions`;
+  const before = (await cf(`${worker}/deployments`)).deployments;
+  const matching = managedPreviewVersions(await listPreviewVersions(cf, site), before, branch);
+  const current = matching.find(version => version.id === versionId);
+  assert.ok(current, "The verified preview version is missing; refusing to prune history.");
+  assert.equal(current.annotations["workers/tag"], sha, "The preview commit changed; refusing to prune history.");
+  for (const version of matching) {
+    assert.ok(Number.isSafeInteger(version.number) && version.number > 0, "Missing preview version order.");
+    assert.ok(version.number <= current.number, "A newer branch preview exists; refusing to prune history.");
+  }
+  const obsolete = matching.filter(version => version.id !== versionId);
+  for (const version of obsolete) {
+    await cf(`${versionPath}/${version.id}`, "DELETE");
+    console.log(`Removed superseded preview version ${version.id}`);
+  }
+  const remaining = managedPreviewVersions(await listPreviewVersions(cf, site), before, branch);
+  assert.deepEqual(remaining.map(version => version.id), [versionId], "Unexpected branch history after pruning.");
+  assert.deepEqual((await cf(`${worker}/deployments`)).deployments, before, "Pruning changed staging deployments.");
+  console.log(`Removed ${obsolete.length} older preview versions for ${branch}; latest preview and staging unchanged.`);
+  return obsolete.length;
 }
 
 export async function removePreview(cf, site, branch) {

@@ -75,7 +75,7 @@ jobs:
         env:
           TURNSTILE_STAGING_SITE_KEY: ${{ vars.TURNSTILE_STAGING_SITE_KEY }}
         run: npm run staging:build
-      - name: Upload and verify preview
+      - name: Upload, verify, and prune older previews
         id: deploy
         env:
           GH_TOKEN: ${{ github.token }}
