@@ -15,6 +15,9 @@ on:
       removed:
         type: boolean
         default: false
+      url:
+        type: string
+        default: ""
 
 permissions:
   deployments: write
@@ -36,6 +39,7 @@ jobs:
           PREVIEW_BRANCH: ${{ inputs.branch || github.event.pull_request.head.ref }}
           PREVIEW_SHA: ${{ inputs.sha || github.event.pull_request.head.sha }}
           PREVIEW_REMOVED: ${{ inputs.removed }}
+          PREVIEW_URL: ${{ inputs.url }}
         with:
           script: |
             const { createHash } = require('node:crypto');
@@ -55,9 +59,10 @@ jobs:
             if (removed) {
               if (owned.some(pr => pr.state === 'open')) return;
               const deployments = await github.paginate(github.rest.repos.listDeployments, {
-                owner, repo, ref: branch, environment: 'preview', per_page: 100,
+                owner, repo, environment: 'preview', per_page: 100,
               });
-              for (const deployment of deployments) {
+              const refs = new Set([branch, `refs/heads/${branch}`, ...owned.map(pr => `refs/pull/${pr.number}/merge`)]);
+              for (const deployment of deployments.filter(item => refs.has(item.ref))) {
                 await github.rest.repos.createDeploymentStatus({
                   owner, repo, deployment_id: deployment.id, state: 'inactive',
                   description: removedDescription, environment_url: '', auto_inactive: false,
@@ -80,22 +85,27 @@ jobs:
               core.info('No open pull request at this preview commit.');
               return;
             }
-            const { data: deployments } = await github.rest.repos.listDeployments({
-              owner, repo, sha, ref: branch, environment: 'preview', per_page: 1,
-            });
-            if (!deployments.length) return;
-            const { data: statuses } = await github.rest.repos.listDeploymentStatuses({
-              owner, repo, deployment_id: deployments[0].id, per_page: 100,
-            });
-            // A different branch can mark this shared environment inactive.
-            if (!['success', 'inactive'].includes(statuses[0]?.state)) return;
-            if (statuses[0]?.description === removedDescription) return;
-            const success = statuses.find(status => status.state === 'success');
-            if (!success) return;
+            // Reopened PR deployments use GitHub's merge ref, while the site
+            // is built from the head commit. Prefer the verified job output.
+            let deployedUrl = process.env.PREVIEW_URL;
+            if (!deployedUrl) {
+              const { data: deployments } = await github.rest.repos.listDeployments({
+                owner, repo, sha, ref: branch, environment: 'preview', per_page: 1,
+              });
+              if (!deployments.length) return;
+              const { data: statuses } = await github.rest.repos.listDeploymentStatuses({
+                owner, repo, deployment_id: deployments[0].id, per_page: 100,
+              });
+              // A different branch can mark this shared environment inactive.
+              if (!['success', 'inactive'].includes(statuses[0]?.state)) return;
+              if (statuses[0]?.description === removedDescription) return;
+              deployedUrl = statuses.find(status => status.state === 'success')?.environment_url;
+              if (!deployedUrl) return;
+            }
             const slug = branch.toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(0, 24);
             const hash = createHash('sha256').update(branch).digest('hex').slice(0, 8);
             const url = `https://b-${slug}-${hash}-replay-marketing-staging.replay-marketing-dev.workers.dev`;
-            if (success.environment_url !== url) throw new Error('Unexpected preview deployment URL.');
+            if (deployedUrl !== url) throw new Error('Unexpected preview deployment URL.');
             const body = [
               marker,
               `**Cloudflare preview ready:** [Open preview](${url})`,

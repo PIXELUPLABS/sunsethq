@@ -53,6 +53,7 @@ jobs:
       pull-requests: read
     outputs:
       removed: ${{ steps.deploy.outputs.removed }}
+      url: ${{ steps.deploy.outputs.url }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
@@ -90,7 +91,9 @@ jobs:
     permissions:
       contents: read
       pull-requests: read
-    environment: preview
+    environment:
+      name: preview
+      deployment: false
     outputs:
       removed: ${{ steps.cleanup.outputs.removed }}
     steps:
@@ -120,3 +123,4 @@ jobs:
       branch: ${{ needs.lifecycle.outputs.branch }}
       sha: ${{ needs.lifecycle.outputs.sha }}
       removed: ${{ needs.preview.outputs.removed == 'true' || needs.cleanup.outputs.removed == 'true' }}
+      url: ${{ needs.preview.outputs.url }}
