@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { spawnSync } from "node:child_process";
 import { appendFile, readFile } from "node:fs/promises";
 import { cloudflareClient } from "./cloudflare-client.mjs";
-import { validatePreviewRelease } from "./preview-release.mjs";
+import { uploadedPreviewVersion, validatePreviewRelease } from "./preview-release.mjs";
 import { checkStagingGate } from "./staging-gate.mjs";
 
 const configPath = "workers/site/wrangler.json";
@@ -20,21 +20,25 @@ const settings = await cf(`${worker}/settings`);
 assert.ok(settings.bindings.some(binding => binding.name === "TURNSTILE_SECRET_KEY" && binding.type === "secret_text"),
   "The staging verification secret must already exist.");
 const before = await cf(`${worker}/deployments`);
+const previousVersions = await cf(`${worker}/versions`);
 const result = spawnSync(process.execPath, [
   "node_modules/wrangler/bin/wrangler.js", "versions", "upload", "-c", configPath,
   "--preview-alias", alias, "--tag", process.env.GITHUB_SHA,
   "--message", `Preview ${process.env.GITHUB_REF_NAME}`,
-], { stdio: "inherit", env: { ...process.env, CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV: "false", WRANGLER_SEND_METRICS: "false" } });
-if (result.status !== 0) throw new Error("Preview upload failed.");
+], { encoding: "utf8", maxBuffer: 20 * 1024 * 1024,
+  env: { ...process.env, CLOUDFLARE_LOAD_DEV_VARS_FROM_DOT_ENV: "false", WRANGLER_SEND_METRICS: "false", NO_COLOR: "1" } });
+process.stdout.write(result.stdout ?? "");
+process.stderr.write(result.stderr ?? "");
+if (result.error) throw result.error;
+const versionId = uploadedPreviewVersion(result, previousVersions.items.map(item => item.id));
+const version = await cf(`${worker}/versions/${versionId}`);
+assert.equal(version.annotations?.["workers/alias"], alias);
+assert.equal(version.annotations?.["workers/tag"], process.env.GITHUB_SHA);
 const after = await cf(`${worker}/deployments`);
 assert.deepEqual(after.deployments, before.deployments, "Uploading a preview must not change the active staging deployment.");
 try {
   await checkStagingGate(origin);
-  const versions = await cf(`${worker}/versions`);
-  const version = versions.items.find(item => item.annotations?.["workers/alias"] === alias &&
-    item.annotations?.["workers/tag"] === process.env.GITHUB_SHA);
-  assert.ok(version, "Could not verify the uploaded preview version.");
-  await checkStagingGate(`https://${version.id.slice(0, 8)}-${site.name}.replay-marketing-dev.workers.dev`);
+  await checkStagingGate(`https://${versionId.slice(0, 8)}-${site.name}.replay-marketing-dev.workers.dev`);
 } catch (error) {
   await cf(`${worker}/subdomain`, "POST", { enabled: routing.enabled, previews_enabled: false });
   throw error;

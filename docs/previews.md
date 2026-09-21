@@ -16,6 +16,8 @@ Configured September 21, 2026. The GitHub `preview` environment uses the dedicat
 
 The upload script verifies the anonymous Access redirects on pages, assets, robots, and APIs before upload, then checks both the branch alias and version URL afterward. It also verifies that the active staging deployment is unchanged. If a post-upload Access check fails, it disables preview routing for the staging Worker and fails the job. Restore the Access policy before re-enabling previews.
 
+Wrangler 4.135 can upload with a per-Worker token but fails when reading the account subdomain to print the resulting URL. The script recognizes only that specific post-upload error, requires a newly uploaded version ID, and verifies its branch alias and commit through the Worker API. All other upload failures stop the workflow.
+
 ## Usage
 
 Push a branch or manually run **Cloudflare preview** in GitHub Actions on a non-`main` branch. Find the URL under the `preview` deployment or in the job summary. Sign in using the team's existing Access login. Signup tests create sandbox leads; the delivery Worker may send test notification emails for unverified submissions.
