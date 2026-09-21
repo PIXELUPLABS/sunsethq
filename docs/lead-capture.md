@@ -140,3 +140,7 @@ Email notification leases and successful-send timestamps live in D1 migration `0
 Retries keep the same UUID when only consent, attribution, or verification changes. Different business answers get a new ID. The ledger preserves the original accepted payload and supports receipt hashes from the previous release.
 
 Run `npx tsx scripts/smoke-unverified.mts development` (or explicitly `production`) to create one synthetic inquiry, send a real operator alert, verify duplicate handling and the tighter limit, and check its Attio label/attribution. Setup order: provision the email sender and destination, run Attio setup for the target, apply migrations/deploy the consumer, then deploy the site. `UNVERIFIED_LEADS_ENABLED` can disable fallback while leaving verified submission available. Both deployment scripts run all `tests/*.test.ts` plus TypeScript before publishing.
+
+## Automated browser gate
+
+See [signup browser tests](signup-browser-tests.md) for the secret-free CI journey, simulated dependencies, and separately verified hosted sandbox smoke.

@@ -12,12 +12,13 @@ const delivery = JSON.parse(await readFile("workers/lead-delivery/wrangler.json"
 checkLeadFallback(config, delivery);
 const secret = process.env.TURNSTILE_STAGING_SECRET_KEY;
 if (!secret || /^[123]x0+/.test(secret)) throw new Error("A real staging Turnstile secret is required.");
-if (config.name !== "replay-marketing-staging" || config.vars.APP_ENV !== "development" || config.preview_urls !== false ||
+if (config.name !== "replay-marketing-staging" || config.vars.APP_ENV !== "development" || config.preview_urls !== true ||
     config.queues.producers[0]?.queue !== "replay-leads-dev") throw new Error("Staging configuration must stay isolated from production.");
 
 // Refuse routine deployment if someone has removed/replaced the live gate.
 // Initial provisioning is documented separately; there is no bypass flag.
 await checkStagingGate(config.vars.SITE_ORIGIN);
+await checkStagingGate("https://access-check-replay-marketing-staging.replay-marketing-dev.workers.dev");
 const cf = cloudflareClient();
 const settings = await cf(`accounts/${config.account_id}/workers/scripts/${delivery.name}/settings`);
 for (const key of ["APP_ENV", "ATTIO_WORKSPACE_ID", "ATTIO_LIST_ID"]) {
@@ -44,6 +45,7 @@ run("node_modules/wrangler/bin/wrangler.js", ["secret", "bulk", "-c", configPath
 run("node_modules/wrangler/bin/wrangler.js", ["deploy", "-c", configPath]);
 try {
   await checkStagingGate(config.vars.SITE_ORIGIN);
+  await checkStagingGate("https://access-check-replay-marketing-staging.replay-marketing-dev.workers.dev");
 } catch (error) {
   // If the gate fails, stop serving this staging Worker, including previews.
   await cf(`accounts/${config.account_id}/workers/scripts/${config.name}/subdomain`, "POST", { enabled: false, previews_enabled: false });
