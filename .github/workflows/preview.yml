@@ -45,3 +45,14 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: npm run preview:deploy
+
+  comment:
+    name: Link preview in pull requests
+    needs: preview
+    permissions:
+      deployments: read
+      pull-requests: write
+    uses: ./.github/workflows/preview-comment.yml
+    with:
+      branch: ${{ github.ref_name }}
+      sha: ${{ github.sha }}

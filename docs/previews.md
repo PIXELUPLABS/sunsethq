@@ -1,6 +1,6 @@
 # Cloudflare branch previews
 
-The `Cloudflare preview` GitHub Actions workflow uploads each non-`main` branch to the staging Worker's version previews. Each branch has a stable URL; the GitHub deployment and workflow summary link to it. A new push updates that branch's alias. The alias includes a short hash to avoid collisions between similar branch names.
+The `Cloudflare preview` GitHub Actions workflow uploads each non-`main` branch to the staging Worker's version previews. Each branch has a stable URL; an automatically updated PR comment, the GitHub deployment, and the workflow summary link to it. A new push updates that branch's alias. The alias includes a short hash to avoid collisions between similar branch names.
 
 Previews require the existing `@sunsethq.com` Cloudflare Access login, send noindex headers, and use the development D1 ledger, queue, and Attio workspace. Builds use the committed jobs snapshot and staging canonical URLs. Production continues through its existing `main` release workflow. Uploading a preview does not replace the active staging deployment or run database migrations.
 
@@ -20,7 +20,9 @@ Wrangler 4.135 can upload with a per-Worker token but fails when reading the acc
 
 ## Usage
 
-Push a branch or manually run **Cloudflare preview** in GitHub Actions on a non-`main` branch. Find the URL under the `preview` deployment or in the job summary. Sign in using the team's existing Access login. Signup tests create sandbox leads; the delivery Worker may send test notification emails for unverified submissions.
+Push a branch or manually run **Cloudflare preview** in GitHub Actions on a non-`main` branch. Find the URL in the PR's **Cloudflare preview ready** comment, under the `preview` deployment, or in the job summary. The same bot comment updates after successful deployments at the PR's current commit. Opening or reopening a PR also posts the comment if its current commit already has a successful preview. That comment-only workflow runs without checking out PR code or accessing Cloudflare credentials.
+
+Sign in using the team's existing Access login. Signup tests create sandbox leads; the delivery Worker may send test notification emails for unverified submissions.
 
 Forks cannot deploy through this workflow. Runs for the same branch are serialized and are allowed to finish their Access checks. Different branches upload independent versions and aliases. Old version URLs remain available while retained by Cloudflare and remain protected by Access.
 
