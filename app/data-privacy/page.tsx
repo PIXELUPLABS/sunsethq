@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { DataTrustPage } from "@/modules/data-trust/components/data-trust-page";
 import { SITE_NAME } from "@/lib/site-config";
 
-const TITLE = "Data & Trust — Securely license your data";
+const TITLE = "Replay | Data Privacy";
 const DESCRIPTION =
   "Replay removes PII, confirms your right to license, and identifies any risk. All before your data moves.";
 

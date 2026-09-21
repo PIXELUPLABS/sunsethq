@@ -102,7 +102,7 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
           <Link
             href="/value-my-data"
             onClick={close}
-            className="flex h-13 min-h-12 shrink-0 items-center justify-center border border-[#141518] bg-[#141518] px-[22px] font-serif text-base leading-3 tracking-[0.1px] text-white"
+            className="cta-type flex h-13 min-h-12 shrink-0 items-center justify-center border border-[#141518] bg-[#141518] px-[22px] text-base leading-3 text-white"
           >
             Value my data
           </Link>

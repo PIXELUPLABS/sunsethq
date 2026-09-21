@@ -15,10 +15,8 @@ export type DataCategory = {
 };
 
 export type BuyerCard = {
+  id: string;
   headline: string;
-  tagLabel: string;
-  icon: "entity" | "jurisdiction" | "identity";
-  tone: "dark" | "light";
 };
 
 export type IndustryCard = {

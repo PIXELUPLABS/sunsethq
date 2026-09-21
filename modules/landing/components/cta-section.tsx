@@ -23,7 +23,7 @@ type CtaSectionProps = {
   bottomBandImageSrc?: string;
 };
 
-const DEFAULT_HEADLINE = "Find out what your data is worth before you decide anything.";
+const DEFAULT_HEADLINE = "Find out what your data is worth";
 const DEFAULT_BUTTON_LABEL = "Value my data";
 const DEFAULT_HREF = "/value-my-data";
 const DEFAULT_TOP_BAND_CLASS_NAME = "bg-[#eaebf1]";
@@ -156,14 +156,10 @@ export function CtaSection({
                 </p>
                 <Link
                   href={href}
-                  className="group relative flex items-center overflow-hidden bg-[#141518] transition-transform duration-150 ease-snap active:scale-[0.97]"
-                  style={{ padding: `${cq(12)} ${cq(20)}` }}
+                  className="cta-type group relative flex w-[260px] max-w-full items-center justify-center overflow-hidden bg-[#141518] px-6 py-5 text-base text-white transition-transform duration-150 ease-snap active:scale-[0.97]"
                 >
                   <PrimaryButtonHover />
-                  <span
-                    className="relative font-serif leading-[0.8] tracking-wide text-white"
-                    style={{ fontSize: cq(12) }}
-                  >
+                  <span className="relative leading-[0.8]">
                     {buttonLabel}
                   </span>
                 </Link>

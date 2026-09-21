@@ -37,11 +37,6 @@ export function IndustriesSection() {
               dispatch logs, the project histories, the back-and-forth that
               produced the outcome.
             </p>
-            <p>
-              This isn&apos;t a fit if you&apos;ve been operating less than a
-              year, have fewer than five full-time people, or your work
-              isn&apos;t documented.
-            </p>
           </div>
         </div>
 
