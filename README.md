@@ -4,6 +4,8 @@ Next.js marketing site with Cloudflare Workers/Queues lead capture into Attio.
 
 See [the lead-capture runbook](docs/lead-capture.md) for setup, dev testing, security boundaries, and production rollout.
 
+See [branch previews](docs/previews.md) for private Cloudflare preview sites and GitHub Actions setup.
+
 Use Node.js 22.17 or newer and npm. For a fresh checkout:
 
 ```bash

@@ -24,6 +24,7 @@
     "staging:setup": "node scripts/setup-staging.mjs",
     "staging:build": "node scripts/build-staging.mjs",
     "staging:deploy": "node scripts/deploy-staging.mjs",
+    "preview:deploy": "node scripts/deploy-preview.mjs",
     "production:setup": "node scripts/setup-production.mjs",
     "production:build": "node scripts/build-production.mjs",
     "production:deploy": "node scripts/deploy-production.mjs",
