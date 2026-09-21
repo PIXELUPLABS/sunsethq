@@ -7,6 +7,12 @@ export type SiteEnv = IntakeEnv & {
 
 export async function handleSite(request: Request, env: SiteEnv) {
   const url = new URL(request.url);
+  // Only this staging Worker's HTTPS preview hosts may use same-origin intake.
+  // Copy bindings per request; never mutate the shared environment object.
+  if (env.APP_ENV === "development" && url.protocol === "https:" && !url.port &&
+      /^[a-z0-9][a-z0-9-]*-replay-marketing-staging\.replay-marketing-dev\.workers\.dev$/.test(url.hostname)) {
+    env = { ...env, SITE_ORIGIN: url.origin, ALLOWED_ORIGINS: url.origin };
+  }
   let response: Response;
   if (env.APP_ENV === "production") {
     const canonical = new URL(env.SITE_ORIGIN);

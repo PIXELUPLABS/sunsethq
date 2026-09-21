@@ -2,7 +2,7 @@
 
 URL: https://replay-marketing-staging.replay-marketing-dev.workers.dev
 
-Cloudflare Access permits verified `@sunsethq.com` addresses, using emailed login codes and a 24-hour session. The Worker-specific policy covers every URL, asset, and API route. Application ID: `8ca9c967-5515-4cf2-91c2-0e7e514e522d`. Preview URLs are disabled. The separately deployed [production site and CRM configuration](production.md) use isolated resources.
+Cloudflare Access permits verified `@sunsethq.com` addresses, using emailed login codes and a 24-hour session. The Worker-specific policy covers every URL, asset, API route, and [branch preview](previews.md). Application ID: `8ca9c967-5515-4cf2-91c2-0e7e514e522d`. Preview URLs are enabled behind the same Access policy. The separately deployed [production site and CRM configuration](production.md) use isolated resources.
 
 ## Deploy
 
