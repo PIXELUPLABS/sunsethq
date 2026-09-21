@@ -57,7 +57,7 @@ export function RoleDetailPage({ role }: RoleDetailPageProps) {
                 className="group relative flex h-13 w-[300px] max-w-full items-center justify-center overflow-hidden bg-[#141518] transition-transform duration-150 ease-snap active:scale-[0.97] lg:h-auto lg:w-auto lg:px-10 lg:py-6"
               >
                 <PrimaryButtonHover />
-                <span className="relative font-serif text-xs leading-[0.8] tracking-wide text-white uppercase lg:text-base">
+                <span className="cta-type relative text-xs leading-[0.8] text-white lg:text-base">
                   Apply
                 </span>
               </a>

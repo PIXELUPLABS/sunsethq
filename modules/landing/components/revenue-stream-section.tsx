@@ -51,10 +51,8 @@ export function RevenueStreamSection() {
               </h2>
               <div className="w-full text-base leading-[1.4] tracking-[-0.48px] text-[#727272] lg:w-[552px] lg:shrink-0">
                 <p className="mb-4">
-                  Raising a round costs a piece of your company. Debt has to be
-                  paid back no matter what. New customers take quarters you may
-                  not have. And when none of that works, you cut the team you
-                  spent years building.
+                  Raising a round costs equity. Debt has to be paid back.
+                  Getting more revenue might take quarters you don&apos;t have.
                 </p>
                 <p>
                   But there&apos;s one more thing you own. It costs you none of

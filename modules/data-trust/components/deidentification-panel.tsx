@@ -112,7 +112,7 @@ export function DeidentificationPanel() {
               </p>
               <Link
                 href="/value-my-data"
-                className="w-fit border border-white/25 px-4 py-2.5 font-serif text-xs leading-[0.8] text-white transition-colors duration-150 ease-snap hover:bg-white hover:text-black"
+                className="cta-type w-fit border border-white/25 px-4 py-2.5 text-xs leading-[0.8] text-white transition-colors duration-150 ease-snap hover:bg-white hover:text-black"
               >
                 Value my data
               </Link>

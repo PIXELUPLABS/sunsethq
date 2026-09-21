@@ -176,7 +176,7 @@ export function ValueMyDataForm() {
         <button
           type="submit"
           disabled={isSubmitting || !verification.canSubmit}
-          className="group relative mt-2 flex h-13 w-full items-center justify-center overflow-hidden bg-[#141518] font-serif text-sm tracking-wide text-white transition-transform duration-150 ease-snap active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
+          className="cta-type group relative mt-2 flex h-13 w-full items-center justify-center overflow-hidden bg-[#141518] text-sm text-white transition-transform duration-150 ease-snap active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
         >
           <PrimaryButtonHover />
           <span className="relative">{isSubmitting ? "Sending…" : verification.fallbackReason ? "Send for review" : "Value my data"}</span>

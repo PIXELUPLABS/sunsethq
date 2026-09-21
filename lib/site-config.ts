@@ -13,8 +13,7 @@ export const SITE_URL = configuredUrl ?? "http://localhost:3000";
 
 export const SITE_NAME = "Replay";
 
-export const SITE_TITLE =
-  "Replay - Fund growth by licensing the data you already have";
+export const SITE_TITLE = "Replay | Data as Growth Capital";
 
 export const SITE_DESCRIPTION =
   "Replay values your company's operating data, strips every name and identifier, and pays you to license it to frontier AI labs.";
