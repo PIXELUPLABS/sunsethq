@@ -20,10 +20,14 @@ Wrangler 4.135 can upload with a per-Worker token but fails when reading the acc
 
 ## Usage
 
-Push a branch or manually run **Cloudflare preview** in GitHub Actions on a non-`main` branch. Find the URL in the PR's **Cloudflare preview ready** comment, under the `preview` deployment, or in the job summary. The same bot comment updates after successful deployments at the PR's current commit. Opening or reopening a PR also posts the comment if its current commit already has a successful preview. That comment-only workflow runs without checking out PR code or accessing Cloudflare credentials.
+Push a branch or manually run **Cloudflare preview** in GitHub Actions on a non-`main` branch. Find the URL in the PR's **Cloudflare preview ready** comment, under the `preview` deployment, or in the job summary. The same bot comment updates after successful deployments at the PR's current commit. Opening a PR also posts the comment if its current commit already has a successful preview. That comment-only workflow runs without checking out PR code or accessing Cloudflare credentials.
 
 Sign in using the team's existing Access login. Signup tests create sandbox leads; the delivery Worker may send test notification emails for unverified submissions.
 
-Forks cannot deploy through this workflow. Runs for the same branch are serialized and are allowed to finish their Access checks. Different branches upload independent versions and aliases. Old version URLs remain available while retained by Cloudflare and remain protected by Access.
+Merging or closing a PR automatically deletes its branch's uploaded preview versions, including older commit previews. The bot comment changes to **Cloudflare preview removed**, and the branch's GitHub deployments are marked inactive. If another open PR uses the same branch, the preview stays available until the last PR closes. Reopening a PR builds a fresh preview. Pushes to a branch whose PRs are all closed run cleanup instead of recreating the site.
+
+Forks cannot deploy or clean up through this workflow. Deployment and cleanup for the same branch share one concurrency group. The upload script also checks live PR state before and after uploading so a PR closed during a build does not leave a preview behind. Cleanup selects only versions carrying the branch's exact alias and deployment annotations, and refuses to remove versions referenced by staging deployments.
+
+Cloudflare does not allow deletion of the newest stored Worker version. When necessary, cleanup first uploads an unaliased inert version returning HTTP 410, preserving the staging secret binding. This version is never deployed to staging and serves no site content. Cleanup then deletes the branch versions and verifies that the active staging deployment is unchanged. The existing Access policy remains in place, so removed preview URLs may still show the team login before Cloudflare reports that the site is gone.
 
 References: [Worker preview URLs](https://developers.cloudflare.com/workers/versions-and-deployments/preview-urls/), [GitHub Actions deployments](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/).

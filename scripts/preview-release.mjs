@@ -22,14 +22,28 @@ export function uploadedPreviewVersion(result, existingVersionIds) {
   return versionId;
 }
 
-export function validatePreviewRelease(site, context) {
+export function previewTarget(context, event = {}) {
   assert.equal(context.GITHUB_ACTIONS, "true", "Use the preview GitHub Actions workflow.");
   assert.equal(context.GITHUB_REPOSITORY, "SunsetsHQ/replay-marketing");
-  assert.ok(["push", "workflow_dispatch"].includes(context.GITHUB_EVENT_NAME));
-  assert.equal(context.GITHUB_REF_TYPE, "branch");
-  assert.equal(context.GITHUB_REF, `refs/heads/${context.GITHUB_REF_NAME}`);
-  assert.match(context.GITHUB_SHA ?? "", /^[a-f0-9]{40}$/);
-  assert.ok(context.CLOUDFLARE_API_TOKEN, "Missing preview environment deployment token.");
+  let branch, sha;
+  if (context.GITHUB_EVENT_NAME === "pull_request") {
+    assert.ok(["closed", "reopened"].includes(event.action));
+    assert.equal(event.pull_request?.head.repo?.full_name, context.GITHUB_REPOSITORY);
+    branch = event.pull_request.head.ref;
+    sha = event.pull_request.head.sha;
+  } else {
+    assert.ok(["push", "workflow_dispatch"].includes(context.GITHUB_EVENT_NAME));
+    assert.equal(context.GITHUB_REF_TYPE, "branch");
+    assert.equal(context.GITHUB_REF, `refs/heads/${context.GITHUB_REF_NAME}`);
+    branch = context.GITHUB_REF_NAME;
+    sha = context.GITHUB_SHA;
+  }
+  previewAlias(branch);
+  assert.match(sha ?? "", /^[a-f0-9]{40}$/);
+  return { branch, sha };
+}
+
+export function validatePreviewSite(site) {
   assert.equal(site.account_id, "c4f47127b63c426c98541372fa9b8b67");
   assert.equal(site.name, "replay-marketing-staging");
   assert.equal(site.vars.APP_ENV, "development");
@@ -43,5 +57,12 @@ export function validatePreviewRelease(site, context) {
   assert.equal(site.d1_databases[0].binding, "LEAD_DB");
   assert.equal(site.d1_databases[0].database_id, "ac3c1faa-c94f-4269-9a0a-ff69b5ac5a41");
   assert.ok(!site.services?.length && !site.dispatch_namespaces?.length);
-  return previewAlias(context.GITHUB_REF_NAME);
+}
+
+export function validatePreviewRelease(site, context, event = {}) {
+  const { branch } = previewTarget(context, event);
+  assert.notEqual(event.action, "closed", "Closed pull requests cannot deploy previews.");
+  assert.ok(context.CLOUDFLARE_API_TOKEN, "Missing preview environment deployment token.");
+  validatePreviewSite(site);
+  return previewAlias(branch);
 }

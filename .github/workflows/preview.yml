@@ -3,13 +3,15 @@ name: Cloudflare preview
 on:
   push:
     branches-ignore: [main]
+  pull_request:
+    types: [closed, reopened]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: cloudflare-preview-${{ github.ref }}
+  group: cloudflare-preview-refs/heads/${{ github.event.pull_request.head.ref || github.ref_name }}
   # An upload must finish its access checks before another run replaces it.
   cancel-in-progress: false
 
@@ -17,9 +19,40 @@ env:
   NEXT_TELEMETRY_DISABLED: "1"
 
 jobs:
+  lifecycle:
+    name: Check preview lifecycle
+    if: github.repository == 'SunsetsHQ/replay-marketing' && ((github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.event.pull_request.head.ref != 'main') || (github.event_name != 'pull_request' && github.ref_type == 'branch' && github.ref != 'refs/heads/main' && !github.event.deleted))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      mode: ${{ steps.state.outputs.mode }}
+      branch: ${{ steps.state.outputs.branch }}
+      sha: ${{ steps.state.outputs.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+      - id: state
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/resolve-preview.mjs
+
   preview:
     name: Deploy branch preview
-    if: github.repository == 'SunsetsHQ/replay-marketing' && github.ref_type == 'branch' && github.ref != 'refs/heads/main'
+    needs: lifecycle
+    if: needs.lifecycle.outputs.mode == 'deploy'
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      removed: ${{ steps.deploy.outputs.removed }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     environment:
@@ -28,6 +61,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: ${{ needs.lifecycle.outputs.sha }}
           persist-credentials: false
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -43,16 +77,46 @@ jobs:
       - name: Upload and verify preview
         id: deploy
         env:
+          GH_TOKEN: ${{ github.token }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: npm run preview:deploy
 
+  cleanup:
+    name: Remove closed preview
+    needs: lifecycle
+    if: needs.lifecycle.outputs.mode == 'cleanup'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pull-requests: read
+    environment: preview
+    outputs:
+      removed: ${{ steps.cleanup.outputs.removed }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.lifecycle.outputs.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+      - name: Delete this branch's preview versions
+        id: cleanup
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/cleanup-preview.mjs
+
   comment:
     name: Link preview in pull requests
-    needs: preview
+    needs: [lifecycle, preview, cleanup]
+    if: always() && (needs.preview.result == 'success' || (needs.cleanup.result == 'success' && needs.cleanup.outputs.removed == 'true'))
     permissions:
-      deployments: read
+      deployments: write
       pull-requests: write
     uses: ./.github/workflows/preview-comment.yml
     with:
-      branch: ${{ github.ref_name }}
-      sha: ${{ github.sha }}
+      branch: ${{ needs.lifecycle.outputs.branch }}
+      sha: ${{ needs.lifecycle.outputs.sha }}
+      removed: ${{ needs.preview.outputs.removed == 'true' || needs.cleanup.outputs.removed == 'true' }}
