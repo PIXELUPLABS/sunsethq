@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
-import { listPreviewVersions, previewVersionsToRemove, prunePreviewHistory, removePreview } from "../scripts/preview-cleanup.mjs";
+import { listPreviewVersions, previewVersionsToRemove, removePreview } from "../scripts/preview-cleanup.mjs";
 import { previewDisposition } from "../scripts/preview-lifecycle.mjs";
 import { previewAlias, previewTarget, validatePreviewRelease } from "../scripts/preview-release.mjs";
 
@@ -92,69 +92,4 @@ test("cleanup reads all version pages and detects ignored pagination", async () 
   assert.equal((await listPreviewVersions(cf, site)).length, 101);
   assert.match(paths[1], /page=2$/);
   await assert.rejects(listPreviewVersions(async () => first, site), /repeated a version-list page/);
-});
-
-type StoredVersion = { id: string; number: number; annotations: Record<string, string> };
-function pruningFixture(initial: StoredVersion[], protectedId = id(99), failDelete = false) {
-  let versions = structuredClone(initial);
-  const deleted: string[] = [];
-  const cf = async (path: string, method = "GET") => {
-    if (path.endsWith("/deployments")) return { deployments: [{ versions: [{ version_id: protectedId }] }] };
-    if (method === "DELETE") {
-      assert.ok(path.includes("/workers/workers/replay-marketing-staging/versions/"));
-      if (failDelete) throw new Error("Cloudflare deletion failed");
-      const deleting = path.split("/").at(-1)!;
-      assert.notEqual(deleting, versions.reduce((a, b) => a.number > b.number ? a : b).id);
-      deleted.push(deleting);
-      versions = versions.filter(item => item.id !== deleting);
-      return undefined;
-    }
-    assert.equal(method, "GET", "Pruning must not upload or change routing");
-    assert.match(path, /versions\?per_page=100&page=1$/);
-    return structuredClone(versions);
-  };
-  return { cf, deleted, remaining: () => versions.map(item => item.id) };
-}
-
-test("successful uploads retain only the verified branch version, including after reopening", async () => {
-  const removed = { ...version(2), annotations: {
-    "workers/alias": previewAlias(branch), "workers/tag": "preview-removed", "workers/message": `Closed preview ${branch}`,
-  } };
-  const fixture = pruningFixture([
-    version(5, "codex/other"), version(4), version(3), removed, version(1),
-    { id: id(99), number: 0, annotations: {} },
-  ]);
-  assert.equal(await prunePreviewHistory(fixture.cf, site, branch, id(4), sha), 3);
-  assert.deepEqual(fixture.deleted, [id(3), id(2), id(1)]);
-  assert.deepEqual(fixture.remaining(), [id(5), id(4), id(99)]);
-  assert.equal(await prunePreviewHistory(fixture.cf, site, branch, id(4), sha), 0);
-  assert.equal(fixture.deleted.length, 3);
-});
-
-test("pruning refuses missing, mismatched, superseded, unowned, or deployed versions before deletion", async () => {
-  const unowned = version(1);
-  unowned.annotations["workers/message"] = "Unrelated upload";
-  const scenarios = [
-    { versions: [version(1)], keep: id(2), expected: /missing/ },
-    { versions: [version(2), version(1)], keep: id(2), sha: "b".repeat(40), expected: /commit changed/ },
-    { versions: [version(3), version(2), version(1)], keep: id(2), expected: /newer branch preview/ },
-    { versions: [version(2), unowned], keep: id(2), expected: /unmanaged/ },
-    { versions: [version(2), version(1)], keep: id(2), protectedId: id(1), expected: /staging deployments/ },
-  ];
-  for (const scenario of scenarios) {
-    const fixture = pruningFixture(scenario.versions, scenario.protectedId);
-    await assert.rejects(prunePreviewHistory(fixture.cf, site, branch, scenario.keep, scenario.sha ?? sha), scenario.expected);
-    assert.deepEqual(fixture.deleted, []);
-  }
-  const fixture = pruningFixture([version(2), version(1)]);
-  const production = JSON.parse(readFileSync("workers/site/wrangler.production.json", "utf8"));
-  await assert.rejects(prunePreviewHistory(fixture.cf, production, branch, id(2), sha));
-  await assert.rejects(prunePreviewHistory(fixture.cf, site, "main", id(2), sha));
-  assert.deepEqual(fixture.deleted, []);
-});
-
-test("failed history deletion fails the run while retaining the verified preview", async () => {
-  const fixture = pruningFixture([version(2), version(1)], id(99), true);
-  await assert.rejects(prunePreviewHistory(fixture.cf, site, branch, id(2), sha), /Cloudflare deletion failed/);
-  assert.deepEqual(fixture.remaining(), [id(2), id(1)]);
 });

@@ -4,7 +4,7 @@ import { appendFile, readFile } from "node:fs/promises";
 import { cloudflareClient } from "./cloudflare-client.mjs";
 import { uploadedPreviewVersion, validatePreviewRelease } from "./preview-release.mjs";
 import { checkStagingGate } from "./staging-gate.mjs";
-import { prunePreviewHistory, removePreview } from "./preview-cleanup.mjs";
+import { removePreview } from "./preview-cleanup.mjs";
 import { previewRemoved, previewState } from "./preview-lifecycle.mjs";
 
 const configPath = "workers/site/wrangler.json";
@@ -59,8 +59,7 @@ if ((await previewState()).mode === "cleanup") {
   await previewRemoved();
   process.exit(0);
 }
-const pruned = await prunePreviewHistory(cf, site, state.branch, versionId, state.sha);
 if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `url=${origin}\n`);
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY,
-  `Preview: [Open site](${origin})\n\nCommit: \`${state.sha}\`\n\nRemoved ${pruned} older preview versions for this branch.\n\nSign in with your @sunsethq.com email. Forms use the development CRM.\n`);
+  `Preview: [Open site](${origin})\n\nCommit: \`${state.sha}\`\n\nSign in with your @sunsethq.com email. Forms use the development CRM.\n`);
 console.log(`Preview ready: ${origin}`);
