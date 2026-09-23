@@ -16,8 +16,8 @@ test("static pages, assets, and missing pages retain status and receive staging/
         const [name, ...sources] = directive.trim().split(/\s+/);
         return [name, sources] as const;
       }));
-      assert.deepEqual(directives.get("frame-src"), ["https://challenges.cloudflare.com"]);
-      assert.deepEqual(directives.get("script-src"), ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com"]);
+      assert.deepEqual(directives.get("frame-src"), ["https://challenges.cloudflare.com", "https://replaydata.cal.com"]);
+      assert.deepEqual(directives.get("script-src"), ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com", "https://app.cal.com/embed/embed.js"]);
     }
     assert.equal(response.headers.get("Strict-Transport-Security"), null);
   }

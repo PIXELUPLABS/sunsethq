@@ -2,6 +2,7 @@ import type { Queue, RateLimit } from "@cloudflare/workers-types";
 import { parseSubmission, type LeadMessage } from "../../modules/lead-capture/lib/lead-schema";
 import { enqueueSavedLead, persistLead, SubmissionConflict, leadHealth, type LedgerEnv } from "../../modules/lead-capture/lib/lead-ledger";
 import type { LeadVerification } from "../../modules/lead-capture/lib/verification";
+import { getLeadBookingUrl } from "../../modules/lead-capture/lib/booking-qualification";
 
 export type IntakeEnv = LedgerEnv & {
   LEADS: Queue<LeadMessage>;
@@ -12,6 +13,7 @@ export type IntakeEnv = LedgerEnv & {
   ALLOWED_ORIGINS: string;
   SITE_ORIGIN: string;
   APP_ENV: "local" | "development" | "production";
+  CAL_BOOKING_URL?: string;
 };
 const MAX_BODY_BYTES = 8192;
 const TEST_SECRET = "1x0000000000000000000000000000000AA";
@@ -114,7 +116,10 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
     }
     const verificationStatus = saved.message.verification?.status ?? "unknown";
     console.info(JSON.stringify({ event: "lead_accepted", submissionId, verification: verificationStatus }));
-    return reply(202, { accepted: true, submissionId, verification: verificationStatus });
+    return reply(202, {
+      accepted: true, submissionId, verification: verificationStatus,
+      bookingUrl: getLeadBookingUrl(saved.message, env.CAL_BOOKING_URL),
+    });
   } catch (error) {
     if (error instanceof SubmissionConflict) return reply(409, { error: "Please reload the form before submitting different answers." });
     console.error(JSON.stringify({ event: "lead_intake_failed" }));

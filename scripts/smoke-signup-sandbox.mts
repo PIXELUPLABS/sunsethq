@@ -30,7 +30,7 @@ const payload = {
 async function submit() {
   const response = await fetch(endpoint, { method: "POST", headers: { Origin: intake.vars.SITE_ORIGIN, "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: AbortSignal.timeout(20_000) });
   assert.equal(response.status, 202, `Hosted intake returned ${response.status}; resume using the printed receipt ID`);
-  assert.deepEqual(await response.json(), { accepted: true, submissionId, verification: "unverified" });
+  assert.deepEqual(await response.json(), { accepted: true, submissionId, verification: "unverified", bookingUrl: null });
 }
 await submit();
 const queryPath = `accounts/${config.account_id}/d1/database/${sandbox.d1_databases[0].database_id}/query`;

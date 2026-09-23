@@ -13,7 +13,8 @@ import { reconcileLeads } from "../../modules/lead-capture/lib/lead-ledger";
 import type { LeadMessage } from "../../modules/lead-capture/lib/lead-schema";
 
 async function main() {
-  const origin = "http://127.0.0.1:3100";
+  const port = Number(process.env.REPLAY_BROWSER_TEST_PORT ?? 3100);
+  const origin = `http://127.0.0.1:${port}`;
   const directory = await mkdtemp(resolve(tmpdir(), "replay-browser-"));
   const { db, sqlite } = testDatabase(undefined, resolve(directory, "ledger.sqlite"));
   const entries = new Map<string, { id: { entry_id: string }; entry_values: Record<string, unknown> }>();
@@ -86,7 +87,9 @@ async function main() {
         if (control.reset) {
           sqlite.exec("DELETE FROM lead_submissions; DELETE FROM lead_monitor;");
           entries.clear(); queued = []; alerts = 0; writes = 0; retryDelays = [];
+          env.CAL_BOOKING_URL = undefined;
         }
+        if (typeof control.calendar === "boolean") env.CAL_BOOKING_URL = control.calendar ? "https://replaydata.cal.com/sales/browser-test" : undefined;
         mode = control.mode ?? "ok";
         // Advance only the local reconciler's time; never touch hosted state.
         if (control.recover) await reconcileLeads(env, Date.now() + 360_000);
@@ -111,7 +114,7 @@ async function main() {
       res.end(content);
     } catch { res.writeHead(500); res.end("Local test harness failed"); }
   });
-  server.listen(3100, "127.0.0.1");
+  server.listen(port, "127.0.0.1");
   for (const signal of ["SIGTERM", "SIGINT"] as const) process.on(signal, () => {
     server.close(); sqlite.close(); void rm(directory, { recursive: true, force: true }).then(() => process.exit());
   });

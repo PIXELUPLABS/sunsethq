@@ -20,14 +20,17 @@ Both desktop Chromium and mobile Pixel 7 emulation test the production static ex
 - Lost CRM write responses reconcile to one entry, and replay after delivery creates no additional inquiry.
 - Queue-send loss preserves a pending receipt; scheduled reconciliation and transient CRM retry eventually deliver it.
 - Explicit verification rejection creates no receipt and permits a corrected retry.
+- Qualified submissions (10+ people and at least 80% English, including businesses under two years old) load the installed Cal embed client with the submitted email and a simulated event. Nonqualifying and unverified submissions never load Cal. A blocked Cal script leaves a direct booking link and does not prevent CRM delivery.
 
 ## What CI verifies and simulates
 
 The browser uses the shipped React form. `/api/leads` invokes the actual `handleIntake`, migrations and ledger SQL run against a temporary **file-backed SQLite database through the test D1 adapter**, and queue draining invokes the actual `handleDelivery` and `deliverToAttio`. Tests inspect pending/delivered receipts, retry delays, entry IDs, mapped CRM fields, alert count, and unique writes. Browser interception drops selected responses; it does not substitute a fake success endpoint.
 
-Turnstile's script/siteverify response, Attio HTTP responses, queue transport/timing, rate-limit counters, and email delivery are simulated. The harness advances local recovery time and controls CRM failures. This is **not a real Attio integration test**, a Cloudflare runtime/D1 compatibility test, real device testing, or proof of live Turnstile behavior. Existing Worker unit tests remain responsible for rate-limit, origin, terminal-failure, and notification boundary cases.
+Turnstile's script/siteverify response, Cal's remote event page, Attio HTTP responses, queue transport/timing, rate-limit counters, and email delivery are simulated. The Cal client script is served from the installed package. The harness advances local recovery time and controls CRM failures. This is **not a real Attio integration test**, a live Cal booking test, a Cloudflare runtime/D1 compatibility test, real device testing, or proof of live Turnstile behavior. Existing Worker unit tests remain responsible for rate-limit, origin, terminal-failure, and notification boundary cases.
 
 All fake credentials, dependency injection, fault controls, and state endpoints are confined to `tests/browser/`. No production module, Worker config, shared credential, or Access policy changes. The harness loads no `.env` and makes no external CRM/verification calls. The ordinary build uses the existing public test key. Never deploy that test export as the production release.
+
+To preview the exported form locally while the browser gate runs on port 3100, use `REPLAY_BROWSER_TEST_PORT=3200 npx tsx tests/browser/server.ts` and open `http://127.0.0.1:3200/value-my-data`. The preview uses the isolated local ledger and simulated CRM. Calendar booking is unconfigured by default.
 
 ## Separately labelled hosted sandbox smoke
 
@@ -49,10 +52,10 @@ Verified September 18, 2026:
 ## Checks for this change
 
 - `npm run lint`
-- `npm run check` — 64 existing tests and TypeScript
+- `npm run check` — 72 tests and TypeScript
 - `npm run typecheck`
 - `npm run ci:build` — production export, 19-page metadata/assets/secret scan
-- `npm run test:browser` — 14 cases across desktop/mobile
+- `npm run test:browser` — 22 cases across desktop/mobile
 - Hosted sandbox smoke command above
 
-No product behavior changed. Live Turnstile/browser coverage remains a manual release check; secret-free CI deliberately uses deterministic provider responses.
+Live Turnstile and Cal booking coverage remain manual release checks; secret-free CI deliberately uses deterministic provider responses.

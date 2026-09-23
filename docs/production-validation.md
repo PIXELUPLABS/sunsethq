@@ -1,5 +1,19 @@
 # Initial production validation
 
+## Production field audit — September 23, 2026
+
+A read-only comparison of the production D1 ledger and the live Sunset Attio workspace found:
+
+- All five existing production submissions were delivered, with no pending or failed receipts. Public pipeline health was healthy and the failed queue count was zero.
+- Every submission had exactly one entry in **Replay Website Leads**, matching its durable receipt's company name, submitted work email, years of operation, business size, and English communication share. Source URL, environment, and campaign attribution also matched.
+- The most recent submission was received at `2026-09-23T14:48:07.388Z` and delivered in approximately seven seconds.
+- The initial launch test predates verification fields and has no matching verification label. The subsequent four receipts' verification fields matched.
+- None of these five submissions had an associated person or matching company name in the 395 records returned by the [Data Deals view](https://app.attio.com/sunset/custom/data_deals/view/71f0288a-5e26-4889-aed1-7a18989374b1). The integration writes People and Website Leads entries, not Data Deals. The Data Deals object does not contain the website form's namespaced fields.
+
+No synthetic submission, CRM write, or deployment was performed for this audit. Calendar qualification changes in the working tree were not live at audit time.
+
+## Original launch verification
+
 Historical launch verification on September 18, 2026, at approximately 16:31 UTC. This records the initial production deployment; later releases must repeat relevant checks.
 
 - Site: https://www.replay.ai
