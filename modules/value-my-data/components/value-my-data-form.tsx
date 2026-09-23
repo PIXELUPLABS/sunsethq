@@ -27,7 +27,7 @@ export function ValueMyDataForm() {
   if (isSubmitted) {
     return (
       <div ref={resultRef} tabIndex={-1} className="scroll-mt-28 outline-none">
-        {booking ? <BookingResult bookingUrl={booking.url} email={booking.email} /> : <ThankYouResult />}
+        {booking ? <BookingResult bookingUrl={booking.url} email={booking.email} submissionId={booking.submissionId} /> : <ThankYouResult />}
       </div>
     );
   }

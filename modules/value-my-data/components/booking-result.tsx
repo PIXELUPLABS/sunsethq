@@ -19,7 +19,7 @@ const CalBooking = dynamic(
 );
 
 /** Keeps the accepted result and direct link available independently of the calendar chunk. */
-export function BookingResult({ bookingUrl, email }: { bookingUrl: string; email: string }) {
+export function BookingResult({ bookingUrl, email, submissionId }: { bookingUrl: string; email: string; submissionId?: string }) {
   return (
     <section aria-labelledby="booking-title" className="relative min-w-0 bg-white px-3 py-8 shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)] sm:px-6 sm:pt-12">
       <div className="px-3 text-center">
@@ -28,9 +28,9 @@ export function BookingResult({ bookingUrl, email }: { bookingUrl: string; email
           Thanks for sharing. Choose a time to explore what your data could be worth with our team.
         </p>
       </div>
-      <CalBooking bookingUrl={bookingUrl} email={email} />
+      <CalBooking bookingUrl={bookingUrl} email={email} submissionId={submissionId} />
       <p className="mt-4 px-3 text-center text-sm text-[#727272]">
-        <a href={getCalBookingConfig(bookingUrl, email).bookingUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition-colors hover:text-black">
+        <a href={getCalBookingConfig(bookingUrl, email, submissionId).bookingUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 transition-colors hover:text-black">
           Open calendar in a new tab
         </a>
       </p>

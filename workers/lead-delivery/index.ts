@@ -5,8 +5,10 @@ import { persistLead, recordAttempt, recordDelivered, recordFailure, reconcileLe
 import type { Queue } from "@cloudflare/workers-types";
 import { notifyUnverifiedLead, type NotificationEnv } from "../../modules/lead-capture/lib/unverified-notification";
 import { enqueueFailedLead, reconcileFailedLeads, recordTerminalFailure } from "../../modules/lead-capture/lib/failed-leads";
+import { reconcileDataDeals, saveIneligibleDeal } from "../../modules/lead-capture/lib/data-deal-ledger";
+import type { DataDealConfig } from "../../modules/lead-capture/lib/data-deal-client";
 
-export type DeliveryEnv = AttioConfig & LedgerEnv & NotificationEnv & { APP_ENV: "local" | "development" | "production"; LEADS: Queue<LeadMessage>; FAILED_LEADS: Queue<LeadMessage> };
+export type DeliveryEnv = AttioConfig & DataDealConfig & LedgerEnv & NotificationEnv & { APP_ENV: "local" | "development" | "production"; LEADS: Queue<LeadMessage>; FAILED_LEADS: Queue<LeadMessage> };
 
 export async function handleDelivery(batch: MessageBatch<LeadMessage>, env: DeliveryEnv, deliver = deliverToAttio) {
   for (const message of batch.messages) {
@@ -22,6 +24,7 @@ export async function handleDelivery(batch: MessageBatch<LeadMessage>, env: Deli
       await recordAttempt(env, message.body.submissionId);
       await notifyUnverifiedLead(saved.message, env);
       const result = await deliver(saved.message, env);
+      await saveIneligibleDeal(env, saved.message);
       await recordDelivered(env, message.body.submissionId, result.entryId);
       console.info(JSON.stringify({ event: "lead_delivered", submissionId: message.body.submissionId, ...result }));
       message.ack();
@@ -60,6 +63,11 @@ export async function handleScheduled(env: DeliveryEnv, fetcher: typeof fetch = 
   }
   let dependencyOk = false;
   let failedCount = 0;
+  try { await reconcileDataDeals(env, fetcher); }
+  catch {
+    reconciliationOk = false;
+    console.error(JSON.stringify({ event: "data_deal_reconciliation_failed" }));
+  }
   try {
     const attio = attioClient(env.ATTIO_API_KEY, fetcher);
     const identity = await attio<{ workspace_id: string }>("self");

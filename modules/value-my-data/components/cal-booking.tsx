@@ -4,8 +4,8 @@ import Cal from "@calcom/embed-react";
 import { useCalBooking } from "../hooks/use-cal-booking";
 import { CAL_EMBED_NAMESPACE, CAL_EMBED_SCRIPT_URL } from "../lib/cal-booking";
 
-export function CalBooking({ bookingUrl, email }: { bookingUrl: string; email: string }) {
-  const booking = useCalBooking(bookingUrl, email);
+export function CalBooking({ bookingUrl, email, submissionId }: { bookingUrl: string; email: string; submissionId?: string }) {
+  const booking = useCalBooking(bookingUrl, email, submissionId);
 
   return (
     <>

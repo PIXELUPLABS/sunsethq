@@ -2,6 +2,8 @@
 
 `/value-my-data` uses Cloudflare Workers, a durable D1 submission ledger, and a Queue. Website rendering and accepted submissions are independent of CRM availability. See [staging and native monitoring](staging.md).
 
+Production also creates Data Deals for confirmed Cal bookings (**Booked**) and verified nonqualifying forms (**Not eligible - Replay form**). See [Cal → Attio setup, hidden references, and recovery](cal-attio-data-deals.md).
+
 ```mermaid
 flowchart LR
   Form[Website form] --> Intake[Public /api/leads Worker]
