@@ -21,6 +21,7 @@ Both desktop Chromium and mobile Pixel 7 emulation test the production static ex
 - Queue-send loss preserves a pending receipt; scheduled reconciliation and transient CRM retry eventually deliver it.
 - Explicit verification rejection creates no receipt and permits a corrected retry.
 - Qualified submissions (10+ people and at least 80% English, including businesses under two years old) load the installed Cal embed client with the submitted email and a simulated event. Nonqualifying and unverified submissions never load Cal. A blocked Cal script leaves a direct booking link and does not prevent CRM delivery.
+- A delayed or failed calendar component download leaves the accepted result and email-prefilled booking link available. A rejected import shows a fallback message without crashing the page or interrupting CRM delivery.
 
 ## What CI verifies and simulates
 

@@ -1,19 +1,17 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { PrimaryButtonHover } from "@/components/ui/primary-button-hover";
 import { ChevronDownIcon } from "@/components/ui/icons";
 import { useValueMyDataForm } from "../hooks/use-value-my-data-form";
 import { FormVerification } from "./form-verification";
+import { BookingResult } from "./booking-result";
+import { FormGrainTexture, FormGuideLine } from "./form-decoration";
+import { ThankYouResult } from "./thank-you-result";
 import {
   BUSINESS_SIZE_OPTIONS,
   ENGLISH_SHARE_OPTIONS,
   YEARS_OF_OPERATION_OPTIONS,
 } from "../lib/constants";
-
-const CalBooking = dynamic(() => import("./cal-booking").then((module) => module.CalBooking), {
-  loading: () => <div role="status" className="relative flex min-h-[680px] items-center justify-center bg-white p-8 text-sm text-[#727272]">Loading available times…</div>,
-});
 
 const INPUT_CLASS =
   "h-12 w-full border border-[#d4d4d4] bg-transparent px-5 text-[15px] text-black transition-colors duration-150 ease-snap placeholder:text-[#a8a8a8] focus:border-black focus:outline-none";
@@ -23,43 +21,13 @@ const LABEL_CLASS = "text-sm text-[#727272]";
 const CARD_CLASS =
   "relative overflow-hidden bg-white px-6 py-8 shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)] sm:pt-16 sm:pr-8 sm:pb-[100px] sm:pl-[88px]";
 
-function FormGuideLine() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute top-0 bottom-0 left-10 hidden border-l border-dashed border-black/20 sm:block"
-    />
-  );
-}
-
-const CARD_GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
-
-function FormGrainTexture() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-multiply"
-      style={{ backgroundImage: `url(${CARD_GRAIN_TEXTURE})`, backgroundSize: "296px 296px" }}
-    />
-  );
-}
-
 export function ValueMyDataForm() {
   const { isSubmitted, booking, isSubmitting, handleSubmit, formRef, resultRef, verification, error } = useValueMyDataForm();
 
   if (isSubmitted) {
     return (
       <div ref={resultRef} tabIndex={-1} className="scroll-mt-28 outline-none">
-        {booking ? <CalBooking bookingUrl={booking.url} email={booking.email} /> : (
-          <div role="status" className="relative flex min-h-[420px] flex-col items-center justify-center gap-3 overflow-hidden bg-white p-10 text-center shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)]">
-            <FormGrainTexture />
-            <FormGuideLine />
-            <p className="relative font-serif text-2xl text-black">Thank you for your interest.</p>
-            <p className="relative max-w-[360px] text-sm leading-[1.5] text-[#727272]">
-              We&rsquo;ll reach out if it&rsquo;s a fit.
-            </p>
-          </div>
-        )}
+        {booking ? <BookingResult bookingUrl={booking.url} email={booking.email} /> : <ThankYouResult />}
       </div>
     );
   }

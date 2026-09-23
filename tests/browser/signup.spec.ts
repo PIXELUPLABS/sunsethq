@@ -211,6 +211,46 @@ for (const answers of [
   });
 }
 
+test("a missing calendar component chunk preserves the booking link while loading and after failure", async ({ page, request }) => {
+  await control(request, { calendar: true });
+  const calRequests = await calendar(page);
+  await open(page);
+  await fill(page);
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.message));
+  let chunkRequests = 0;
+  let releaseChunk = () => {};
+  const chunkGate = new Promise<void>(resolve => { releaseChunk = resolve; });
+  // Block only on-demand JS after the form has hydrated, leaving intake reachable.
+  await page.route("**/_next/static/chunks/*.js", async route => {
+    chunkRequests++;
+    await chunkGate;
+    await route.abort("failed");
+  });
+  const link = page.getByRole("link", { name: "Open calendar in a new tab" });
+  try {
+    await submitButton(page).click();
+    await expect.poll(() => chunkRequests).toBeGreaterThan(0);
+    await expect(page.getByRole("status").filter({ hasText: "Loading available times…" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Let’s talk about your data." })).toBeVisible();
+    await expect(link).toHaveAttribute("href", "https://replaydata.cal.com/sales/browser-test?email=browser-test%40example.com");
+    await expect(link).toBeVisible();
+  } finally {
+    releaseChunk();
+  }
+  await expect(page.getByRole("status").filter({ hasText: "Calendar couldn’t load." })).toBeVisible();
+  await expect(link).toBeVisible();
+  await expect(page.locator("iframe.cal-embed")).toHaveCount(0);
+  expect(calRequests()).toBe(0);
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(key => sessionStorage.getItem(key), pendingKey)).toBeNull();
+  await control(request, { drain: true });
+  const saved = await state(request);
+  expect(saved.rows).toHaveLength(1);
+  expect(saved.rows[0].status).toBe("delivered");
+  expect(saved.entries).toHaveLength(1);
+});
+
 test("a blocked calendar preserves the accepted lead and offers a direct booking link", async ({ page, request }) => {
   await control(request, { calendar: true });
   await calendar(page, true);

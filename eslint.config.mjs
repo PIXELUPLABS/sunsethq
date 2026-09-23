@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "out-production/**",
     "build/**",
+    "storybook-static/**",
     "next-env.d.ts",
     "**/.wrangler/**",
   ]),
