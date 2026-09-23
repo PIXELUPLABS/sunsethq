@@ -30,7 +30,7 @@ Turnstile's script/siteverify response, Cal's remote event page, Attio HTTP resp
 
 All fake credentials, dependency injection, fault controls, and state endpoints are confined to `tests/browser/`. No production module, Worker config, shared credential, or Access policy changes. The harness loads no `.env` and makes no external CRM/verification calls. The ordinary build uses the existing public test key. Never deploy that test export as the production release.
 
-To preview the exported form locally while the browser gate runs on port 3100, use `REPLAY_BROWSER_TEST_PORT=3200 npx tsx tests/browser/server.ts` and open `http://127.0.0.1:3200/value-my-data`. The preview uses the isolated local ledger and simulated CRM. Calendar booking is unconfigured by default.
+To preview the exported form locally while the browser gate runs on port 3100, use `REPLAY_BROWSER_TEST_PORT=3200 npx tsx tests/browser/server.ts` and open `http://127.0.0.1:3200/value-my-data`. The preview uses the isolated local ledger and simulated CRM. Calendar booking is unconfigured by default; explicitly set `REPLAY_PREVIEW_CAL_URL` to an existing public Replay Cal event to preview live availability. This only configures the local harness; production still requires `CAL_BOOKING_URL` in the site/intake Worker. Do not complete a live booking during a preview unless that booking is intended.
 
 ## Separately labelled hosted sandbox smoke
 
