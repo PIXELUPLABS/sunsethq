@@ -6,7 +6,7 @@ import { runProductionRelease, validateProductionRelease } from "../scripts/prod
 const site = JSON.parse(readFileSync("workers/site/wrangler.production.json", "utf8"));
 const delivery = JSON.parse(readFileSync("workers/lead-delivery/wrangler.json", "utf8"));
 const context = { GITHUB_ACTIONS: "true", GITHUB_REF: "refs/heads/main", GITHUB_EVENT_NAME: "push",
-  GITHUB_REPOSITORY: "SunsetsHQ/replay-marketing", GITHUB_SHA: "a".repeat(40), CLOUDFLARE_API_TOKEN: "test-token" };
+  GITHUB_REPOSITORY: "SunsetsHQ/replay-marketing", GITHUB_SHA: "a".repeat(40), CLOUDFLARE_API_TOKEN: "test-token", SIGNUP_PROBE_SECRET: "probe-test-only-".repeat(3) };
 
 function setup() {
   const commands: { script: string; args: string[] }[] = [];
@@ -14,6 +14,7 @@ function setup() {
     failMigration: false, failBuild: false, versionTag: context.GITHUB_SHA, waits: 0 };
   const cf = async (path: string) => {
     if (path.endsWith("/secrets")) return state.missingSecret ? [] : [
+      { type: "secret_text", name: "SIGNUP_PROBE_SECRET" },
       { type: "secret_text", name: path.includes("replay-marketing") ? "TURNSTILE_SECRET_KEY" : "ATTIO_API_KEY" },
     ];
     if (path.endsWith("/query")) return [{ results: [{ last_reconciled_at: state.heartbeat, dependency_ok: state.dependencyOk, failed_queue_count: state.backlog }] }];
@@ -33,7 +34,7 @@ function setup() {
 test("production deploy refuses PRs, non-main refs, foreign repositories, missing credentials, and sandbox resources", () => {
   for (const change of [{ GITHUB_ACTIONS: "false" }, { GITHUB_REF: "refs/pull/1/merge" },
     { GITHUB_REF: "refs/heads/staging" }, { GITHUB_EVENT_NAME: "pull_request_target" },
-    { GITHUB_REPOSITORY: "other/repository" }, { CLOUDFLARE_API_TOKEN: "" }, { GITHUB_SHA: "main" }]) {
+    { GITHUB_REPOSITORY: "other/repository" }, { CLOUDFLARE_API_TOKEN: "" }, { SIGNUP_PROBE_SECRET: "" }, { GITHUB_SHA: "main" }]) {
     assert.throws(() => validateProductionRelease(site, delivery, { ...context, ...change }));
   }
   const wrongSite = structuredClone(site);
@@ -52,6 +53,7 @@ test("deployment builds before migrations, then deploys consumer before the webs
     ["node_modules/wrangler/bin/wrangler.js", "d1"],
     ["node_modules/wrangler/bin/wrangler.js", "deploy"],
     ["node_modules/wrangler/bin/wrangler.js", "deploy"],
+    ["scripts/probe-signup.mjs", undefined],
     ["scripts/verify-production.mjs", undefined],
   ]);
   assert.ok(s.commands[2].args.includes("workers/lead-delivery/wrangler.json"));

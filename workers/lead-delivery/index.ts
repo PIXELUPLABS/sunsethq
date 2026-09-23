@@ -50,6 +50,11 @@ export async function handleDelivery(batch: MessageBatch<LeadMessage>, env: Deli
 }
 
 export async function handleScheduled(env: DeliveryEnv, fetcher: typeof fetch = fetch) {
+  // Operational signals contain no form data and need only short retention.
+  try {
+    await env.LEAD_DB.prepare("DELETE FROM signup_signals WHERE environment = ? AND created_at < ?")
+      .bind(env.APP_ENV, Date.now() - 86400_000).run();
+  } catch { console.error(JSON.stringify({ event: "signup_signal_cleanup_failed" })); }
   let reconciliationOk = true;
   for (const [phase, reconcile] of [["pending", reconcileLeads], ["failed", reconcileFailedLeads]] as const) {
     try { await reconcile(env); }

@@ -1,10 +1,11 @@
+import { isSignupProbe, PROBE_HEADER, recordSignupProbe, recordSignupSignal, type SignupMonitorEnv } from "../../modules/lead-capture/lib/signup-monitor";
 import type { Queue, RateLimit } from "@cloudflare/workers-types";
 import { parseSubmission, type LeadMessage } from "../../modules/lead-capture/lib/lead-schema";
 import { enqueueSavedLead, persistLead, SubmissionConflict, leadHealth, type LedgerEnv } from "../../modules/lead-capture/lib/lead-ledger";
 import type { LeadVerification } from "../../modules/lead-capture/lib/verification";
 import { getLeadBookingUrl } from "../../modules/lead-capture/lib/booking-qualification";
 
-export type IntakeEnv = LedgerEnv & {
+export type IntakeEnv = LedgerEnv & SignupMonitorEnv & {
   LEADS: Queue<LeadMessage>;
   LEAD_RATE_LIMITER: RateLimit;
   UNVERIFIED_RATE_LIMITER?: RateLimit;
@@ -48,7 +49,13 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
   const allowed = env.ALLOWED_ORIGINS?.split(",").map((item) => item.trim()) ?? [];
   const headers: Record<string, string> = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", Vary: "Origin" };
   if (origin && allowed.includes(origin)) headers["Access-Control-Allow-Origin"] = origin;
-  const reply = (status: number, data: unknown) => Response.json(data, { status, headers });
+  const reply = async (status: number, data: unknown) => {
+    if (status === 503) {
+      try { await recordSignupSignal(env, "intake_unavailable"); }
+      catch { console.error(JSON.stringify({ event: "signup_signal_failed" })); }
+    }
+    return Response.json(data, { status, headers });
+  };
   if (new URL(request.url).pathname !== "/api/leads") return reply(404, { error: "Not found." });
   if (!origin || !allowed.includes(origin)) return reply(403, { error: "Submission origin is not allowed." });
   if (request.method === "OPTIONS") {
@@ -62,6 +69,8 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
     return reply(503, { error: "Submissions are temporarily unavailable. Please try again shortly." });
   }
   try {
+    const probe = request.headers.has(PROBE_HEADER);
+    if (probe && !await isSignupProbe(request, env)) return reply(401, { error: "Invalid probe credential." });
     const ip = request.headers.get("cf-connecting-ip") ?? (isLocal ? "local" : null);
     if (!ip) return reply(403, { error: "Unable to verify this request." });
     const { success } = await env.LEAD_RATE_LIMITER.limit({ key: ip });
@@ -86,12 +95,24 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
       } catch { /* A provider outage can be accepted for manual review below. */ }
       const usesLocalTestKey = isLocal && env.TURNSTILE_SECRET_KEY === TEST_SECRET;
       if (result && (!result.success || (!usesLocalTestKey && (result.hostname !== new URL(origin).hostname || result.action !== "lead_capture")))) {
+        try { await recordSignupSignal(env, "verification_rejected", submission.submissionId); }
+        catch { console.error(JSON.stringify({ event: "signup_signal_failed" })); }
         return reply(400, { error: "Please complete the verification and try again." });
       }
       leadVerification = result ? { status: "verified" } : { status: "unverified", reason: "service_unavailable" };
     } else {
       // This is a client-reported failure, never proof that a visitor is human.
       leadVerification = { status: "unverified", reason: submission.verificationFallback! };
+    }
+    if (probe) {
+      if (leadVerification.status !== "verified") {
+        await recordSignupProbe(env, false);
+        return reply(503, { error: "Probe verification failed." });
+      }
+      // Exercise validation and real siteverify, but do not create a lead,
+      // send email, offer a calendar, or enqueue a synthetic CRM write.
+      await recordSignupProbe(env, true);
+      return reply(202, { accepted: true, synthetic: true, submissionId: submission.submissionId, verification: "verified", bookingUrl: null });
     }
     if (leadVerification.status === "unverified") {
       if (env.UNVERIFIED_LEADS_ENABLED !== "true" || !env.UNVERIFIED_RATE_LIMITER) {

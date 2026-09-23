@@ -95,6 +95,7 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - name: Verify this is the latest main commit
         env:
           GH_TOKEN: ${{ github.token }}
@@ -105,4 +106,5 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+          SIGNUP_PROBE_SECRET: ${{ secrets.SIGNUP_PROBE_SECRET }}
         run: npm run production:deploy:ci

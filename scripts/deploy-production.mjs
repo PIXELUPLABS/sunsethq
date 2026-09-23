@@ -7,6 +7,7 @@ loadEnvFile(".env.production.local");
 const configPath = "workers/site/wrangler.production.json";
 const config = JSON.parse(await readFile(configPath, "utf8"));
 const delivery = JSON.parse(await readFile("workers/lead-delivery/wrangler.json", "utf8"));
+if (!process.env.SIGNUP_PROBE_SECRET || process.env.SIGNUP_PROBE_SECRET.length < 32) throw new Error("Configure SIGNUP_PROBE_SECRET before deployment.");
 if (!process.env.ATTIO_API_KEY || !process.env.TURNSTILE_SECRET_KEY || !delivery.env.production.vars.ATTIO_LIST_ID) {
   throw new Error("Configure the production Attio workspace/list and secrets before deployment.");
 }
@@ -49,7 +50,8 @@ if (!scripts.some(script => script.id === config.name)) {
     run("node_modules/wrangler/bin/wrangler.js", ["deploy", "-c", bootstrapPath]);
   } finally { await unlink(bootstrapPath).catch(() => {}); }
 }
-run("node_modules/wrangler/bin/wrangler.js", ["secret", "bulk", "-c", configPath], JSON.stringify({ TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY }));
+run("node_modules/wrangler/bin/wrangler.js", ["secret", "bulk", "-c", configPath], JSON.stringify({ TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY, SIGNUP_PROBE_SECRET: process.env.SIGNUP_PROBE_SECRET }));
 run("node_modules/wrangler/bin/wrangler.js", ["deploy", "-c", configPath]);
+run("scripts/probe-signup.mjs");
 run("scripts/verify-production.mjs");
 console.log("Published https://www.replay.ai. Verify one real browser signup and the native production email monitors.");

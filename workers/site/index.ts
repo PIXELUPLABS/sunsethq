@@ -1,3 +1,4 @@
+import { handleSignupSignal, signupHealth } from "../../modules/lead-capture/lib/signup-monitor";
 import { handleIntake, type IntakeEnv } from "../lead-intake";
 import { leadHealth } from "../../modules/lead-capture/lib/lead-ledger";
 
@@ -30,9 +31,13 @@ export async function handleSite(request: Request, env: SiteEnv) {
   }
   if ((url.pathname === "/api/health" || (url.pathname === "/api/lead-health" && env.APP_ENV !== "production")) && request.method === "GET") {
     try {
-      const health = await leadHealth(env);
+      const [delivery, signup] = await Promise.all([leadHealth(env), signupHealth(env)]);
+      const health = { ...delivery, healthy: delivery.healthy && signup.healthy, signup };
       response = Response.json(url.pathname === "/api/health" ? { healthy: health.healthy } : health, { status: health.healthy ? 200 : 503, headers: { "Cache-Control": "no-store" } });
     } catch { response = Response.json({ healthy: false }, { status: 503, headers: { "Cache-Control": "no-store" } }); }
+  } else if (["/api/signup-signal", "/api/signup-probe"].includes(url.pathname)) {
+    try { response = await handleSignupSignal(request, env); }
+    catch { response = new Response(null, { status: 503, headers: { "Cache-Control": "no-store" } }); }
   } else if (url.pathname === "/api/leads") {
     response = await handleIntake(request, env);
   } else if (url.pathname.startsWith("/api/")) {

@@ -68,9 +68,50 @@ The success response means the signup is stored in D1. A failed queue send is re
 
 The public `/api/health` endpoint exposes only `{ "healthy": true/false }`. Detailed `/api/lead-health` is unavailable in production. Health becomes unhealthy for a missing/stale recovery heartbeat, unreadable database, failed Attio identity/list checks, any failed-queue backlog, any terminal failed receipt, or a signup pending at least five minutes. Terminal Attio 4xx failures require explicit operator recovery after the cause is fixed; see [lead recovery](lead-capture.md#recovery).
 
-Cloudflare Health Checks use the existing `sunsethq.com` Business entitlement to probe production from Eastern North America and Western Europe every minute. Delivery health checks `/api/health`; page availability checks `/value-my-data` for HTTP 200 and the application's opening HTML. Cloudflare inspects only the first 10 KB, while inline styles place the form later in the response. The build check verifies all five form fields in the complete HTML and the Turnstile site key in the exported JavaScript. Production alerts go to `jono@sunsethq.com`. The monitors do not execute browser JavaScript or Turnstile, so validate one real browser submission after changes to the form or verification configuration.
+Cloudflare Health Checks use the existing `sunsethq.com` Business entitlement to probe production from Eastern North America and Western Europe every minute. Delivery health checks `/api/health`; page availability checks `/value-my-data` for HTTP 200 and the application's opening HTML. Cloudflare inspects only the first 10 KB, while inline styles place the form later in the response. The build check verifies all five form fields in the complete HTML and the Turnstile site key in the exported JavaScript. Production alerts go to `jono@sunsethq.com`. Those Cloudflare probes do not execute browser JavaScript or Turnstile. The signup browser monitor below adds that coverage; a real user submission remains part of release validation.
 
 Follow the [recovery procedure](staging.md#recovery), using the production resource IDs above. Keep lead bodies and secrets out of logs and support tickets. Do outage rehearsals in staging; do not intentionally break production credentials.
+
+## Monitoring before acceptance
+
+Signup monitoring covers the form’s path to acceptance.
+
+`SIGNUP_MONITORING_ENABLED=true` is required by production release validation. `/api/health` combines delivery health with signup health, and still exposes only `{ "healthy": true/false }`. The existing one-minute Cloudflare health check and email alert therefore also cover these new failures once deployed:
+
+- A browser probe failed, has never passed, or has not passed for **20 minutes**. A missing probe secret or telemetry rate-limit binding also fails health.
+- The same failure category occurred for **three distinct page/attempt IDs in 15 minutes**. Categories cover application JavaScript/bootstrap errors, unavailable/rejected verification, failed browser submissions, and server intake outages. Repeated reports from the same page/attempt and category are deduplicated. Health recovers after that window if the probe and delivery checks are healthy.
+
+The native `/signup-monitor.js` runs independently of React hydration. A page whose form has not hydrated after 25 seconds reports `bootstrap_timeout`; ordinary hook reports cover verification and failed submissions. Reports store only environment, an ephemeral ID, an enumerated code, and time. They exclude form fields, tokens, exception text, URLs, and IP addresses; the IP is used only for the separate rate-limit binding. Operational reports use no cookies or cross-page storage, and are independent of marketing consent. The consumer removes reports older than 24 hours. These client reports are untrusted diagnostic signals; check the browser probe and failure category when investigating.
+
+The **Production signup monitor** GitHub workflow runs every five minutes, with a manual dispatch option. It launches Chromium against the live form, loads the real JavaScript and Turnstile, fills synthetic answers, rejects optional cookies, submits through real validation/siteverify, and checks the success UI. A secret request header selects a probe response **after successful verification and before the lead ledger, queue, email, or Cal flow**. A wrong credential is rejected; a verification fallback does not count as success. The secret is inserted by Playwright's network handler, never into browser JavaScript or a URL. The workflow records no browser traces or screenshots. Authenticated failure reports cannot manufacture a successful heartbeat.
+
+GitHub schedules can be delayed. The 20-minute stale threshold detects delayed, disabled, missing-secret, or stopped runners through the independent Cloudflare health check. If all visitor JavaScript or networking is blocked, client reporting cannot run; the external probe supplies the independent check. This measures the probe browser and reported visitor failures, not every possible browser/device configuration.
+
+### Activation and acceptance
+
+The code and local tests do **not** establish that live monitoring is active. Before deploying this branch:
+
+1. Set the same random, at-least-32-character `SIGNUP_PROBE_SECRET` as an encrypted secret on the `replay-marketing` Worker and in the GitHub `production` environment. For manual deployment also keep it in ignored `.env.production.local`. Never use a `NEXT_PUBLIC_` variable. Rotation must update both copies.
+2. Ensure the production environment permits unattended scheduled runs on `main`. Install Chromium locally with `npx playwright install chromium` for a manual deploy; CI installs it itself.
+3. Apply migration `0006_signup_monitoring.sql` with the normal release process. This migration is independent of the booking migration numbered 0005. The existing consumer schedule must continue running for retention cleanup.
+4. Deploy using the normal production script. CI checks the runner credential and deployed secret name **before** building or mutating resources. Both deployment paths run the browser probe immediately after website publication and before final health verification. A failing live probe fails the release; it does not roll back the deployed Workers.
+5. Confirm a successful **Production signup monitor** run and a fresh `signup_probe` row, then reverify the existing Cloudflare health check and notification policy to `jono@sunsethq.com`. The previous email test is not proof of the current alert configuration. Rehearse failed verification, blocked application chunks, and a stale runner in an isolated environment; do not break production to test alerts.
+
+Real Turnstile challenges can reject an automated browser. That is a failed probe, not permission to replace the widget with a test key or bypass siteverify. Validate runner compatibility before accepting this monitoring change; if the hosted runner cannot pass, use a suitable external browser runner with the same script and secret.
+
+Validation recorded on 2026-09-23: 80 unit tests, 32 desktop/mobile browser tests, type checking, lint, and the production export/secret scan passed locally. Read-only checks of the deployed form in headless Chromium, headless Chrome, and headed Chrome did not obtain a real Turnstile token within 45 seconds; the form offered manual review. No live form submission was made. The cause of that live verification result is not established, and the complete hosted probe and current email-alert configuration remain unverified. This change is **not accepted for live monitoring** until those checks pass with the production probe credential configured.
+
+For diagnosis, query only operational data:
+
+```sql
+SELECT checked_at, healthy FROM signup_probe WHERE environment = 'production';
+SELECT code, COUNT(DISTINCT signal_id) AS failures
+FROM signup_signals
+WHERE environment = 'production' AND created_at >= (unixepoch() * 1000 - 900000)
+GROUP BY code;
+```
+
+Local validation: `npm run check`, `npm run lint`, `npm run ci:build`, and `npm run test:browser`. Browser tests block the application chunks and verification script, exercise the production probe against a local real-intake/SQLite harness, and assert that no synthetic lead, email, or CRM entry is produced. Only remote dependencies are simulated in those tests.
 
 ## Rollback
 

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { captureVisitAttribution, type VisitAttribution } from "@/modules/attribution/lib/visit-attribution";
 import { hasMarketingConsent, subscribeToConsent } from "@/modules/consent/lib/cookie-consent";
+import { reportSignupFailure } from "../lib/signup-monitor";
 import { useTurnstile } from "./use-turnstile";
 import { clearPendingSubmission, readPendingSubmission, savePendingSubmission } from "../lib/pending-submission";
 
@@ -15,6 +16,10 @@ export function useValueMyDataForm() {
   const submissionRef = useRef<{ fingerprint: string; id: string } | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (formRef.current) formRef.current.dataset.signupReady = "true";
+    window.__replaySignupReady = true;
+  }, []);
   useEffect(() => {
     if (!isSubmitted || !resultRef.current) return;
     resultRef.current.focus({ preventScroll: true });
@@ -76,6 +81,7 @@ export function useValueMyDataForm() {
       setIsSubmitted(true);
       clearPendingSubmission();
     } catch (error) {
+      reportSignupFailure("submission_failed");
       setSubmissionError(error instanceof Error && !["TimeoutError", "TypeError"].includes(error.name) ? error.message : "We couldn’t confirm receipt. Your answers are saved in this tab—please try again.");
       reset();
     } finally {

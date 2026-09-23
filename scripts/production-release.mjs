@@ -20,6 +20,9 @@ export function validateProductionRelease(site, delivery, context) {
     { pattern: "www.replay.ai", custom_domain: true },
     { pattern: "replay.ai/*", zone_id: "6ac82822b4ca9081b0cbb74acd5901d4" },
   ]);
+  assert.equal(site.vars.SIGNUP_MONITORING_ENABLED, "true", "Production signup monitoring must be enabled.");
+  assert.ok(context.SIGNUP_PROBE_SECRET?.length >= 32, "Missing signup browser probe credential.");
+  assert.ok(site.ratelimits.some(binding => binding.name === "SIGNUP_SIGNAL_RATE_LIMITER"));
   const consumer = delivery.env.production;
   assert.equal(consumer.name, "replay-leads-delivery");
   assert.equal(consumer.vars.APP_ENV, "production");
@@ -43,7 +46,7 @@ export async function runProductionRelease({ site, delivery, context, cf, run, n
   const { consumer, ledger } = validateProductionRelease(site, delivery, context);
   const account = `accounts/${site.account_id}`;
   // Read names only. Existing encrypted runtime secrets stay in Cloudflare.
-  for (const [worker, secret] of [[site.name, "TURNSTILE_SECRET_KEY"], [consumer.name, "ATTIO_API_KEY"]]) {
+  for (const [worker, secret] of [[site.name, "TURNSTILE_SECRET_KEY"], [site.name, "SIGNUP_PROBE_SECRET"], [consumer.name, "ATTIO_API_KEY"]]) {
     const secrets = await cf(`${account}/workers/scripts/${worker}/secrets`);
     assert.ok(secrets.some(binding => binding.type === "secret_text" && binding.name === secret), `${worker}: required runtime secret ${secret} is missing.`);
   }
@@ -72,6 +75,7 @@ export async function runProductionRelease({ site, delivery, context, cf, run, n
   }
   assert.ok(ready, "Consumer recovery/CRM health did not become ready; website was not published.");
   await run(wrangler, ["deploy", "-c", "workers/site/wrangler.production.json", ...revision]);
+  await run("scripts/probe-signup.mjs");
   await run("scripts/verify-production.mjs");
 
   const versions = {};

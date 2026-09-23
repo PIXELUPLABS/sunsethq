@@ -15,6 +15,7 @@ const env = {
   NEXT_PUBLIC_SITE_URL: config.vars.SITE_ORIGIN,
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: "1x00000000000000000000AA",
   // Harmless markers exercise the existing exported-asset secret scan.
+  SIGNUP_PROBE_SECRET: "ci-probe-secret-must-not-be-exported",
   ATTIO_API_KEY: "ci-attio-secret-must-not-be-exported",
   TURNSTILE_SECRET_KEY: "ci-turnstile-secret-must-not-be-exported",
   TURNSTILE_DEV_SECRET_KEY: "ci-dev-secret-must-not-be-exported",
