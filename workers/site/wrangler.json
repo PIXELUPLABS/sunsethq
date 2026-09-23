@@ -23,6 +23,7 @@
     "APP_ENV": "development",
     "SITE_ORIGIN": "https://replay-marketing-staging.replay-marketing-dev.workers.dev",
     "ALLOWED_ORIGINS": "https://replay-marketing-staging.replay-marketing-dev.workers.dev",
+    "CAL_BOOKING_URL": "https://replaydata.cal.com/sales/data-valuation",
     "UNVERIFIED_LEADS_ENABLED": "true"
   },
   "ratelimits": [
