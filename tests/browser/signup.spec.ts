@@ -26,8 +26,24 @@ async function fill(page: Page) {
   await page.getByLabel("Share of internal communications in english", { exact: true }).selectOption("100%");
 }
 async function success(page: Page) {
-  await expect(page.getByRole("status").filter({ hasText: "Request received" })).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: "We’ll reach out if it’s a fit." })).toBeVisible();
   expect(await page.evaluate(key => sessionStorage.getItem(key), pendingKey)).toBeNull();
+}
+
+async function calendar(page: Page, blocked = false) {
+  let requests = 0;
+  await page.route("https://app.cal.com/embed/embed.js", route => {
+    requests++;
+    // Exercise the installed Cal embed client; only the remote event is simulated.
+    return blocked ? route.abort() : route.fulfill({ contentType: "text/javascript", path: "node_modules/@calcom/embed-core/dist/embed/embed.js" });
+  });
+  await page.route("https://replaydata.cal.com/**", route => route.fulfill({
+    contentType: "text/html",
+    body: `<html><body><h1>Available test times</h1><script>
+      for (const type of ["__iframeReady", "linkReady"]) parent.postMessage({ fullType: "CAL:data-valuation:" + type, data: {} }, "http://127.0.0.1:3100");
+    </script></body></html>`,
+  }));
+  return () => requests;
 }
 
 test.beforeEach(async ({ request }) => control(request, { reset: true }));
@@ -72,11 +88,14 @@ test("required fields and malformed email block requests; rejecting cookies perm
 
 for (const widget of ["blocked", "unresolved"] as const) {
   test(`unavailable Turnstile (${widget}) offers reviewed fallback and sends one operator alert`, async ({ page, request }) => {
+    await control(request, { calendar: true });
+    const calRequests = await calendar(page);
     await open(page, widget);
     await expect(submitButton(page)).toHaveText("Send for review");
     await fill(page);
     await submitButton(page).click();
     await success(page);
+    expect(calRequests()).toBe(0);
     await control(request, { drain: true });
     const saved = await state(request);
     expect(saved.rows[0].status).toBe("delivered");
@@ -151,4 +170,98 @@ test("explicit verification rejection preserves answers and never creates a rece
   await control(request, {});
   await submitButton(page).click();
   await success(page);
+});
+
+for (const answers of [
+  { businessSize: "1 to 9 people", englishShare: "100%", books: false },
+  { businessSize: "200 or more", englishShare: "Less than 80%", books: false },
+  { businessSize: "10 - 19", englishShare: "80% - 90%", books: true },
+]) {
+  test(`calendar qualification: ${answers.businessSize}, ${answers.englishShare}`, async ({ page, request }) => {
+    await control(request, { calendar: true });
+    const calRequests = await calendar(page);
+    await open(page);
+    await fill(page);
+    await page.getByLabel("Years of Operation", { exact: true }).selectOption("Under 2 Years");
+    await page.getByLabel("Number of people who work in the business", { exact: true }).selectOption(answers.businessSize);
+    await page.getByLabel("Share of internal communications in english", { exact: true }).selectOption(answers.englishShare);
+    expect(calRequests()).toBe(0);
+    await submitButton(page).click();
+    if (answers.books) {
+      await expect(page.getByRole("heading", { name: "Let’s talk about your data." })).toBeVisible();
+      await expect(page.frameLocator("iframe.cal-embed").getByRole("heading", { name: "Available test times" })).toBeVisible();
+      const iframeUrl = new URL((await page.locator("iframe.cal-embed").getAttribute("src"))!);
+      expect(iframeUrl.origin).toBe("https://replaydata.cal.com");
+      expect(iframeUrl.pathname).toBe("/sales/browser-test/embed");
+      expect(iframeUrl.searchParams.get("email")).toBe("browser-test@example.com");
+      await expect(page.getByRole("link", { name: "Open calendar in a new tab" })).toHaveAttribute("href", "https://replaydata.cal.com/sales/browser-test?email=browser-test%40example.com");
+      expect(await page.evaluate(key => sessionStorage.getItem(key), pendingKey)).toBeNull();
+    } else {
+      await success(page);
+      expect(calRequests()).toBe(0);
+      await expect(page.locator("iframe.cal-embed")).toHaveCount(0);
+    }
+    await control(request, { drain: true });
+    const saved = await state(request);
+    expect(saved.entries).toHaveLength(1);
+    expect(saved.entries[0].entry_values).toMatchObject({
+      replay_company_name: "Synthetic Browser Test", replay_work_email: "browser-test@example.com",
+      replay_years_of_operation: "Under 2 Years", replay_business_size: answers.businessSize, replay_english_share: answers.englishShare,
+    });
+  });
+}
+
+test("a missing calendar component chunk preserves the booking link while loading and after failure", async ({ page, request }) => {
+  await control(request, { calendar: true });
+  const calRequests = await calendar(page);
+  await open(page);
+  await fill(page);
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.message));
+  let chunkRequests = 0;
+  let releaseChunk = () => {};
+  const chunkGate = new Promise<void>(resolve => { releaseChunk = resolve; });
+  // Block only on-demand JS after the form has hydrated, leaving intake reachable.
+  await page.route("**/_next/static/chunks/*.js", async route => {
+    chunkRequests++;
+    await chunkGate;
+    await route.abort("failed");
+  });
+  const link = page.getByRole("link", { name: "Open calendar in a new tab" });
+  try {
+    await submitButton(page).click();
+    await expect.poll(() => chunkRequests).toBeGreaterThan(0);
+    await expect(page.getByRole("status").filter({ hasText: "Loading available times…" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Let’s talk about your data." })).toBeVisible();
+    await expect(link).toHaveAttribute("href", "https://replaydata.cal.com/sales/browser-test?email=browser-test%40example.com");
+    await expect(link).toBeVisible();
+  } finally {
+    releaseChunk();
+  }
+  await expect(page.getByRole("status").filter({ hasText: "Calendar couldn’t load." })).toBeVisible();
+  await expect(link).toBeVisible();
+  await expect(page.locator("iframe.cal-embed")).toHaveCount(0);
+  expect(calRequests()).toBe(0);
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(key => sessionStorage.getItem(key), pendingKey)).toBeNull();
+  await control(request, { drain: true });
+  const saved = await state(request);
+  expect(saved.rows).toHaveLength(1);
+  expect(saved.rows[0].status).toBe("delivered");
+  expect(saved.entries).toHaveLength(1);
+});
+
+test("a blocked calendar preserves the accepted lead and offers a direct booking link", async ({ page, request }) => {
+  await control(request, { calendar: true });
+  await calendar(page, true);
+  await open(page);
+  await fill(page);
+  await submitButton(page).click();
+  await expect(page.getByRole("heading", { name: "Let’s talk about your data." })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open calendar in a new tab" })).toBeVisible();
+  await expect(page.getByRole("status").filter({ hasText: "Calendar taking a while?" })).toBeVisible({ timeout: 20_000 });
+  await control(request, { drain: true });
+  const saved = await state(request);
+  expect(saved.rows[0].status).toBe("delivered");
+  expect(saved.entries).toHaveLength(1);
 });

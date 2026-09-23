@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "storybook": "storybook dev --port 6006 --host 127.0.0.1 --no-open --exact-port --disable-telemetry",
+    "storybook:build": "storybook build --disable-telemetry",
     "test": "node scripts/run-tests.mjs",
     "check": "node scripts/check-release.mjs",
     "ci:build": "node scripts/build-ci.mjs",
@@ -36,6 +38,7 @@
     "test:browser": "playwright test"
   },
   "dependencies": {
+    "@calcom/embed-react": "^1.5.3",
     "agentation": "^3.0.2",
     "next": "16.3.4",
     "react": "19.2.8",
@@ -44,6 +47,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20260918.1",
     "@playwright/test": "^1.63.0",
+    "@storybook/nextjs-vite": "^10.6.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^22.20.3",
     "@types/react": "^19",
@@ -53,9 +57,11 @@
     "eslint-config-next": "16.3.4",
     "sanitize-html": "^2.17.7",
     "sharp": "^0.35.4",
+    "storybook": "^10.6.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.13",
     "typescript": "^5",
+    "vite": "^7.3.6",
     "wrangler": "^4.135.0"
   },
   "browserslist": [

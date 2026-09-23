@@ -50,6 +50,28 @@ test("acceptance follows durable ledger storage; only normalized allowlisted fie
   assert.ok(!JSON.stringify(s.queued).includes("attacker"));
   assert.ok(!JSON.stringify(s.queued).includes("token"));
 });
+test("saved, verified inquiries receive the calendar only when both business criteria pass", async () => {
+  for (const answers of [
+    { businessSize: "10 - 19", englishShare: "80% - 90%", books: true },
+    { businessSize: "1 to 9 people", englishShare: "100%", books: false },
+    { businessSize: "200 or more", englishShare: "Less than 80%", books: false },
+  ]) {
+    const s = intakeSetup();
+    s.env.CAL_BOOKING_URL = "https://replaydata.cal.com/sales/test-event";
+    const { books, ...fields } = answers;
+    const body = { ...submission, ...fields, yearsOfOperation: "Under 2 Years", bookingUrl: "https://attacker.example", qualified: true };
+    const response = await handleIntake(s.request(body), s.env, s.verify);
+    assert.equal(response.status, 202);
+    const receipt = await response.json() as { bookingUrl: string | null };
+    assert.equal(receipt.bookingUrl, books ? s.env.CAL_BOOKING_URL : null);
+    assert.equal(s.queued.length, 1, "all valid inquiries still reach CRM delivery");
+    assert.equal(s.queued[0].lead.businessSize, answers.businessSize);
+    assert.equal(s.queued[0].lead.englishShare, answers.englishShare);
+    const retry = await handleIntake(s.request(body), s.env, s.verify);
+    assert.equal((await retry.json() as { bookingUrl: string | null }).bookingUrl, receipt.bookingUrl);
+    assert.equal(s.queued.length, 1);
+  }
+});
 test("invalid origins, enum values, bodies, and rate limits never reach the queue", async () => {
   const s = intakeSetup();
   assert.equal((await handleIntake(s.request(submission, "https://bad.example"), s.env, s.verify)).status, 403);
@@ -101,6 +123,7 @@ test("invalid landing pages are discarded without rejecting an otherwise valid i
 });
 test("unavailable verification is accepted only with enabled, separately rate-limited manual review", async () => {
   const s = intakeSetup();
+  s.env.CAL_BOOKING_URL = "https://replaydata.cal.com/sales/test-event";
   const body = { ...submission, turnstileToken: "", verificationFallback: "script_unavailable", verification: { status: "verified" } };
   assert.equal((await handleIntake(s.request(body), s.env, s.verify)).status, 503);
   s.env.UNVERIFIED_LEADS_ENABLED = "true";
@@ -109,14 +132,18 @@ test("unavailable verification is accepted only with enabled, separately rate-li
   s.env.UNVERIFIED_RATE_LIMITER = { limit: async ({ key }) => { assert.equal(key, "192.0.2.1"); limited++; return { success: true }; } };
   const response = await handleIntake(s.request(body), s.env, s.verify);
   assert.equal(response.status, 202);
-  assert.equal((await response.json() as { verification: string }).verification, "unverified");
+  const receipt = await response.json() as { verification: string; bookingUrl: string | null };
+  assert.equal(receipt.verification, "unverified");
+  assert.equal(receipt.bookingUrl, null);
   assert.deepEqual(s.queued[0].verification, { status: "unverified", reason: "script_unavailable" });
   assert.equal(s.verified(), 0);
   assert.equal(limited, 1);
   // Acquiring a token later cannot relabel the already saved inquiry.
   const retry = await handleIntake(s.request(submission), s.env, s.verify);
   assert.equal(retry.status, 202);
-  assert.equal((await retry.json() as { verification: string }).verification, "unverified");
+  const retriedReceipt = await retry.json() as { verification: string; bookingUrl: string | null };
+  assert.equal(retriedReceipt.verification, "unverified");
+  assert.equal(retriedReceipt.bookingUrl, null);
   s.env.UNVERIFIED_RATE_LIMITER.limit = async () => ({ success: false });
   const throttled = await handleIntake(s.request(body), s.env, s.verify);
   assert.equal(throttled.status, 429);

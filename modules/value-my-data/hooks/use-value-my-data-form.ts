@@ -8,11 +8,18 @@ import { clearPendingSubmission, readPendingSubmission, savePendingSubmission } 
 
 export function useValueMyDataForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [booking, setBooking] = useState<{ url: string; email: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
   const submittingRef = useRef(false);
   const submissionRef = useRef<{ fingerprint: string; id: string } | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!isSubmitted || !resultRef.current) return;
+    resultRef.current.focus({ preventScroll: true });
+    resultRef.current.scrollIntoView({ block: "start" });
+  }, [isSubmitted]);
   const attemptedAttribution = useRef<VisitAttribution | null>(null);
   useEffect(() => subscribeToConsent(() => {
     if (!hasMarketingConsent()) attemptedAttribution.current = null;
@@ -61,10 +68,11 @@ export function useValueMyDataForm() {
           ...(!token && fallbackReason ? { verificationFallback: fallbackReason } : {}), campaign, landingPath }),
         signal: AbortSignal.timeout(20_000),
       });
-      const result = await response.json().catch(() => null) as { accepted?: boolean; error?: string } | null;
+      const result = await response.json().catch(() => null) as { accepted?: boolean; bookingUrl?: string | null; error?: string } | null;
       if (response.status !== 202 || !result?.accepted) {
         throw new Error(result?.error ?? "We couldn’t receive your request. Please try again.");
       }
+      if (result.bookingUrl) setBooking({ url: result.bookingUrl, email: answers.workEmail });
       setIsSubmitted(true);
       clearPendingSubmission();
     } catch (error) {
@@ -75,5 +83,5 @@ export function useValueMyDataForm() {
       setIsSubmitting(false);
     }
   }, [token, reset, fallbackReason]);
-  return { isSubmitted, isSubmitting, handleSubmit, formRef, verification, error: submissionError };
+  return { isSubmitted, booking, isSubmitting, handleSubmit, formRef, resultRef, verification, error: submissionError };
 }
