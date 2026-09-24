@@ -3,8 +3,8 @@ import { readFileSync, readdirSync } from "node:fs";
 import type { D1Database } from "@cloudflare/workers-types";
 
 // Execute the actual migration and SQL against SQLite, rather than mocking SQL results.
-export function testDatabase(lastMigration?: string) {
-  const sqlite = new DatabaseSync(":memory:");
+export function testDatabase(lastMigration?: string, filename = ":memory:") {
+  const sqlite = new DatabaseSync(filename);
   for (const file of readdirSync("workers/migrations").filter(name => name.endsWith(".sql")).sort()) {
     sqlite.exec(readFileSync(`workers/migrations/${file}`, "utf8"));
     if (file === lastMigration) break;

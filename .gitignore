@@ -47,4 +47,8 @@ workers/**/.wrangler/
 *.tsbuildinfo
 next-env.d.ts
 
+# Browser test artifacts
+/test-results/
+/playwright-report/
+/storybook-static/
 /artifacts/

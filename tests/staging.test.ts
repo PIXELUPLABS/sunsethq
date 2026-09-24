@@ -16,8 +16,9 @@ test("static pages, assets, and missing pages retain status and receive staging/
         const [name, ...sources] = directive.trim().split(/\s+/);
         return [name, sources] as const;
       }));
-      assert.deepEqual(directives.get("frame-src"), ["https://challenges.cloudflare.com"]);
-      assert.deepEqual(directives.get("script-src"), ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com"]);
+      assert.deepEqual(directives.get("frame-src"), ["https://challenges.cloudflare.com", "https://replaydata.cal.com"]);
+      assert.deepEqual(directives.get("script-src"), ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com", "https://app.cal.com/embed/embed.js"]);
+      assert.deepEqual(directives.get("connect-src"), ["'self'", "https://challenges.cloudflare.com"]);
     }
     assert.equal(response.headers.get("Strict-Transport-Security"), null);
   }
@@ -34,6 +35,8 @@ test("production is indexable only on its canonical host and never exposes detai
   assert.equal(response.headers.get("Strict-Transport-Security"), "max-age=31536000");
   assert.match(response.headers.get("Content-Security-Policy")!, /script-src[^;]+https:\/\/static\.cloudflareinsights\.com/);
   assert.match(response.headers.get("Content-Security-Policy")!, /connect-src[^;]+https:\/\/cloudflareinsights\.com/);
+  assert.match(response.headers.get("Content-Security-Policy")!, /script-src[^;]+https:\/\/app\.cal\.com\/embed\/embed\.js/);
+  assert.match(response.headers.get("Content-Security-Policy")!, /frame-src[^;]+https:\/\/replaydata\.cal\.com/);
   for (const origin of ["http://replay.ai", "https://replay.ai", "http://www.replay.ai"]) {
     const redirect = await handleSite(new Request(`${origin}/value-my-data?utm_source=test`), env);
     assert.equal(redirect.status, 308);
@@ -74,4 +77,27 @@ test("API routes never fall through to the website and retain intake origin/conf
   assert.equal((await handleSite(new Request("https://stage.example/api/leads", { method: "POST", headers: { Origin: "https://bad.example" } }), env)).status, 403);
   assert.equal((await handleSite(new Request("https://stage.example/api/leads", { method: "POST", headers: { Origin: "https://stage.example" } }), env)).status, 503);
   assert.equal(assets, 0);
+});
+
+test("staging previews accept only their own HTTPS origin without changing shared bindings", async () => {
+  const staging = "https://replay-marketing-staging.replay-marketing-dev.workers.dev";
+  const preview = "https://b-feature-test-replay-marketing-staging.replay-marketing-dev.workers.dev";
+  const env = { APP_ENV: "development", SITE_ORIGIN: staging, ALLOWED_ORIGINS: staging } as SiteEnv;
+  const preflight = (target: string, origin: string, bindings = env) => handleSite(new Request(`${target}/api/leads`, {
+    method: "OPTIONS", headers: { Origin: origin },
+  }), bindings);
+  const allowed = await preflight(preview, preview);
+  assert.equal(allowed.status, 204);
+  assert.equal(allowed.headers.get("Access-Control-Allow-Origin"), preview);
+  assert.match(allowed.headers.get("X-Robots-Tag")!, /noindex/);
+  assert.equal(env.SITE_ORIGIN, staging);
+  assert.equal(env.ALLOWED_ORIGINS, staging);
+  assert.equal((await preflight(preview, staging)).status, 403);
+  assert.equal((await preflight(preview, "https://evil.example")).status, 403);
+  for (const target of [preview.replace("https:", "http:"), `${preview}:8443`,
+    `${preview}.evil.example`, preview.replace("replay-marketing-staging", "another-worker")]) {
+    assert.equal((await preflight(target, target)).status, 403);
+  }
+  assert.equal((await preflight(preview, preview, { ...env, APP_ENV: "production" })).status, 404);
+  assert.equal((await preflight(staging, staging)).status, 204);
 });

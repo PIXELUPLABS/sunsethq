@@ -135,8 +135,22 @@ If Turnstile cannot load, errors, or remains unresolved for 15 seconds, the form
 
 The server sets `verification` on the durable receipt. Attio exposes **Verification status** (`Verified`, `Unverified`, or `Unknown (legacy)`) and **Verification detail**. Older receipts lacking verification evidence remain unknown; the intake also reports `unknown` when replaying such a receipt. Unverified inquiries are for manual review, not automatically qualified leads. The consumer sends an alert to `jono@sunsethq.com` from `leads@notifications.replay.ai` before CRM delivery; development alerts include `[TEST]`. Cloudflare Email Sending is configured on the dedicated `notifications.replay.ai` subdomain, with recipient and sender restrictions on the Worker binding. Existing inbound mail routing is unaffected.
 
+## Calendar qualification
+
+After durable acceptance, the intake response includes `bookingUrl` only when the saved inquiry is verified, the business has **10 or more people**, and **at least 80%** of its internal communications are in English. Years of operation do not affect qualification. All valid inquiries continue through the same Attio delivery pipeline, whether they qualify for booking or not.
+
+Configure `CAL_BOOKING_URL` in the intake/site Worker's environment variables with a public event URL on `https://replaydata.cal.com` (not the `app.cal.com` event management URL). Until an event is configured, `bookingUrl` is `null`. Unverified inquiries also receive `null`, including retries that acquire verification after the original unverified receipt. The website loads the calendar only after an accepted response with a booking URL, prefills the submitted email, and provides a direct link if the embed is unavailable. Other accepted inquiries see “Thank you for your interest. We’ll reach out if it’s a fit.”
+
+The production and staging site configs use [Sales — Data valuation call](https://replaydata.cal.com/sales/data-valuation), managed in [Cal event 7202505](https://app.cal.com/event-types/7202505). It is a 30-minute Cal Video event with round-robin assignment to Brendan Mahony or Jackie (`jackie@replay.ai`), maximizing availability. Jono is excluded from the event. A common Working hours schedule limits availability to Monday–Friday, 9am–5pm America/New_York. Jackie was invited to Sales after approval of Cal's additional $37/month seat. The public page and local embed were checked for available slots without creating a booking. Use the same URL as `REPLAY_PREVIEW_CAL_URL` for local preview; the production form picks up this configuration when the PR is deployed.
+
+This flow writes the original answers to **Replay Website Leads**; it does not create a `data_deals` record or save a calendar booking outcome. Calendar qualification and booking are separate from Attio delivery.
+
 Email notification leases and successful-send timestamps live in D1 migration `0003_unverified_notifications.sql`. Failed email sends retry through the existing queue and durable recovery path; they also keep delivery health unhealthy once pending exceeds five minutes. A successful send is skipped on subsequent attempts. Delivery is at least once: a crash between the provider accepting an email and the D1 receipt can produce a duplicate email with the same submission ID. No form answers, emails, or campaign values are written to application logs.
 
 Retries keep the same UUID when only consent, attribution, or verification changes. Different business answers get a new ID. The ledger preserves the original accepted payload and supports receipt hashes from the previous release.
 
 Run `npx tsx scripts/smoke-unverified.mts development` (or explicitly `production`) to create one synthetic inquiry, send a real operator alert, verify duplicate handling and the tighter limit, and check its Attio label/attribution. Setup order: provision the email sender and destination, run Attio setup for the target, apply migrations/deploy the consumer, then deploy the site. `UNVERIFIED_LEADS_ENABLED` can disable fallback while leaving verified submission available. Both deployment scripts run all `tests/*.test.ts` plus TypeScript before publishing.
+
+## Automated browser gate
+
+See [signup browser tests](signup-browser-tests.md) for the secret-free CI journey, simulated dependencies, and separately verified hosted sandbox smoke.

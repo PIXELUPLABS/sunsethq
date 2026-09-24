@@ -36,7 +36,7 @@ for (let attempt = 0; attempt < 2; attempt++) {
   const response = await submit();
   assert.equal(response.status, 202, `Synthetic request failed: ${response.status}`);
   const receipt = await response.json() as { accepted: boolean; verification: string; submissionId: string };
-  assert.deepEqual(receipt, { accepted: true, verification: "unverified", submissionId });
+  assert.deepEqual(receipt, { accepted: true, verification: "unverified", submissionId, bookingUrl: null });
 }
 // Cloudflare counters are eventually consistent. Reuse this receipt while
 // checking enforcement; do not assume an exact synchronous third-request cap.
