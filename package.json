@@ -35,8 +35,7 @@
     "jobs:sync": "tsx scripts/sync-jobs.mts",
     "start": "next start",
     "lint": "eslint",
-    "test:browser": "playwright test",
-    "signup:probe": "node scripts/probe-signup.mjs"
+    "test:browser": "playwright test"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",

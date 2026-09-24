@@ -1,11 +1,11 @@
-import { isSignupProbe, PROBE_HEADER, recordSignupProbe, recordSignupSignal, type SignupMonitorEnv } from "../../modules/lead-capture/lib/signup-monitor";
+import { recordSignupSignal, type SignupMonitorEnv } from "../../modules/lead-capture/lib/signup-monitor";
 import type { Queue, RateLimit } from "@cloudflare/workers-types";
 import { parseSubmission, type LeadMessage } from "../../modules/lead-capture/lib/lead-schema";
-import { enqueueSavedLead, persistLead, SubmissionConflict, leadHealth, type LedgerEnv } from "../../modules/lead-capture/lib/lead-ledger";
+import { enqueueSavedLead, persistLead, SubmissionConflict, leadHealth } from "../../modules/lead-capture/lib/lead-ledger";
 import type { LeadVerification } from "../../modules/lead-capture/lib/verification";
 import { getLeadBookingUrl } from "../../modules/lead-capture/lib/booking-qualification";
 
-export type IntakeEnv = LedgerEnv & SignupMonitorEnv & {
+export type IntakeEnv = SignupMonitorEnv & {
   LEADS: Queue<LeadMessage>;
   LEAD_RATE_LIMITER: RateLimit;
   UNVERIFIED_RATE_LIMITER?: RateLimit;
@@ -69,8 +69,6 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
     return reply(503, { error: "Submissions are temporarily unavailable. Please try again shortly." });
   }
   try {
-    const probe = request.headers.has(PROBE_HEADER);
-    if (probe && !await isSignupProbe(request, env)) return reply(401, { error: "Invalid probe credential." });
     const ip = request.headers.get("cf-connecting-ip") ?? (isLocal ? "local" : null);
     if (!ip) return reply(403, { error: "Unable to verify this request." });
     const { success } = await env.LEAD_RATE_LIMITER.limit({ key: ip });
@@ -103,16 +101,6 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
     } else {
       // This is a client-reported failure, never proof that a visitor is human.
       leadVerification = { status: "unverified", reason: submission.verificationFallback! };
-    }
-    if (probe) {
-      if (leadVerification.status !== "verified") {
-        await recordSignupProbe(env, false);
-        return reply(503, { error: "Probe verification failed." });
-      }
-      // Exercise validation and real siteverify, but do not create a lead,
-      // send email, offer a calendar, or enqueue a synthetic CRM write.
-      await recordSignupProbe(env, true);
-      return reply(202, { accepted: true, synthetic: true, submissionId: submission.submissionId, verification: "verified", bookingUrl: null });
     }
     if (leadVerification.status === "unverified") {
       if (env.UNVERIFIED_LEADS_ENABLED !== "true" || !env.UNVERIFIED_RATE_LIMITER) {

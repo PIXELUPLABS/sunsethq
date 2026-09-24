@@ -17,7 +17,6 @@ export function useValueMyDataForm() {
   const formRef = useRef<HTMLFormElement>(null);
   const resultRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (formRef.current) formRef.current.dataset.signupReady = "true";
     window.__replaySignupReady = true;
   }, []);
   useEffect(() => {
