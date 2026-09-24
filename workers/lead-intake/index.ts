@@ -1,10 +1,11 @@
+import { recordSignupSignal, type SignupMonitorEnv } from "../../modules/lead-capture/lib/signup-monitor";
 import type { Queue, RateLimit } from "@cloudflare/workers-types";
 import { parseSubmission, type LeadMessage } from "../../modules/lead-capture/lib/lead-schema";
-import { enqueueSavedLead, persistLead, SubmissionConflict, leadHealth, type LedgerEnv } from "../../modules/lead-capture/lib/lead-ledger";
+import { enqueueSavedLead, persistLead, SubmissionConflict, leadHealth } from "../../modules/lead-capture/lib/lead-ledger";
 import type { LeadVerification } from "../../modules/lead-capture/lib/verification";
 import { getLeadBookingUrl } from "../../modules/lead-capture/lib/booking-qualification";
 
-export type IntakeEnv = LedgerEnv & {
+export type IntakeEnv = SignupMonitorEnv & {
   LEADS: Queue<LeadMessage>;
   LEAD_RATE_LIMITER: RateLimit;
   UNVERIFIED_RATE_LIMITER?: RateLimit;
@@ -48,7 +49,13 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
   const allowed = env.ALLOWED_ORIGINS?.split(",").map((item) => item.trim()) ?? [];
   const headers: Record<string, string> = { "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", Vary: "Origin" };
   if (origin && allowed.includes(origin)) headers["Access-Control-Allow-Origin"] = origin;
-  const reply = (status: number, data: unknown) => Response.json(data, { status, headers });
+  const reply = async (status: number, data: unknown) => {
+    if (status === 503) {
+      try { await recordSignupSignal(env, "intake_unavailable"); }
+      catch { console.error(JSON.stringify({ event: "signup_signal_failed" })); }
+    }
+    return Response.json(data, { status, headers });
+  };
   if (new URL(request.url).pathname !== "/api/leads") return reply(404, { error: "Not found." });
   if (!origin || !allowed.includes(origin)) return reply(403, { error: "Submission origin is not allowed." });
   if (request.method === "OPTIONS") {
@@ -86,6 +93,8 @@ export async function handleIntake(request: Request, env: IntakeEnv, fetcher: ty
       } catch { /* A provider outage can be accepted for manual review below. */ }
       const usesLocalTestKey = isLocal && env.TURNSTILE_SECRET_KEY === TEST_SECRET;
       if (result && (!result.success || (!usesLocalTestKey && (result.hostname !== new URL(origin).hostname || result.action !== "lead_capture")))) {
+        try { await recordSignupSignal(env, "verification_rejected", submission.submissionId); }
+        catch { console.error(JSON.stringify({ event: "signup_signal_failed" })); }
         return reply(400, { error: "Please complete the verification and try again." });
       }
       leadVerification = result ? { status: "verified" } : { status: "unverified", reason: "service_unavailable" };

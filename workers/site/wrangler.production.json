@@ -38,6 +38,7 @@
     "ALLOWED_ORIGINS": "https://www.replay.ai",
     "CAL_BOOKING_URL": "https://replaydata.cal.com/sales/data-valuation",
     "UNVERIFIED_LEADS_ENABLED": "true",
+    "SIGNUP_MONITORING_ENABLED": "true",
     "CAL_EVENT_TYPE_ID": "7202505"
   },
   "ratelimits": [
@@ -54,6 +55,14 @@
       "namespace_id": "91826015",
       "simple": {
         "limit": 2,
+        "period": 60
+      }
+    },
+    {
+      "name": "SIGNUP_SIGNAL_RATE_LIMITER",
+      "namespace_id": "91826025",
+      "simple": {
+        "limit": 6,
         "period": 60
       }
     }

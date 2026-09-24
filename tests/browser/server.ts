@@ -6,6 +6,7 @@ import { tmpdir } from "node:os";
 import { resolve, extname } from "node:path";
 import type { MessageBatch } from "@cloudflare/workers-types";
 import { testDatabase } from "../sqlite-d1";
+import { handleSignupSignal } from "../../modules/lead-capture/lib/signup-monitor";
 import { handleIntake, type IntakeEnv } from "../../workers/lead-intake";
 import { handleDelivery, type DeliveryEnv } from "../../workers/lead-delivery";
 import { deliverToAttio } from "../../modules/lead-capture/lib/attio-client";
@@ -49,6 +50,8 @@ async function main() {
   const env = {
     APP_ENV: "local", SITE_ORIGIN: origin, ALLOWED_ORIGINS: origin,
     CAL_BOOKING_URL: previewBookingUrl,
+    SIGNUP_MONITORING_ENABLED: "true",
+    SIGNUP_SIGNAL_RATE_LIMITER: { limit: async () => ({ success: true }) },
     TURNSTILE_SECRET_KEY: "local-browser-test-only", UNVERIFIED_LEADS_ENABLED: "true",
     LEAD_DB: db, LEAD_RATE_LIMITER: { limit: async () => ({ success: true }) },
     UNVERIFIED_RATE_LIMITER: { limit: async () => ({ success: true }) },
@@ -80,14 +83,14 @@ async function main() {
       const url = new URL(req.url!, origin);
       const json = (body: unknown) => { res.setHeader("Content-Type", "application/json"); res.end(JSON.stringify(body)); };
       if (url.pathname === "/__test/state") {
-        return json({ rows: sqlite.prepare("SELECT * FROM lead_submissions").all(), entries: [...entries.values()], alerts, writes, retryDelays });
+        return json({ rows: sqlite.prepare("SELECT * FROM lead_submissions").all(), entries: [...entries.values()], alerts, writes, retryDelays, signals: sqlite.prepare("SELECT * FROM signup_signals").all() });
       }
       if (url.pathname === "/__test/control" && req.method === "POST") {
         let raw = "";
         for await (const chunk of req) raw += chunk;
         const control = JSON.parse(raw);
         if (control.reset) {
-          sqlite.exec("DELETE FROM lead_submissions; DELETE FROM lead_monitor;");
+          sqlite.exec("DELETE FROM lead_submissions; DELETE FROM lead_monitor; DELETE FROM signup_signals;");
           entries.clear(); queued = []; alerts = 0; writes = 0; retryDelays = [];
           env.CAL_BOOKING_URL = previewBookingUrl;
         }
@@ -98,13 +101,14 @@ async function main() {
         if (control.drain) await drain();
         return json({ ok: true });
       }
-      if (url.pathname === "/api/leads") {
+      if (["/api/leads", "/api/signup-signal"].includes(url.pathname)) {
         let raw = "";
         for await (const chunk of req) raw += chunk;
-        const response = await handleIntake(new Request(url, {
+        const webRequest = new Request(url, {
           method: req.method, headers: new Headers(req.headers as Record<string, string>),
           ...(raw ? { body: raw } : {}),
-        }), env, verify);
+        });
+        const response = url.pathname === "/api/leads" ? await handleIntake(webRequest, env, verify) : await handleSignupSignal(webRequest, env);
         res.writeHead(response.status, Object.fromEntries(response.headers));
         return res.end(await response.text());
       }

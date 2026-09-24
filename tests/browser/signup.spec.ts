@@ -116,6 +116,7 @@ for (const committed of [false, true]) {
     }, { times: 1 });
     await submitButton(page).click();
     await expect(page.locator("form").getByRole("alert")).toContainText("couldn’t confirm receipt");
+    await expect.poll(async () => (await state(request)).signals.some((signal: { code: string }) => signal.code === "submission_failed")).toBe(true);
     const pending = await page.evaluate(key => JSON.parse(sessionStorage.getItem(key)!), pendingKey);
     expect(pending.id).toBe(submission!.submissionId);
     expect((await state(request)).rows).toHaveLength(committed ? 1 : 0);

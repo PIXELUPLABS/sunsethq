@@ -70,9 +70,26 @@ The success response means the signup is stored in D1. A failed queue send is re
 
 The public `/api/health` endpoint exposes only `{ "healthy": true/false }`. Detailed `/api/lead-health` is unavailable in production. Health becomes unhealthy for a missing/stale recovery heartbeat, unreadable database, failed Attio identity/list checks, any failed-queue backlog, any terminal failed receipt, or a signup pending at least five minutes. Terminal Attio 4xx failures require explicit operator recovery after the cause is fixed; see [lead recovery](lead-capture.md#recovery).
 
-Cloudflare Health Checks use the existing `sunsethq.com` Business entitlement to probe production from Eastern North America and Western Europe every minute. Delivery health checks `/api/health`; page availability checks `/value-my-data` for HTTP 200 and the application's opening HTML. Cloudflare inspects only the first 10 KB, while inline styles place the form later in the response. The build check verifies all five form fields in the complete HTML and the Turnstile site key in the exported JavaScript. Production alerts go to `jono@sunsethq.com`. The monitors do not execute browser JavaScript or Turnstile, so validate one real browser submission after changes to the form or verification configuration.
+Cloudflare Health Checks use the existing `sunsethq.com` Business entitlement to probe production from Eastern North America and Western Europe every minute. Delivery health checks `/api/health`; page availability checks `/value-my-data` for HTTP 200 and the application's opening HTML. Cloudflare inspects only the first 10 KB, while inline styles place the form later in the response. The build check verifies all five form fields in the complete HTML and the Turnstile site key in the exported JavaScript. Production alerts go to `jono@sunsethq.com`. Those Cloudflare probes do not execute browser JavaScript or Turnstile. Browser tests in CI check the form flow; validate one real browser submission after changes to the form or verification configuration.
 
 Follow the [recovery procedure](staging.md#recovery), using the production resource IDs above. Keep lead bodies and secrets out of logs and support tickets. Do outage rehearsals in staging; do not intentionally break production credentials.
+
+## Monitoring before acceptance
+
+Production enables `SIGNUP_MONITORING_ENABLED=true`. `/api/health` becomes unhealthy when the same failure category occurs for **three distinct page/attempt IDs in 15 minutes**. Categories cover JavaScript/bootstrap errors, unavailable or rejected verification, failed browser submissions, and server intake outages. Repeated reports for the same ID and category are deduplicated. Health recovers as the failures leave that window, provided delivery health is also good. The existing Cloudflare health check and email notification consume the same endpoint.
+
+The native `/signup-monitor.js` runs independently of React hydration and reports if the form has not hydrated within 25 seconds. Form hooks report verification and submission failures. Reports contain only environment, an ephemeral ID, a fixed failure code, and time. They omit form fields, tokens, URLs, exception text, and IP addresses. A separate rate limiter uses the IP without storing it in the ledger. Reports use no cookies or cross-page storage, and the existing consumer schedule removes them after 24 hours. Telemetry failures do not prevent normal lead acceptance.
+
+Apply `0006_signup_monitoring.sql` through the normal deployment process. The production Worker configuration supplies the telemetry flag and rate-limit binding. No additional secrets, scheduled jobs, or deployment checks are needed.
+
+These are traffic-driven diagnostic signals: no traffic is healthy, and clients with all JavaScript or networking blocked cannot report. Client reports are untrusted; inspect the failure category and reproduce the form issue when investigating. Browser tests in CI cover blocked application chunks, unavailable verification, and interrupted submission requests. Validate a real browser signup after form changes and confirm the existing external email-alert configuration when deploying; local tests do not verify that live configuration.
+
+```sql
+SELECT code, COUNT(DISTINCT signal_id) AS failures
+FROM signup_signals
+WHERE environment = 'production' AND created_at >= (unixepoch() * 1000 - 900000)
+GROUP BY code;
+```
 
 ## Rollback
 
