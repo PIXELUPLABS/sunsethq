@@ -7,7 +7,7 @@ const directory = process.env.STATIC_EXPORT_DIRECTORY || (production ? 'out-prod
 const config = JSON.parse(await readFile(production ? 'workers/site/wrangler.production.json' : 'workers/site/wrangler.json', 'utf8'));
 const snapshot = JSON.parse(await readFile('modules/careers/data/jobs.json', 'utf8'));
 const origin = config.vars.SITE_ORIGIN;
-const routes = ['/', '/blogs', '/careers', '/data-privacy', '/value-my-data', ...snapshot.teams.flatMap(team => team.roles.map(role => `/careers/roles/${role.id}`))];
+const routes = ['/', '/blogs', '/careers', '/data-privacy', '/value-my-data', '/privacy', '/terms', ...snapshot.teams.flatMap(team => team.roles.map(role => `/careers/roles/${role.id}`))];
 for (const route of routes) {
   const html = await readFile(route === '/' ? `${directory}/index.html` : `${directory}${route}.html`, 'utf8');
   assert.match(html, /<title>[^<]+<\/title>/, `${route}: missing title`);
