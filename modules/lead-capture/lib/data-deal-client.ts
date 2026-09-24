@@ -10,6 +10,27 @@ export type DataDealConfig = AttioConfig & {
 };
 type RecordResult = { id: { record_id: string } };
 
+export class DataDealConfigError extends Error {
+  constructor(public readonly code: "owner_mapping_missing" | "owner_mapping_invalid") { super(code); }
+}
+
+function resolveOwner(config: DataDealConfig, hostEmail?: string) {
+  let owner: unknown = config.ATTIO_DATA_DEAL_DEFAULT_OWNER;
+  if (hostEmail !== undefined) {
+    let mapping: unknown;
+    try { mapping = JSON.parse(config.ATTIO_CAL_HOST_OWNERS || "{}"); }
+    catch { throw new DataDealConfigError("owner_mapping_invalid"); }
+    if (!mapping || typeof mapping !== "object" || Array.isArray(mapping)
+      || Object.values(mapping).some((value) => typeof value !== "string" || !value.trim())) {
+      throw new DataDealConfigError("owner_mapping_invalid");
+    }
+    owner = Object.hasOwn(mapping, hostEmail) ? (mapping as Record<string, string>)[hostEmail] : undefined;
+  }
+  if (owner === undefined) throw new DataDealConfigError("owner_mapping_missing");
+  if (typeof owner !== "string" || !owner.trim()) throw new DataDealConfigError("owner_mapping_invalid");
+  return owner;
+}
+
 function leadValues(message: LeadMessage) {
   return {
     replay_submission_id: message.submissionId, replay_company_name: message.lead.companyName,
@@ -34,9 +55,7 @@ export async function deliverDataDeal(job: DataDealJob, config: DataDealConfig, 
   // Never reset a deal's stage/owner after a salesperson has advanced it.
   if (existing) return { recordId: existing.id.record_id };
   const booking = job.kind === "booking" ? job.booking : undefined;
-  const hostOwners = JSON.parse(config.ATTIO_CAL_HOST_OWNERS || "{}") as Record<string, string>;
-  const owner = booking ? hostOwners[booking.hostEmail] : config.ATTIO_DATA_DEAL_DEFAULT_OWNER;
-  if (!owner) throw new Error("Data deal owner mapping missing");
+  const owner = resolveOwner(config, booking?.hostEmail);
   const email = booking?.email ?? job.lead!.lead.workEmail;
   const person = await request<{ data: RecordResult }>("objects/people/records?matching_attribute=email_addresses", "PUT", {
     data: { values: { email_addresses: [email] } },

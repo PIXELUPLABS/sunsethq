@@ -1,6 +1,6 @@
 import { AttioError } from "./attio-client";
 import { qualifiesForBooking } from "./booking-qualification";
-import { deliverDataDeal, type DataDealConfig } from "./data-deal-client";
+import { DataDealConfigError, deliverDataDeal, type DataDealConfig } from "./data-deal-client";
 import type { LedgerEnv } from "./lead-ledger";
 import type { LeadMessage } from "./lead-schema";
 
@@ -49,8 +49,8 @@ export async function reconcileDataDeals(env: LedgerEnv & DataDealConfig, fetche
         .bind(now, result.recordId, id, lease).run();
       console.info(JSON.stringify({ event: "data_deal_delivered", jobId: id, recordId: result.recordId }));
     } catch (error) {
-      const permanent = error instanceof AttioError && error.status >= 400 && error.status < 500 && ![408, 429].includes(error.status);
-      const code = error instanceof AttioError ? `attio_${error.status}` : "delivery_error";
+      const permanent = error instanceof DataDealConfigError || (error instanceof AttioError && error.status >= 400 && error.status < 500 && ![408, 429].includes(error.status));
+      const code = error instanceof DataDealConfigError ? error.code : error instanceof AttioError ? `attio_${error.status}` : "delivery_error";
       const delay = Math.min(3600, Math.max(error instanceof AttioError ? error.retryAfter : 0, 30 * 2 ** Math.min(row.attempts, 7)));
       await env.LEAD_DB.prepare(`UPDATE data_deal_jobs SET status = ?, last_failure_code = ?, next_attempt_at = ?, lease_token = NULL
         WHERE job_id = ? AND lease_token = ?`).bind(permanent ? "failed" : "pending", code, now + delay * 1000, id, lease).run();

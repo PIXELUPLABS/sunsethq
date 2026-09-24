@@ -145,6 +145,49 @@ test("outbox retries transient failure, recovers expired leases, and flags perma
   assert.ok(s.jobs()[1].payload);
 });
 
+test("invalid or missing owner configuration fails durably and can be reopened after repair", async () => {
+  const cases: { job: DataDealJob; override: Partial<DataDealConfig>; code: string }[] = [
+    ...[undefined, "{}", '{"brendan@replay.ai":"brendan"}'].map((mapping) => ({
+      job: { kind: "booking", booking } as DataDealJob,
+      override: { ATTIO_CAL_HOST_OWNERS: mapping }, code: "owner_mapping_missing",
+    })),
+    ...["{", "null", "[]", '"string"', "42", '{"jackie@replay.ai":null}', '{"jackie@replay.ai":[]}', '{"jackie@replay.ai":" "}'].map((mapping) => ({
+      job: { kind: "booking", booking } as DataDealJob,
+      override: { ATTIO_CAL_HOST_OWNERS: mapping }, code: "owner_mapping_invalid",
+    })),
+    { job: { kind: "ineligible", lead }, override: { ATTIO_DATA_DEAL_DEFAULT_OWNER: undefined }, code: "owner_mapping_missing" },
+    { job: { kind: "ineligible", lead }, override: { ATTIO_DATA_DEAL_DEFAULT_OWNER: " " }, code: "owner_mapping_invalid" },
+  ];
+  for (const { job, override, code } of cases) {
+    const s = setup();
+    const mock = attioMock();
+    await saveDataDealJob(s.env, job, now);
+    const savedPayload = s.jobs()[0].payload;
+    await assert.rejects(reconcileDataDeals({ ...s.env, ...override }, mock.fetcher, now), /needs attention/);
+    const failed = s.jobs()[0];
+    assert.equal(failed.status, "failed");
+    assert.equal(failed.last_failure_code, code);
+    assert.equal(failed.payload, savedPayload);
+    assert.equal(failed.lease_token, null);
+    assert.equal(mock.writes.length, 0);
+    // Fixing config alone must not silently retry a permanently failed receipt.
+    await assert.rejects(reconcileDataDeals(s.env, mock.fetcher, now + 3600_000), /needs attention/);
+    assert.equal(s.jobs()[0].attempts, 1);
+    s.sqlite.prepare("UPDATE data_deal_jobs SET status = 'pending', next_attempt_at = 0, lease_token = NULL, last_failure_code = NULL WHERE job_id = ? AND environment = 'production' AND status = 'failed'").run(failed.job_id);
+    await reconcileDataDeals(s.env, mock.fetcher, now + 3600_000);
+    assert.equal(s.jobs()[0].status, "delivered");
+    assert.equal(s.jobs()[0].last_failure_code, null);
+    assert.equal(s.jobs()[0].attio_record_id, "deal-id");
+    assert.equal(mock.writes.length, 1);
+  }
+});
+
+test("ineligible jobs do not depend on the Cal host mapping", async () => {
+  const mock = attioMock();
+  await deliverDataDeal({ kind: "ineligible", lead }, { ...config, ATTIO_CAL_HOST_OWNERS: "{" }, "production", mock.fetcher);
+  assert.deepEqual(mock.writes[0].deal_owner, [{ referenced_actor_type: "workspace-member", referenced_actor_id: "brendan" }]);
+});
+
 test("hidden reference selects the exact form and cannot associate another booker's form", async () => {
   const s = setup();
   await persistLead(s.env, lead, now - 1000);
