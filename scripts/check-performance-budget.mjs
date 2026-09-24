@@ -11,7 +11,8 @@ for (const [route, limits] of Object.entries(budgets.routes)) {
   const stylePaths = [...new Set([...html.matchAll(/<link[^>]+href="([^"]+\.css)"/g)].map(m => m[1]))];
   const fontPaths = [...new Set([...html.matchAll(/<link[^>]+href="([^"]+\.woff2)"[^>]+as="font"/g)].map(m => m[1]))];
   const assetBytes = async (paths, gzip = false) => (await Promise.all(paths.map(async p => {
-    if (!p.startsWith('/_next/')) throw new Error(`Unexpected external build resource: ${p}`);
+    // Count the bootstrap-independent monitor alongside the application chunks.
+    if (!p.startsWith('/_next/') && p !== '/signup-monitor.js') throw new Error(`Unexpected external build resource: ${p}`);
     const bytes = await readFile(resolve(root, `.${p}`));
     return gzip ? gzipSync(bytes).length : bytes.length;
   }))).reduce((sum, n) => sum + n, 0);
