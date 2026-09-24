@@ -9,7 +9,7 @@ export function BlogsHero() {
   return (
     <section className="relative h-screen overflow-hidden bg-[#fcfcfc]">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         priority

@@ -1,0 +1,1860 @@
+{
+  "baselineCommit": "0c81e3b9a28741e0c9e91cf9ca59293e0d5888b4",
+  "date": "2026-09-18",
+  "hardware": "Apple M4 Pro; Darwin 24.5.0",
+  "node": "22.22.0",
+  "before": {
+    "label": "before",
+    "generatedAt": "2026-09-18T22:17:18.087Z",
+    "runs": [
+      {
+        "route": "/",
+        "run": 1,
+        "score": 0.47,
+        "first-contentful-paint": 1096.035880130485,
+        "largest-contentful-paint": 41256.107640391434,
+        "total-blocking-time": 1864,
+        "cumulative-layout-shift": 0,
+        "speed-index": 2665.9260719489876,
+        "total-byte-weight": 12877904,
+        "warnings": []
+      },
+      {
+        "route": "/",
+        "run": 2,
+        "score": 0.73,
+        "first-contentful-paint": 1093.9934638237319,
+        "largest-contentful-paint": 19655.986927647464,
+        "total-blocking-time": 146,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1093.9934638237319,
+        "total-byte-weight": 12877904,
+        "warnings": []
+      },
+      {
+        "route": "/",
+        "run": 3,
+        "score": 0.73,
+        "first-contentful-paint": 1093.573998121784,
+        "largest-contentful-paint": 19805.14799624357,
+        "total-blocking-time": 155,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1093.573998121784,
+        "total-byte-weight": 12877904,
+        "warnings": []
+      },
+      {
+        "route": "/value-my-data",
+        "run": 1,
+        "score": 0.75,
+        "first-contentful-paint": 936.0039255123545,
+        "largest-contentful-paint": 13064.007851024708,
+        "total-blocking-time": 31,
+        "cumulative-layout-shift": 0,
+        "speed-index": 936.0039255123545,
+        "total-byte-weight": 2876423,
+        "warnings": []
+      },
+      {
+        "route": "/value-my-data",
+        "run": 2,
+        "score": 0.75,
+        "first-contentful-paint": 929.6502242113958,
+        "largest-contentful-paint": 13055.30044842279,
+        "total-blocking-time": 24,
+        "cumulative-layout-shift": 0,
+        "speed-index": 929.6502242113958,
+        "total-byte-weight": 2876562,
+        "warnings": []
+      },
+      {
+        "route": "/value-my-data",
+        "run": 3,
+        "score": 0.75,
+        "first-contentful-paint": 933.9014703875383,
+        "largest-contentful-paint": 13205.802940775076,
+        "total-blocking-time": 24,
+        "cumulative-layout-shift": 0,
+        "speed-index": 933.9014703875383,
+        "total-byte-weight": 2880126,
+        "warnings": []
+      }
+    ]
+  },
+  "after": {
+    "label": "final",
+    "generatedAt": "2026-09-18T22:24:30.037Z",
+    "runs": [
+      {
+        "route": "/",
+        "run": 1,
+        "score": 0.75,
+        "first-contentful-paint": 1359.7618298338634,
+        "largest-contentful-paint": 8706.507886555908,
+        "total-blocking-time": 3,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1359.7618298338634,
+        "total-byte-weight": 5717839,
+        "warnings": []
+      },
+      {
+        "route": "/",
+        "run": 2,
+        "score": 0.75,
+        "first-contentful-paint": 1358.0465371715272,
+        "largest-contentful-paint": 8630.364358114351,
+        "total-blocking-time": 8,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1358.0465371715272,
+        "total-byte-weight": 5717839,
+        "warnings": []
+      },
+      {
+        "route": "/",
+        "run": 3,
+        "score": 0.75,
+        "first-contentful-paint": 1358.468038163121,
+        "largest-contentful-paint": 8705.645358775415,
+        "total-blocking-time": 7,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1358.468038163121,
+        "total-byte-weight": 5717839,
+        "warnings": []
+      },
+      {
+        "route": "/value-my-data",
+        "run": 1,
+        "score": 0.77,
+        "first-contentful-paint": 1060.25505,
+        "largest-contentful-paint": 7056.8367,
+        "total-blocking-time": 7,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1060.25505,
+        "total-byte-weight": 2016888,
+        "warnings": []
+      },
+      {
+        "route": "/value-my-data",
+        "run": 2,
+        "score": 0.77,
+        "first-contentful-paint": 904.5306,
+        "largest-contentful-paint": 7054.5306,
+        "total-blocking-time": 9,
+        "cumulative-layout-shift": 0,
+        "speed-index": 904.5306,
+        "total-byte-weight": 2012802,
+        "warnings": []
+      },
+      {
+        "route": "/value-my-data",
+        "run": 3,
+        "score": 0.77,
+        "first-contentful-paint": 1056.7863,
+        "largest-contentful-paint": 7054.5242,
+        "total-blocking-time": 11,
+        "cumulative-layout-shift": 0,
+        "speed-index": 1056.7863,
+        "total-byte-weight": 2017929,
+        "warnings": []
+      }
+    ]
+  },
+  "beforeSizes": [
+    {
+      "page": "index",
+      "html": 506575,
+      "gzip": 83284,
+      "inlineCss": 86051
+    },
+    {
+      "page": "value-my-data",
+      "html": 323351,
+      "gzip": 62359,
+      "inlineCss": 80765
+    },
+    {
+      "page": "data-privacy",
+      "html": 398412,
+      "gzip": 71372,
+      "inlineCss": 80765
+    },
+    {
+      "page": "careers",
+      "html": 518869,
+      "gzip": 97016,
+      "inlineCss": 80765
+    }
+  ],
+  "texturePixelComparison": [
+    {
+      "file": "grain-light-texture",
+      "meanChannelDifference": 0,
+      "changedChannelFraction": 0
+    },
+    {
+      "file": "hero/btn-pattern",
+      "meanChannelDifference": 0,
+      "changedChannelFraction": 0
+    },
+    {
+      "file": "hover-card-grey-bg",
+      "meanChannelDifference": 0,
+      "changedChannelFraction": 0
+    },
+    {
+      "file": "careers/practical-stuff-cube-grid",
+      "meanChannelDifference": 0,
+      "changedChannelFraction": 0
+    }
+  ],
+  "lighthouseVersion": "13.5.0",
+  "configSettings": {
+    "output": "json",
+    "maxWaitForFcp": 30000,
+    "maxWaitForLoad": 45000,
+    "pauseAfterFcpMs": 1000,
+    "pauseAfterLoadMs": 1000,
+    "networkQuietThresholdMs": 1000,
+    "cpuQuietThresholdMs": 1000,
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "throttlingMethod": "simulate",
+    "screenEmulation": {
+      "mobile": true,
+      "width": 412,
+      "height": 823,
+      "deviceScaleFactor": 1.75,
+      "disabled": false
+    },
+    "emulatedUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Mobile Safari/537.36",
+    "auditMode": false,
+    "gatherMode": false,
+    "clearStorageTypes": [
+      "file_systems",
+      "shader_cache",
+      "service_workers",
+      "cache_storage"
+    ],
+    "disableStorageReset": false,
+    "debugNavigation": false,
+    "channel": "node",
+    "usePassiveGathering": false,
+    "disableFullPageScreenshot": false,
+    "skipAboutBlank": false,
+    "blankPage": "about:blank",
+    "ignoreStatusCode": false,
+    "locale": "en-US",
+    "blockedUrlPatterns": null,
+    "additionalTraceCategories": null,
+    "extraHeaders": null,
+    "precomputedLanternData": null,
+    "onlyAudits": null,
+    "onlyCategories": [
+      "performance"
+    ],
+    "skipAudits": null
+  },
+  "environment": {
+    "networkUserAgent": "Mozilla/5.0 (Linux; Android 11; moto g power (2022)) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Mobile Safari/537.36",
+    "hostUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.0.0 Safari/537.36",
+    "benchmarkIndex": 4052.5,
+    "credits": {}
+  },
+  "before-home-resources": [
+    {
+      "url": "http://127.0.0.1:4173/",
+      "resourceType": "Document",
+      "transferSize": 83484,
+      "resourceSize": 506575
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+      "resourceType": "Font",
+      "transferSize": 23312,
+      "resourceSize": 23108
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+      "resourceType": "Font",
+      "transferSize": 29492,
+      "resourceSize": 29288
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/stk_bureau_serif_book-s.p.1e-b6rp8fa5-c.woff2",
+      "resourceType": "Font",
+      "transferSize": 47504,
+      "resourceSize": 47300
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/stk_bureau_serif_regular-s.p.08-eufr-b1phs.woff2",
+      "resourceType": "Font",
+      "transferSize": 9243,
+      "resourceSize": 9040
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/sunset-logo.svg",
+      "resourceType": "Image",
+      "transferSize": 3202,
+      "resourceSize": 6918
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/grain-light-texture.svg",
+      "resourceType": "Image",
+      "transferSize": 860456,
+      "resourceSize": 1144042
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/515439f5e1842947-1080.webp",
+      "resourceType": "Image",
+      "transferSize": 90925,
+      "resourceSize": 90748
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0jvhpaew_uadu.js",
+      "resourceType": "Script",
+      "transferSize": 2590,
+      "resourceSize": 6557
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3450qyhportkm.js",
+      "resourceType": "Script",
+      "transferSize": 9269,
+      "resourceSize": 34015
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/33wmmxu2kkyqh.js",
+      "resourceType": "Script",
+      "transferSize": 71574,
+      "resourceSize": 227963
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2qv8dp54h3o83.js",
+      "resourceType": "Script",
+      "transferSize": 43997,
+      "resourceSize": 160052
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/turbopack-26qwnsihbth4b.js",
+      "resourceType": "Script",
+      "transferSize": 4087,
+      "resourceSize": 9721
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1a3d_0c9pz85p.js",
+      "resourceType": "Script",
+      "transferSize": 3409,
+      "resourceSize": 8186
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1-j6tmhwa3vr5.js",
+      "resourceType": "Script",
+      "transferSize": 94852,
+      "resourceSize": 427217
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3fntmmi971322.js",
+      "resourceType": "Script",
+      "transferSize": 3900,
+      "resourceSize": 14377
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0xbdttji1vdf3.js",
+      "resourceType": "Script",
+      "transferSize": 11176,
+      "resourceSize": 33335
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/30jzolvlgs0s7.js",
+      "resourceType": "Script",
+      "transferSize": 14413,
+      "resourceSize": 38452
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2obofywrk-snr.js",
+      "resourceType": "Script",
+      "transferSize": 19636,
+      "resourceSize": 64443
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/footer/grain.png",
+      "resourceType": "Image",
+      "transferSize": 544460,
+      "resourceSize": 544283
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/deidentification/De-Identification%20-%201.mp4",
+      "resourceType": "Media",
+      "transferSize": 1613901,
+      "resourceSize": 1613723
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/texture-grain-light.png",
+      "resourceType": "Image",
+      "transferSize": 544460,
+      "resourceSize": 544283
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hero/bar-noise.webp",
+      "resourceType": "Image",
+      "transferSize": 649,
+      "resourceSize": 474
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/button-hover-weave.webp",
+      "resourceType": "Image",
+      "transferSize": 62985,
+      "resourceSize": 62808
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/grain-texture.webp",
+      "resourceType": "Image",
+      "transferSize": 119208,
+      "resourceSize": 119030
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/valuation/value/grain-overlay.png",
+      "resourceType": "Image",
+      "transferSize": 769129,
+      "resourceSize": 768952
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/deidentification/grain-strip.webp",
+      "resourceType": "Image",
+      "transferSize": 9520,
+      "resourceSize": 9344
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/deidentification/grain-texture.webp",
+      "resourceType": "Image",
+      "transferSize": 157,
+      "resourceSize": 9
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/buyer-card-hover-mesh.png",
+      "resourceType": "Image",
+      "transferSize": 1585834,
+      "resourceSize": 1585656
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hover-card-texture-lines.png",
+      "resourceType": "Image",
+      "transferSize": 103420,
+      "resourceSize": 103243
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/texture-grain-white.png",
+      "resourceType": "Image",
+      "transferSize": 1727380,
+      "resourceSize": 1727202
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-line.svg",
+      "resourceType": "Image",
+      "transferSize": 581,
+      "resourceSize": 671
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-close-line.svg",
+      "resourceType": "Image",
+      "transferSize": 504,
+      "resourceSize": 434
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hero/btn-pattern.svg",
+      "resourceType": "Image",
+      "transferSize": 2125551,
+      "resourceSize": 2827172
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-left.svg",
+      "resourceType": "Image",
+      "transferSize": 1236,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-right.svg",
+      "resourceType": "Image",
+      "transferSize": 1231,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/fad2d9eebaf2c5aa-692.webp",
+      "resourceType": "Image",
+      "transferSize": 11823,
+      "resourceSize": 11646
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/ebbc6b1b562c178d-80.webp",
+      "resourceType": "Image",
+      "transferSize": 17839,
+      "resourceSize": 17662
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/floor-band-image-2.svg",
+      "resourceType": "Image",
+      "transferSize": 860931,
+      "resourceSize": 1145778
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/9521856555aef2cf-828.webp",
+      "resourceType": "Image",
+      "transferSize": 1212,
+      "resourceSize": 1036
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-product-logs.svg",
+      "resourceType": "Image",
+      "transferSize": 557,
+      "resourceSize": 605
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-decision-threads.svg",
+      "resourceType": "Image",
+      "transferSize": 750,
+      "resourceSize": 1175
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-billing.svg",
+      "resourceType": "Image",
+      "transferSize": 608,
+      "resourceSize": 661
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-support.svg",
+      "resourceType": "Image",
+      "transferSize": 567,
+      "resourceSize": 543
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-code-commits.svg",
+      "resourceType": "Image",
+      "transferSize": 460,
+      "resourceSize": 342
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-product-data.svg",
+      "resourceType": "Image",
+      "transferSize": 840,
+      "resourceSize": 1074
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-crm.svg",
+      "resourceType": "Image",
+      "transferSize": 1390,
+      "resourceSize": 2578
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-sales-conversations.svg",
+      "resourceType": "Image",
+      "transferSize": 614,
+      "resourceSize": 736
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/revenue-bottom-panel.svg",
+      "resourceType": "Image",
+      "transferSize": 860630,
+      "resourceSize": 1144325
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/deal-icon.svg",
+      "resourceType": "Image",
+      "transferSize": 851,
+      "resourceSize": 1382
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/recurs-icon.svg",
+      "resourceType": "Image",
+      "transferSize": 511,
+      "resourceSize": 710
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/valuation/how-it-works/arrow-up-s-line.svg",
+      "resourceType": "Image",
+      "transferSize": 465,
+      "resourceSize": 345
+    },
+    {
+      "url": "http://127.0.0.1:4173/",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/r13.webp",
+      "resourceType": "Image",
+      "transferSize": 28447,
+      "resourceSize": 28270
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/d5.webp",
+      "resourceType": "Image",
+      "transferSize": 20649,
+      "resourceSize": 20472
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/r11.webp",
+      "resourceType": "Image",
+      "transferSize": 26507,
+      "resourceSize": 26330
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/r5.webp",
+      "resourceType": "Image",
+      "transferSize": 18923,
+      "resourceSize": 18746
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/d6.webp",
+      "resourceType": "Image",
+      "transferSize": 23203,
+      "resourceSize": 23026
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/r6.webp",
+      "resourceType": "Image",
+      "transferSize": 35523,
+      "resourceSize": 35346
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/d1.webp",
+      "resourceType": "Image",
+      "transferSize": 4294,
+      "resourceSize": 4118
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/d3.webp",
+      "resourceType": "Image",
+      "transferSize": 7348,
+      "resourceSize": 7172
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/r3.webp",
+      "resourceType": "Image",
+      "transferSize": 56641,
+      "resourceSize": 56464
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/r10.webp",
+      "resourceType": "Image",
+      "transferSize": 55819,
+      "resourceSize": 55642
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/d2.webp",
+      "resourceType": "Image",
+      "transferSize": 18353,
+      "resourceSize": 18176
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/d4.webp",
+      "resourceType": "Image",
+      "transferSize": 28431,
+      "resourceSize": 28254
+    },
+    {
+      "url": "http://127.0.0.1:4173/replay/deid/r4.webp",
+      "resourceType": "Image",
+      "transferSize": 41321,
+      "resourceSize": 41144
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 517,
+      "resourceSize": 664
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 532,
+      "resourceSize": 743
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 527,
+      "resourceSize": 738
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 532,
+      "resourceSize": 744
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next._index.txt?_rsc=yIp22O3xgPPxC28X",
+      "resourceType": "Fetch",
+      "transferSize": 17297,
+      "resourceSize": 83302
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next.__PAGE__.txt?_rsc=8nTjltbQWvg6NcbE",
+      "resourceType": "Fetch",
+      "transferSize": 9606,
+      "resourceSize": 48553
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next.data-privacy.__PAGE__.txt?_rsc=Z_zeNwKTutYqu41u",
+      "resourceType": "Fetch",
+      "transferSize": 4694,
+      "resourceSize": 24360
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next.careers.__PAGE__.txt?_rsc=2mFfRjCTP3zE4_j_",
+      "resourceType": "Fetch",
+      "transferSize": 30648,
+      "resourceSize": 122624
+    },
+    {
+      "url": "http://127.0.0.1:4173/favicon-light.svg",
+      "resourceType": "Other",
+      "transferSize": 858,
+      "resourceSize": 1123
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next.value-my-data.__PAGE__.txt?_rsc=yc9QBVCxumSqHdPB",
+      "resourceType": "Fetch",
+      "transferSize": 3704,
+      "resourceSize": 15901
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1hiklnfwn4-hf.js",
+      "resourceType": "Script",
+      "transferSize": 8233,
+      "resourceSize": 32944
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1a4az8-d5r8gk.js",
+      "resourceType": "Script",
+      "transferSize": 8576,
+      "resourceSize": 29831
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1uv3mhlyz-lgq.js",
+      "resourceType": "Script",
+      "transferSize": 5440,
+      "resourceSize": 14923
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2jbqkvdsmtdm5.js",
+      "resourceType": "Script",
+      "transferSize": 23706,
+      "resourceSize": 69901
+    }
+  ],
+  "before-value-my-data-resources": [
+    {
+      "url": "http://127.0.0.1:4173/value-my-data",
+      "resourceType": "Document",
+      "transferSize": 62559,
+      "resourceSize": 323351
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/797e433ab948586e-s.p.0r6juujl39pe6.woff2",
+      "resourceType": "Font",
+      "transferSize": 23312,
+      "resourceSize": 23108
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+      "resourceType": "Font",
+      "transferSize": 29492,
+      "resourceSize": 29288
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/stk_bureau_serif_book-s.p.1e-b6rp8fa5-c.woff2",
+      "resourceType": "Font",
+      "transferSize": 47504,
+      "resourceSize": 47300
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/stk_bureau_serif_regular-s.p.08-eufr-b1phs.woff2",
+      "resourceType": "Font",
+      "transferSize": 9243,
+      "resourceSize": 9040
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/sunset-logo.svg",
+      "resourceType": "Image",
+      "transferSize": 3202,
+      "resourceSize": 6918
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/grain-light-texture.svg",
+      "resourceType": "Image",
+      "transferSize": 860456,
+      "resourceSize": 1144042
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0jvhpaew_uadu.js",
+      "resourceType": "Script",
+      "transferSize": 2590,
+      "resourceSize": 6557
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3450qyhportkm.js",
+      "resourceType": "Script",
+      "transferSize": 9269,
+      "resourceSize": 34015
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/33wmmxu2kkyqh.js",
+      "resourceType": "Script",
+      "transferSize": 71574,
+      "resourceSize": 227963
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2qv8dp54h3o83.js",
+      "resourceType": "Script",
+      "transferSize": 43997,
+      "resourceSize": 160052
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/turbopack-26qwnsihbth4b.js",
+      "resourceType": "Script",
+      "transferSize": 4087,
+      "resourceSize": 9721
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1a3d_0c9pz85p.js",
+      "resourceType": "Script",
+      "transferSize": 3409,
+      "resourceSize": 8186
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1-j6tmhwa3vr5.js",
+      "resourceType": "Script",
+      "transferSize": 94852,
+      "resourceSize": 427217
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3fntmmi971322.js",
+      "resourceType": "Script",
+      "transferSize": 3900,
+      "resourceSize": 14377
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1uv3mhlyz-lgq.js",
+      "resourceType": "Script",
+      "transferSize": 5440,
+      "resourceSize": 14923
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2jbqkvdsmtdm5.js",
+      "resourceType": "Script",
+      "transferSize": 23706,
+      "resourceSize": 69901
+    },
+    {
+      "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+      "transferSize": 265,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/footer/grain.png",
+      "resourceType": "Image",
+      "transferSize": 544460,
+      "resourceSize": 544283
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/texture-grain-light.png",
+      "resourceType": "Image",
+      "transferSize": 544460,
+      "resourceSize": 544283
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hero/bar-noise.webp",
+      "resourceType": "Image",
+      "transferSize": 649,
+      "resourceSize": 474
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/grain-texture.webp",
+      "resourceType": "Image",
+      "transferSize": 119208,
+      "resourceSize": 119030
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/button-hover-weave.webp",
+      "resourceType": "Image",
+      "transferSize": 62985,
+      "resourceSize": 62808
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-line.svg",
+      "resourceType": "Image",
+      "transferSize": 581,
+      "resourceSize": 671
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-close-line.svg",
+      "resourceType": "Image",
+      "transferSize": 504,
+      "resourceSize": 434
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-1.svg",
+      "resourceType": "Image",
+      "transferSize": 1598,
+      "resourceSize": 3063
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-2.svg",
+      "resourceType": "Image",
+      "transferSize": 1198,
+      "resourceSize": 2622
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-3.svg",
+      "resourceType": "Image",
+      "transferSize": 770,
+      "resourceSize": 1207
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-4.svg",
+      "resourceType": "Image",
+      "transferSize": 953,
+      "resourceSize": 1616
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-left.svg",
+      "resourceType": "Image",
+      "transferSize": 1236,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-right.svg",
+      "resourceType": "Image",
+      "transferSize": 1231,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/ab4e818847cafbb4-1080.webp",
+      "resourceType": "Image",
+      "transferSize": 42873,
+      "resourceSize": 42696
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/social-x.svg",
+      "resourceType": "Image",
+      "transferSize": 552,
+      "resourceSize": 507
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/social-linkedin.svg",
+      "resourceType": "Image",
+      "transferSize": 1142,
+      "resourceSize": 1765
+    },
+    {
+      "url": "https://challenges.cloudflare.com/turnstile/v0/g/330e41bb475c/api.js",
+      "resourceType": "Script",
+      "transferSize": 28263,
+      "resourceSize": 86603
+    },
+    {
+      "url": "http://127.0.0.1:4173/",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/favicon-light.svg",
+      "resourceType": "Other",
+      "transferSize": 858,
+      "resourceSize": 1123
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 517,
+      "resourceSize": 664
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 532,
+      "resourceSize": 743
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 527,
+      "resourceSize": 738
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 532,
+      "resourceSize": 744
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next._index.txt?_rsc=3Ci3dJeCiwouPW9B",
+      "resourceType": "Fetch",
+      "transferSize": 17297,
+      "resourceSize": 83302
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next.__PAGE__.txt?_rsc=fuYeUN42mUN_6nkI",
+      "resourceType": "Fetch",
+      "transferSize": 9606,
+      "resourceSize": 48553
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next.data-privacy.__PAGE__.txt?_rsc=qzWQwfYRBJviiAOR",
+      "resourceType": "Fetch",
+      "transferSize": 4694,
+      "resourceSize": 24360
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next.careers.__PAGE__.txt?_rsc=XuN5KsmoxwzFiaXO",
+      "resourceType": "Fetch",
+      "transferSize": 30648,
+      "resourceSize": 122624
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next.value-my-data.__PAGE__.txt?_rsc=f1DDe-P3LAB87KS8",
+      "resourceType": "Fetch",
+      "transferSize": 3704,
+      "resourceSize": 15901
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0xbdttji1vdf3.js",
+      "resourceType": "Script",
+      "transferSize": 11176,
+      "resourceSize": 33335
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/30jzolvlgs0s7.js",
+      "resourceType": "Script",
+      "transferSize": 14413,
+      "resourceSize": 38452
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2obofywrk-snr.js",
+      "resourceType": "Script",
+      "transferSize": 19636,
+      "resourceSize": 64443
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1hiklnfwn4-hf.js",
+      "resourceType": "Script",
+      "transferSize": 8233,
+      "resourceSize": 32944
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1a4az8-d5r8gk.js",
+      "resourceType": "Script",
+      "transferSize": 8576,
+      "resourceSize": 29831
+    },
+    {
+      "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/400q2/1x00000000000000000000AA/light/fbE/new/flexible?lang=auto",
+      "resourceType": "Document",
+      "transferSize": 93293,
+      "resourceSize": 245594
+    },
+    {
+      "url": "blob:https://challenges.cloudflare.com/203d4ca5-a673-4575-ae9b-471b4ffdff3a",
+      "resourceType": "Script",
+      "transferSize": 0,
+      "resourceSize": 0
+    }
+  ],
+  "after-home-resources": [
+    {
+      "url": "http://127.0.0.1:4173/",
+      "resourceType": "Document",
+      "transferSize": 31524,
+      "resourceSize": 246705
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+      "resourceType": "Font",
+      "transferSize": 29492,
+      "resourceSize": 29288
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/stk_bureau_serif_book-s.p.1e-b6rp8fa5-c.woff2",
+      "resourceType": "Font",
+      "transferSize": 47504,
+      "resourceSize": 47300
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/sunset-logo.svg",
+      "resourceType": "Image",
+      "transferSize": 3202,
+      "resourceSize": 6918
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/515439f5e1842947-1080.webp",
+      "resourceType": "Image",
+      "transferSize": 90925,
+      "resourceSize": 90748
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0ogojz54q-8y6.css",
+      "resourceType": "Stylesheet",
+      "transferSize": 16194,
+      "resourceSize": 80636
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/22wlx2e57_j08.css",
+      "resourceType": "Stylesheet",
+      "transferSize": 2231,
+      "resourceSize": 5286
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0jvhpaew_uadu.js",
+      "resourceType": "Script",
+      "transferSize": 2590,
+      "resourceSize": 6557
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3450qyhportkm.js",
+      "resourceType": "Script",
+      "transferSize": 9269,
+      "resourceSize": 34015
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/33wmmxu2kkyqh.js",
+      "resourceType": "Script",
+      "transferSize": 71574,
+      "resourceSize": 227963
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2qv8dp54h3o83.js",
+      "resourceType": "Script",
+      "transferSize": 43997,
+      "resourceSize": 160052
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/turbopack-26qwnsihbth4b.js",
+      "resourceType": "Script",
+      "transferSize": 4087,
+      "resourceSize": 9721
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/043c_q4yqq-10.js",
+      "resourceType": "Script",
+      "transferSize": 3453,
+      "resourceSize": 8377
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1dq2uvmmpn9yv.js",
+      "resourceType": "Script",
+      "transferSize": 95516,
+      "resourceSize": 428557
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3fntmmi971322.js",
+      "resourceType": "Script",
+      "transferSize": 3900,
+      "resourceSize": 14377
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3cs-y_jj0am2h.js",
+      "resourceType": "Script",
+      "transferSize": 11248,
+      "resourceSize": 33853
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2xgg-ejpvzfph.js",
+      "resourceType": "Script",
+      "transferSize": 14418,
+      "resourceSize": 38484
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0p513l42hu4cn.js",
+      "resourceType": "Script",
+      "transferSize": 12407,
+      "resourceSize": 46443
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/grain-light-texture-optimized.svg",
+      "resourceType": "Image",
+      "transferSize": 528709,
+      "resourceSize": 701895
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/footer/grain.webp",
+      "resourceType": "Image",
+      "transferSize": 309758,
+      "resourceSize": 309580
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/texture-grain-light.webp",
+      "resourceType": "Image",
+      "transferSize": 309758,
+      "resourceSize": 309580
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hero/bar-noise.webp",
+      "resourceType": "Image",
+      "transferSize": 649,
+      "resourceSize": 474
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/button-hover-weave.webp",
+      "resourceType": "Image",
+      "transferSize": 62985,
+      "resourceSize": 62808
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/grain-texture.webp",
+      "resourceType": "Image",
+      "transferSize": 119208,
+      "resourceSize": 119030
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/valuation/value/grain-overlay.webp",
+      "resourceType": "Image",
+      "transferSize": 514954,
+      "resourceSize": 514776
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/deidentification/grain-strip.webp",
+      "resourceType": "Image",
+      "transferSize": 9520,
+      "resourceSize": 9344
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/deidentification/grain-texture.webp",
+      "resourceType": "Image",
+      "transferSize": 157,
+      "resourceSize": 9
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hover-card-texture-lines.png",
+      "resourceType": "Image",
+      "transferSize": 103420,
+      "resourceSize": 103243
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/797e433ab948586e-s.0r6juujl39pe6.woff2",
+      "resourceType": "Font",
+      "transferSize": 23312,
+      "resourceSize": 23108
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/stk_bureau_serif_regular-s.08-eufr-b1phs.woff2",
+      "resourceType": "Font",
+      "transferSize": 9243,
+      "resourceSize": 9040
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/texture-grain-white.webp",
+      "resourceType": "Image",
+      "transferSize": 1018747,
+      "resourceSize": 1018568
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-line.svg",
+      "resourceType": "Image",
+      "transferSize": 581,
+      "resourceSize": 671
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-close-line.svg",
+      "resourceType": "Image",
+      "transferSize": 504,
+      "resourceSize": 434
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hero/btn-pattern-optimized.svg",
+      "resourceType": "Image",
+      "transferSize": 350640,
+      "resourceSize": 465428
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-left.svg",
+      "resourceType": "Image",
+      "transferSize": 1236,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-right.svg",
+      "resourceType": "Image",
+      "transferSize": 1231,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/fad2d9eebaf2c5aa-692.webp",
+      "resourceType": "Image",
+      "transferSize": 11823,
+      "resourceSize": 11646
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/ebbc6b1b562c178d-80.webp",
+      "resourceType": "Image",
+      "transferSize": 17839,
+      "resourceSize": 17662
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/floor-band-image-2.svg",
+      "resourceType": "Image",
+      "transferSize": 860931,
+      "resourceSize": 1145778
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/02520684f60ceb53-828.webp",
+      "resourceType": "Image",
+      "transferSize": 1432,
+      "resourceSize": 1256
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-product-logs.svg",
+      "resourceType": "Image",
+      "transferSize": 557,
+      "resourceSize": 605
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-decision-threads.svg",
+      "resourceType": "Image",
+      "transferSize": 750,
+      "resourceSize": 1175
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-billing.svg",
+      "resourceType": "Image",
+      "transferSize": 608,
+      "resourceSize": 661
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-support.svg",
+      "resourceType": "Image",
+      "transferSize": 567,
+      "resourceSize": 543
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-code-commits.svg",
+      "resourceType": "Image",
+      "transferSize": 460,
+      "resourceSize": 342
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-product-data.svg",
+      "resourceType": "Image",
+      "transferSize": 840,
+      "resourceSize": 1074
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-crm.svg",
+      "resourceType": "Image",
+      "transferSize": 1390,
+      "resourceSize": 2578
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/icon-sales-conversations.svg",
+      "resourceType": "Image",
+      "transferSize": 614,
+      "resourceSize": 736
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/revenue-stream/revenue-bottom-panel.svg",
+      "resourceType": "Image",
+      "transferSize": 860630,
+      "resourceSize": 1144325
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/deal-icon.svg",
+      "resourceType": "Image",
+      "transferSize": 851,
+      "resourceSize": 1382
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/recurs-icon.svg",
+      "resourceType": "Image",
+      "transferSize": 511,
+      "resourceSize": 710
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/valuation/how-it-works/arrow-up-s-line.svg",
+      "resourceType": "Image",
+      "transferSize": 465,
+      "resourceSize": 345
+    },
+    {
+      "url": "http://127.0.0.1:4173/favicon-light.svg",
+      "resourceType": "Other",
+      "transferSize": 858,
+      "resourceSize": 1123
+    },
+    {
+      "url": "http://127.0.0.1:4173/",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 513,
+      "resourceSize": 536
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 511,
+      "resourceSize": 561
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 507,
+      "resourceSize": 556
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next._tree.txt?_rsc=5CB68i4pnAekjehf",
+      "resourceType": "Fetch",
+      "transferSize": 512,
+      "resourceSize": 562
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next.__PAGE__.txt?_rsc=8nTjltbQWvg6NcbE",
+      "resourceType": "Fetch",
+      "transferSize": 8396,
+      "resourceSize": 44997
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next.data-privacy.__PAGE__.txt?_rsc=Z_zeNwKTutYqu41u",
+      "resourceType": "Fetch",
+      "transferSize": 5426,
+      "resourceSize": 26640
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next.careers.__PAGE__.txt?_rsc=2mFfRjCTP3zE4_j_",
+      "resourceType": "Fetch",
+      "transferSize": 31389,
+      "resourceSize": 124913
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next.value-my-data.__PAGE__.txt?_rsc=yc9QBVCxumSqHdPB",
+      "resourceType": "Fetch",
+      "transferSize": 4474,
+      "resourceSize": 18223
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0je-xctrhva4w.js",
+      "resourceType": "Script",
+      "transferSize": 8238,
+      "resourceSize": 32968
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3qyf9m4cwa1o9.js",
+      "resourceType": "Script",
+      "transferSize": 8585,
+      "resourceSize": 29884
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1uv3mhlyz-lgq.js",
+      "resourceType": "Script",
+      "transferSize": 5440,
+      "resourceSize": 14923
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0_pga38gdp1ge.js",
+      "resourceType": "Script",
+      "transferSize": 23779,
+      "resourceSize": 70451
+    }
+  ],
+  "after-value-my-data-resources": [
+    {
+      "url": "http://127.0.0.1:4173/value-my-data",
+      "resourceType": "Document",
+      "transferSize": 14281,
+      "resourceSize": 74535
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/caa3a2e1cccd8315-s.p.0wgildi0cnwt9.woff2",
+      "resourceType": "Font",
+      "transferSize": 29492,
+      "resourceSize": 29288
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/stk_bureau_serif_book-s.p.1e-b6rp8fa5-c.woff2",
+      "resourceType": "Font",
+      "transferSize": 47504,
+      "resourceSize": 47300
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/sunset-logo.svg",
+      "resourceType": "Image",
+      "transferSize": 3202,
+      "resourceSize": 6918
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0ogojz54q-8y6.css",
+      "resourceType": "Stylesheet",
+      "transferSize": 16194,
+      "resourceSize": 80636
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0jvhpaew_uadu.js",
+      "resourceType": "Script",
+      "transferSize": 2590,
+      "resourceSize": 6557
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3450qyhportkm.js",
+      "resourceType": "Script",
+      "transferSize": 9269,
+      "resourceSize": 34015
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/33wmmxu2kkyqh.js",
+      "resourceType": "Script",
+      "transferSize": 71574,
+      "resourceSize": 227963
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2qv8dp54h3o83.js",
+      "resourceType": "Script",
+      "transferSize": 43997,
+      "resourceSize": 160052
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/turbopack-26qwnsihbth4b.js",
+      "resourceType": "Script",
+      "transferSize": 4087,
+      "resourceSize": 9721
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/043c_q4yqq-10.js",
+      "resourceType": "Script",
+      "transferSize": 3453,
+      "resourceSize": 8377
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1dq2uvmmpn9yv.js",
+      "resourceType": "Script",
+      "transferSize": 95516,
+      "resourceSize": 428557
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3fntmmi971322.js",
+      "resourceType": "Script",
+      "transferSize": 3900,
+      "resourceSize": 14377
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/1uv3mhlyz-lgq.js",
+      "resourceType": "Script",
+      "transferSize": 5440,
+      "resourceSize": 14923
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0_pga38gdp1ge.js",
+      "resourceType": "Script",
+      "transferSize": 23779,
+      "resourceSize": 70451
+    },
+    {
+      "url": "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit",
+      "transferSize": 265,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/grain-light-texture-optimized.svg",
+      "resourceType": "Image",
+      "transferSize": 528709,
+      "resourceSize": 701895
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/footer/grain.webp",
+      "resourceType": "Image",
+      "transferSize": 309758,
+      "resourceSize": 309580
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/texture-grain-light.webp",
+      "resourceType": "Image",
+      "transferSize": 309758,
+      "resourceSize": 309580
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/hero/bar-noise.webp",
+      "resourceType": "Image",
+      "transferSize": 649,
+      "resourceSize": 474
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/pricing/grain-texture.webp",
+      "resourceType": "Image",
+      "transferSize": 119208,
+      "resourceSize": 119030
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/button-hover-weave.webp",
+      "resourceType": "Image",
+      "transferSize": 62985,
+      "resourceSize": 62808
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/media/797e433ab948586e-s.0r6juujl39pe6.woff2",
+      "resourceType": "Font",
+      "transferSize": 23312,
+      "resourceSize": 23108
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-line.svg",
+      "resourceType": "Image",
+      "transferSize": 581,
+      "resourceSize": 671
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/menu-close-line.svg",
+      "resourceType": "Image",
+      "transferSize": 504,
+      "resourceSize": 434
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-1.svg",
+      "resourceType": "Image",
+      "transferSize": 1598,
+      "resourceSize": 3063
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-2.svg",
+      "resourceType": "Image",
+      "transferSize": 1198,
+      "resourceSize": 2622
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-3.svg",
+      "resourceType": "Image",
+      "transferSize": 770,
+      "resourceSize": 1207
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/value/icon-4.svg",
+      "resourceType": "Image",
+      "transferSize": 953,
+      "resourceSize": 1616
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-left.svg",
+      "resourceType": "Image",
+      "transferSize": 1236,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/color-strip-right.svg",
+      "resourceType": "Image",
+      "transferSize": 1231,
+      "resourceSize": 2263
+    },
+    {
+      "url": "http://127.0.0.1:4173/generated-images/ab4e818847cafbb4-1080.webp",
+      "resourceType": "Image",
+      "transferSize": 42873,
+      "resourceSize": 42696
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/social-x.svg",
+      "resourceType": "Image",
+      "transferSize": 552,
+      "resourceSize": 507
+    },
+    {
+      "url": "http://127.0.0.1:4173/images/social-linkedin.svg",
+      "resourceType": "Image",
+      "transferSize": 1142,
+      "resourceSize": 1765
+    },
+    {
+      "url": "https://challenges.cloudflare.com/turnstile/v0/g/330e41bb475c/api.js",
+      "resourceType": "Script",
+      "transferSize": 28263,
+      "resourceSize": 86603
+    },
+    {
+      "url": "http://127.0.0.1:4173/favicon-light.svg",
+      "resourceType": "Other",
+      "transferSize": 858,
+      "resourceSize": 1123
+    },
+    {
+      "url": "http://127.0.0.1:4173/",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data",
+      "resourceType": "Fetch",
+      "transferSize": 200,
+      "resourceSize": 0
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 513,
+      "resourceSize": 536
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 511,
+      "resourceSize": 561
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 507,
+      "resourceSize": 556
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next._tree.txt?_rsc=i4EiD5BwMUh6eKiR",
+      "resourceType": "Fetch",
+      "transferSize": 512,
+      "resourceSize": 562
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/22wlx2e57_j08.css",
+      "resourceType": "Stylesheet",
+      "transferSize": 2231,
+      "resourceSize": 5286
+    },
+    {
+      "url": "http://127.0.0.1:4173/__next.__PAGE__.txt?_rsc=fuYeUN42mUN_6nkI",
+      "resourceType": "Fetch",
+      "transferSize": 8396,
+      "resourceSize": 44997
+    },
+    {
+      "url": "http://127.0.0.1:4173/data-privacy/__next.data-privacy.__PAGE__.txt?_rsc=qzWQwfYRBJviiAOR",
+      "resourceType": "Fetch",
+      "transferSize": 5426,
+      "resourceSize": 26640
+    },
+    {
+      "url": "http://127.0.0.1:4173/careers/__next.careers.__PAGE__.txt?_rsc=XuN5KsmoxwzFiaXO",
+      "resourceType": "Fetch",
+      "transferSize": 31389,
+      "resourceSize": 124913
+    },
+    {
+      "url": "http://127.0.0.1:4173/value-my-data/__next.value-my-data.__PAGE__.txt?_rsc=f1DDe-P3LAB87KS8",
+      "resourceType": "Fetch",
+      "transferSize": 4474,
+      "resourceSize": 18223
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3cs-y_jj0am2h.js",
+      "resourceType": "Script",
+      "transferSize": 11248,
+      "resourceSize": 33853
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/2xgg-ejpvzfph.js",
+      "resourceType": "Script",
+      "transferSize": 14418,
+      "resourceSize": 38484
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0p513l42hu4cn.js",
+      "resourceType": "Script",
+      "transferSize": 12407,
+      "resourceSize": 46443
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/0je-xctrhva4w.js",
+      "resourceType": "Script",
+      "transferSize": 8238,
+      "resourceSize": 32968
+    },
+    {
+      "url": "http://127.0.0.1:4173/_next/static/chunks/3qyf9m4cwa1o9.js",
+      "resourceType": "Script",
+      "transferSize": 8585,
+      "resourceSize": 29884
+    },
+    {
+      "url": "https://challenges.cloudflare.com/cdn-cgi/challenge-platform/h/g/turnstile/f/av0/rch/uwkz5/1x00000000000000000000AA/light/fbE/new/flexible?lang=auto",
+      "resourceType": "Document",
+      "transferSize": 92466,
+      "resourceSize": 244034
+    },
+    {
+      "url": "blob:https://challenges.cloudflare.com/fe6341bc-8e12-4d0f-b789-a9f1300e98e6",
+      "resourceType": "Script",
+      "transferSize": 0,
+      "resourceSize": 0
+    }
+  ]
+}

@@ -10,7 +10,7 @@ import {
 } from "../hooks/use-replay-wordmark";
 
 export function ReplayWordmark({ className }: { className?: string }) {
-  const { wrapRef, svgRef, gradRef } = useReplayWordmark();
+  const { wrapRef, svgRef, gradRef, grainSrc } = useReplayWordmark();
 
   return (
     <div ref={wrapRef} className={`replay-wordmark z-10 ${className ?? ""}`}>
@@ -45,7 +45,7 @@ export function ReplayWordmark({ className }: { className?: string }) {
             height={280}
           >
             <image
-              href="/images/footer/grain.png"
+              href={grainSrc}
               x={0}
               y={0}
               width={280}

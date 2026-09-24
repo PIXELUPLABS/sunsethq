@@ -14,7 +14,7 @@ export function HeroBottomFade({ heightClass }: Props) {
       className={`pointer-events-none absolute inset-x-0 bottom-0 ${heightClass}`}
       style={{
         backgroundColor: "#fcfcfc",
-        backgroundImage: "url(/images/grain-light-texture.svg)",
+        backgroundImage: "url(/images/grain-light-texture-optimized.svg)",
         backgroundSize: "cover",
         maskImage: "linear-gradient(to bottom, transparent, black)",
         WebkitMaskImage: "linear-gradient(to bottom, transparent, black)",

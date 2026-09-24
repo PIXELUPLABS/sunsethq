@@ -70,7 +70,7 @@ export function BottomStripes({
           >
             {grainTexture ? (
               <div
-                className="absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat mix-blend-multiply"
+                className="absolute inset-0 bg-[url('/images/grain-light-texture-optimized.svg')] bg-top bg-repeat mix-blend-multiply"
                 style={{ backgroundSize: "1440px auto" }}
               />
             ) : null}

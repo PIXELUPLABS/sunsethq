@@ -1,6 +1,6 @@
 export const CTA_BG_TEXT = "/images/cta/cta-bg-text.png";
-export const CTA_GRAIN_LIGHT = "/images/grain-light-texture.svg";
-export const CTA_GRAIN_WHITE = "/images/texture-grain-white.png";
+export const CTA_GRAIN_LIGHT = "/images/grain-light-texture-optimized.svg";
+export const CTA_GRAIN_WHITE = "/images/texture-grain-white.webp";
 
 /**
  * Phone collage tiles, exported from the 390 x 490 Figma frame at 3x and
