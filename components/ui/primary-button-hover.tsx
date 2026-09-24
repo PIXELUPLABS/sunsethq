@@ -9,15 +9,16 @@ type PrimaryButtonHoverProps = {
 const REVEAL = {
   hover: {
     fill: "[@media(hover:hover)]:group-hover:opacity-100",
+    texture: "[@media(hover:hover)]:group-hover:bg-[url('/images/button-hover-weave.webp')]",
     strip: "[@media(hover:hover)]:group-hover:translate-x-0",
   },
   active: {
     fill: "group-active:opacity-100",
+    texture: "group-active:bg-[url('/images/button-hover-weave.webp')]",
     strip: "group-active:translate-x-0",
   },
 } as const;
 
-const HOVER_WEAVE = "/images/button-hover-weave.webp";
 
 /**
  * Hover surface for the black primary buttons, taken from the Figma
@@ -44,9 +45,8 @@ export function PrimaryButtonHover({ on = "hover" }: PrimaryButtonHoverProps) {
           }}
         />
         <div
-          className="absolute inset-0 mix-blend-soft-light"
+          className={`absolute inset-0 mix-blend-soft-light ${reveal.texture}`}
           style={{
-            backgroundImage: `url(${HOVER_WEAVE})`,
             backgroundSize: "185px 185px",
           }}
         />

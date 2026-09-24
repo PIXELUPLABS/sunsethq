@@ -10,7 +10,7 @@ export function CareersHero() {
   return (
     <section className="relative flex h-screen flex-col overflow-hidden bg-[#fcfcfc]">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         priority

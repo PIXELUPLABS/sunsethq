@@ -12,7 +12,7 @@ export function AutoplayVideo({ src, className }: { src: string; className?: str
       src={src}
       muted
       playsInline
-      preload="auto"
+      preload="none"
       className={className}
     />
   );

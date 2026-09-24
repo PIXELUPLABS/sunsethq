@@ -78,7 +78,7 @@ export function CtaSection({
           className={`pointer-events-none absolute inset-x-0 top-0 h-[43%] overflow-hidden ${topBandClassName}`}
         >
           <Image
-            src="/images/texture-grain-white.png"
+            src="/images/texture-grain-white.webp"
             alt=""
             fill
             className="pointer-events-none object-cover mix-blend-multiply"
@@ -138,7 +138,7 @@ export function CtaSection({
               style={{ ...CTA_CARD_SIZE, containerType: "inline-size" }}
             >
               <Image
-                src="/images/texture-grain-white.png"
+                src="/images/texture-grain-white.webp"
                 alt=""
                 fill
                 className="pointer-events-none object-cover mix-blend-multiply"

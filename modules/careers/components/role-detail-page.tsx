@@ -16,7 +16,7 @@ export function RoleDetailPage({ role }: RoleDetailPageProps) {
         <section className="relative overflow-hidden bg-[#fcfcfc]">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto]"
+            className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture-optimized.svg')] bg-top bg-repeat bg-[length:100%_auto]"
           />
 
           <div className="relative mx-auto w-full max-w-[1560px] border border-dashed border-[#d4d4d4]">

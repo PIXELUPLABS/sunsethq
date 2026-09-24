@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DeferredTexture } from "./deferred-texture";
 
 export function IndustryDiagramCard({
   label,
@@ -36,12 +37,10 @@ export function IndustryDiagramCard({
       }}
     >
       <div className="pointer-events-none absolute inset-0 bg-[#eaebf1]" />
-      <div
+      <DeferredTexture
+        src="/images/texture-grain-white.webp"
         className="pointer-events-none absolute inset-0 mix-blend-multiply"
-        style={{
-          backgroundImage: "url(/images/texture-grain-white.png)",
-          backgroundSize: "160px 160px",
-        }}
+        style={{ backgroundSize: "160px 160px" }}
       />
       <Image
         src={icon}

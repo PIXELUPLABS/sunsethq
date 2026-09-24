@@ -13,7 +13,7 @@ export function WhyReplayRow({ statement, index }: WhyReplayRowProps) {
     <div className="relative flex min-h-[280px] flex-col overflow-hidden border border-black/15 p-5 text-black sm:min-h-[340px] sm:p-6">
       <div className="pointer-events-none absolute -inset-px">
         <Image
-          src="/images/hover-card-grey-bg.svg"
+          src="/images/hover-card-grey-bg-optimized.svg"
           alt=""
           fill
           className="object-cover"

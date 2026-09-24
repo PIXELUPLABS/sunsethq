@@ -35,7 +35,12 @@
     "jobs:sync": "tsx scripts/sync-jobs.mts",
     "start": "next start",
     "lint": "eslint",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "perf:audit": "node scripts/audit-performance.mjs",
+    "perf:budget": "node scripts/check-performance-budget.mjs",
+    "perf:inspect": "node scripts/inspect-performance.mjs",
+    "perf:browser": "node scripts/check-performance-browser.mjs",
+    "perf:consent": "node scripts/check-analytics-browser.mjs"
   },
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
@@ -53,8 +58,11 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/sanitize-html": "^2.16.1",
+    "esbuild": "0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
+    "lighthouse": "13.5.0",
+    "puppeteer": "25.11.0",
     "sanitize-html": "^2.17.7",
     "sharp": "^0.35.4",
     "storybook": "^10.6.0",

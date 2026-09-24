@@ -6,7 +6,7 @@ export function BuyersSection() {
   return (
     <section className="relative flex justify-center overflow-hidden px-3 sm:px-18">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"
@@ -37,20 +37,12 @@ export function BuyersSection() {
                     rounding never leaves a hairline gap along any side. */}
                 <div className="pointer-events-none absolute -inset-px">
                   <Image
-                    src="/images/hover-card-grey-bg.svg"
+                    src="/images/hover-card-grey-bg-optimized.svg"
                     alt=""
                     fill
                     className="object-cover"
                   />
                 </div>
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 mix-blend-multiply"
-                  style={{
-                    backgroundImage: "url(/images/buyer-card-hover-mesh.png)",
-                    backgroundSize: "408px 306px",
-                  }}
-                />
-                <div className="pointer-events-none absolute inset-0 bg-black opacity-0" />
 
                 <p className="relative font-serif text-[24px] leading-[1.1] tracking-[-0.24px] min-[1200px]:text-[32px] min-[1200px]:tracking-[-0.32px]">
                   {card.headline}
