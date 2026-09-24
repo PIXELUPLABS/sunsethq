@@ -1,8 +1,9 @@
 import { handleSignupSignal, signupHealth } from "../../modules/lead-capture/lib/signup-monitor";
 import { handleIntake, type IntakeEnv } from "../lead-intake";
 import { leadHealth } from "../../modules/lead-capture/lib/lead-ledger";
+import { handleCalWebhook, type CalWebhookEnv } from "../../modules/lead-capture/lib/cal-webhook";
 
-export type SiteEnv = IntakeEnv & {
+export type SiteEnv = IntakeEnv & CalWebhookEnv & {
   ASSETS: { fetch: (request: Request) => Promise<Response> };
 };
 
@@ -38,6 +39,8 @@ export async function handleSite(request: Request, env: SiteEnv) {
   } else if (url.pathname === "/api/signup-signal") {
     try { response = await handleSignupSignal(request, env); }
     catch { response = new Response(null, { status: 503, headers: { "Cache-Control": "no-store" } }); }
+  } else if (url.pathname === "/api/cal/bookings") {
+    response = await handleCalWebhook(request, env);
   } else if (url.pathname === "/api/leads") {
     response = await handleIntake(request, env);
   } else if (url.pathname.startsWith("/api/")) {

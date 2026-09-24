@@ -4,9 +4,9 @@ import { getCalApi } from "@calcom/embed-react";
 import { useEffect, useMemo, useState } from "react";
 import { CAL_EMBED_NAMESPACE, CAL_EMBED_SCRIPT_URL, getCalBookingConfig } from "../lib/cal-booking";
 
-export function useCalBooking(bookingUrl: string, email: string) {
+export function useCalBooking(bookingUrl: string, email: string, submissionId?: string) {
   const [status, setStatus] = useState<"loading" | "ready" | "unavailable">("loading");
-  const booking = useMemo(() => getCalBookingConfig(bookingUrl, email), [bookingUrl, email]);
+  const booking = useMemo(() => getCalBookingConfig(bookingUrl, email, submissionId), [bookingUrl, email, submissionId]);
 
   useEffect(() => {
     let active = true;
