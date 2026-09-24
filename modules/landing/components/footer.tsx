@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CookieSettingsButton } from "@/modules/consent/components/cookie-settings-button";
+import { LEGAL_LINKS } from "@/modules/legal/lib/constants";
 import { FOOTER_COLUMNS } from "../lib/constants";
 import { ReplayWordmark } from "./replay-wordmark";
 
@@ -76,9 +77,16 @@ export function Footer() {
               <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase lg:text-white/60">
                 © 2026 Replay. All rights reserved
                 <br />
-                Sunset HQ Corp.
+                Sunsets HQ Corp.
               </p>
-              <CookieSettingsButton />
+              <nav aria-label="Legal and privacy" className="flex flex-wrap items-center gap-x-4">
+                {LEGAL_LINKS.map((link) => (
+                  <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center font-mono text-xs text-white/80 underline underline-offset-4 transition-colors duration-150 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4">
+                    {link.label}
+                  </Link>
+                ))}
+                <CookieSettingsButton />
+              </nav>
             </div>
             <div className="flex shrink-0 items-center gap-2 opacity-[0.68] lg:gap-2.5">
               <a

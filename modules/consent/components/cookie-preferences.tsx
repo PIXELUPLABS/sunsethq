@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useCookiePreferences } from "../hooks/use-cookie-preferences";
 
 const BUTTON_CLASS = "min-h-11 cursor-pointer border border-[#141518] px-4 py-3 text-sm transition-transform duration-150 ease-snap active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-4";
@@ -14,6 +15,7 @@ export function CookiePreferences({ onClose }: { onClose: () => void }) {
         <button type="button" onClick={onClose} aria-label="Close cookie settings" className="-mt-2 -mr-2 flex size-11 shrink-0 cursor-pointer items-center justify-center text-2xl active:scale-[0.97] focus-visible:outline-2">×</button>
       </div>
       <p id="cookie-settings-description" className="mt-3 text-sm leading-relaxed text-[#565656]">Choose how Replay uses cookies and browser storage. You can change your choice at any time.</p>
+      <Link href="/privacy" onClick={onClose} className="mt-1 inline-flex min-h-11 items-center text-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-4">Read our privacy policy</Link>
       <div className="mt-6 border-y border-black/15 py-5">
         <div className="flex items-center justify-between gap-4"><h3 className="font-medium">Necessary</h3><span className="font-mono text-xs uppercase text-[#565656]">Always on</span></div>
         <p className="mt-2 text-sm leading-relaxed text-[#565656]">Remembers your privacy choice, protects forms from abuse, and helps recover a valuation request if submission fails.</p>
