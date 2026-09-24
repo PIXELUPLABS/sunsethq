@@ -194,7 +194,11 @@ for (const answers of [
       expect(iframeUrl.origin).toBe("https://replaydata.cal.com");
       expect(iframeUrl.pathname).toBe("/sales/browser-test/embed");
       expect(iframeUrl.searchParams.get("email")).toBe("browser-test@example.com");
-      await expect(page.getByRole("link", { name: "Open calendar in a new tab" })).toHaveAttribute("href", "https://replaydata.cal.com/sales/browser-test?email=browser-test%40example.com");
+      const reference = (await state(request)).rows[0].submission_id;
+      expect(iframeUrl.searchParams.get("metadata[replaySubmissionId]")).toBe(reference);
+      const directUrl = new URL((await page.getByRole("link", { name: "Open calendar in a new tab" }).getAttribute("href"))!);
+      expect(directUrl.searchParams.get("metadata[replaySubmissionId]")).toBe(reference);
+      expect(directUrl.searchParams.get("email")).toBe("browser-test@example.com");
       expect(await page.evaluate(key => sessionStorage.getItem(key), pendingKey)).toBeNull();
     } else {
       await success(page);
@@ -233,7 +237,8 @@ test("a missing calendar component chunk preserves the booking link while loadin
     await expect.poll(() => chunkRequests).toBeGreaterThan(0);
     await expect(page.getByRole("status").filter({ hasText: "Loading available times…" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Let’s talk about your data." })).toBeVisible();
-    await expect(link).toHaveAttribute("href", "https://replaydata.cal.com/sales/browser-test?email=browser-test%40example.com");
+    const reference = (await state(request)).rows[0].submission_id;
+    await expect(link).toHaveAttribute("href", `https://replaydata.cal.com/sales/browser-test?email=browser-test%40example.com&metadata%5BreplaySubmissionId%5D=${reference}`);
     await expect(link).toBeVisible();
   } finally {
     releaseChunk();

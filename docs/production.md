@@ -18,6 +18,8 @@ Production and staging share the Cloudflare account but have separate Workers, q
 
 ## Credentials
 
+Cal booking delivery additionally uses `CAL_WEBHOOK_SECRET` in the website Worker and `CAL_COM_API_KEY` in the GitHub production environment for activation after deployment. The Cal key is not a Worker or browser credential. Provisioning, Attio Data Deals fields, and recovery are documented in the [Cal → Attio runbook](cal-attio-data-deals.md).
+
 Use ignored, owner-readable `.env.production.local` at the repository root:
 
 ```dotenv

@@ -103,7 +103,10 @@
         "ATTIO_WORKSPACE_ID": "8f055b0e-1a94-4844-bba0-94600f169f3c",
         "ATTIO_LIST_ID": "349bc21b-299c-46ec-a436-b5c1239ee5ee",
         "LEAD_ALERT_FROM": "leads@notifications.replay.ai",
-        "LEAD_ALERT_TO": "jono@sunsethq.com"
+        "LEAD_ALERT_TO": "jono@sunsethq.com",
+        "ATTIO_DATA_DEALS_ENABLED": "true",
+        "ATTIO_DATA_DEAL_DEFAULT_OWNER": "8b49879d-7468-4bb5-b935-e3955a9b577b",
+        "ATTIO_CAL_HOST_OWNERS": "{\"brendan@replay.ai\": \"8b49879d-7468-4bb5-b935-e3955a9b577b\", \"jackie@replay.ai\": \"b0d3dc9d-7cfd-471c-9ae1-b8819df07bd1\"}"
       },
       "queues": {
         "consumers": [

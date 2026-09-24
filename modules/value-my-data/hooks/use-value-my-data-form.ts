@@ -8,7 +8,7 @@ import { clearPendingSubmission, readPendingSubmission, savePendingSubmission } 
 
 export function useValueMyDataForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [booking, setBooking] = useState<{ url: string; email: string } | null>(null);
+  const [booking, setBooking] = useState<{ url: string; email: string; submissionId: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
   const submittingRef = useRef(false);
@@ -72,7 +72,7 @@ export function useValueMyDataForm() {
       if (response.status !== 202 || !result?.accepted) {
         throw new Error(result?.error ?? "We couldn’t receive your request. Please try again.");
       }
-      if (result.bookingUrl) setBooking({ url: result.bookingUrl, email: answers.workEmail });
+      if (result.bookingUrl) setBooking({ url: result.bookingUrl, email: answers.workEmail, submissionId: submissionRef.current.id });
       setIsSubmitted(true);
       clearPendingSubmission();
     } catch (error) {
