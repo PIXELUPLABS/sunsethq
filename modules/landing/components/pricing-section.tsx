@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { DeferredTexture } from "./deferred-texture";
 import { PRICING_TIERS, SCROLL_PLAY_THRESHOLD } from "../lib/constants";
 import { SectionTag } from "./section-tag";
 import { BottomStripes } from "./bottom-stripes";
@@ -23,12 +24,10 @@ export function PricingSection() {
       id="what-you-earn"
       className="relative flex scroll-mt-16 flex-col overflow-hidden bg-brand-gradient bg-ink px-3 pt-16 pb-20 sm:px-18 lg:h-[990px] lg:px-18 lg:pt-[110px] lg:pb-0"
     >
-      <div
+      <DeferredTexture
+        src={GRAIN_TEXTURE}
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-        style={{
-          backgroundImage: `url(${GRAIN_TEXTURE})`,
-          backgroundSize: "296px 296px",
-        }}
+        style={{ backgroundSize: "296px 296px" }}
       />
 
       <div className="relative mx-auto flex w-full max-w-[1560px] flex-col gap-16 overflow-hidden bg-black/10 px-3 py-10 sm:gap-[60px] sm:px-10 sm:py-[60px]">
@@ -94,13 +93,11 @@ export function PricingSection() {
                             opacity: barsInView ? 1 : 0,
                           }}
                         >
-                          <div
-                            className="absolute inset-0 mix-blend-soft-light"
-                            style={{
-                              backgroundImage: `url(${GRAIN_TEXTURE})`,
-                              backgroundSize: "296px 296px",
-                            }}
-                          />
+                          <DeferredTexture
+        src={GRAIN_TEXTURE}
+        className="absolute inset-0 mix-blend-soft-light"
+        style={{ backgroundSize: "296px 296px" }}
+      />
                         </div>
                       ))}
                     </div>

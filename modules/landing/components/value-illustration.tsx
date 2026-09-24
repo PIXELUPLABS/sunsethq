@@ -491,7 +491,7 @@ export function ValueIllustration({ active }: { active: boolean }) {
       <div
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
         style={{
-          backgroundImage: `url(${ASSET_PATH}/grain-overlay.png)`,
+          backgroundImage: `url(${ASSET_PATH}/grain-overlay.webp)`,
           backgroundSize: `${s.x(222)} ${s.y(222)}`,
         }}
       />

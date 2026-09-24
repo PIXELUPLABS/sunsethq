@@ -18,6 +18,7 @@ test("static pages, assets, and missing pages retain status and receive staging/
       }));
       assert.deepEqual(directives.get("frame-src"), ["https://challenges.cloudflare.com", "https://replaydata.cal.com"]);
       assert.deepEqual(directives.get("script-src"), ["'self'", "'unsafe-inline'", "https://challenges.cloudflare.com", "https://app.cal.com/embed/embed.js"]);
+      assert.deepEqual(directives.get("connect-src"), ["'self'", "https://challenges.cloudflare.com"]);
     }
     assert.equal(response.headers.get("Strict-Transport-Security"), null);
   }
@@ -32,6 +33,10 @@ test("production is indexable only on its canonical host and never exposes detai
   assert.equal(response.headers.get("X-Robots-Tag"), null);
   assert.equal(response.headers.get("X-Frame-Options"), "DENY");
   assert.equal(response.headers.get("Strict-Transport-Security"), "max-age=31536000");
+  assert.match(response.headers.get("Content-Security-Policy")!, /script-src[^;]+https:\/\/static\.cloudflareinsights\.com/);
+  assert.match(response.headers.get("Content-Security-Policy")!, /connect-src[^;]+https:\/\/cloudflareinsights\.com/);
+  assert.match(response.headers.get("Content-Security-Policy")!, /script-src[^;]+https:\/\/app\.cal\.com\/embed\/embed\.js/);
+  assert.match(response.headers.get("Content-Security-Policy")!, /frame-src[^;]+https:\/\/replaydata\.cal\.com/);
   for (const origin of ["http://replay.ai", "https://replay.ai", "http://www.replay.ai"]) {
     const redirect = await handleSite(new Request(`${origin}/value-my-data?utm_source=test`), env);
     assert.equal(redirect.status, 308);

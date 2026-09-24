@@ -24,10 +24,11 @@ export function HomeHero() {
       className="relative overflow-hidden border-b border-dashed border-black/8 bg-[#fcfcfc]"
     >
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
-        priority
+        loading="eager"
+        fetchPriority="low"
         className="pointer-events-none object-cover"
       />
 
@@ -54,7 +55,8 @@ export function HomeHero() {
           alt="A spreadsheet of operating records shown in perspective, with columns of values highlighted"
           width={528}
           height={360}
-          priority
+          loading="eager"
+          fetchPriority="high"
           sizes="136vw"
           className="h-auto w-full"
         />

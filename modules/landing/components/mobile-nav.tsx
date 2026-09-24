@@ -9,7 +9,7 @@ import { NavColorStrip } from "./nav-color-strip";
 
 const MENU_ICON = "/images/menu-line.svg";
 const CLOSE_ICON = "/images/menu-close-line.svg";
-const GRAIN_TILE = "/images/texture-grain-light.png";
+const GRAIN_TILE = "/images/texture-grain-light.webp";
 
 export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
   const { isOpen, close, toggle } = useDisclosure();
@@ -58,7 +58,7 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
           aria-hidden
           className="pointer-events-none absolute inset-0 mix-blend-multiply"
           style={{
-            backgroundImage: `url("${GRAIN_TILE}")`,
+            backgroundImage: isOpen ? `url("${GRAIN_TILE}")` : undefined,
             backgroundSize: "259px 259px",
             backgroundPosition: "left top",
           }}
@@ -81,6 +81,7 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
                 {link.isRoute ? (
                   <Link
                     href={link.href}
+                    prefetch={isOpen ? null : false}
                     onClick={close}
                     className="font-serif text-[20px] leading-[1.04] tracking-[-1px] text-black"
                   >
@@ -101,6 +102,7 @@ export function MobileNav({ linkBase = "" }: { linkBase?: string }) {
 
           <Link
             href="/value-my-data"
+            prefetch={isOpen ? null : false}
             onClick={close}
             className="cta-type flex h-13 min-h-12 shrink-0 items-center justify-center border border-[#141518] bg-[#141518] px-[22px] text-base leading-3 text-white"
           >

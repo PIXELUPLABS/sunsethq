@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { DeferredDecorativeImage } from "./deferred-decorative-image";
 import { RevenueStreamShelfItem } from "./revenue-stream-shelf-item";
 import { useInView } from "../hooks/use-in-view";
 import { REVENUE_STREAM_TILE_MS, SCROLL_PLAY_THRESHOLD } from "../lib/constants";
@@ -67,9 +68,8 @@ export function RevenueStreamShelf() {
       />
 
       {/* full-bleed floor color (navy + cyan bands, center dash tick baked in) extending past the box below the card */}
-      <Image
+      <DeferredDecorativeImage
         src={REVENUE_STREAM_FLOOR_BAND}
-        alt=""
         width={1874}
         height={205}
         className="absolute top-[36.2654cqw] left-1/2 z-10 h-[15.8179cqw] w-auto max-w-none -translate-x-1/2"
@@ -78,7 +78,7 @@ export function RevenueStreamShelf() {
       {/* white card with the two-column data list */}
       <div className="absolute top-[7.3302cqw] left-[14.1975cqw] h-[23.9198cqw] w-[71.6049cqw] bg-white">
         <Image
-          src="/images/texture-grain-white.png"
+          src="/images/texture-grain-white.webp"
           alt=""
           fill
           className="pointer-events-none object-cover mix-blend-multiply"
@@ -152,9 +152,8 @@ export function RevenueStreamShelf() {
         height={65}
         className="-scale-y-100 translate-y-[1px] absolute top-[2.3148cqw] left-[5.8256cqw] h-[5.0154cqw] w-[88.3488cqw] max-w-none"
       />
-      <Image
+      <DeferredDecorativeImage
         src={REVENUE_STREAM_PANEL_FLOOR}
-        alt=""
         width={1147}
         height={95.5}
         className="absolute left-[5.8256cqw] top-[31.2515cqw] h-[7.3688cqw] w-[88.3488cqw] max-w-none"

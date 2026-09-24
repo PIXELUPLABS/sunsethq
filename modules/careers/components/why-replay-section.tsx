@@ -12,7 +12,7 @@ export function WhyReplaySection() {
   return (
     <section className="relative flex justify-center overflow-hidden bg-[#fcfcfc] px-3 sm:px-18">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"

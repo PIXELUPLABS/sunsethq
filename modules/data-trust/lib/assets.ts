@@ -30,9 +30,9 @@ export const DATA_TRUST_ASSURANCE_IMAGES = [
   "/images/data-trust/legal-4.avif",
 ];
 
-export const SOFT_LIGHT_TEXTURE = "/images/texture-canvas-blue.png";
+export const SOFT_LIGHT_TEXTURE = "/images/texture-canvas-blue.webp";
 export const SOFT_LIGHT_TEXTURE_SIZE = "296px 296px";
-export const PAGE_GRAIN_TEXTURE = "/images/grain-light-texture.svg";
+export const PAGE_GRAIN_TEXTURE = "/images/grain-light-texture-optimized.svg";
 export const JURISDICTION_ICON = "/images/jurisdiction-icon.svg";
 
 export const DATA_TRUST_STRUCTURE_ICON = "/images/data-trust/structure-icon.svg";
