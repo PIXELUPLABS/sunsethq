@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useInView } from "./use-in-view";
 
 export const REPLAY_WORDMARK_VB_WIDTH = 1297;
 export const REPLAY_WORDMARK_VB_HEIGHT = 337;
@@ -20,7 +21,7 @@ function easeInOutCubic(p: number) {
  * shimmer gradient.
  */
 export function useReplayWordmark() {
-  const wrapRef = useRef<HTMLDivElement>(null);
+  const { ref: wrapRef, inView: loadGrain } = useInView<HTMLDivElement>({ rootMargin: "600px" });
   const svgRef = useRef<SVGSVGElement>(null);
   const gradRef = useRef<SVGLinearGradientElement>(null);
 
@@ -151,7 +152,7 @@ export function useReplayWordmark() {
       if (raf) cancelAnimationFrame(raf);
       observer?.disconnect();
     };
-  }, []);
+  }, [wrapRef]);
 
-  return { wrapRef, svgRef, gradRef };
+  return { wrapRef, svgRef, gradRef, grainSrc: loadGrain ? "/images/footer/grain.webp" : undefined };
 }

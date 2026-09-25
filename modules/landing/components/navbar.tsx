@@ -22,7 +22,7 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
         }`}
       >
         <Image
-          src="/images/grain-light-texture.svg"
+          src="/images/grain-light-texture-optimized.svg"
           alt=""
           fill
           className="pointer-events-none object-cover"
@@ -35,14 +35,14 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
             className={`absolute inset-y-0 right-0 w-full border border-[#A8A8A8] bg-cover bg-right transition-opacity duration-500 ${
               scrolled ? "opacity-100" : "opacity-0"
             }`}
-            style={{ backgroundImage: "url(/images/grain-light-texture.svg)" }}
+            style={{ backgroundImage: "url(/images/grain-light-texture-optimized.svg)" }}
           />
 
           <div
             className={`absolute inset-y-0 left-0 w-full border border-[#A8A8A8] bg-cover bg-left transition-opacity duration-500 ${
               scrolled ? "opacity-100" : "opacity-0"
             }`}
-            style={{ backgroundImage: "url(/images/grain-light-texture.svg)" }}
+            style={{ backgroundImage: "url(/images/grain-light-texture-optimized.svg)" }}
           />
         </div>
       </div>
@@ -69,7 +69,7 @@ export function Navbar({ linkBase = "" }: { linkBase?: string }) {
 
           <Link
             href="/value-my-data"
-            className={`group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 font-serif text-xs tracking-wide text-white transition-transform duration-500 md:flex ${
+            className={`cta-type group relative hidden items-center overflow-hidden bg-[#141518] px-5 py-3 text-xs text-white transition-transform duration-500 md:flex ${
               scrolled ? "lg:-translate-x-3" : "lg:translate-x-0"
             }`}
           >

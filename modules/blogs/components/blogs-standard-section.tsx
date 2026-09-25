@@ -28,7 +28,7 @@ export function BlogsStandardSection() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 bg-[url('/images/grain-light-texture-optimized.svg')] bg-top bg-repeat bg-[length:100%_auto] mix-blend-multiply"
       />
 
       <div className="relative flex w-full max-w-[1296px] flex-col gap-8 bg-black/10 p-5 sm:p-8 lg:flex-row lg:items-start lg:p-10">

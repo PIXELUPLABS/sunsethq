@@ -35,6 +35,10 @@ export function validateProductionRelease(site, delivery, context) {
   assert.equal(consumer.queues.producers.find(binding => binding.binding === "LEADS").queue, "replay-leads-prod");
   assert.equal(consumer.queues.producers.find(binding => binding.binding === "FAILED_LEADS").queue, "replay-leads-prod-failed");
   checkLeadFallback(site, consumer);
+  if (consumer.vars.ATTIO_DATA_DEALS_ENABLED === "true") {
+    assert.equal(site.vars.CAL_EVENT_TYPE_ID, "7202505");
+    assert.ok(context.CAL_COM_API_KEY, "Missing Cal webhook activation credential.");
+  }
   return { consumer, ledger };
 }
 
@@ -43,7 +47,9 @@ export async function runProductionRelease({ site, delivery, context, cf, run, n
   const { consumer, ledger } = validateProductionRelease(site, delivery, context);
   const account = `accounts/${site.account_id}`;
   // Read names only. Existing encrypted runtime secrets stay in Cloudflare.
-  for (const [worker, secret] of [[site.name, "TURNSTILE_SECRET_KEY"], [consumer.name, "ATTIO_API_KEY"]]) {
+  const requiredSecrets = [[site.name, "TURNSTILE_SECRET_KEY"], [consumer.name, "ATTIO_API_KEY"]];
+  if (consumer.vars.ATTIO_DATA_DEALS_ENABLED === "true") requiredSecrets.push([site.name, "CAL_WEBHOOK_SECRET"]);
+  for (const [worker, secret] of requiredSecrets) {
     const secrets = await cf(`${account}/workers/scripts/${worker}/secrets`);
     assert.ok(secrets.some(binding => binding.type === "secret_text" && binding.name === secret), `${worker}: required runtime secret ${secret} is missing.`);
   }
@@ -84,5 +90,6 @@ export async function runProductionRelease({ site, delivery, context, cf, run, n
     assert.equal(version.annotations?.["workers/tag"], context.GITHUB_SHA, `${worker}: a different commit is active.`);
     versions[worker] = active[0].version_id;
   }
+  if (consumer.vars.ATTIO_DATA_DEALS_ENABLED === "true") await run("scripts/activate-cal-webhook.mjs");
   return versions;
 }

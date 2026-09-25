@@ -3,16 +3,27 @@
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { captureVisitAttribution, type VisitAttribution } from "@/modules/attribution/lib/visit-attribution";
 import { hasMarketingConsent, subscribeToConsent } from "@/modules/consent/lib/cookie-consent";
+import { reportSignupFailure } from "../lib/signup-monitor";
 import { useTurnstile } from "./use-turnstile";
 import { clearPendingSubmission, readPendingSubmission, savePendingSubmission } from "../lib/pending-submission";
 
 export function useValueMyDataForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [booking, setBooking] = useState<{ url: string; email: string; submissionId: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
   const submittingRef = useRef(false);
   const submissionRef = useRef<{ fingerprint: string; id: string } | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    window.__replaySignupReady = true;
+  }, []);
+  useEffect(() => {
+    if (!isSubmitted || !resultRef.current) return;
+    resultRef.current.focus({ preventScroll: true });
+    resultRef.current.scrollIntoView({ block: "start" });
+  }, [isSubmitted]);
   const attemptedAttribution = useRef<VisitAttribution | null>(null);
   useEffect(() => subscribeToConsent(() => {
     if (!hasMarketingConsent()) attemptedAttribution.current = null;
@@ -61,13 +72,15 @@ export function useValueMyDataForm() {
           ...(!token && fallbackReason ? { verificationFallback: fallbackReason } : {}), campaign, landingPath }),
         signal: AbortSignal.timeout(20_000),
       });
-      const result = await response.json().catch(() => null) as { accepted?: boolean; error?: string } | null;
+      const result = await response.json().catch(() => null) as { accepted?: boolean; bookingUrl?: string | null; error?: string } | null;
       if (response.status !== 202 || !result?.accepted) {
         throw new Error(result?.error ?? "We couldn’t receive your request. Please try again.");
       }
+      if (result.bookingUrl) setBooking({ url: result.bookingUrl, email: answers.workEmail, submissionId: submissionRef.current.id });
       setIsSubmitted(true);
       clearPendingSubmission();
     } catch (error) {
+      reportSignupFailure("submission_failed");
       setSubmissionError(error instanceof Error && !["TimeoutError", "TypeError"].includes(error.name) ? error.message : "We couldn’t confirm receipt. Your answers are saved in this tab—please try again.");
       reset();
     } finally {
@@ -75,5 +88,5 @@ export function useValueMyDataForm() {
       setIsSubmitting(false);
     }
   }, [token, reset, fallbackReason]);
-  return { isSubmitted, isSubmitting, handleSubmit, formRef, verification, error: submissionError };
+  return { isSubmitted, booking, isSubmitting, handleSubmit, formRef, resultRef, verification, error: submissionError };
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { reportSignupFailure } from "../lib/signup-monitor";
 import type { VerificationFallbackReason } from "@/modules/lead-capture/lib/verification";
 
 type Turnstile = {
@@ -21,6 +22,7 @@ export function useTurnstile(enabled = true) {
   const [verificationError, setVerificationError] = useState("");
   const [fallbackReason, setFallbackReason] = useState<VerificationFallbackReason>();
   const allowManualReview = useCallback((reason: VerificationFallbackReason) => {
+    reportSignupFailure("verification_unavailable");
     setToken("");
     setFallbackReason(reason);
     setVerificationError("Verification isn’t available. You can still send your request for manual review.");

@@ -6,46 +6,47 @@ import { DeidentificationTabs } from "./deidentification-tabs";
 import { DeidentificationMediaLayer } from "./deidentification-media-layer";
 import { DeidentificationCopy } from "./deidentification-copy";
 import { DEIDENTIFICATION_TABS, type DeidentificationTab } from "../lib/constants";
-import { useStepCycle } from "../hooks/use-step-cycle";
+import { useDeidentificationCycle } from "../hooks/use-deidentification-cycle";
 import { useCrossfadeLayers } from "../hooks/use-crossfade-layers";
 
 const MEDIA_CROSSFADE_MS = 500;
 
-const GRAIN_TEXTURE = "/images/grain-light-texture.svg";
+const GRAIN_TEXTURE = "/images/grain-light-texture-optimized.svg";
 const SIDE_GRAIN = "/images/deidentification/deidentification-left-pattern.png";
 const STRIP_GRAIN = "/images/deidentification/grain-strip.webp";
 
 const BLUE_CARD_BY_TAB: Record<DeidentificationTab, string> = {
-  Coverage: "/images/deidentification/blue-card.webp",
-  "The pipeline": "/images/deidentification/blue-card-2.webp",
-  Policy: "/images/deidentification/blue-card-3.webp",
+  "PII Coverage": "/images/deidentification/blue-card.webp",
+  "Our Pipeline": "/images/deidentification/blue-card-2.webp",
+  "Data Policy": "/images/deidentification/blue-card-3.webp",
 };
 
 const VIDEO_BY_TAB: Partial<Record<DeidentificationTab, string>> = {
-  Coverage: encodeURI("/images/deidentification/De-Identification - 1.mp4"),
-  "The pipeline": encodeURI("/images/deidentification/De-Identification - 2.mp4"),
-  Policy: encodeURI("/images/deidentification/De-Identification - 3.mp4"),
+  "PII Coverage": encodeURI("/images/deidentification/De-Identification - 1.mp4"),
+  "Our Pipeline": encodeURI("/images/deidentification/De-Identification - 2.mp4"),
+  "Data Policy": encodeURI("/images/deidentification/De-Identification - 3.mp4"),
 };
 
 export function DeidentificationSection() {
-  const { activeIndex, setActiveIndex } = useStepCycle(DEIDENTIFICATION_TABS.length);
+  const { ref, activeIndex, onSelect, inView, selectionVersion } = useDeidentificationCycle();
   const mediaLayerKeys = useCrossfadeLayers(activeIndex, MEDIA_CROSSFADE_MS);
 
   return (
     <section
+      ref={ref}
       id="de-identification"
       className="relative flex scroll-mt-16 justify-center overflow-hidden px-3 sm:px-18"
     >
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-dashed border-[#d4d4d4]">
-        <div className="flex flex-col gap-10 py-16 sm:gap-20 sm:px-10 sm:py-20">
-        <div className="flex flex-col items-start gap-6 px-3 sm:px-0">
+        <div className="flex flex-col gap-16 py-12 sm:px-10 sm:py-16">
+        <div className="flex flex-col items-start gap-4 px-3 sm:px-0">
           <SectionTag
             label="The Process"
             textClassName="text-black/60"
@@ -54,7 +55,7 @@ export function DeidentificationSection() {
             heightClassName="h-auto"
           />
           <h2 className="font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-[-1.76px]">
-            De-Identification
+            Data De-Identification
           </h2>
         </div>
 
@@ -115,7 +116,12 @@ export function DeidentificationSection() {
             </div>
           </div>
 
-          <DeidentificationTabs activeIndex={activeIndex} onSelect={setActiveIndex} />
+          <DeidentificationTabs
+            activeIndex={activeIndex}
+            onSelect={onSelect}
+            inView={inView}
+            selectionVersion={selectionVersion}
+          />
         </div>
         </div>
       </div>

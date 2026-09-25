@@ -1,0 +1,85 @@
+name: Preview comment
+
+on:
+  # Also handles PRs opened after their branch has already deployed.
+  pull_request:
+    types: [opened, reopened]
+  workflow_call:
+    inputs:
+      branch:
+        required: true
+        type: string
+      sha:
+        required: true
+        type: string
+
+permissions:
+  deployments: read
+  pull-requests: write
+
+concurrency:
+  group: preview-comment-${{ inputs.branch || github.event.pull_request.head.ref }}
+  cancel-in-progress: false
+
+jobs:
+  comment:
+    if: github.repository == 'SunsetsHQ/replay-marketing' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # This job never checks out or executes PR code, or receives deployment secrets.
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PREVIEW_BRANCH: ${{ inputs.branch || github.event.pull_request.head.ref }}
+          PREVIEW_SHA: ${{ inputs.sha || github.event.pull_request.head.sha }}
+        with:
+          script: |
+            const { createHash } = require('node:crypto');
+            const { owner, repo } = context.repo;
+            const branch = process.env.PREVIEW_BRANCH;
+            const sha = process.env.PREVIEW_SHA;
+            if (!branch || branch === 'main' || !/^[a-f0-9]{40}$/.test(sha)) {
+              throw new Error('Invalid preview branch or commit.');
+            }
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner, repo, state: 'open', head: `${owner}:${branch}`, per_page: 100,
+            });
+            const matching = pulls.filter(pr => pr.head.repo?.full_name === `${owner}/${repo}` && pr.head.sha === sha);
+            if (!matching.length) {
+              core.info('No open pull request at this preview commit.');
+              return;
+            }
+            const { data: deployments } = await github.rest.repos.listDeployments({
+              owner, repo, sha, ref: branch, environment: 'preview', per_page: 1,
+            });
+            if (!deployments.length) return;
+            const { data: statuses } = await github.rest.repos.listDeploymentStatuses({
+              owner, repo, deployment_id: deployments[0].id, per_page: 100,
+            });
+            // A different branch can mark this shared environment inactive.
+            if (!['success', 'inactive'].includes(statuses[0]?.state)) return;
+            const success = statuses.find(status => status.state === 'success');
+            if (!success) return;
+            const slug = branch.toLowerCase().replace(/[^a-z0-9-]/g, '-').slice(0, 24);
+            const hash = createHash('sha256').update(branch).digest('hex').slice(0, 8);
+            const url = `https://b-${slug}-${hash}-replay-marketing-staging.replay-marketing-dev.workers.dev`;
+            if (success.environment_url !== url) throw new Error('Unexpected preview deployment URL.');
+            const marker = '<!-- replay-cloudflare-preview -->';
+            const body = [
+              marker,
+              `**Cloudflare preview ready:** [Open preview](${url})`,
+              `Deployed commit: [\`${sha.slice(0, 7)}\`](https://github.com/${owner}/${repo}/commit/${sha})`,
+              'Sign in with your **@sunsethq.com** email. Signup forms use the development CRM.',
+              'This comment updates after each successful preview deployment.',
+            ].join('\n\n');
+            for (const pr of matching) {
+              const comments = await github.paginate(github.rest.issues.listComments, {
+                owner, repo, issue_number: pr.number, per_page: 100,
+              });
+              const existing = comments.find(comment => comment.user?.login === 'github-actions[bot]' && comment.body?.startsWith(marker));
+              if (existing) {
+                if (existing.body !== body) await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+              } else {
+                await github.rest.issues.createComment({ owner, repo, issue_number: pr.number, body });
+              }
+            }

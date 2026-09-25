@@ -115,5 +115,5 @@ test("a valid signup at exactly the body byte limit is still accepted", async t 
   assert.equal(Buffer.byteLength(body), 8192);
   const response = await handleIntake(s.request({ body }), s.env, s.verify);
   assert.equal(response.status, 202);
-  assert.deepEqual(await response.json(), { accepted: true, submissionId: submission.submissionId, verification: "verified" });
+  assert.deepEqual(await response.json(), { accepted: true, submissionId: submission.submissionId, verification: "verified", bookingUrl: null });
 });

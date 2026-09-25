@@ -1,27 +1,20 @@
 import Image from "next/image";
 import { BUYER_CARDS } from "../lib/constants";
 import { SectionTag } from "./section-tag";
-import type { BuyerCard } from "../types";
-
-const ICONS: Record<BuyerCard["icon"], string> = {
-  entity: "/images/entity-icon.svg",
-  jurisdiction: "/images/jurisdiction-icon.svg",
-  identity: "/images/identity-icon.svg",
-};
 
 export function BuyersSection() {
   return (
     <section className="relative flex justify-center overflow-hidden px-3 sm:px-18">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"
       />
 
       <div className="relative mx-auto w-full max-w-[1560px] border-x border-t border-dashed border-[#d4d4d4]">
-        <div className="flex flex-col gap-10 px-3 py-16 sm:px-10 sm:py-20 min-[1200px]:gap-20">
-          <div className="flex flex-col items-start gap-6">
+        <div className="flex flex-col gap-16 px-3 py-12 sm:px-10 sm:py-16">
+          <div className="flex flex-col items-start gap-4">
             <SectionTag
               label="Who buys it"
               textClassName="text-black/60"
@@ -30,50 +23,30 @@ export function BuyersSection() {
               heightClassName="h-auto"
             />
             <h2 className="max-w-[522px] font-serif text-[36px] leading-none tracking-[-1.44px] text-black sm:text-[44px] sm:tracking-tight">
-              You&apos;ll know exactly who ends up with it.
+              Where your data gets sold
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 min-[1200px]:grid-cols-3 min-[1200px]:gap-5">
+          <div className="grid grid-cols-1 gap-3 min-[1200px]:grid-cols-2 min-[1200px]:gap-5">
             {BUYER_CARDS.map((card) => (
               <div
-                key={card.tagLabel}
-                className="relative flex h-[226px] flex-col justify-between overflow-hidden border border-black/15 px-5 pt-5 pb-6 text-black min-[1200px]:h-[430px] min-[1200px]:pb-5"
+                key={card.id}
+                className="relative flex min-h-[226px] flex-col justify-between gap-8 overflow-hidden border border-black/15 px-8 pt-8 pb-6 text-black min-[1200px]:min-h-[300px] min-[1200px]:pb-5"
               >
                 {/* Wrapped 1px past the card's own edges so object-cover
                     rounding never leaves a hairline gap along any side. */}
                 <div className="pointer-events-none absolute -inset-px">
                   <Image
-                    src="/images/hover-card-grey-bg.svg"
+                    src="/images/hover-card-grey-bg-optimized.svg"
                     alt=""
                     fill
                     className="object-cover"
                   />
                 </div>
-                <div
-                  className="pointer-events-none absolute inset-0 opacity-0 mix-blend-multiply"
-                  style={{
-                    backgroundImage: "url(/images/buyer-card-hover-mesh.png)",
-                    backgroundSize: "408px 306px",
-                  }}
-                />
-                <div className="pointer-events-none absolute inset-0 bg-black opacity-0" />
 
                 <p className="relative font-serif text-[24px] leading-[1.1] tracking-[-0.24px] min-[1200px]:text-[32px] min-[1200px]:tracking-[-0.32px]">
                   {card.headline}
                 </p>
-                <div className="relative flex items-center gap-[9px] opacity-60 min-[1200px]:gap-3 min-[1200px]:mb-[42px]">
-                  <Image
-                    src={ICONS[card.icon]}
-                    alt=""
-                    width={18}
-                    height={18}
-                    className={`size-4 min-[1200px]:size-[18px] ${card.icon === "entity" ? "invert" : ""}`}
-                  />
-                  <span className="text-sm leading-none font-medium uppercase min-[1200px]:text-base">
-                    {card.tagLabel}
-                  </span>
-                </div>
 
                 <div
                   className="absolute -top-[2px] right-0 size-3.5 bg-black min-[1200px]:size-4"

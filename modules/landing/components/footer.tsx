@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CookieSettingsButton } from "@/modules/consent/components/cookie-settings-button";
+import { LEGAL_LINKS } from "@/modules/legal/lib/constants";
 import { FOOTER_COLUMNS } from "../lib/constants";
 import { ReplayWordmark } from "./replay-wordmark";
 
@@ -71,14 +72,21 @@ export function Footer() {
             <ReplayWordmark className="pointer-events-none absolute inset-0 h-full w-full" />
           </div>
 
-          <div className="relative z-10 mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
+          <div className="relative z-20 mt-4 flex items-end justify-between gap-6 lg:absolute lg:inset-x-0 lg:bottom-[34px] lg:mt-0">
             <div className="flex flex-col items-start">
               <p className="font-mono text-[10px] leading-[1.4] text-[#666] uppercase lg:text-white/60">
                 © 2026 Replay. All rights reserved
                 <br />
-                Sunset HQ Corp.
+                Sunsets HQ Corp.
               </p>
-              <CookieSettingsButton />
+              <nav aria-label="Legal and privacy" className="flex flex-wrap items-center gap-x-4">
+                {LEGAL_LINKS.map((link) => (
+                  <Link key={link.href} href={link.href} className="inline-flex min-h-11 items-center font-mono text-xs text-white/80 underline underline-offset-4 transition-colors duration-150 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4">
+                    {link.label}
+                  </Link>
+                ))}
+                <CookieSettingsButton />
+              </nav>
             </div>
             <div className="flex shrink-0 items-center gap-2 opacity-[0.68] lg:gap-2.5">
               <a
@@ -95,7 +103,7 @@ export function Footer() {
                 />
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/replay-data"
                 aria-label="LinkedIn"
                 className="flex size-[30px] items-center justify-center transition-opacity duration-300 hover:opacity-70 lg:size-[24px]"
               >

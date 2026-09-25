@@ -44,7 +44,7 @@ export function HeroSection() {
         className="relative overflow-hidden border-b border-dashed border-[#d4d4d4] bg-[#fcfcfc] motion-reduce:static! min-[1350px]:sticky min-[1350px]:top-0 min-[1350px]:flex min-[1350px]:min-h-[100vh] min-[1350px]:flex-col"
       >
         <Image
-          src="/images/grain-light-texture.svg"
+          src="/images/grain-light-texture-optimized.svg"
           alt=""
           fill
           priority

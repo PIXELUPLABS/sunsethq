@@ -1,6 +1,6 @@
 const DOT_COUNT = 13;
 
-const PAGE_TEXTURE = "/images/grain-light-texture.svg";
+const PAGE_TEXTURE = "/images/grain-light-texture-optimized.svg";
 const PAGE_TEXTURE_TILE_SIZE = "20px 20px";
 
 const BLUE_DEEP: [number, number, number] = [19, 50, 100];

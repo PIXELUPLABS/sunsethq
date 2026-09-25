@@ -9,7 +9,7 @@ export function IndustriesSection() {
       className="relative flex scroll-mt-16 justify-center overflow-hidden bg-[#eaebf1] px-3 sm:px-18"
     >
       <Image
-        src="/images/texture-grain-white.png"
+        src="/images/texture-grain-white.webp"
         alt=""
         fill
         className="pointer-events-none object-cover mix-blend-multiply"
@@ -36,11 +36,6 @@ export function IndustriesSection() {
               of how you did it: the communications, the tickets, the
               dispatch logs, the project histories, the back-and-forth that
               produced the outcome.
-            </p>
-            <p>
-              This isn&apos;t a fit if you&apos;ve been operating less than a
-              year, have fewer than five full-time people, or your work
-              isn&apos;t documented.
             </p>
           </div>
         </div>

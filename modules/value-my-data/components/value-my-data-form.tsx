@@ -4,6 +4,9 @@ import { PrimaryButtonHover } from "@/components/ui/primary-button-hover";
 import { ChevronDownIcon } from "@/components/ui/icons";
 import { useValueMyDataForm } from "../hooks/use-value-my-data-form";
 import { FormVerification } from "./form-verification";
+import { BookingResult } from "./booking-result";
+import { FormGrainTexture, FormGuideLine } from "./form-decoration";
+import { ThankYouResult } from "./thank-you-result";
 import {
   BUSINESS_SIZE_OPTIONS,
   ENGLISH_SHARE_OPTIONS,
@@ -18,40 +21,13 @@ const LABEL_CLASS = "text-sm text-[#727272]";
 const CARD_CLASS =
   "relative overflow-hidden bg-white px-6 py-8 shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)] sm:pt-16 sm:pr-8 sm:pb-[100px] sm:pl-[88px]";
 
-function FormGuideLine() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute top-0 bottom-0 left-10 hidden border-l border-dashed border-black/20 sm:block"
-    />
-  );
-}
-
-const CARD_GRAIN_TEXTURE = "/images/pricing/grain-texture.webp";
-
-function FormGrainTexture() {
-  return (
-    <div
-      aria-hidden
-      className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-multiply"
-      style={{ backgroundImage: `url(${CARD_GRAIN_TEXTURE})`, backgroundSize: "296px 296px" }}
-    />
-  );
-}
-
 export function ValueMyDataForm() {
-  const { isSubmitted, isSubmitting, handleSubmit, formRef, verification, error } = useValueMyDataForm();
+  const { isSubmitted, booking, isSubmitting, handleSubmit, formRef, resultRef, verification, error } = useValueMyDataForm();
 
   if (isSubmitted) {
     return (
-      <div role="status" className="relative flex min-h-[420px] flex-col items-center justify-center gap-3 overflow-hidden bg-white p-10 text-center shadow-[0_8px_28px_-10px_rgba(20,21,24,0.10)]">
-        <FormGrainTexture />
-        <FormGuideLine />
-        <p className="relative font-serif text-2xl text-black">Request received — we&rsquo;ll be in touch.</p>
-        <p className="relative max-w-[360px] text-sm leading-[1.5] text-[#727272]">
-          Someone from our team will follow up with an initial view of what your data could be
-          worth.
-        </p>
+      <div ref={resultRef} tabIndex={-1} className="scroll-mt-28 outline-none">
+        {booking ? <BookingResult bookingUrl={booking.url} email={booking.email} submissionId={booking.submissionId} /> : <ThankYouResult />}
       </div>
     );
   }
@@ -176,7 +152,7 @@ export function ValueMyDataForm() {
         <button
           type="submit"
           disabled={isSubmitting || !verification.canSubmit}
-          className="group relative mt-2 flex h-13 w-full items-center justify-center overflow-hidden bg-[#141518] font-serif text-sm tracking-wide text-white transition-transform duration-150 ease-snap active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
+          className="cta-type group relative mt-2 flex h-13 w-full items-center justify-center overflow-hidden bg-[#141518] text-sm text-white transition-transform duration-150 ease-snap active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
         >
           <PrimaryButtonHover />
           <span className="relative">{isSubmitting ? "Sending…" : verification.fallbackReason ? "Send for review" : "Value my data"}</span>

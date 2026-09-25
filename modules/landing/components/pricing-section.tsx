@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { DeferredTexture } from "./deferred-texture";
 import { PRICING_TIERS, SCROLL_PLAY_THRESHOLD } from "../lib/constants";
 import { SectionTag } from "./section-tag";
 import { BottomStripes } from "./bottom-stripes";
@@ -23,19 +24,17 @@ export function PricingSection() {
       id="what-you-earn"
       className="relative flex scroll-mt-16 flex-col overflow-hidden bg-brand-gradient bg-ink px-3 pt-16 pb-20 sm:px-18 lg:h-[990px] lg:px-18 lg:pt-[110px] lg:pb-0"
     >
-      <div
+      <DeferredTexture
+        src={GRAIN_TEXTURE}
         className="pointer-events-none absolute inset-0 mix-blend-soft-light"
-        style={{
-          backgroundImage: `url(${GRAIN_TEXTURE})`,
-          backgroundSize: "296px 296px",
-        }}
+        style={{ backgroundSize: "296px 296px" }}
       />
 
       <div className="relative mx-auto flex w-full max-w-[1560px] flex-col gap-16 overflow-hidden bg-black/10 px-3 py-10 sm:gap-[60px] sm:px-10 sm:py-[60px]">
         {/* tag + heading + texture panel, and the pricing tiers */}
         <div className="flex flex-col gap-8 lg:h-[400px] lg:flex-row lg:items-start">
-          <div className="flex flex-col gap-10 lg:w-[400px] lg:shrink-0 lg:gap-[49px]">
-            <div className="flex flex-col items-start gap-6 lg:w-[351px]">
+          <div className="flex flex-col gap-10 lg:w-[32%] lg:shrink-0 lg:gap-[49px]">
+            <div className="flex flex-col items-start gap-6">
               <SectionTag
                 label="Who it's for"
                 tone="dark"
@@ -62,16 +61,16 @@ export function PricingSection() {
 
           <div
             ref={barsRef}
-            className="flex h-[296px] items-end gap-2.5 overflow-hidden lg:h-full lg:flex-1 lg:gap-[42px] lg:pl-8"
+            className="flex h-[296px] min-w-0 items-end gap-2.5 overflow-hidden lg:h-full lg:flex-1 lg:gap-6 lg:pl-4"
           >
             {PRICING_TIERS.map((tier, tierIndex) => (
-              <div key={tier.value} className="flex h-full flex-1 items-stretch overflow-hidden lg:items-end">
+              <div key={tier.value} className="flex h-full min-w-0 flex-1 items-stretch overflow-hidden lg:items-end">
                 <div className="h-full w-2 shrink-0 border-y border-l border-dashed border-white/30 lg:w-3" />
 
-                <div className="flex flex-1 flex-col items-start justify-between gap-3 py-2 lg:gap-[26px] lg:pt-0 lg:pb-3">
+                <div className="@container flex min-w-0 flex-1 flex-col items-start justify-between gap-3 py-2 lg:gap-[26px] lg:pt-0 lg:pb-3">
                   <div className="flex w-full flex-1 flex-col items-start justify-between gap-2 lg:flex-none lg:gap-[14px]">
                     <p
-                      className="font-serif text-[22px] leading-[1.04] tracking-[-0.66px] text-[#fafafa] uppercase transition-[transform,opacity] duration-500 ease-out lg:text-[27px] lg:tracking-[-0.81px]"
+                      className="font-serif text-[clamp(12px,14cqw,27px)] leading-[1.04] tracking-[-0.02em] text-[#fafafa] uppercase transition-[transform,opacity] duration-500 ease-out"
                       style={{
                         transitionDelay: barsInView ? `${tierIndex * 150}ms` : "0ms",
                         transitionDuration: barsInView ? undefined : "0ms",
@@ -94,18 +93,16 @@ export function PricingSection() {
                             opacity: barsInView ? 1 : 0,
                           }}
                         >
-                          <div
-                            className="absolute inset-0 mix-blend-soft-light"
-                            style={{
-                              backgroundImage: `url(${GRAIN_TEXTURE})`,
-                              backgroundSize: "296px 296px",
-                            }}
-                          />
+                          <DeferredTexture
+        src={GRAIN_TEXTURE}
+        className="absolute inset-0 mix-blend-soft-light"
+        style={{ backgroundSize: "296px 296px" }}
+      />
                         </div>
                       ))}
                     </div>
                   </div>
-                  <p className="font-mono text-[10px] leading-[1.1] font-medium tracking-[0.9px] whitespace-nowrap text-[#ddd] uppercase">
+                  <p className="font-mono text-[10px] leading-[1.4] font-medium tracking-[0.9px] text-[#ddd] uppercase">
                     {tier.people}
                   </p>
                 </div>
@@ -116,10 +113,10 @@ export function PricingSection() {
           </div>
         </div>
 
-        {/* the deal / why it recurs */}
+        {/* valuation / deal structure */}
         <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
           <div className="flex flex-1 flex-col items-start gap-6">
-            <div className="flex items-center gap-2 lg:items-start lg:gap-4">
+            <div className="flex items-center gap-1 lg:items-start">
               <Image
                 src="/images/pricing/deal-icon.svg"
                 alt=""
@@ -128,7 +125,7 @@ export function PricingSection() {
                 className="size-[18px] lg:size-6"
               />
               <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
-                The deal
+                How data is valued
               </p>
             </div>
             <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/80 lg:text-base lg:tracking-[-0.48px] lg:text-white">
@@ -138,7 +135,7 @@ export function PricingSection() {
             </p>
           </div>
           <div className="flex flex-1 flex-col items-start gap-6">
-            <div className="flex items-center gap-2 lg:items-start lg:gap-4">
+            <div className="flex items-center gap-1 lg:items-start">
               <Image
                 src="/images/pricing/recurs-icon.svg"
                 alt=""
@@ -147,13 +144,13 @@ export function PricingSection() {
                 className="size-[18px] lg:size-6"
               />
               <p className="font-serif text-xl leading-[1.1] tracking-[-0.2px] text-white lg:text-2xl lg:tracking-[-0.24px]">
-                Why it recurs
+                How it&apos;s structured
               </p>
             </div>
             <p className="text-sm leading-[1.4] tracking-[-0.42px] text-white/80 lg:text-base lg:tracking-[-0.48px] lg:text-white">
               You&apos;re paid up front, plus a revenue share of every
               license. And because your company keeps producing data, the
-              revenue recurs.
+              revenue can recur.
             </p>
           </div>
         </div>

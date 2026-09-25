@@ -26,7 +26,7 @@ type CtaSectionProps = {
   topBandImageRepeat?: boolean;
 };
 
-const DEFAULT_HEADLINE = "Find out what your data is worth before you decide anything.";
+const DEFAULT_HEADLINE = "Find out what your data is worth";
 const DEFAULT_BUTTON_LABEL = "Value my data";
 const DEFAULT_HREF = "/value-my-data";
 const DEFAULT_TOP_BAND_CLASS_NAME = "bg-[#eaebf1]";
@@ -83,20 +83,12 @@ export function CtaSection({
         <div
           className={`pointer-events-none absolute inset-x-0 top-0 h-[43%] overflow-hidden ${topBandClassName}`}
         >
-          {topBandImageRepeat ? (
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              style={{ backgroundImage: `url(${topBandImageSrc})`, backgroundSize: "1440px 900px" }}
-            />
-          ) : (
-            <Image
-              src={topBandImageSrc}
-              alt=""
-              fill
-              className="pointer-events-none object-cover mix-blend-multiply"
-            />
-          )}
+          <Image
+            src="/images/texture-grain-white.webp"
+            alt=""
+            fill
+            className="pointer-events-none object-cover mix-blend-multiply"
+          />
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[57%] bg-[#080808]">
           {/* The text strip along the top of the band: a 1835 x 107 export
@@ -152,7 +144,7 @@ export function CtaSection({
               style={{ ...CTA_CARD_SIZE, containerType: "inline-size" }}
             >
               <Image
-                src="/images/texture-grain-white.png"
+                src="/images/texture-grain-white.webp"
                 alt=""
                 fill
                 className="pointer-events-none object-cover mix-blend-multiply"
@@ -170,14 +162,10 @@ export function CtaSection({
                 </p>
                 <Link
                   href={href}
-                  className="group relative flex items-center overflow-hidden bg-[#141518] transition-transform duration-150 ease-snap active:scale-[0.97]"
-                  style={{ padding: `${cq(12)} ${cq(20)}` }}
+                  className="cta-type group relative flex w-[260px] max-w-full items-center justify-center overflow-hidden bg-[#141518] px-6 py-5 text-base text-white transition-transform duration-150 ease-snap active:scale-[0.97]"
                 >
                   <PrimaryButtonHover />
-                  <span
-                    className="relative font-serif leading-[0.8] tracking-wide text-white"
-                    style={{ fontSize: cq(12) }}
-                  >
+                  <span className="relative leading-[0.8]">
                     {buttonLabel}
                   </span>
                 </Link>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { DeferredDecorativeImage } from "./deferred-decorative-image";
 import { RevenueStreamShelf } from "./revenue-stream-shelf";
 import { RevenueStreamShelfMobile } from "./revenue-stream-shelf-mobile";
 
@@ -6,7 +7,7 @@ export function RevenueStreamSection() {
   return (
     <section className="relative flex flex-col items-center overflow-hidden">
       <Image
-        src="/images/grain-light-texture.svg"
+        src="/images/grain-light-texture-optimized.svg"
         alt=""
         fill
         className="pointer-events-none object-cover"
@@ -18,7 +19,7 @@ export function RevenueStreamSection() {
 
       <div className="relative flex w-full flex-col items-center gap-16 bg-[#eaebf1] px-3 sm:px-18 lg:px-[72px]">
         <Image
-          src="/images/grain-light-texture.svg"
+          src="/images/grain-light-texture-optimized.svg"
           alt=""
           fill
           className="pointer-events-none object-cover"
@@ -51,10 +52,8 @@ export function RevenueStreamSection() {
               </h2>
               <div className="w-full text-base leading-[1.4] tracking-[-0.48px] text-[#727272] lg:w-[552px] lg:shrink-0">
                 <p className="mb-4">
-                  Raising a round costs a piece of your company. Debt has to be
-                  paid back no matter what. New customers take quarters you may
-                  not have. And when none of that works, you cut the team you
-                  spent years building.
+                  Raising a round costs equity. Debt has to be paid back.
+                  Getting more revenue might take quarters you don&apos;t have.
                 </p>
                 <p>
                   But there&apos;s one more thing you own. It costs you none of
@@ -83,9 +82,8 @@ export function RevenueStreamSection() {
       </div>
 
       <div className="relative -mt-0.5 h-[100px] w-full sm:mt-0">
-        <Image
+        <DeferredDecorativeImage
           src="/images/revenue-stream/revenue-bottom-panel.svg"
-          alt=""
           fill
           className="pointer-events-none object-cover"
         />

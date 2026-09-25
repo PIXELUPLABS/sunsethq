@@ -10,7 +10,7 @@ export function useCookieConsent() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const openSettings = useCallback(() => setSettingsOpen(true), []);
   const closeSettings = useCallback(() => setSettingsOpen(false), []);
-  const accept = useCallback(() => saveConsent(true), []);
+  const accept = useCallback(() => saveConsent(true, true), []);
   const reject = useCallback(() => saveConsent(false), []);
 
   useEffect(() => {
