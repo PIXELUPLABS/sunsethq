@@ -19,3 +19,5 @@ export function useStepCycle(length: number) {
 
   return { activeIndex, setActiveIndex, advance, reset };
 }
+
+
