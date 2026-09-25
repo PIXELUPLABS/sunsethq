@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import localFont from "next/font/local";
 import { Agentation } from "agentation";
 import { VisitAttribution } from "@/modules/attribution/components/visit-attribution";
@@ -21,6 +21,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 const stkBureauSerif = localFont({
@@ -81,7 +87,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${stkBureauSerif.variable} ${stkBureauSerifRegular.variable} h-full antialiased motion-safe:scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} ${stkBureauSerif.variable} ${stkBureauSerifRegular.variable} h-full antialiased motion-safe:scroll-smooth`}
     >
       <body className="min-h-full flex flex-col">
         <VisitAttribution />

@@ -3,13 +3,20 @@ import { PrimaryButtonHover } from "@/components/ui/primary-button-hover";
 import Link from "next/link";
 
 /**
- * The "Value my data" primary CTA used by every hero variant - shared so the
- * button stays pixel-identical wherever a hero renders it.
+ * The primary hero CTA button - shared so it stays pixel-identical wherever
+ * a hero renders it. Defaults to the homepage's "Value my data" button;
+ * pass `label`/`href` to reuse the same styling for a different hero.
  */
-export function HeroCtaButton() {
+export function HeroCtaButton({
+  label = "Value my data",
+  href = "/value-my-data",
+}: {
+  label?: string;
+  href?: string;
+} = {}) {
   return (
     <Link
-      href="/value-my-data"
+      href={href}
       className="group relative flex w-full max-w-full items-center justify-center overflow-hidden bg-[#141518] px-6 py-4 font-serif text-base tracking-[0.16px] text-white sm:w-[260px]"
     >
       <Image
@@ -19,7 +26,7 @@ export function HeroCtaButton() {
         className="pointer-events-none object-cover"
       />
       <PrimaryButtonHover />
-      <span className="relative leading-[0.8]">Value my data</span>
+      <span className="relative leading-[0.8]">{label}</span>
     </Link>
   );
 }

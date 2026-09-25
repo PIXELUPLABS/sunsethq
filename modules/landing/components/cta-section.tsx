@@ -21,6 +21,9 @@ type CtaSectionProps = {
   topBandClassName?: string;
   sideBorderClassName?: string;
   bottomBandImageSrc?: string;
+  /** Defaults to a single object-cover texture; pass `topBandImageRepeat` to tile it instead. */
+  topBandImageSrc?: string;
+  topBandImageRepeat?: boolean;
 };
 
 const DEFAULT_HEADLINE = "Find out what your data is worth before you decide anything.";
@@ -29,6 +32,7 @@ const DEFAULT_HREF = "/value-my-data";
 const DEFAULT_TOP_BAND_CLASS_NAME = "bg-[#eaebf1]";
 const DEFAULT_SIDE_BORDER_CLASS_NAME = "border-[#d4d4d4]";
 const DEFAULT_BOTTOM_BAND_IMAGE_SRC = "/images/cta/cta-bg-text.png";
+const DEFAULT_TOP_BAND_IMAGE_SRC = "/images/texture-grain-white.png";
 
 function Arrow() {
   return (
@@ -55,6 +59,8 @@ export function CtaSection({
   topBandClassName = DEFAULT_TOP_BAND_CLASS_NAME,
   sideBorderClassName = DEFAULT_SIDE_BORDER_CLASS_NAME,
   bottomBandImageSrc = DEFAULT_BOTTOM_BAND_IMAGE_SRC,
+  topBandImageSrc = DEFAULT_TOP_BAND_IMAGE_SRC,
+  topBandImageRepeat = false,
 }: CtaSectionProps = {}) {
   const { containerRef, offset } = useElementParallax<HTMLElement>();
 
@@ -77,12 +83,20 @@ export function CtaSection({
         <div
           className={`pointer-events-none absolute inset-x-0 top-0 h-[43%] overflow-hidden ${topBandClassName}`}
         >
-          <Image
-            src="/images/texture-grain-white.png"
-            alt=""
-            fill
-            className="pointer-events-none object-cover mix-blend-multiply"
-          />
+          {topBandImageRepeat ? (
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{ backgroundImage: `url(${topBandImageSrc})`, backgroundSize: "1440px 900px" }}
+            />
+          ) : (
+            <Image
+              src={topBandImageSrc}
+              alt=""
+              fill
+              className="pointer-events-none object-cover mix-blend-multiply"
+            />
+          )}
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[57%] bg-[#080808]">
           {/* The text strip along the top of the band: a 1835 x 107 export
