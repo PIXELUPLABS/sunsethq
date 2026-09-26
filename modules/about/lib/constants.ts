@@ -1,9 +1,19 @@
 import type { GrowthCard, LetterCard, PurposePoint, PurposeRow } from "../types";
 
-export const ABOUT_EYEBROW = "About";
+export const ABOUT_EYEBROW = "Our story";
 
-export const ABOUT_INTRO =
-  "Every entry is a business still operating. Most license anonymously, the sector, the record classes and the outcome are published either way.";
+export const ABOUT_HEADING = "We exist to give companies a new way to grow.";
+
+export const FOUNDER_LETTER = {
+  title: "I’ve started too many companies.",
+  body: [
+    "I sold one. I shut one down. And I started one called Sunset, which has helped thousands of founders wind down their companies.",
+    "So I know what it’s like to give up equity for cash. I’ve felt the pain of not having enough money to keep the lights on. And I’ve experienced the magic of having the capital to truly scale.",
+    "Over years of helping companies wind down, we kept seeing the same thing. The emails, Slack threads, docs, tickets and source code were all left behind. Nobody thought they were worth anything, because they never had been.",
+    "That’s changed. Frontier AI labs have run out of public data. What they need now is exactly what every company produces every day: the record of how real work happens.",
+  ],
+  closingLine: "So we built Replay.",
+} as const;
 
 export const OUR_STORY_EYEBROW = "Our story";
 

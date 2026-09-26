@@ -11,7 +11,7 @@ export function PurposeDiagramNode({ node }: { node: PurposeNode }) {
     <div
       className={`flex h-24 flex-1 flex-col justify-between px-3.5 py-3 ${TONE_CLASSES[node.tone]}`}
     >
-      <p className="font-mono text-[10px] tracking-[0.9px] text-[#ddd] uppercase">
+      <p className="font-mono text-[10px] leading-normal font-medium tracking-[0.9px] whitespace-nowrap text-[#ddd] uppercase">
         {node.label}
       </p>
       <div className="flex flex-col gap-1.5">
