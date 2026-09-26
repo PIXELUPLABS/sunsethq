@@ -1,8 +1,8 @@
 import { Navbar } from "@/modules/landing/components/navbar";
 import { CtaSection } from "@/modules/landing/components/cta-section";
 import { Footer } from "@/modules/landing/components/footer";
+import { GRAIN_TEXTURE_STYLE } from "../lib/assets";
 import { AboutHero } from "./about-hero";
-import { OurStorySection } from "./our-story-section";
 import { PurposeAndGrowthSections } from "./purpose-and-growth-sections";
 
 export function AboutPage() {
@@ -11,9 +11,8 @@ export function AboutPage() {
       <Navbar linkBase="/" />
       <main className="flex flex-col">
         <AboutHero />
-        <OurStorySection />
         <PurposeAndGrowthSections />
-        <CtaSection topBandImageSrc="/images/grain-light-texture.svg" topBandImageRepeat />
+        <CtaSection topBandClassName="bg-[#fcfcfc]" topBandStyle={GRAIN_TEXTURE_STYLE} />
       </main>
       <Footer />
     </div>

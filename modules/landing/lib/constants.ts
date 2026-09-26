@@ -10,6 +10,7 @@ import type {
 export const NAV_LINKS: NavLink[] = [
   { label: "Data privacy", href: "/data-privacy", isRoute: true },
   { label: "Careers", href: "/careers", isRoute: true },
+  { label: "About", href: "/about", isRoute: true },
 ];
 
 export const HERO_STATS: StatItem[] = [
